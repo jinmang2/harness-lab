@@ -1,0 +1,10 @@
+{
+  "errors_by_service": {
+    "api": 62,
+    "auth": 60,
+    "billing": 69,
+    "worker": 65
+  },
+  "top_error_code": "E318",
+  "top_error_first_seen": "2026-10-01T00:04:04Z"
+}

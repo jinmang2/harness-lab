@@ -1,0 +1,21 @@
+# ADR (Architecture Decision Records)
+
+이 실험장에서 내린 결정과 그 이유를 적어 둬요. 나중에 "왜 이렇게 했지?"가 생기면 여기부터 봐요.
+
+- 한 결정에 파일 하나. 번호는 바꾸지 않아요.
+- 결정을 뒤집을 때는 새 ADR을 쓰고, 옛 ADR의 상태를 `대체됨 (→ ADR-xxxx)`로 바꿔요.
+- 형식: 상태 · 날짜 · 맥락 · 결정 · 고려한 대안 · 결과(좋은 점, 감수한 점) · 다시 볼 조건
+
+| 번호 | 제목 | 상태 |
+|---|---|---|
+| [0001](0001-record-decisions.md) | 결정은 ADR로 남긴다 | 채택 |
+| [0002](0002-dsh-headless-not-web.md) | DSH는 Web 대신 headless를 npm 고정 버전으로 돌린다 | 채택 |
+| [0003](0003-langchain-deepagents-engine.md) | 비교 엔진은 LangChain `create_agent` + deepagents + LangGraph (버전 고정) | 채택 |
+| [0004](0004-same-model-deepseek.md) | 두 엔진은 같은 DeepSeek 모델과 설정을 쓴다 | 채택 |
+| [0005](0005-measurement-three-sources.md) | 측정은 lab trace, DSH 세션 로그, gateway wire 세 갈래로 한다 | 채택 |
+| [0006](0006-tracing-backends-optional.md) | LangSmith / Langfuse는 선택 사항, 기본은 로컬 파일 trace | 채택 |
+| [0007](0007-local-only-ui-security.md) | UI는 127.0.0.1 전용, Host 검사와 `X-Lab` 헤더로 보호 | 채택 |
+| [0008](0008-evaluation-metrics.md) | 평가 지표 7개 구현 방식 (도구 범주, rubric judge) | 채택 |
+| [0009](0009-secrets-write-only.md) | 비밀값은 쓰기 전용, 에이전트 셸에서는 뺀다 | 채택 |
+| [0010](0010-ui-react-dsh-design.md) | UI는 DSH Web과 같은 React 18 + CSS Modules, DSH 디자인 토큰을 쓴다 | 채택 |
+| [0011](0011-week1-assignment-pipeline.md) | week1 과제는 태스크 파일과 제출용 결과 생성기로 돌린다 | 채택 |

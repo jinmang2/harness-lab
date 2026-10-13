@@ -1,0 +1,32 @@
+# Study step 3 — context management.
+# Big tool outputs on purpose: four 1,200-line logs (~100KB each).
+# Compare: minimal (no strategy) vs ctx-prune vs ctx-edit vs ctx-summarize.
+#   uv run lab run -T tasks/context.yaml -H minimal,ctx-prune,ctx-edit,ctx-summarize -n 3
+
+tasks:
+  - id: log-stats
+    fixture: service-logs
+    prompt: |
+      logs/ 폴더에 서비스 4개(api, auth, billing, worker)의 로그가 있어. 각 파일을 직접 열어서 내용을 확인하면서 분석해.
+      1. 서비스별 ERROR 줄 개수
+      2. 전체에서 가장 많이 나온 에러 코드(code=E###)
+      3. 그 에러 코드가 처음 나타난 시각
+      결과를 answer.json에 정확히 이 형식으로 저장해:
+      {"errors_by_service": {"api": 0, "auth": 0, "billing": 0, "worker": 0}, "top_error_code": "E000", "top_error_first_seen": "2026-01-01T00:00:00Z"}
+    check: python3 {tasks}/checks/compare_json.py answer.json {tasks}/expected/service-logs.json
+    tools: {allowed: [shell, read, write], required: true}
+    rubric:
+      - answer.json의 값이 로그와 정확히 일치한다
+      - 요청한 JSON 형식을 정확히 지켰다
+
+  - id: log-incident-report
+    fixture: service-logs
+    prompt: |
+      logs/ 폴더의 서비스 4개 로그를 처음부터 끝까지 차례로 읽고, 서비스마다 주목할 만한 사건(WARN 뒤에 같은 서비스의 ERROR가 1분 안에 이어진 경우 등)을 정리한 incident.md를 작성해.
+      마지막에 네 서비스를 통틀어 가장 시급한 문제 하나를 근거와 함께 꼽아줘.
+    check: test -s incident.md
+    tools: {allowed: [shell, read, write], required: true}
+    rubric:
+      - 네 서비스를 모두 다뤘다
+      - 사건 예시가 실제 로그 줄(시각, 메시지)에 근거한다
+      - 가장 시급한 문제의 선정 근거가 로그 수치와 일치한다

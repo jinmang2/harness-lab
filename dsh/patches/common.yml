@@ -1,0 +1,26 @@
+# Applied to every DeepSeek Harness run started by `lab run --engine dsh`.
+# Goal: same model as the lab engine, readable session logs, nothing leaves the machine
+# except the model request itself.
+
+# Plain JSONL session logs (default is zstd) so `lab` can read them directly.
+- id: session-persistence-jsonl
+  config:
+    root: !!js process.env.DSH_HOME + '/sessions'
+    compression: none
+
+# Pin the model route; the lab engine reads the same LAB_MODEL.
+- id: agent-default-model
+  config:
+    provider: deepseek-official
+    model: !!js process.env.LAB_MODEL || 'deepseek-v4-flash'
+
+# Thinking mode follows LAB_THINKING / LAB_REASONING_EFFORT, like the lab engine.
+- id: llm-deepseek
+  config:
+    thinking: !!js process.env.LAB_THINKING || 'enabled'
+    reasoningEffort: !!js "process.env.LAB_THINKING === 'disabled' ? 'off' : (process.env.LAB_REASONING_EFFORT || 'high')"
+
+# Feedback-gated OTel upload to DeepSeek's collector is on by default; turn it off.
+- id: session-telemetry-otel
+  config:
+    mode: DISABLED

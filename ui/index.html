@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Harness Lab</title>
+</head>
+<body>
+<script>
+(() => {
+  // Same boot as DSH Web: theme before first paint, from the saved preference.
+  let pref = 'system', size = 14
+  try { pref = localStorage.getItem('lab-theme') || 'system'; size = Number(localStorage.getItem('lab-font-size')) || 14 } catch {}
+  const dark = pref === 'dark' || (pref === 'system' && matchMedia('(prefers-color-scheme: dark)').matches)
+  document.documentElement.style.colorScheme = dark ? 'dark' : 'light'
+  document.body.toggleAttribute('data-ds-dark-theme', dark)
+  document.body.style.setProperty('--dsh-content-font-size', size + 'px')
+})()
+</script>
+<div id="root"></div>
+<script type="module" src="/src/main.tsx"></script>
+</body>
+</html>

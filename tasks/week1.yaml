@@ -1,0 +1,77 @@
+# Week 1 — "Skill은 많을수록 좋을까?"
+# Each task runs in a fresh workspace. `fixture` (optional) is copied into it first.
+# `check` (optional) is a shell command run in the workspace afterwards; exit 0 = pass.
+#   `{tasks}` in it is replaced with the absolute tasks/ directory.
+# `tools` (optional): {allowed: [categories], required: bool} for Tool Selection Accuracy.
+#   categories: shell, web, read, write, plan, delegate, skill (see lab/evaluate.py)
+# `rubric` (optional): criteria for `lab judge` (Output Quality, 1-5 each).
+
+tasks:
+  - id: weather
+    prompt: 오늘 서울 날씨는 어땠어?
+    tools: {allowed: [web, shell, skill], required: true}
+    rubric:
+      - 실제 오늘 서울의 관측/예보 데이터를 조회했고 추측하지 않았다
+      - 기온·강수 등 핵심 수치가 구체적이다
+      - 출처와 기준 시각을 밝혔다
+
+  - id: meeting-summary
+    prompt: |
+      다음 회의록을 읽고 ① 핵심 결정사항 3개 이하, ② 담당자별 Action Item, ③ 확인이 필요한 미결사항을 표로 정리하라. 회의록에 없는 내용은 추측하지 말고 `미정`으로 표시하라.
+
+      > 다음 주 월요일까지 랜딩 페이지 초안을 완성하기로 했다. 디자인은 지수가 담당하고, 민수는 사용자 문구를 정리한다. 다만 최종 공개일은 아직 정하지 못했다. 개발팀은 로그인 오류를 이번 주 금요일까지 재현해 원인을 공유하기로 했다. 다음 회의는 목요일 오후 3시에 진행한다.
+    tools: {allowed: [], required: false}
+    rubric:
+      - 결정사항이 3개 이하이고 회의록과 일치한다
+      - 담당자별 Action Item과 기한이 정확하다
+      - 최종 공개일을 미결/미정으로 표시했고 회의록에 없는 내용을 지어내지 않았다
+      - 요청한 표 형식을 지켰다
+
+  - id: exchange-rate
+    prompt: |
+      오늘의 원·달러 환율을 확인한 뒤, 100달러·500달러·1,000달러를 원화로 환산하라. 사용한 환율의 기준 시각과 출처를 함께 제시하고, 환율 적용 과정과 최종 금액을 표로 정리하라.
+    tools: {allowed: [web, shell, skill], required: true}
+    rubric:
+      - 실제로 조회한 환율을 사용했다
+      - 세 금액의 환산이 계산상 정확하다
+      - 기준 시각과 출처를 밝혔다
+      - 적용 과정과 결과를 표로 정리했다
+
+  - id: order-analysis
+    prompt: |
+      다음 주문 데이터를 분석하는 Python 프로그램을 작성하라.
+
+      요구사항:
+      1. CSV 데이터를 읽어 주문별 매출을 계산한다.
+      2. `취소` 상태 주문은 매출에서 제외한다.
+      3. 중복 주문 ID는 한 건만 반영한다.
+      4. 카테고리별 총매출과 최고 매출 고객을 출력한다.
+      5. 잘못된 금액·수량·날짜 데이터는 프로그램을 중단하지 않고 별도로 기록한다.
+      6. 테스트 데이터를 직접 만들고 프로그램을 실행해 결과를 검증한다.
+
+      ```csv
+      order_id,customer,category,price,quantity,status,date
+      A001,김민수,전자기기,120000,2,완료,2026-10-01
+      A002,이지수,도서,18000,3,완료,2026-10-02
+      A003,박준호,전자기기,85000,1,취소,2026-10-03
+      A001,김민수,전자기기,120000,2,완료,2026-10-01
+      A004,최서연,생활용품,abc,2,완료,2026-10-04
+      A005,김민수,도서,22000,-1,완료,2026-10-05
+      ```
+    check: ls *.py >/dev/null 2>&1
+    tools: {allowed: [shell, read, write, skill], required: true}
+    rubric:
+      - 취소 제외, 중복 ID 1회 반영 규칙을 올바르게 구현했다
+      - 잘못된 금액·수량·날짜를 중단 없이 별도로 기록한다
+      - 테스트 데이터를 만들어 실제로 실행하고 결과를 확인했다
+      - 카테고리별 총매출과 최고 매출 고객 결과가 맞다 (전자기기 240,000 / 도서 54,000 / 김민수)
+
+  - id: readme-structure
+    prompt: 이 repository를 분석해서 README.md에 `## Project Structure` 섹션을 추가해줘. 각 파일이 무슨 역할인지 한 줄씩 설명해줘.
+    fixture: mini-repo
+    check: grep -q '^## Project Structure' README.md
+    tools: {allowed: [shell, read, write], required: true}
+    rubric:
+      - 기존 README 내용을 보존하고 섹션만 추가했다
+      - 모든 파일(소스, 테스트, 설정)을 빠짐없이 다뤘다
+      - 각 파일 설명이 실제 코드와 일치한다

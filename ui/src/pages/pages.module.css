@@ -1,0 +1,42 @@
+/* Experiment pages (not in DSH Web): built on DSH tokens so they sit in the same frame. */
+.page { display: flex; flex-direction: column; height: 100%; min-height: 0; background: var(--dsw-alias-bg-base); }
+.header { display: flex; align-items: center; gap: 12px; padding: 14px 24px 10px; border-bottom: 0.5px solid var(--dsw-alias-border-l2); flex-wrap: wrap; }
+.title { font-size: 16px; line-height: 24px; font-weight: 500; color: var(--dsw-alias-label-primary); margin: 0; }
+.sub { font-size: 13px; color: var(--dsw-alias-label-tertiary); }
+.spacer { flex: 1; }
+.body { flex: 1; min-height: 0; overflow: auto; padding: 20px 24px 48px; }
+.column { max-width: 1080px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
+.card { border: 0.5px solid var(--dsw-alias-border-l2); border-radius: 16px; background: var(--dsw-alias-bg-layer-1, var(--dsw-alias-bg-base)); padding: 16px 18px; min-width: 0; }
+.cardTitle { font-size: 14px; font-weight: 500; margin: 0 0 10px; display: flex; gap: 8px; align-items: center; }
+.muted { color: var(--dsw-alias-label-tertiary); font-size: 12px; }
+.scroll { overflow-x: auto; }
+.table { width: 100%; border-collapse: collapse; font-size: 13px; font-variant-numeric: tabular-nums; }
+.table th { text-align: right; font-weight: 500; color: var(--dsw-alias-label-tertiary); font-size: 12px; padding: 6px 10px; border-bottom: 0.5px solid var(--dsw-alias-border-l2); white-space: nowrap; }
+.table td { text-align: right; padding: 7px 10px; border-bottom: 0.5px solid var(--dsw-alias-border-l1); white-space: nowrap; }
+.table th:first-child, .table td:first-child { text-align: left; }
+.table td.left, .table th.left { text-align: left; white-space: normal; }
+.rowClick { cursor: pointer; }
+.rowClick:hover td { background: var(--dsw-alias-interactive-bg-hover); }
+.bad { color: var(--dsw-alias-state-error-primary); }
+.good { color: var(--dsw-alias-state-success-primary); }
+.bars { display: grid; gap: 6px; margin-bottom: 12px; }
+.barRow { display: grid; grid-template-columns: 170px 1fr 80px; gap: 8px; align-items: center; font-size: 12px; color: var(--dsw-alias-label-secondary); }
+.bar { display: flex; height: 10px; border-radius: 5px; overflow: hidden; background: var(--dsw-alias-bg-layer-2); }
+.bar span { display: block; height: 100%; }
+.legend { display: flex; gap: 14px; font-size: 12px; color: var(--dsw-alias-label-tertiary); margin-bottom: 8px; flex-wrap: wrap; }
+.legend i { display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 5px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font-size: 12px; line-height: 20px; padding: 0 9px; border-radius: 10px; background: var(--dsw-alias-bg-layer-2); color: var(--dsw-alias-label-secondary); }
+.chip b { font-weight: 500; color: var(--dsw-alias-label-primary); }
+.pre { margin: 0; padding: 10px 12px; border-radius: 10px; background: var(--dsw-alias-bg-layer-2); font: 12px/1.5 var(--ds-font-family-code); white-space: pre-wrap; word-break: break-word; max-height: 420px; overflow: auto; }
+.grid2 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; }
+.trajectoryBox { height: 520px; display: flex; flex-direction: column; border: 0.5px solid var(--dsw-alias-border-l2); border-radius: 16px; overflow: hidden; }
+.checks { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 13px; }
+.checks label { display: inline-flex; gap: 6px; align-items: center; }
+.field { display: grid; gap: 6px; margin-bottom: 14px; }
+.fieldLabel { font-size: 12px; color: var(--dsw-alias-label-tertiary); }
+.input { height: 32px; border-radius: 10px; border: 0.5px solid var(--dsw-alias-border-l3); background: transparent; padding: 0 10px; color: inherit; font: inherit; min-width: 0; }
+.link { color: var(--dsw-alias-state-business-primary); cursor: pointer; background: none; border: 0; padding: 0; font: inherit; }
+.mwTable td { white-space: normal; }
+.wideModal { width: min(1000px, 94vw) !important; max-width: none !important; }
+@media (max-width: 860px) { .grid2 { grid-template-columns: 1fr; } .barRow { grid-template-columns: 110px 1fr 60px; } }

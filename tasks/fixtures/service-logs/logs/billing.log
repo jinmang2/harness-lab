@@ -1,0 +1,1200 @@
+2026-10-01T00:00:24Z INFO  billing job dequeued queue=default trace_id=309c346d04024a8b
+2026-10-01T00:00:25Z INFO  billing cache refreshed keys=128 trace_id=a4c1bcaa7b392f0c
+2026-10-01T00:00:46Z INFO  billing cache refreshed keys=128 trace_id=2db5c584b135017b
+2026-10-01T00:00:48Z INFO  billing request served path=/v1/items status=200 trace_id=ca9838456bdf1a87
+2026-10-01T00:00:58Z INFO  billing job dequeued queue=default trace_id=e755cebbf0a9dbe2
+2026-10-01T00:01:07Z WARN  billing retrying upstream attempt=2 trace_id=271f0474ac9f1d92
+2026-10-01T00:01:39Z INFO  billing request served path=/v1/items status=200 trace_id=014408c009037f79
+2026-10-01T00:02:15Z INFO  billing request served path=/v1/items status=200 trace_id=e90a426a7634f2fc
+2026-10-01T00:02:23Z INFO  billing request served path=/v1/items status=200 trace_id=520ecb618beb5260
+2026-10-01T00:03:00Z INFO  billing job dequeued queue=default trace_id=9e5a50809cff7621
+2026-10-01T00:03:05Z INFO  billing job dequeued queue=default trace_id=de35e261955568e2
+2026-10-01T00:03:12Z WARN  billing retrying upstream attempt=2 trace_id=26a7a034e13ae837
+2026-10-01T00:03:31Z INFO  billing job dequeued queue=default trace_id=268ceb08f116aa13
+2026-10-01T00:03:58Z INFO  billing request served path=/v1/items status=200 trace_id=376191eefcf5b62a
+2026-10-01T00:04:11Z INFO  billing job dequeued queue=default trace_id=eaaf3f5fcceaae69
+2026-10-01T00:04:27Z INFO  billing cache refreshed keys=128 trace_id=c41d859ab9841078
+2026-10-01T00:04:59Z INFO  billing heartbeat ok trace_id=9ac55ea40eb5e95a
+2026-10-01T00:05:04Z INFO  billing request served path=/v1/items status=200 trace_id=81578c9816dd049e
+2026-10-01T00:05:07Z WARN  billing pool near capacity used=92% trace_id=df22d5e69ef57c13
+2026-10-01T00:05:10Z INFO  billing job dequeued queue=default trace_id=fb5346f1ad29e078
+2026-10-01T00:05:22Z INFO  billing cache refreshed keys=128 trace_id=46ca3d1463f81314
+2026-10-01T00:05:44Z INFO  billing request served path=/v1/items status=200 trace_id=d26de9c86bb13464
+2026-10-01T00:06:00Z INFO  billing heartbeat ok trace_id=3222412cfbb95740
+2026-10-01T00:06:16Z INFO  billing job dequeued queue=default trace_id=82b5019fc242a729
+2026-10-01T00:06:35Z INFO  billing request served path=/v1/items status=200 trace_id=c4057010a68c984b
+2026-10-01T00:06:54Z WARN  billing retrying upstream attempt=2 trace_id=d4e20e31f43cd70f
+2026-10-01T00:07:23Z INFO  billing heartbeat ok trace_id=b0e3f3def878c12d
+2026-10-01T00:07:34Z INFO  billing job dequeued queue=default trace_id=590327f27e1c8fc3
+2026-10-01T00:07:43Z INFO  billing request served path=/v1/items status=200 trace_id=827e1130210e90b1
+2026-10-01T00:08:20Z INFO  billing cache refreshed keys=128 trace_id=e9ff337210900a84
+2026-10-01T00:08:32Z INFO  billing request served path=/v1/items status=200 trace_id=7dccf1da96f25153
+2026-10-01T00:08:35Z INFO  billing job dequeued queue=default trace_id=1841cfd2c3692b9f
+2026-10-01T00:09:12Z INFO  billing heartbeat ok trace_id=f3034faa55bbfa41
+2026-10-01T00:09:51Z INFO  billing request served path=/v1/items status=200 trace_id=5e7f00c5208544ee
+2026-10-01T00:10:12Z INFO  billing heartbeat ok trace_id=3696909dac7a245c
+2026-10-01T00:10:37Z INFO  billing request served path=/v1/items status=200 trace_id=5bb678eb1f4ca5e4
+2026-10-01T00:11:05Z INFO  billing job dequeued queue=default trace_id=b3554d98b6e2cade
+2026-10-01T00:11:30Z WARN  billing slow response latency_ms=1840 trace_id=fde5d4845d31f0b6
+2026-10-01T00:11:49Z INFO  billing job dequeued queue=default trace_id=9489ce2e13bc2ebc
+2026-10-01T00:11:53Z INFO  billing job dequeued queue=default trace_id=2c0d964555265463
+2026-10-01T00:12:20Z INFO  billing job dequeued queue=default trace_id=6387ccdd278779d2
+2026-10-01T00:12:49Z INFO  billing job dequeued queue=default trace_id=1e3ac0819d762aa1
+2026-10-01T00:13:06Z INFO  billing cache refreshed keys=128 trace_id=edbe176382ac24fc
+2026-10-01T00:13:32Z INFO  billing job dequeued queue=default trace_id=7cf3d4a3c650d75c
+2026-10-01T00:14:04Z INFO  billing cache refreshed keys=128 trace_id=423e6ca3a9a80ae2
+2026-10-01T00:14:25Z INFO  billing cache refreshed keys=128 trace_id=1b5a5a2e1a691d33
+2026-10-01T00:15:00Z ERROR billing db deadlock detected code=E101 trace_id=47563088107c287d
+2026-10-01T00:15:14Z WARN  billing pool near capacity used=92% trace_id=3a898c268eb9967f
+2026-10-01T00:15:42Z INFO  billing cache refreshed keys=128 trace_id=d1f0c189675f0e67
+2026-10-01T00:15:51Z INFO  billing cache refreshed keys=128 trace_id=8c02b2d59d949d40
+2026-10-01T00:16:01Z INFO  billing heartbeat ok trace_id=99db3693ca8d6fca
+2026-10-01T00:16:09Z INFO  billing job dequeued queue=default trace_id=d9a268e5801b75d7
+2026-10-01T00:16:19Z INFO  billing job dequeued queue=default trace_id=b0146dded5a5c0ee
+2026-10-01T00:16:44Z WARN  billing retrying upstream attempt=2 trace_id=1604162131f8abe8
+2026-10-01T00:17:19Z INFO  billing job dequeued queue=default trace_id=a3123cf1a67b1380
+2026-10-01T00:17:42Z INFO  billing job dequeued queue=default trace_id=b9248900016f5eb4
+2026-10-01T00:18:05Z INFO  billing job dequeued queue=default trace_id=99ea8f7809b87a7a
+2026-10-01T00:18:41Z INFO  billing job dequeued queue=default trace_id=282d33d2efc44795
+2026-10-01T00:19:21Z ERROR billing upstream timeout code=E318 trace_id=81756085bacd7bec
+2026-10-01T00:19:28Z WARN  billing retrying upstream attempt=2 trace_id=9ede62d3afb8d361
+2026-10-01T00:19:32Z INFO  billing request served path=/v1/items status=200 trace_id=6e7b7017b5dc0b75
+2026-10-01T00:19:47Z WARN  billing pool near capacity used=92% trace_id=9a09e1f7cb8c00cb
+2026-10-01T00:20:03Z INFO  billing cache refreshed keys=128 trace_id=a3f8c6b8316d0e4d
+2026-10-01T00:20:43Z INFO  billing request served path=/v1/items status=200 trace_id=5dab9264f527e90e
+2026-10-01T00:21:01Z INFO  billing cache refreshed keys=128 trace_id=ce0e93366cd22d84
+2026-10-01T00:21:02Z INFO  billing heartbeat ok trace_id=b97ed7880bb7d7af
+2026-10-01T00:21:14Z INFO  billing request served path=/v1/items status=200 trace_id=c5b262fc18a4982c
+2026-10-01T00:21:22Z INFO  billing heartbeat ok trace_id=58043d52035659a6
+2026-10-01T00:22:02Z ERROR billing upstream timeout code=E318 trace_id=177b4d2d2ebdeb36
+2026-10-01T00:22:25Z INFO  billing heartbeat ok trace_id=d50553e6ce9528d1
+2026-10-01T00:22:41Z INFO  billing job dequeued queue=default trace_id=b3e3b9c020873777
+2026-10-01T00:23:16Z ERROR billing token signature invalid code=E503 trace_id=ef39cc7bad6c6993
+2026-10-01T00:23:41Z INFO  billing heartbeat ok trace_id=f90f51f0430ee39b
+2026-10-01T00:24:08Z INFO  billing job dequeued queue=default trace_id=8ca5ae166fa3f9f0
+2026-10-01T00:24:36Z INFO  billing cache refreshed keys=128 trace_id=8c3b162641fbcd0a
+2026-10-01T00:24:54Z INFO  billing cache refreshed keys=128 trace_id=c7b39d7b4416e4e6
+2026-10-01T00:24:55Z INFO  billing cache refreshed keys=128 trace_id=d96f8abfe1bcc37f
+2026-10-01T00:25:06Z INFO  billing heartbeat ok trace_id=e2663878c8067242
+2026-10-01T00:25:21Z INFO  billing cache refreshed keys=128 trace_id=39edcebef862b592
+2026-10-01T00:25:27Z INFO  billing request served path=/v1/items status=200 trace_id=965c0cf5b38932ed
+2026-10-01T00:25:56Z INFO  billing request served path=/v1/items status=200 trace_id=c9cfea42276f8f39
+2026-10-01T00:26:31Z INFO  billing heartbeat ok trace_id=564f79efb8c5ea68
+2026-10-01T00:27:03Z INFO  billing job dequeued queue=default trace_id=3113a11641615e0e
+2026-10-01T00:27:19Z WARN  billing slow response latency_ms=1840 trace_id=b88132f959a16812
+2026-10-01T00:27:45Z ERROR billing payment provider rejected code=E318 trace_id=d046ea031b8be1f0
+2026-10-01T00:28:19Z INFO  billing request served path=/v1/items status=200 trace_id=f0aee2576c7335a5
+2026-10-01T00:28:54Z INFO  billing request served path=/v1/items status=200 trace_id=223c2baa6a30580d
+2026-10-01T00:29:22Z INFO  billing request served path=/v1/items status=200 trace_id=71c7e5c853d1766c
+2026-10-01T00:29:54Z INFO  billing heartbeat ok trace_id=1a2dd227ee191561
+2026-10-01T00:30:31Z INFO  billing heartbeat ok trace_id=627904e009d98a61
+2026-10-01T00:30:41Z INFO  billing heartbeat ok trace_id=3cf509e6bb1c7298
+2026-10-01T00:31:05Z INFO  billing heartbeat ok trace_id=239425f097d5821c
+2026-10-01T00:31:31Z INFO  billing cache refreshed keys=128 trace_id=8f20bd158ac14675
+2026-10-01T00:31:48Z WARN  billing retrying upstream attempt=2 trace_id=51f148891696743d
+2026-10-01T00:32:09Z WARN  billing slow response latency_ms=1840 trace_id=e68d88ef7ca65610
+2026-10-01T00:32:22Z WARN  billing retrying upstream attempt=2 trace_id=35a93726792dbf0b
+2026-10-01T00:32:40Z WARN  billing slow response latency_ms=1840 trace_id=a9ffc55626a6b519
+2026-10-01T00:32:49Z INFO  billing heartbeat ok trace_id=23c15efac4d4c0a5
+2026-10-01T00:33:10Z INFO  billing request served path=/v1/items status=200 trace_id=6268e38598ba113f
+2026-10-01T00:33:33Z INFO  billing cache refreshed keys=128 trace_id=fed33368a760a9e7
+2026-10-01T00:34:05Z ERROR billing db deadlock detected code=E318 trace_id=24abea17c2d450b7
+2026-10-01T00:34:30Z INFO  billing job dequeued queue=default trace_id=7d5a623019e99478
+2026-10-01T00:34:39Z INFO  billing job dequeued queue=default trace_id=c6e7483f6268aa0c
+2026-10-01T00:34:40Z INFO  billing request served path=/v1/items status=200 trace_id=229ce0fd6d8c194c
+2026-10-01T00:34:45Z INFO  billing job dequeued queue=default trace_id=bd3fc6ca2ecb4117
+2026-10-01T00:35:12Z INFO  billing job dequeued queue=default trace_id=2c2ab61c5fdf17a9
+2026-10-01T00:35:25Z ERROR billing queue overflow code=E204 trace_id=8947461eb31b38af
+2026-10-01T00:35:28Z INFO  billing cache refreshed keys=128 trace_id=8cf03f804601ec3e
+2026-10-01T00:35:40Z INFO  billing cache refreshed keys=128 trace_id=fa22991b5628135f
+2026-10-01T00:35:46Z INFO  billing cache refreshed keys=128 trace_id=df6308c73b456279
+2026-10-01T00:36:03Z INFO  billing job dequeued queue=default trace_id=9c867b4eef36cdd6
+2026-10-01T00:36:25Z INFO  billing cache refreshed keys=128 trace_id=afb4771e67bff2e6
+2026-10-01T00:36:49Z WARN  billing slow response latency_ms=1840 trace_id=02f03985e8b50e8a
+2026-10-01T00:37:29Z INFO  billing request served path=/v1/items status=200 trace_id=fa7c57a62389d4fe
+2026-10-01T00:38:09Z INFO  billing heartbeat ok trace_id=c4f814fc17d203d3
+2026-10-01T00:38:47Z INFO  billing heartbeat ok trace_id=a6363a3f6528c3d5
+2026-10-01T00:39:25Z INFO  billing heartbeat ok trace_id=298c2f05e59916e3
+2026-10-01T00:39:35Z INFO  billing heartbeat ok trace_id=3dc05aa67ec0ff00
+2026-10-01T00:39:43Z INFO  billing cache refreshed keys=128 trace_id=7cdabe4af8fe5e4d
+2026-10-01T00:40:11Z INFO  billing request served path=/v1/items status=200 trace_id=d2bd4f8730cefb1d
+2026-10-01T00:40:41Z INFO  billing job dequeued queue=default trace_id=fbc355c17e7bf31a
+2026-10-01T00:41:12Z INFO  billing job dequeued queue=default trace_id=1dd7111ed8a79903
+2026-10-01T00:41:43Z INFO  billing job dequeued queue=default trace_id=353746960895f24a
+2026-10-01T00:42:21Z INFO  billing cache refreshed keys=128 trace_id=018b06964ca2a0e3
+2026-10-01T00:42:51Z WARN  billing retrying upstream attempt=2 trace_id=0523b37213c1666f
+2026-10-01T00:43:27Z INFO  billing heartbeat ok trace_id=02f0b7861dd98863
+2026-10-01T00:44:05Z INFO  billing request served path=/v1/items status=200 trace_id=7159d6eb58dd68a3
+2026-10-01T00:44:18Z INFO  billing job dequeued queue=default trace_id=fbd0945919e63e07
+2026-10-01T00:44:20Z INFO  billing cache refreshed keys=128 trace_id=bb365637693ad5a0
+2026-10-01T00:44:33Z INFO  billing job dequeued queue=default trace_id=0d84519edc4f7d6a
+2026-10-01T00:44:40Z INFO  billing job dequeued queue=default trace_id=17869a45d255d03d
+2026-10-01T00:45:06Z WARN  billing retrying upstream attempt=2 trace_id=988dd4a21aa9f885
+2026-10-01T00:45:25Z INFO  billing heartbeat ok trace_id=46adb57fdf70cf4d
+2026-10-01T00:45:43Z INFO  billing heartbeat ok trace_id=c589087f43ad541d
+2026-10-01T00:46:16Z INFO  billing heartbeat ok trace_id=ec5ebc39afad9ec1
+2026-10-01T00:46:21Z INFO  billing request served path=/v1/items status=200 trace_id=7f836a112a8db0ee
+2026-10-01T00:46:47Z INFO  billing request served path=/v1/items status=200 trace_id=15848cca135336ce
+2026-10-01T00:46:54Z INFO  billing heartbeat ok trace_id=321713289f05f8e5
+2026-10-01T00:47:24Z INFO  billing request served path=/v1/items status=200 trace_id=1603d7783886541b
+2026-10-01T00:47:27Z ERROR billing queue overflow code=E422 trace_id=b87d1a00f728c758
+2026-10-01T00:47:44Z INFO  billing cache refreshed keys=128 trace_id=ed080ac67cc64b57
+2026-10-01T00:47:56Z WARN  billing pool near capacity used=92% trace_id=c6043ceba887fef5
+2026-10-01T00:48:34Z ERROR billing upstream timeout code=E318 trace_id=bbcea7407edd5f43
+2026-10-01T00:48:52Z INFO  billing job dequeued queue=default trace_id=658d7f5c92d1ab61
+2026-10-01T00:49:23Z INFO  billing job dequeued queue=default trace_id=8c4fee1bf2cd8108
+2026-10-01T00:50:01Z INFO  billing job dequeued queue=default trace_id=567f56fe20b65fc8
+2026-10-01T00:50:28Z INFO  billing heartbeat ok trace_id=9136e24ecedd0ba1
+2026-10-01T00:50:58Z WARN  billing slow response latency_ms=1840 trace_id=8295d95f271e5612
+2026-10-01T00:51:04Z INFO  billing cache refreshed keys=128 trace_id=fc06b2d0c891410b
+2026-10-01T00:51:09Z INFO  billing heartbeat ok trace_id=e1042961879ce83c
+2026-10-01T00:51:43Z INFO  billing heartbeat ok trace_id=f0a612b6c87962b8
+2026-10-01T00:51:46Z INFO  billing heartbeat ok trace_id=d75d0a2366c50569
+2026-10-01T00:52:16Z INFO  billing request served path=/v1/items status=200 trace_id=8295c2c2ea1d0fca
+2026-10-01T00:52:44Z INFO  billing job dequeued queue=default trace_id=4f0d97c0ba937d91
+2026-10-01T00:53:12Z INFO  billing request served path=/v1/items status=200 trace_id=7ae999a3fcabd2d0
+2026-10-01T00:53:32Z WARN  billing slow response latency_ms=1840 trace_id=e770895ccc5f1065
+2026-10-01T00:53:59Z INFO  billing cache refreshed keys=128 trace_id=c4a156bc91d7f806
+2026-10-01T00:54:00Z ERROR billing token signature invalid code=E318 trace_id=c0a8952fa3bb5c5e
+2026-10-01T00:54:38Z WARN  billing pool near capacity used=92% trace_id=c6b259e6a3ddff95
+2026-10-01T00:54:44Z INFO  billing request served path=/v1/items status=200 trace_id=ff0f11ac65dbd255
+2026-10-01T00:54:51Z INFO  billing cache refreshed keys=128 trace_id=7e3774f992fb0fe3
+2026-10-01T00:55:30Z INFO  billing cache refreshed keys=128 trace_id=fbbb7d0a37c65d7f
+2026-10-01T00:55:57Z INFO  billing cache refreshed keys=128 trace_id=f4307b6c9c0d0653
+2026-10-01T00:56:12Z INFO  billing heartbeat ok trace_id=7a470e0aa997a4a5
+2026-10-01T00:56:37Z ERROR billing db deadlock detected code=E318 trace_id=84ea45407289ce05
+2026-10-01T00:57:12Z INFO  billing cache refreshed keys=128 trace_id=b09d4693713e8180
+2026-10-01T00:57:52Z INFO  billing request served path=/v1/items status=200 trace_id=c756d1359a38d80a
+2026-10-01T00:57:58Z INFO  billing heartbeat ok trace_id=cc818d25c47e61eb
+2026-10-01T00:58:04Z INFO  billing job dequeued queue=default trace_id=5a7ae29ae85767f0
+2026-10-01T00:58:35Z INFO  billing heartbeat ok trace_id=ea6c6ce6b5cb4e25
+2026-10-01T00:58:41Z INFO  billing job dequeued queue=default trace_id=6eeeb4b9508135bd
+2026-10-01T00:59:17Z WARN  billing pool near capacity used=92% trace_id=8bbb92ce574d1968
+2026-10-01T00:59:38Z INFO  billing job dequeued queue=default trace_id=72bd7bf58c77ae2f
+2026-10-01T00:59:47Z INFO  billing heartbeat ok trace_id=c60c166565153c73
+2026-10-01T01:00:10Z INFO  billing cache refreshed keys=128 trace_id=b97b919fff22d208
+2026-10-01T01:00:43Z INFO  billing cache refreshed keys=128 trace_id=61b727b6fc05cd45
+2026-10-01T01:01:21Z INFO  billing request served path=/v1/items status=200 trace_id=cc2e202062c51a42
+2026-10-01T01:01:32Z INFO  billing request served path=/v1/items status=200 trace_id=b5ddaae7487c2c57
+2026-10-01T01:02:05Z INFO  billing request served path=/v1/items status=200 trace_id=8ddff1ff022b2bed
+2026-10-01T01:02:28Z WARN  billing pool near capacity used=92% trace_id=242e2e9c3feb4148
+2026-10-01T01:02:55Z WARN  billing retrying upstream attempt=2 trace_id=73b3b9a631b183fa
+2026-10-01T01:03:00Z INFO  billing request served path=/v1/items status=200 trace_id=c911913850f5a144
+2026-10-01T01:03:29Z INFO  billing cache refreshed keys=128 trace_id=84175471e499afbd
+2026-10-01T01:03:45Z INFO  billing job dequeued queue=default trace_id=d402f2773180883d
+2026-10-01T01:03:47Z INFO  billing heartbeat ok trace_id=16708f3261cfc566
+2026-10-01T01:04:06Z INFO  billing cache refreshed keys=128 trace_id=dfd54998e201d6f7
+2026-10-01T01:04:29Z INFO  billing heartbeat ok trace_id=54aefd21970ac4a2
+2026-10-01T01:04:57Z ERROR billing token signature invalid code=E318 trace_id=e15b57ce0e73b5c0
+2026-10-01T01:05:08Z INFO  billing cache refreshed keys=128 trace_id=6ed35a401c893ca0
+2026-10-01T01:05:48Z INFO  billing cache refreshed keys=128 trace_id=6f6555db57c1782f
+2026-10-01T01:05:56Z INFO  billing cache refreshed keys=128 trace_id=4cf7ed7c0c8256ee
+2026-10-01T01:06:01Z INFO  billing job dequeued queue=default trace_id=5dc97e1420126249
+2026-10-01T01:06:35Z WARN  billing slow response latency_ms=1840 trace_id=c4a8269b2ef8b817
+2026-10-01T01:06:37Z INFO  billing job dequeued queue=default trace_id=85f4b68fe5173692
+2026-10-01T01:07:04Z INFO  billing cache refreshed keys=128 trace_id=8113e1ab5bba57da
+2026-10-01T01:07:35Z INFO  billing cache refreshed keys=128 trace_id=e278da6731396a3d
+2026-10-01T01:07:42Z INFO  billing job dequeued queue=default trace_id=b15fd6a55802f261
+2026-10-01T01:08:16Z INFO  billing request served path=/v1/items status=200 trace_id=0e0fb9db3a00b2c6
+2026-10-01T01:08:53Z WARN  billing pool near capacity used=92% trace_id=65ea5233d393afcd
+2026-10-01T01:09:06Z WARN  billing slow response latency_ms=1840 trace_id=d3a74585b91cbb64
+2026-10-01T01:09:16Z INFO  billing request served path=/v1/items status=200 trace_id=77f3ccfb1d15c514
+2026-10-01T01:09:30Z INFO  billing heartbeat ok trace_id=863a897d365ce878
+2026-10-01T01:09:49Z INFO  billing cache refreshed keys=128 trace_id=9658cd4d70114b84
+2026-10-01T01:10:28Z INFO  billing heartbeat ok trace_id=d8eaaf4df3d667a1
+2026-10-01T01:10:55Z INFO  billing cache refreshed keys=128 trace_id=80e36361150b2052
+2026-10-01T01:11:15Z INFO  billing request served path=/v1/items status=200 trace_id=d5f1d683e3cb86dc
+2026-10-01T01:11:47Z INFO  billing cache refreshed keys=128 trace_id=bdf0bc3c86984935
+2026-10-01T01:12:25Z WARN  billing pool near capacity used=92% trace_id=92c5a739e16db0c1
+2026-10-01T01:12:49Z INFO  billing heartbeat ok trace_id=75a91cfaf87807fe
+2026-10-01T01:12:50Z INFO  billing cache refreshed keys=128 trace_id=3caaf3d3288de35c
+2026-10-01T01:13:10Z INFO  billing cache refreshed keys=128 trace_id=41662d2ecc59bfb8
+2026-10-01T01:13:12Z INFO  billing request served path=/v1/items status=200 trace_id=8149ac2677a65da5
+2026-10-01T01:13:42Z INFO  billing request served path=/v1/items status=200 trace_id=9fa8a4d7e5591aa8
+2026-10-01T01:14:09Z INFO  billing job dequeued queue=default trace_id=19799874fea88e8d
+2026-10-01T01:14:39Z INFO  billing job dequeued queue=default trace_id=d52f0bf18e892885
+2026-10-01T01:14:42Z INFO  billing heartbeat ok trace_id=a0425a46ea069d9f
+2026-10-01T01:15:14Z INFO  billing job dequeued queue=default trace_id=6d12ea91ea00c958
+2026-10-01T01:15:36Z INFO  billing cache refreshed keys=128 trace_id=8d4ca25fbc6ece67
+2026-10-01T01:15:48Z WARN  billing pool near capacity used=92% trace_id=d184d859d75155df
+2026-10-01T01:16:02Z INFO  billing cache refreshed keys=128 trace_id=b6eae023287c154c
+2026-10-01T01:16:09Z INFO  billing request served path=/v1/items status=200 trace_id=e1c16eaa9a27ef7f
+2026-10-01T01:16:24Z ERROR billing token signature invalid code=E101 trace_id=3a72ddd05698a61f
+2026-10-01T01:16:58Z INFO  billing heartbeat ok trace_id=e61751c6e42e11a7
+2026-10-01T01:17:12Z WARN  billing retrying upstream attempt=2 trace_id=5875aeaadd65845f
+2026-10-01T01:17:50Z INFO  billing job dequeued queue=default trace_id=eff6f9c583e56484
+2026-10-01T01:17:54Z INFO  billing heartbeat ok trace_id=1a919e7618d37869
+2026-10-01T01:18:32Z INFO  billing job dequeued queue=default trace_id=53a265c66453910c
+2026-10-01T01:18:33Z INFO  billing cache refreshed keys=128 trace_id=60620d1812532ba0
+2026-10-01T01:19:03Z INFO  billing cache refreshed keys=128 trace_id=427c5ec884abb4f0
+2026-10-01T01:19:16Z WARN  billing slow response latency_ms=1840 trace_id=9ce1b94220568483
+2026-10-01T01:19:19Z INFO  billing heartbeat ok trace_id=f5541ee83044f031
+2026-10-01T01:19:21Z INFO  billing cache refreshed keys=128 trace_id=89477eb095970acb
+2026-10-01T01:19:22Z WARN  billing slow response latency_ms=1840 trace_id=201e00328e943893
+2026-10-01T01:19:48Z WARN  billing retrying upstream attempt=2 trace_id=44e40b97c303c988
+2026-10-01T01:19:54Z WARN  billing pool near capacity used=92% trace_id=8dfd0f7a41fc9946
+2026-10-01T01:20:26Z ERROR billing queue overflow code=E101 trace_id=2686e9353ec035a8
+2026-10-01T01:20:45Z INFO  billing cache refreshed keys=128 trace_id=e4a81fc5a8ea17f5
+2026-10-01T01:21:22Z INFO  billing heartbeat ok trace_id=1f656813b0295c54
+2026-10-01T01:21:32Z INFO  billing job dequeued queue=default trace_id=a49440adac84b11d
+2026-10-01T01:21:58Z WARN  billing pool near capacity used=92% trace_id=a8b319f14666f0ec
+2026-10-01T01:22:12Z INFO  billing heartbeat ok trace_id=7b614b32796fd8ef
+2026-10-01T01:22:30Z INFO  billing cache refreshed keys=128 trace_id=77a70a16bc168e77
+2026-10-01T01:23:04Z INFO  billing heartbeat ok trace_id=1d73b7fc2532ed8a
+2026-10-01T01:23:06Z INFO  billing job dequeued queue=default trace_id=299fe7173f9d897d
+2026-10-01T01:23:19Z INFO  billing heartbeat ok trace_id=9d7eee85ddd9b060
+2026-10-01T01:23:31Z INFO  billing request served path=/v1/items status=200 trace_id=00e1e96fc5117022
+2026-10-01T01:23:37Z WARN  billing slow response latency_ms=1840 trace_id=094368de126da65a
+2026-10-01T01:23:38Z INFO  billing request served path=/v1/items status=200 trace_id=7879a12003855af8
+2026-10-01T01:23:44Z INFO  billing job dequeued queue=default trace_id=eb514458b4c0ae2b
+2026-10-01T01:24:01Z INFO  billing job dequeued queue=default trace_id=45a6cbe51193d4f5
+2026-10-01T01:24:36Z INFO  billing job dequeued queue=default trace_id=996a54e2566e5ed8
+2026-10-01T01:24:45Z INFO  billing job dequeued queue=default trace_id=8bd09f2dbc32fd38
+2026-10-01T01:25:07Z INFO  billing request served path=/v1/items status=200 trace_id=cfe108ed12ba5d7f
+2026-10-01T01:25:31Z INFO  billing heartbeat ok trace_id=d23a4e89ee6ec1c0
+2026-10-01T01:26:06Z INFO  billing cache refreshed keys=128 trace_id=31edc8a34015c0ef
+2026-10-01T01:26:19Z INFO  billing job dequeued queue=default trace_id=b73a668ff6fd9802
+2026-10-01T01:26:51Z INFO  billing heartbeat ok trace_id=70e0748423f9c43a
+2026-10-01T01:27:13Z INFO  billing job dequeued queue=default trace_id=3d8d8a01f195f2c3
+2026-10-01T01:27:34Z WARN  billing retrying upstream attempt=2 trace_id=d51eeeaeccc83e39
+2026-10-01T01:28:14Z INFO  billing cache refreshed keys=128 trace_id=e0f8d1dab65faff7
+2026-10-01T01:28:41Z INFO  billing request served path=/v1/items status=200 trace_id=bfc32d818bf76a57
+2026-10-01T01:28:58Z INFO  billing cache refreshed keys=128 trace_id=e51b803b0aca6c20
+2026-10-01T01:29:10Z INFO  billing request served path=/v1/items status=200 trace_id=465cabc091ca2132
+2026-10-01T01:29:13Z INFO  billing request served path=/v1/items status=200 trace_id=1e37c60a931777ac
+2026-10-01T01:29:32Z INFO  billing heartbeat ok trace_id=b2cd0f8e36fc3bda
+2026-10-01T01:30:11Z INFO  billing heartbeat ok trace_id=54c973045b169294
+2026-10-01T01:30:44Z INFO  billing cache refreshed keys=128 trace_id=fb0a9bf3e1a60bf6
+2026-10-01T01:30:58Z WARN  billing retrying upstream attempt=2 trace_id=19024bf3d7dff7e8
+2026-10-01T01:31:02Z INFO  billing request served path=/v1/items status=200 trace_id=b68a156e0fd726a6
+2026-10-01T01:31:19Z INFO  billing job dequeued queue=default trace_id=8741dddc78365fd9
+2026-10-01T01:31:35Z INFO  billing heartbeat ok trace_id=54bea1ebc6af2f2c
+2026-10-01T01:31:51Z ERROR billing db deadlock detected code=E318 trace_id=fe676e93e28a5f2c
+2026-10-01T01:32:31Z INFO  billing job dequeued queue=default trace_id=164b2baae7d51aef
+2026-10-01T01:32:34Z INFO  billing job dequeued queue=default trace_id=f56d967a741fce84
+2026-10-01T01:32:56Z INFO  billing cache refreshed keys=128 trace_id=cc1f6f13e9f7c3a4
+2026-10-01T01:33:07Z INFO  billing job dequeued queue=default trace_id=460dc1562c985751
+2026-10-01T01:33:44Z WARN  billing pool near capacity used=92% trace_id=133399e76d2f31cf
+2026-10-01T01:33:49Z INFO  billing cache refreshed keys=128 trace_id=ac38c35bc41a2269
+2026-10-01T01:34:17Z WARN  billing pool near capacity used=92% trace_id=41c5077b0f440550
+2026-10-01T01:34:39Z INFO  billing request served path=/v1/items status=200 trace_id=40b031421e169fed
+2026-10-01T01:35:17Z INFO  billing cache refreshed keys=128 trace_id=9d82bcc0c070f5ca
+2026-10-01T01:35:35Z INFO  billing cache refreshed keys=128 trace_id=cd44a87f0c2f0c9c
+2026-10-01T01:35:50Z INFO  billing cache refreshed keys=128 trace_id=56589fe10f1b1f5c
+2026-10-01T01:36:17Z INFO  billing job dequeued queue=default trace_id=3e7fe38f760617d7
+2026-10-01T01:36:53Z INFO  billing job dequeued queue=default trace_id=6b21b4c76884ef1e
+2026-10-01T01:37:20Z INFO  billing heartbeat ok trace_id=fc676aeaad7598d0
+2026-10-01T01:37:45Z INFO  billing request served path=/v1/items status=200 trace_id=163f741e8b9e63fe
+2026-10-01T01:38:07Z INFO  billing job dequeued queue=default trace_id=ccfc67400b43bf93
+2026-10-01T01:38:19Z INFO  billing request served path=/v1/items status=200 trace_id=105edcf63d5c9095
+2026-10-01T01:38:44Z INFO  billing request served path=/v1/items status=200 trace_id=47dc3ef2beb6e7f9
+2026-10-01T01:39:05Z INFO  billing heartbeat ok trace_id=78ca0d70bdc1179b
+2026-10-01T01:39:22Z INFO  billing request served path=/v1/items status=200 trace_id=27d853ddac24d0cd
+2026-10-01T01:39:47Z INFO  billing request served path=/v1/items status=200 trace_id=10b37e969a2cf142
+2026-10-01T01:39:49Z WARN  billing pool near capacity used=92% trace_id=e7a7e931d9cf3669
+2026-10-01T01:40:18Z ERROR billing upstream timeout code=E101 trace_id=c23b35e1f8c56426
+2026-10-01T01:40:19Z INFO  billing heartbeat ok trace_id=bc9ce9bc812e508e
+2026-10-01T01:40:28Z INFO  billing cache refreshed keys=128 trace_id=45bfa2f5c5cd1566
+2026-10-01T01:41:05Z INFO  billing heartbeat ok trace_id=b800ed8f9f08bea8
+2026-10-01T01:41:32Z INFO  billing job dequeued queue=default trace_id=f89b25b6e369c2cb
+2026-10-01T01:41:48Z INFO  billing cache refreshed keys=128 trace_id=b4aa8b6938ee4e50
+2026-10-01T01:42:10Z WARN  billing retrying upstream attempt=2 trace_id=55a7699db7303d84
+2026-10-01T01:42:40Z INFO  billing job dequeued queue=default trace_id=068e691b26a990c2
+2026-10-01T01:43:14Z WARN  billing pool near capacity used=92% trace_id=481c6842f05749ab
+2026-10-01T01:43:31Z INFO  billing job dequeued queue=default trace_id=13576f958a80c7d9
+2026-10-01T01:43:37Z INFO  billing request served path=/v1/items status=200 trace_id=370d02cd7e4f98d5
+2026-10-01T01:43:45Z INFO  billing job dequeued queue=default trace_id=256b3b91066436e7
+2026-10-01T01:44:18Z WARN  billing pool near capacity used=92% trace_id=5b1883cc20315f09
+2026-10-01T01:44:26Z INFO  billing request served path=/v1/items status=200 trace_id=adb0d5819e56bf90
+2026-10-01T01:44:40Z INFO  billing heartbeat ok trace_id=146e13701c986131
+2026-10-01T01:45:06Z INFO  billing heartbeat ok trace_id=413cfbe39b2bfb5e
+2026-10-01T01:45:14Z WARN  billing pool near capacity used=92% trace_id=882b793eba5669cd
+2026-10-01T01:45:47Z INFO  billing request served path=/v1/items status=200 trace_id=b3c5fcc7387f7faf
+2026-10-01T01:46:00Z INFO  billing cache refreshed keys=128 trace_id=13cc674615705e7c
+2026-10-01T01:46:38Z INFO  billing job dequeued queue=default trace_id=2c7d42155643b782
+2026-10-01T01:46:54Z INFO  billing cache refreshed keys=128 trace_id=0394b2d388d85e3d
+2026-10-01T01:46:55Z INFO  billing request served path=/v1/items status=200 trace_id=ed944384199d37f4
+2026-10-01T01:47:17Z INFO  billing job dequeued queue=default trace_id=886e076a88dbea41
+2026-10-01T01:47:43Z INFO  billing heartbeat ok trace_id=bd1172e25fe887c6
+2026-10-01T01:48:09Z INFO  billing request served path=/v1/items status=200 trace_id=ab49f02595aee235
+2026-10-01T01:48:35Z INFO  billing request served path=/v1/items status=200 trace_id=e62b634efd3952ec
+2026-10-01T01:49:03Z INFO  billing cache refreshed keys=128 trace_id=6262b8e4e4854e11
+2026-10-01T01:49:37Z INFO  billing heartbeat ok trace_id=5b3ac9c0fc0b73bc
+2026-10-01T01:49:44Z WARN  billing slow response latency_ms=1840 trace_id=f7228408e8c8aebe
+2026-10-01T01:49:54Z INFO  billing request served path=/v1/items status=200 trace_id=d560a4cba334c2a0
+2026-10-01T01:50:03Z INFO  billing request served path=/v1/items status=200 trace_id=a22490404f437c8c
+2026-10-01T01:50:05Z INFO  billing request served path=/v1/items status=200 trace_id=9d9a13bbb59b0e7e
+2026-10-01T01:50:27Z INFO  billing heartbeat ok trace_id=ad1ca3c7b61c91a0
+2026-10-01T01:50:46Z ERROR billing token signature invalid code=E101 trace_id=8995c6c0aece5077
+2026-10-01T01:51:01Z INFO  billing cache refreshed keys=128 trace_id=bd16ab557da7073e
+2026-10-01T01:51:34Z ERROR billing queue overflow code=E204 trace_id=76924e5e4f90566e
+2026-10-01T01:51:44Z INFO  billing cache refreshed keys=128 trace_id=10d707a623b39c7c
+2026-10-01T01:52:12Z INFO  billing job dequeued queue=default trace_id=ea1ff94f78021c73
+2026-10-01T01:52:15Z ERROR billing token signature invalid code=E318 trace_id=ad67d052bf21d42e
+2026-10-01T01:52:46Z ERROR billing token signature invalid code=E204 trace_id=c1f0a5e1a41a6c73
+2026-10-01T01:53:26Z INFO  billing job dequeued queue=default trace_id=a969c15c35884841
+2026-10-01T01:53:40Z INFO  billing job dequeued queue=default trace_id=86b6b9783f50f928
+2026-10-01T01:54:17Z INFO  billing cache refreshed keys=128 trace_id=9ec177595eca0049
+2026-10-01T01:54:45Z INFO  billing heartbeat ok trace_id=9bf89825a5b8bdc5
+2026-10-01T01:55:17Z INFO  billing job dequeued queue=default trace_id=71c99e1c020fb9e5
+2026-10-01T01:55:53Z INFO  billing cache refreshed keys=128 trace_id=aae164a43b007ca2
+2026-10-01T01:56:18Z INFO  billing cache refreshed keys=128 trace_id=be5d35589c8ab1cb
+2026-10-01T01:56:33Z INFO  billing cache refreshed keys=128 trace_id=69ccc069cfa781ba
+2026-10-01T01:56:53Z INFO  billing heartbeat ok trace_id=2dcd40541ebaf2dd
+2026-10-01T01:57:31Z INFO  billing cache refreshed keys=128 trace_id=6ae2816205ff45b1
+2026-10-01T01:58:05Z INFO  billing heartbeat ok trace_id=9876fff3ad0f6fca
+2026-10-01T01:58:27Z WARN  billing pool near capacity used=92% trace_id=637b37b5bf49a7f1
+2026-10-01T01:58:38Z INFO  billing heartbeat ok trace_id=52a31d2a78705ffa
+2026-10-01T01:58:54Z INFO  billing job dequeued queue=default trace_id=d4c9ac5fab7a268c
+2026-10-01T01:59:13Z WARN  billing retrying upstream attempt=2 trace_id=b72e8030e772dd33
+2026-10-01T01:59:18Z INFO  billing heartbeat ok trace_id=c51eac7744b6e113
+2026-10-01T01:59:19Z INFO  billing heartbeat ok trace_id=8a9966b48f326f36
+2026-10-01T01:59:23Z INFO  billing request served path=/v1/items status=200 trace_id=80e52e5b95926841
+2026-10-01T01:59:51Z WARN  billing slow response latency_ms=1840 trace_id=591ed882677f780c
+2026-10-01T02:00:25Z INFO  billing job dequeued queue=default trace_id=f05c696b18f08371
+2026-10-01T02:00:29Z INFO  billing heartbeat ok trace_id=61c7a743710d15f4
+2026-10-01T02:00:30Z ERROR billing token signature invalid code=E422 trace_id=4282f1d9c1e7e764
+2026-10-01T02:00:38Z INFO  billing request served path=/v1/items status=200 trace_id=d600e9b4d678376d
+2026-10-01T02:01:06Z INFO  billing request served path=/v1/items status=200 trace_id=cca33ea78f25ea78
+2026-10-01T02:01:15Z WARN  billing slow response latency_ms=1840 trace_id=0dbee71e60a3ce62
+2026-10-01T02:01:41Z ERROR billing db deadlock detected code=E318 trace_id=f6ecf4d05abb3108
+2026-10-01T02:02:03Z INFO  billing heartbeat ok trace_id=c1912d82db39a67e
+2026-10-01T02:02:42Z INFO  billing job dequeued queue=default trace_id=64c43d8cbd4aace2
+2026-10-01T02:02:50Z INFO  billing cache refreshed keys=128 trace_id=87e9fe874b441a50
+2026-10-01T02:02:58Z INFO  billing job dequeued queue=default trace_id=e961c1841b1c6339
+2026-10-01T02:03:15Z WARN  billing pool near capacity used=92% trace_id=9604de5c829c5cdc
+2026-10-01T02:03:43Z ERROR billing queue overflow code=E318 trace_id=614980e14658b21d
+2026-10-01T02:04:17Z INFO  billing job dequeued queue=default trace_id=770772dd91ed0b44
+2026-10-01T02:04:22Z INFO  billing heartbeat ok trace_id=4e5b89b5370ded58
+2026-10-01T02:04:48Z INFO  billing job dequeued queue=default trace_id=256d13b6119ca7b1
+2026-10-01T02:04:59Z WARN  billing slow response latency_ms=1840 trace_id=a4f282877cf9eacb
+2026-10-01T02:05:07Z INFO  billing request served path=/v1/items status=200 trace_id=4399fc5de841be6d
+2026-10-01T02:05:46Z INFO  billing cache refreshed keys=128 trace_id=a5f5688846fd1b39
+2026-10-01T02:06:26Z INFO  billing heartbeat ok trace_id=4df456bb21b49e5f
+2026-10-01T02:06:32Z WARN  billing pool near capacity used=92% trace_id=f01095e56e6cd996
+2026-10-01T02:06:43Z INFO  billing cache refreshed keys=128 trace_id=fd6177bebe678e98
+2026-10-01T02:07:16Z INFO  billing heartbeat ok trace_id=74377c8b038bf64e
+2026-10-01T02:07:28Z INFO  billing job dequeued queue=default trace_id=4fad12b5dad20370
+2026-10-01T02:07:53Z WARN  billing pool near capacity used=92% trace_id=50dd879076799951
+2026-10-01T02:08:27Z WARN  billing pool near capacity used=92% trace_id=e599386e5395f8e1
+2026-10-01T02:08:32Z ERROR billing queue overflow code=E318 trace_id=52e55352985a8c14
+2026-10-01T02:08:44Z INFO  billing job dequeued queue=default trace_id=5aba9bd034da59f8
+2026-10-01T02:09:11Z INFO  billing job dequeued queue=default trace_id=e69e3ab1c1b74747
+2026-10-01T02:09:29Z INFO  billing cache refreshed keys=128 trace_id=24cf17bfdba1145b
+2026-10-01T02:10:01Z INFO  billing request served path=/v1/items status=200 trace_id=db208ffa0488754b
+2026-10-01T02:10:33Z INFO  billing heartbeat ok trace_id=d8b842cb88d11596
+2026-10-01T02:10:36Z INFO  billing job dequeued queue=default trace_id=fe6e345e43259f88
+2026-10-01T02:10:46Z INFO  billing cache refreshed keys=128 trace_id=d2f53bfb07384b38
+2026-10-01T02:10:50Z INFO  billing request served path=/v1/items status=200 trace_id=daec3b1b72938c3c
+2026-10-01T02:11:08Z WARN  billing slow response latency_ms=1840 trace_id=735e3c4d0779eff9
+2026-10-01T02:11:13Z INFO  billing job dequeued queue=default trace_id=d8285468c59a733d
+2026-10-01T02:11:18Z INFO  billing job dequeued queue=default trace_id=a44671fd7affb53f
+2026-10-01T02:11:19Z INFO  billing job dequeued queue=default trace_id=5964ff1107f7bdfe
+2026-10-01T02:11:37Z INFO  billing cache refreshed keys=128 trace_id=b8a5fce0a167dc92
+2026-10-01T02:11:58Z INFO  billing request served path=/v1/items status=200 trace_id=ad2e428131fa73fc
+2026-10-01T02:12:25Z INFO  billing job dequeued queue=default trace_id=1b52b02416c66ff1
+2026-10-01T02:12:28Z INFO  billing cache refreshed keys=128 trace_id=ad7c1b8e11d58741
+2026-10-01T02:12:34Z INFO  billing cache refreshed keys=128 trace_id=dbb51df84a6d5bea
+2026-10-01T02:12:46Z WARN  billing pool near capacity used=92% trace_id=eb8593aad9a4de8a
+2026-10-01T02:13:19Z INFO  billing request served path=/v1/items status=200 trace_id=36001851f638ac25
+2026-10-01T02:13:23Z WARN  billing pool near capacity used=92% trace_id=680d98e4964fc4f6
+2026-10-01T02:13:58Z INFO  billing cache refreshed keys=128 trace_id=9472470275fa192a
+2026-10-01T02:14:02Z INFO  billing heartbeat ok trace_id=2d86a9a82dd32162
+2026-10-01T02:14:37Z INFO  billing heartbeat ok trace_id=4663c76ad331ae1e
+2026-10-01T02:14:59Z INFO  billing request served path=/v1/items status=200 trace_id=5a00bf0f6892c5f0
+2026-10-01T02:15:39Z WARN  billing slow response latency_ms=1840 trace_id=d5b43bfe520b87e2
+2026-10-01T02:16:01Z INFO  billing job dequeued queue=default trace_id=29aca742baa91b78
+2026-10-01T02:16:27Z INFO  billing job dequeued queue=default trace_id=617ea2a2860a40fb
+2026-10-01T02:16:54Z INFO  billing cache refreshed keys=128 trace_id=b5f7ddcc963edd29
+2026-10-01T02:17:29Z WARN  billing slow response latency_ms=1840 trace_id=f9e603804e12023a
+2026-10-01T02:18:00Z INFO  billing heartbeat ok trace_id=eadaea5118aab153
+2026-10-01T02:18:25Z WARN  billing pool near capacity used=92% trace_id=d8c6146e85c22791
+2026-10-01T02:19:01Z WARN  billing pool near capacity used=92% trace_id=38ea041fe30ad4be
+2026-10-01T02:19:41Z INFO  billing request served path=/v1/items status=200 trace_id=10d09ca154a5b735
+2026-10-01T02:19:57Z WARN  billing slow response latency_ms=1840 trace_id=bf6bedcd4dc7ca2c
+2026-10-01T02:20:03Z INFO  billing job dequeued queue=default trace_id=5380ec68fa616f10
+2026-10-01T02:20:21Z INFO  billing cache refreshed keys=128 trace_id=7c3aa6e09d00ffea
+2026-10-01T02:20:40Z INFO  billing request served path=/v1/items status=200 trace_id=f52671802e4c3903
+2026-10-01T02:21:16Z ERROR billing db deadlock detected code=E204 trace_id=3182715e537d7bab
+2026-10-01T02:21:50Z INFO  billing job dequeued queue=default trace_id=a9304f3c8a235d11
+2026-10-01T02:22:20Z WARN  billing retrying upstream attempt=2 trace_id=20d8de5795c330b2
+2026-10-01T02:22:35Z INFO  billing cache refreshed keys=128 trace_id=946f97862133d9f8
+2026-10-01T02:22:49Z WARN  billing retrying upstream attempt=2 trace_id=5e43264ec603c819
+2026-10-01T02:23:09Z INFO  billing heartbeat ok trace_id=c3b5ee972415e36c
+2026-10-01T02:23:19Z INFO  billing cache refreshed keys=128 trace_id=1966a8f52d33a4f5
+2026-10-01T02:23:38Z INFO  billing heartbeat ok trace_id=ce28c0067daf5f9f
+2026-10-01T02:24:00Z INFO  billing cache refreshed keys=128 trace_id=7c35f5fd36ee3679
+2026-10-01T02:24:04Z INFO  billing job dequeued queue=default trace_id=b1d6419c6873375c
+2026-10-01T02:24:10Z WARN  billing retrying upstream attempt=2 trace_id=84df138d0b521489
+2026-10-01T02:24:38Z INFO  billing cache refreshed keys=128 trace_id=2ccf24666a4690cf
+2026-10-01T02:25:03Z INFO  billing job dequeued queue=default trace_id=a31ef89f93799fc4
+2026-10-01T02:25:34Z ERROR billing payment provider rejected code=E503 trace_id=2b54e100fe2603e1
+2026-10-01T02:25:40Z INFO  billing heartbeat ok trace_id=57d950906dc2d915
+2026-10-01T02:25:43Z ERROR billing db deadlock detected code=E101 trace_id=8caf5abd741161bb
+2026-10-01T02:26:10Z INFO  billing cache refreshed keys=128 trace_id=96ac5dff8cebc9f5
+2026-10-01T02:26:12Z INFO  billing cache refreshed keys=128 trace_id=dffb68105f5bb36e
+2026-10-01T02:26:49Z INFO  billing heartbeat ok trace_id=42b5303bf7c4173d
+2026-10-01T02:27:16Z INFO  billing request served path=/v1/items status=200 trace_id=80a6ca46fe4033cf
+2026-10-01T02:27:33Z INFO  billing heartbeat ok trace_id=0ce50392a3308ef3
+2026-10-01T02:27:52Z INFO  billing request served path=/v1/items status=200 trace_id=0f880cacd1852439
+2026-10-01T02:28:27Z INFO  billing request served path=/v1/items status=200 trace_id=89303cee192ab3c7
+2026-10-01T02:28:33Z INFO  billing job dequeued queue=default trace_id=9f34678d425c98a6
+2026-10-01T02:28:53Z INFO  billing cache refreshed keys=128 trace_id=a8fe724a8a38228d
+2026-10-01T02:29:25Z WARN  billing pool near capacity used=92% trace_id=d00bd9652c423d6a
+2026-10-01T02:29:49Z INFO  billing heartbeat ok trace_id=5756ca6232c71ef2
+2026-10-01T02:30:27Z WARN  billing pool near capacity used=92% trace_id=ca69c29e7fcd4c0c
+2026-10-01T02:30:54Z INFO  billing heartbeat ok trace_id=05aa38589bc31a46
+2026-10-01T02:31:31Z INFO  billing heartbeat ok trace_id=bf5aa3a798dfe19d
+2026-10-01T02:31:56Z INFO  billing request served path=/v1/items status=200 trace_id=74a8e6bdc4ccbd63
+2026-10-01T02:32:07Z WARN  billing pool near capacity used=92% trace_id=6b2eb131ceb984e0
+2026-10-01T02:32:43Z INFO  billing job dequeued queue=default trace_id=e92b77fc75d06d68
+2026-10-01T02:33:13Z INFO  billing request served path=/v1/items status=200 trace_id=4e7920edf39fdc27
+2026-10-01T02:33:44Z INFO  billing job dequeued queue=default trace_id=6f2e8208f215502a
+2026-10-01T02:34:09Z INFO  billing heartbeat ok trace_id=68865852bf863817
+2026-10-01T02:34:42Z INFO  billing request served path=/v1/items status=200 trace_id=bbe5ca05169bc72f
+2026-10-01T02:34:51Z INFO  billing cache refreshed keys=128 trace_id=1bd36acc4db9a5ff
+2026-10-01T02:34:59Z INFO  billing request served path=/v1/items status=200 trace_id=6f275feca81412ce
+2026-10-01T02:35:21Z INFO  billing job dequeued queue=default trace_id=62340b1adeb98bab
+2026-10-01T02:35:46Z INFO  billing job dequeued queue=default trace_id=7c4443ec2c0675d1
+2026-10-01T02:36:08Z INFO  billing cache refreshed keys=128 trace_id=92cf098b684ae377
+2026-10-01T02:36:09Z INFO  billing heartbeat ok trace_id=e3ec894c279bf1e6
+2026-10-01T02:36:28Z INFO  billing request served path=/v1/items status=200 trace_id=4503340039d820c0
+2026-10-01T02:37:03Z INFO  billing request served path=/v1/items status=200 trace_id=b75e5e1e818cdd6f
+2026-10-01T02:37:07Z INFO  billing cache refreshed keys=128 trace_id=52484d06e6d628c6
+2026-10-01T02:37:24Z INFO  billing cache refreshed keys=128 trace_id=b17d49a4acc6fd6e
+2026-10-01T02:37:43Z INFO  billing heartbeat ok trace_id=c7cc7c1164a25218
+2026-10-01T02:38:07Z ERROR billing payment provider rejected code=E101 trace_id=7ed6b8adf1f3c198
+2026-10-01T02:38:45Z INFO  billing request served path=/v1/items status=200 trace_id=9b0ecaf3f9529f16
+2026-10-01T02:39:10Z ERROR billing payment provider rejected code=E204 trace_id=4d6b999a5a2b8c74
+2026-10-01T02:39:24Z INFO  billing request served path=/v1/items status=200 trace_id=70c976cfda87a7a9
+2026-10-01T02:39:52Z INFO  billing cache refreshed keys=128 trace_id=88e84f4b40566f34
+2026-10-01T02:40:15Z INFO  billing heartbeat ok trace_id=d410a1833115cb2b
+2026-10-01T02:40:23Z INFO  billing job dequeued queue=default trace_id=0b5ccdd4d3a78f72
+2026-10-01T02:40:36Z INFO  billing cache refreshed keys=128 trace_id=4cd8cb4bc6e67c8c
+2026-10-01T02:40:47Z WARN  billing retrying upstream attempt=2 trace_id=cca4d79f0815e152
+2026-10-01T02:41:24Z WARN  billing pool near capacity used=92% trace_id=57e0068cefc414be
+2026-10-01T02:41:43Z INFO  billing heartbeat ok trace_id=43fbb1b7aff62937
+2026-10-01T02:41:50Z INFO  billing job dequeued queue=default trace_id=dd8d2080f85e7550
+2026-10-01T02:42:22Z INFO  billing cache refreshed keys=128 trace_id=a0c303d448f1587c
+2026-10-01T02:42:49Z INFO  billing heartbeat ok trace_id=28ac53c939fe80ed
+2026-10-01T02:43:18Z INFO  billing request served path=/v1/items status=200 trace_id=ec27b9eeb9992880
+2026-10-01T02:43:33Z INFO  billing job dequeued queue=default trace_id=6ba2bbc2984b11a2
+2026-10-01T02:43:58Z INFO  billing heartbeat ok trace_id=7f8822a74e1d41cb
+2026-10-01T02:43:59Z INFO  billing heartbeat ok trace_id=bbbe1aeebe671e9e
+2026-10-01T02:44:33Z INFO  billing cache refreshed keys=128 trace_id=44013d76d056ddb8
+2026-10-01T02:44:58Z INFO  billing heartbeat ok trace_id=7cafeb3f5b9ffebb
+2026-10-01T02:45:10Z INFO  billing heartbeat ok trace_id=f1c85848757a1460
+2026-10-01T02:45:27Z INFO  billing request served path=/v1/items status=200 trace_id=9b06aad4efa93340
+2026-10-01T02:45:29Z INFO  billing job dequeued queue=default trace_id=0e7afdac7b73f8f3
+2026-10-01T02:46:09Z INFO  billing cache refreshed keys=128 trace_id=65643aea58399792
+2026-10-01T02:46:48Z INFO  billing job dequeued queue=default trace_id=1c0fbaa044867715
+2026-10-01T02:47:26Z INFO  billing request served path=/v1/items status=200 trace_id=9b6624caef4a08dd
+2026-10-01T02:48:00Z INFO  billing request served path=/v1/items status=200 trace_id=2983183fa17c8e9a
+2026-10-01T02:48:10Z INFO  billing job dequeued queue=default trace_id=163e16003bb5a420
+2026-10-01T02:48:44Z INFO  billing heartbeat ok trace_id=d25101e312ef34c7
+2026-10-01T02:49:24Z INFO  billing job dequeued queue=default trace_id=a5e4e1132ae70033
+2026-10-01T02:49:50Z WARN  billing retrying upstream attempt=2 trace_id=c22c957258300e52
+2026-10-01T02:50:01Z INFO  billing job dequeued queue=default trace_id=8e993ffc8a788d93
+2026-10-01T02:50:06Z INFO  billing request served path=/v1/items status=200 trace_id=bd6c2961d82bc9bb
+2026-10-01T02:50:21Z WARN  billing pool near capacity used=92% trace_id=d70b037b14975ce9
+2026-10-01T02:50:22Z INFO  billing cache refreshed keys=128 trace_id=790cc60ad2a1f349
+2026-10-01T02:50:41Z INFO  billing heartbeat ok trace_id=0b1df2782cae0a77
+2026-10-01T02:51:01Z ERROR billing payment provider rejected code=E503 trace_id=57dd7ca2580e4722
+2026-10-01T02:51:33Z INFO  billing job dequeued queue=default trace_id=ec5c8dd291d64785
+2026-10-01T02:51:58Z INFO  billing heartbeat ok trace_id=d49c44fd1ed54297
+2026-10-01T02:52:38Z INFO  billing job dequeued queue=default trace_id=a08e3a7fc6e105c5
+2026-10-01T02:53:18Z INFO  billing request served path=/v1/items status=200 trace_id=694df663d304c627
+2026-10-01T02:53:33Z INFO  billing heartbeat ok trace_id=3ab449b2f162f433
+2026-10-01T02:53:34Z INFO  billing heartbeat ok trace_id=6b2e791c45fdc3f1
+2026-10-01T02:54:14Z INFO  billing request served path=/v1/items status=200 trace_id=700fee204eebc8c5
+2026-10-01T02:54:15Z INFO  billing heartbeat ok trace_id=e628e956447cc497
+2026-10-01T02:54:55Z INFO  billing request served path=/v1/items status=200 trace_id=6c2754215621cb6b
+2026-10-01T02:55:35Z INFO  billing job dequeued queue=default trace_id=493ae639678f65fd
+2026-10-01T02:55:52Z INFO  billing request served path=/v1/items status=200 trace_id=f3dabc055d70460b
+2026-10-01T02:56:24Z INFO  billing heartbeat ok trace_id=6c3bb88f9450146c
+2026-10-01T02:56:51Z INFO  billing job dequeued queue=default trace_id=99b6400f82b01745
+2026-10-01T02:57:21Z INFO  billing job dequeued queue=default trace_id=cc83bb0d61ce1af7
+2026-10-01T02:57:36Z INFO  billing job dequeued queue=default trace_id=7b281c26995d7ea4
+2026-10-01T02:57:39Z INFO  billing cache refreshed keys=128 trace_id=579532e4ccfcec25
+2026-10-01T02:58:02Z WARN  billing slow response latency_ms=1840 trace_id=dd2f1eb753751c3f
+2026-10-01T02:58:42Z WARN  billing retrying upstream attempt=2 trace_id=c96ca37da285cec7
+2026-10-01T02:59:00Z INFO  billing cache refreshed keys=128 trace_id=f010d3e3f5defc4b
+2026-10-01T02:59:16Z WARN  billing retrying upstream attempt=2 trace_id=ae7149297d0febb6
+2026-10-01T02:59:24Z INFO  billing cache refreshed keys=128 trace_id=71790fa4214c7a87
+2026-10-01T02:59:25Z INFO  billing heartbeat ok trace_id=189ff0c037a0b089
+2026-10-01T02:59:35Z INFO  billing job dequeued queue=default trace_id=0925cbca5b727941
+2026-10-01T02:59:41Z INFO  billing request served path=/v1/items status=200 trace_id=6b1d807dfb1bba79
+2026-10-01T03:00:19Z INFO  billing heartbeat ok trace_id=74d843b4da308e99
+2026-10-01T03:00:25Z INFO  billing job dequeued queue=default trace_id=8952c539c22a6233
+2026-10-01T03:00:34Z INFO  billing heartbeat ok trace_id=4cb5211f736c5739
+2026-10-01T03:00:49Z INFO  billing request served path=/v1/items status=200 trace_id=3e98bdb2ac7b9c90
+2026-10-01T03:01:28Z INFO  billing heartbeat ok trace_id=2ed976e533d5d9d8
+2026-10-01T03:01:52Z INFO  billing job dequeued queue=default trace_id=42b69624a27f9de1
+2026-10-01T03:02:26Z INFO  billing job dequeued queue=default trace_id=4ed7c1b09de4f916
+2026-10-01T03:03:05Z INFO  billing heartbeat ok trace_id=a7b15fe06af6225b
+2026-10-01T03:03:27Z INFO  billing request served path=/v1/items status=200 trace_id=e44d2854979bea3c
+2026-10-01T03:03:46Z INFO  billing heartbeat ok trace_id=ea91d56501fcc9e8
+2026-10-01T03:03:50Z WARN  billing pool near capacity used=92% trace_id=151e5f06648b3246
+2026-10-01T03:04:02Z INFO  billing request served path=/v1/items status=200 trace_id=7feb25336bf6f2bc
+2026-10-01T03:04:17Z INFO  billing request served path=/v1/items status=200 trace_id=f9c6e503ddd90103
+2026-10-01T03:04:43Z ERROR billing upstream timeout code=E101 trace_id=ee71db740b50e085
+2026-10-01T03:04:45Z ERROR billing payment provider rejected code=E204 trace_id=07e29b4032f519cd
+2026-10-01T03:05:23Z WARN  billing retrying upstream attempt=2 trace_id=8b2078ed8eefd69d
+2026-10-01T03:05:46Z WARN  billing retrying upstream attempt=2 trace_id=db9675b7b9ca01f3
+2026-10-01T03:06:07Z INFO  billing cache refreshed keys=128 trace_id=4ed2024b42233eba
+2026-10-01T03:06:09Z INFO  billing heartbeat ok trace_id=7d1356737cc100b0
+2026-10-01T03:06:22Z INFO  billing cache refreshed keys=128 trace_id=0788b351ccea8d8c
+2026-10-01T03:06:47Z INFO  billing job dequeued queue=default trace_id=93250cad9fa1e820
+2026-10-01T03:07:00Z INFO  billing job dequeued queue=default trace_id=23370820deccbf21
+2026-10-01T03:07:06Z WARN  billing retrying upstream attempt=2 trace_id=d116bb7e25c69a97
+2026-10-01T03:07:24Z INFO  billing heartbeat ok trace_id=751bb470b0419454
+2026-10-01T03:07:44Z INFO  billing job dequeued queue=default trace_id=8033e08fa7f08ba4
+2026-10-01T03:08:03Z INFO  billing cache refreshed keys=128 trace_id=a40a37e65febcfa4
+2026-10-01T03:08:07Z INFO  billing job dequeued queue=default trace_id=93a0be99d3f785d1
+2026-10-01T03:08:28Z INFO  billing cache refreshed keys=128 trace_id=29c724d19ca65637
+2026-10-01T03:09:04Z ERROR billing db deadlock detected code=E422 trace_id=5ad0ac2458ea8e7f
+2026-10-01T03:09:28Z INFO  billing heartbeat ok trace_id=411f78dd7620dc63
+2026-10-01T03:09:29Z INFO  billing request served path=/v1/items status=200 trace_id=b844b0f6f43bc097
+2026-10-01T03:09:58Z INFO  billing cache refreshed keys=128 trace_id=1b04d743968a625f
+2026-10-01T03:10:30Z INFO  billing request served path=/v1/items status=200 trace_id=a2cab061ec93a99a
+2026-10-01T03:10:58Z INFO  billing job dequeued queue=default trace_id=213e867a2e5852a8
+2026-10-01T03:11:21Z INFO  billing request served path=/v1/items status=200 trace_id=29cee6d1ea116713
+2026-10-01T03:11:28Z INFO  billing cache refreshed keys=128 trace_id=7d0c51864c5e482e
+2026-10-01T03:11:33Z INFO  billing job dequeued queue=default trace_id=865c024f79fe605f
+2026-10-01T03:11:45Z INFO  billing heartbeat ok trace_id=ebae340b66fcbd46
+2026-10-01T03:12:21Z INFO  billing heartbeat ok trace_id=2c586dbbdfb482d1
+2026-10-01T03:12:58Z INFO  billing heartbeat ok trace_id=225c81adea9b826b
+2026-10-01T03:13:37Z INFO  billing cache refreshed keys=128 trace_id=d14d7b2690c3bb92
+2026-10-01T03:13:52Z WARN  billing slow response latency_ms=1840 trace_id=ca00c4baf4fc9874
+2026-10-01T03:14:14Z INFO  billing cache refreshed keys=128 trace_id=1e04742ba81b0285
+2026-10-01T03:14:17Z INFO  billing job dequeued queue=default trace_id=e2595eef77c7dfe1
+2026-10-01T03:14:22Z WARN  billing retrying upstream attempt=2 trace_id=d6379665c0ff5a9d
+2026-10-01T03:14:37Z INFO  billing cache refreshed keys=128 trace_id=ecadb6bbac4a7a93
+2026-10-01T03:14:44Z INFO  billing heartbeat ok trace_id=32b20789688f6da9
+2026-10-01T03:15:17Z INFO  billing cache refreshed keys=128 trace_id=54eaadd00c938110
+2026-10-01T03:15:49Z INFO  billing job dequeued queue=default trace_id=12154e84d73488ea
+2026-10-01T03:16:09Z INFO  billing job dequeued queue=default trace_id=d700642ba38339b0
+2026-10-01T03:16:17Z INFO  billing heartbeat ok trace_id=cb2bb7f5dc3ff69e
+2026-10-01T03:16:54Z INFO  billing job dequeued queue=default trace_id=3787c121a168ec4d
+2026-10-01T03:17:18Z ERROR billing upstream timeout code=E318 trace_id=e1ffc87e5ef94839
+2026-10-01T03:17:53Z INFO  billing request served path=/v1/items status=200 trace_id=a8b141f7ec5b4b5e
+2026-10-01T03:17:56Z WARN  billing slow response latency_ms=1840 trace_id=13c115e6500e988e
+2026-10-01T03:17:59Z INFO  billing heartbeat ok trace_id=6f369b1b0d5bf2b7
+2026-10-01T03:18:29Z WARN  billing pool near capacity used=92% trace_id=3682add896577eed
+2026-10-01T03:18:47Z INFO  billing request served path=/v1/items status=200 trace_id=3db7b0828ed7c6ab
+2026-10-01T03:19:02Z INFO  billing job dequeued queue=default trace_id=c58d6a81e3f31633
+2026-10-01T03:19:26Z INFO  billing job dequeued queue=default trace_id=bd2755df21c736cc
+2026-10-01T03:20:01Z INFO  billing job dequeued queue=default trace_id=76bcf8a14b830516
+2026-10-01T03:20:22Z INFO  billing request served path=/v1/items status=200 trace_id=255994da762290b1
+2026-10-01T03:20:41Z INFO  billing cache refreshed keys=128 trace_id=89fd1313c6e9c8d6
+2026-10-01T03:21:09Z INFO  billing job dequeued queue=default trace_id=3d9099db686b8e5d
+2026-10-01T03:21:17Z INFO  billing request served path=/v1/items status=200 trace_id=f2d524c391fbe2af
+2026-10-01T03:21:32Z INFO  billing cache refreshed keys=128 trace_id=7861e216cbd63913
+2026-10-01T03:21:58Z INFO  billing heartbeat ok trace_id=5d0ee7996528366f
+2026-10-01T03:22:05Z INFO  billing cache refreshed keys=128 trace_id=93845547c355d27c
+2026-10-01T03:22:12Z INFO  billing cache refreshed keys=128 trace_id=56f83e79c670d9e8
+2026-10-01T03:22:26Z INFO  billing heartbeat ok trace_id=2981673f6da179f5
+2026-10-01T03:22:53Z INFO  billing job dequeued queue=default trace_id=0289ecefaec93308
+2026-10-01T03:23:13Z INFO  billing job dequeued queue=default trace_id=f81001a5324971f9
+2026-10-01T03:23:34Z INFO  billing heartbeat ok trace_id=11ef6e71d51157dd
+2026-10-01T03:23:58Z ERROR billing token signature invalid code=E318 trace_id=6314c6c1b1431ed5
+2026-10-01T03:24:12Z INFO  billing job dequeued queue=default trace_id=bbde2bd34c89fd13
+2026-10-01T03:24:20Z INFO  billing cache refreshed keys=128 trace_id=d81a3dedea335496
+2026-10-01T03:25:00Z WARN  billing retrying upstream attempt=2 trace_id=85446ef2d499c206
+2026-10-01T03:25:15Z ERROR billing payment provider rejected code=E204 trace_id=eddd68b3eb5985f1
+2026-10-01T03:25:50Z INFO  billing cache refreshed keys=128 trace_id=484894ffb96087b6
+2026-10-01T03:26:26Z INFO  billing cache refreshed keys=128 trace_id=a214ccd688dbc25d
+2026-10-01T03:26:55Z INFO  billing request served path=/v1/items status=200 trace_id=572dc42b6aeeca98
+2026-10-01T03:26:57Z INFO  billing request served path=/v1/items status=200 trace_id=4fbfc6d58670aca2
+2026-10-01T03:27:08Z INFO  billing job dequeued queue=default trace_id=fe0de15e8528f5b7
+2026-10-01T03:27:15Z INFO  billing request served path=/v1/items status=200 trace_id=51a7ba856d66836b
+2026-10-01T03:27:23Z INFO  billing request served path=/v1/items status=200 trace_id=0c5e763a2ceeda6f
+2026-10-01T03:27:27Z INFO  billing heartbeat ok trace_id=4f9352e35b6b6a65
+2026-10-01T03:27:30Z INFO  billing heartbeat ok trace_id=ad30376625ebbcc1
+2026-10-01T03:28:07Z WARN  billing retrying upstream attempt=2 trace_id=38885aba5e1e3a8f
+2026-10-01T03:28:43Z INFO  billing job dequeued queue=default trace_id=10c51033a5ab4bca
+2026-10-01T03:28:55Z WARN  billing retrying upstream attempt=2 trace_id=4d9e1368d3395a9c
+2026-10-01T03:29:00Z INFO  billing cache refreshed keys=128 trace_id=d55693c30da3e329
+2026-10-01T03:29:39Z INFO  billing request served path=/v1/items status=200 trace_id=7d8c04fa7fe3a295
+2026-10-01T03:29:43Z INFO  billing request served path=/v1/items status=200 trace_id=22c926706674c4bc
+2026-10-01T03:30:04Z INFO  billing request served path=/v1/items status=200 trace_id=244580c726f1a853
+2026-10-01T03:30:19Z INFO  billing heartbeat ok trace_id=b1c5e1fdfba0a6b9
+2026-10-01T03:30:27Z INFO  billing job dequeued queue=default trace_id=376610707d82af93
+2026-10-01T03:30:34Z INFO  billing job dequeued queue=default trace_id=bce972d7bbc1658f
+2026-10-01T03:31:00Z WARN  billing pool near capacity used=92% trace_id=c845fe91690fb048
+2026-10-01T03:31:31Z INFO  billing request served path=/v1/items status=200 trace_id=8162560dc815859a
+2026-10-01T03:32:10Z INFO  billing heartbeat ok trace_id=bf7cda8a7a4646a4
+2026-10-01T03:32:13Z INFO  billing request served path=/v1/items status=200 trace_id=046468654f9ef20d
+2026-10-01T03:32:44Z INFO  billing cache refreshed keys=128 trace_id=ae8eda155973d54e
+2026-10-01T03:33:17Z INFO  billing job dequeued queue=default trace_id=628874bb118e8eb6
+2026-10-01T03:33:22Z INFO  billing cache refreshed keys=128 trace_id=683b4b528902c878
+2026-10-01T03:33:30Z INFO  billing heartbeat ok trace_id=1d2dd479fb245423
+2026-10-01T03:33:46Z INFO  billing job dequeued queue=default trace_id=b894583e02201f1e
+2026-10-01T03:34:17Z INFO  billing cache refreshed keys=128 trace_id=24182ad0d7cad063
+2026-10-01T03:34:23Z INFO  billing job dequeued queue=default trace_id=4901381ba4c14e9d
+2026-10-01T03:35:01Z INFO  billing job dequeued queue=default trace_id=daab51633254ae03
+2026-10-01T03:35:24Z INFO  billing job dequeued queue=default trace_id=86bf9455a6bb01a0
+2026-10-01T03:35:49Z WARN  billing pool near capacity used=92% trace_id=46eda2bdf9e18198
+2026-10-01T03:36:24Z INFO  billing job dequeued queue=default trace_id=6d753f07edd8f500
+2026-10-01T03:36:57Z INFO  billing request served path=/v1/items status=200 trace_id=5258ce92ed34ce28
+2026-10-01T03:37:04Z WARN  billing retrying upstream attempt=2 trace_id=f6cc819a4aab1dc1
+2026-10-01T03:37:18Z INFO  billing job dequeued queue=default trace_id=bc106b8bbaea5c2f
+2026-10-01T03:37:48Z INFO  billing cache refreshed keys=128 trace_id=f8e2d34de8350939
+2026-10-01T03:37:53Z INFO  billing cache refreshed keys=128 trace_id=757c6be6430aaf7a
+2026-10-01T03:38:08Z INFO  billing request served path=/v1/items status=200 trace_id=23afd2c86c3e16f3
+2026-10-01T03:38:17Z INFO  billing job dequeued queue=default trace_id=8c876a90ccfd81bc
+2026-10-01T03:38:23Z INFO  billing job dequeued queue=default trace_id=6636074270147082
+2026-10-01T03:38:47Z WARN  billing pool near capacity used=92% trace_id=3a4160bb5b9faab2
+2026-10-01T03:39:19Z INFO  billing cache refreshed keys=128 trace_id=818dfa8b2187acd6
+2026-10-01T03:39:56Z INFO  billing request served path=/v1/items status=200 trace_id=4e3c13a6869dcd79
+2026-10-01T03:40:26Z INFO  billing job dequeued queue=default trace_id=49a622b123b3c27c
+2026-10-01T03:41:01Z INFO  billing request served path=/v1/items status=200 trace_id=5decffd8076d75c6
+2026-10-01T03:41:37Z INFO  billing job dequeued queue=default trace_id=3544c9466f64bbb9
+2026-10-01T03:41:40Z INFO  billing heartbeat ok trace_id=bf4ab5a49b143e7d
+2026-10-01T03:42:01Z INFO  billing heartbeat ok trace_id=578f4ccf9a119b42
+2026-10-01T03:42:35Z INFO  billing heartbeat ok trace_id=a2d987cca800dcc1
+2026-10-01T03:42:36Z INFO  billing request served path=/v1/items status=200 trace_id=e6664b5c4e5c3e2e
+2026-10-01T03:42:46Z INFO  billing cache refreshed keys=128 trace_id=15ba27f93fd855cf
+2026-10-01T03:43:14Z INFO  billing heartbeat ok trace_id=0e5cef4a94175b18
+2026-10-01T03:43:47Z WARN  billing slow response latency_ms=1840 trace_id=0e4a6b03c64c8f8f
+2026-10-01T03:43:55Z INFO  billing job dequeued queue=default trace_id=802f027944e0973a
+2026-10-01T03:44:18Z INFO  billing heartbeat ok trace_id=39f5d7c7acc91456
+2026-10-01T03:44:41Z INFO  billing job dequeued queue=default trace_id=b7e5897104cac4fd
+2026-10-01T03:45:20Z INFO  billing job dequeued queue=default trace_id=33403e76b7f36b55
+2026-10-01T03:45:32Z INFO  billing cache refreshed keys=128 trace_id=eae70cf95de32796
+2026-10-01T03:45:33Z INFO  billing job dequeued queue=default trace_id=ab2e47f816a12716
+2026-10-01T03:45:40Z INFO  billing heartbeat ok trace_id=296528a8960f973b
+2026-10-01T03:45:54Z WARN  billing slow response latency_ms=1840 trace_id=475f8c5703ae1f0f
+2026-10-01T03:46:25Z INFO  billing job dequeued queue=default trace_id=87a95bdc9df46781
+2026-10-01T03:46:34Z ERROR billing db deadlock detected code=E101 trace_id=0fdc2b3a5619f464
+2026-10-01T03:46:48Z INFO  billing request served path=/v1/items status=200 trace_id=dd4e8e0e708b2855
+2026-10-01T03:47:20Z INFO  billing cache refreshed keys=128 trace_id=77b09456fe6099c5
+2026-10-01T03:47:43Z INFO  billing request served path=/v1/items status=200 trace_id=a51e16c60763c062
+2026-10-01T03:48:10Z INFO  billing job dequeued queue=default trace_id=6235a9ade6d8b755
+2026-10-01T03:48:48Z WARN  billing pool near capacity used=92% trace_id=55f9e47232614fad
+2026-10-01T03:49:23Z INFO  billing cache refreshed keys=128 trace_id=897165fc611373e0
+2026-10-01T03:49:59Z INFO  billing heartbeat ok trace_id=cfffb69a5d74d815
+2026-10-01T03:50:00Z INFO  billing heartbeat ok trace_id=dc32e77a6e5490f9
+2026-10-01T03:50:37Z INFO  billing request served path=/v1/items status=200 trace_id=5b52fa88e2e090dd
+2026-10-01T03:50:54Z INFO  billing heartbeat ok trace_id=88f0590fe246326d
+2026-10-01T03:51:13Z INFO  billing heartbeat ok trace_id=1a3a20e0fe046c4c
+2026-10-01T03:51:27Z ERROR billing payment provider rejected code=E503 trace_id=ed649de80ae898bb
+2026-10-01T03:51:54Z INFO  billing cache refreshed keys=128 trace_id=ac09a0af5819bff9
+2026-10-01T03:52:07Z ERROR billing db deadlock detected code=E101 trace_id=9f62eb69166e81aa
+2026-10-01T03:52:19Z INFO  billing request served path=/v1/items status=200 trace_id=ff8aef26e6204eed
+2026-10-01T03:52:30Z INFO  billing request served path=/v1/items status=200 trace_id=afad22846150525b
+2026-10-01T03:53:10Z INFO  billing job dequeued queue=default trace_id=3369a55dbfd49bb3
+2026-10-01T03:53:21Z INFO  billing cache refreshed keys=128 trace_id=48f75d69d7aea759
+2026-10-01T03:53:55Z INFO  billing heartbeat ok trace_id=5676a9a89feab82d
+2026-10-01T03:54:01Z WARN  billing retrying upstream attempt=2 trace_id=8a17be104409400e
+2026-10-01T03:54:06Z INFO  billing job dequeued queue=default trace_id=f6e9fe44a2b77c3c
+2026-10-01T03:54:16Z INFO  billing heartbeat ok trace_id=aaf8214ef3026ee7
+2026-10-01T03:54:21Z INFO  billing request served path=/v1/items status=200 trace_id=ecfe8fe731d8737d
+2026-10-01T03:54:40Z WARN  billing retrying upstream attempt=2 trace_id=a36c43b8f62f1584
+2026-10-01T03:55:11Z INFO  billing heartbeat ok trace_id=ab7b717b105841a0
+2026-10-01T03:55:48Z INFO  billing request served path=/v1/items status=200 trace_id=b38c2453598531f5
+2026-10-01T03:56:17Z INFO  billing cache refreshed keys=128 trace_id=ead04b9e40012a21
+2026-10-01T03:56:25Z INFO  billing cache refreshed keys=128 trace_id=cc20a693df6843cd
+2026-10-01T03:56:32Z INFO  billing cache refreshed keys=128 trace_id=4efae80018f03c69
+2026-10-01T03:56:36Z INFO  billing cache refreshed keys=128 trace_id=78dc09ae25a3a54a
+2026-10-01T03:56:58Z INFO  billing cache refreshed keys=128 trace_id=e849973951c200cd
+2026-10-01T03:57:23Z WARN  billing retrying upstream attempt=2 trace_id=8b382196d8bcc751
+2026-10-01T03:57:35Z INFO  billing cache refreshed keys=128 trace_id=3cfe1f948b936abf
+2026-10-01T03:57:59Z INFO  billing request served path=/v1/items status=200 trace_id=76f89c06ab2b92f3
+2026-10-01T03:58:34Z INFO  billing request served path=/v1/items status=200 trace_id=e731856a76595d3b
+2026-10-01T03:58:57Z WARN  billing retrying upstream attempt=2 trace_id=d58d902ff9eb9617
+2026-10-01T03:59:17Z WARN  billing retrying upstream attempt=2 trace_id=d3321a0d24b931b7
+2026-10-01T03:59:33Z INFO  billing job dequeued queue=default trace_id=bc037b7bbffb24ee
+2026-10-01T03:59:34Z INFO  billing job dequeued queue=default trace_id=0cc6e3f3683ebb95
+2026-10-01T03:59:49Z INFO  billing cache refreshed keys=128 trace_id=8b3251b3df01df83
+2026-10-01T04:00:01Z INFO  billing cache refreshed keys=128 trace_id=0c615d9f8f19b991
+2026-10-01T04:00:04Z INFO  billing cache refreshed keys=128 trace_id=bb5a8a672923e553
+2026-10-01T04:00:18Z INFO  billing job dequeued queue=default trace_id=4cb91cab46b38124
+2026-10-01T04:00:25Z INFO  billing job dequeued queue=default trace_id=6bcdd66aafef910a
+2026-10-01T04:00:39Z INFO  billing cache refreshed keys=128 trace_id=2a06b8497412f6b1
+2026-10-01T04:00:47Z INFO  billing job dequeued queue=default trace_id=ebd9d0f94c40f821
+2026-10-01T04:01:11Z WARN  billing retrying upstream attempt=2 trace_id=ee93774b748dc556
+2026-10-01T04:01:51Z INFO  billing request served path=/v1/items status=200 trace_id=8293222900525fb2
+2026-10-01T04:01:59Z WARN  billing slow response latency_ms=1840 trace_id=0c931e4a51bebf82
+2026-10-01T04:02:34Z INFO  billing cache refreshed keys=128 trace_id=d39d2e92fc19e300
+2026-10-01T04:02:49Z ERROR billing payment provider rejected code=E318 trace_id=00de644c80a8cbe6
+2026-10-01T04:03:21Z INFO  billing request served path=/v1/items status=200 trace_id=addfa3c8876df1f2
+2026-10-01T04:03:44Z WARN  billing pool near capacity used=92% trace_id=7feae41c7061bcaa
+2026-10-01T04:04:00Z INFO  billing heartbeat ok trace_id=591edb3dcb83f481
+2026-10-01T04:04:05Z INFO  billing job dequeued queue=default trace_id=650b283eb97d03be
+2026-10-01T04:04:13Z INFO  billing job dequeued queue=default trace_id=c76c067ce974a950
+2026-10-01T04:04:26Z INFO  billing heartbeat ok trace_id=39a711ee879a5484
+2026-10-01T04:04:39Z WARN  billing slow response latency_ms=1840 trace_id=f5a71c40955eb182
+2026-10-01T04:04:51Z ERROR billing queue overflow code=E318 trace_id=e28fdd3e47d02441
+2026-10-01T04:05:19Z WARN  billing slow response latency_ms=1840 trace_id=63480526b6ee81fc
+2026-10-01T04:05:28Z INFO  billing heartbeat ok trace_id=a97d310ec53ebc53
+2026-10-01T04:05:31Z WARN  billing slow response latency_ms=1840 trace_id=c5536262c7917147
+2026-10-01T04:05:49Z INFO  billing job dequeued queue=default trace_id=90c2623532e0d627
+2026-10-01T04:06:25Z INFO  billing cache refreshed keys=128 trace_id=24a382a9e1de2f9d
+2026-10-01T04:06:46Z INFO  billing request served path=/v1/items status=200 trace_id=85ae2b9f93dad8d1
+2026-10-01T04:07:01Z INFO  billing job dequeued queue=default trace_id=6a96fc60d4d1e1cc
+2026-10-01T04:07:14Z INFO  billing job dequeued queue=default trace_id=69bd4855290d71e6
+2026-10-01T04:07:20Z INFO  billing heartbeat ok trace_id=eea49c1bf0e991b6
+2026-10-01T04:07:43Z INFO  billing request served path=/v1/items status=200 trace_id=e1cc2bc3a1f6be14
+2026-10-01T04:08:14Z WARN  billing pool near capacity used=92% trace_id=fa01fe0f2457f46f
+2026-10-01T04:08:39Z INFO  billing heartbeat ok trace_id=864e49e20d082d07
+2026-10-01T04:09:05Z INFO  billing job dequeued queue=default trace_id=3131ca51e1a60436
+2026-10-01T04:09:39Z INFO  billing job dequeued queue=default trace_id=2f1710253a5ad40c
+2026-10-01T04:09:42Z INFO  billing job dequeued queue=default trace_id=7bc91c15a4535510
+2026-10-01T04:09:46Z INFO  billing job dequeued queue=default trace_id=4df812165510c90a
+2026-10-01T04:10:24Z INFO  billing cache refreshed keys=128 trace_id=dc3f242ea3565412
+2026-10-01T04:10:59Z INFO  billing cache refreshed keys=128 trace_id=e92620ae948d422c
+2026-10-01T04:11:14Z INFO  billing request served path=/v1/items status=200 trace_id=4bebd866f92e42ef
+2026-10-01T04:11:29Z WARN  billing retrying upstream attempt=2 trace_id=dd6655203a456da2
+2026-10-01T04:11:52Z WARN  billing pool near capacity used=92% trace_id=179093e09e1330af
+2026-10-01T04:12:05Z INFO  billing heartbeat ok trace_id=c060edd0df7f9b66
+2026-10-01T04:12:18Z INFO  billing heartbeat ok trace_id=0cb8e66045e66f38
+2026-10-01T04:12:23Z INFO  billing heartbeat ok trace_id=df0af0744378c9e7
+2026-10-01T04:12:47Z INFO  billing job dequeued queue=default trace_id=18429df0a3c691de
+2026-10-01T04:12:59Z INFO  billing cache refreshed keys=128 trace_id=c0bb683e82cf0a57
+2026-10-01T04:13:29Z INFO  billing request served path=/v1/items status=200 trace_id=0be8462990f99a09
+2026-10-01T04:13:34Z INFO  billing cache refreshed keys=128 trace_id=e83d851e2a3807cb
+2026-10-01T04:14:09Z WARN  billing slow response latency_ms=1840 trace_id=e3db86ca179a2be6
+2026-10-01T04:14:37Z INFO  billing job dequeued queue=default trace_id=0406002ef99af472
+2026-10-01T04:15:17Z WARN  billing retrying upstream attempt=2 trace_id=1f89212300ce8ae5
+2026-10-01T04:15:50Z INFO  billing job dequeued queue=default trace_id=49d3a63a215677db
+2026-10-01T04:16:18Z INFO  billing heartbeat ok trace_id=9bc7e582df7e90e9
+2026-10-01T04:16:32Z INFO  billing job dequeued queue=default trace_id=8c83936062cbbc8e
+2026-10-01T04:16:46Z INFO  billing heartbeat ok trace_id=5695a8a5de5f2b5d
+2026-10-01T04:16:48Z INFO  billing cache refreshed keys=128 trace_id=40cac3d13e2b8c34
+2026-10-01T04:17:07Z INFO  billing job dequeued queue=default trace_id=58e4a270d59aebbc
+2026-10-01T04:17:27Z WARN  billing retrying upstream attempt=2 trace_id=7606a29bf005b48f
+2026-10-01T04:17:33Z INFO  billing job dequeued queue=default trace_id=546c0e3ee38b5509
+2026-10-01T04:17:42Z WARN  billing retrying upstream attempt=2 trace_id=efe7c5a386148d3f
+2026-10-01T04:18:16Z WARN  billing pool near capacity used=92% trace_id=54779c774ab4a7db
+2026-10-01T04:18:25Z INFO  billing heartbeat ok trace_id=935917c2c8fe67b3
+2026-10-01T04:18:54Z INFO  billing job dequeued queue=default trace_id=a886432f46dac957
+2026-10-01T04:19:33Z INFO  billing heartbeat ok trace_id=be2a4f84c19c1613
+2026-10-01T04:20:03Z INFO  billing heartbeat ok trace_id=72b3a2df38d33f6c
+2026-10-01T04:20:25Z INFO  billing heartbeat ok trace_id=5cae08e3f3d76898
+2026-10-01T04:20:30Z INFO  billing request served path=/v1/items status=200 trace_id=66194937b7855014
+2026-10-01T04:21:05Z WARN  billing slow response latency_ms=1840 trace_id=5e1a0d2e543f3efb
+2026-10-01T04:21:29Z INFO  billing cache refreshed keys=128 trace_id=e3854e369b7e2053
+2026-10-01T04:21:53Z INFO  billing job dequeued queue=default trace_id=5d6f878da645ab4e
+2026-10-01T04:22:00Z INFO  billing job dequeued queue=default trace_id=455c3345a4d67b56
+2026-10-01T04:22:30Z INFO  billing request served path=/v1/items status=200 trace_id=a45c73a04b20f059
+2026-10-01T04:23:04Z INFO  billing job dequeued queue=default trace_id=57927de2de7bf2ec
+2026-10-01T04:23:35Z INFO  billing cache refreshed keys=128 trace_id=2bfd166d6da36eaa
+2026-10-01T04:23:36Z INFO  billing request served path=/v1/items status=200 trace_id=27c90a6f0243c778
+2026-10-01T04:24:10Z INFO  billing job dequeued queue=default trace_id=49ad802837ae3b29
+2026-10-01T04:24:36Z INFO  billing request served path=/v1/items status=200 trace_id=1fa6ed2fbe3e3d21
+2026-10-01T04:25:10Z INFO  billing job dequeued queue=default trace_id=6149a572690beee6
+2026-10-01T04:25:35Z WARN  billing retrying upstream attempt=2 trace_id=76b8e932309ed74b
+2026-10-01T04:25:53Z INFO  billing request served path=/v1/items status=200 trace_id=89e699347215c19c
+2026-10-01T04:26:02Z INFO  billing job dequeued queue=default trace_id=0363750a5e7b90d2
+2026-10-01T04:26:26Z WARN  billing slow response latency_ms=1840 trace_id=e3acb6b6542b36ab
+2026-10-01T04:26:29Z WARN  billing pool near capacity used=92% trace_id=30b28d9fd6ad77b9
+2026-10-01T04:26:48Z INFO  billing heartbeat ok trace_id=e922beb6d1e3170e
+2026-10-01T04:26:56Z INFO  billing job dequeued queue=default trace_id=051272086860a766
+2026-10-01T04:27:33Z INFO  billing cache refreshed keys=128 trace_id=22d4acc1394b09fb
+2026-10-01T04:27:37Z INFO  billing heartbeat ok trace_id=c1bdfa88117fe360
+2026-10-01T04:28:01Z INFO  billing job dequeued queue=default trace_id=fd2bfea920c5c3f6
+2026-10-01T04:28:06Z INFO  billing request served path=/v1/items status=200 trace_id=3f2c969949fb1082
+2026-10-01T04:28:42Z INFO  billing heartbeat ok trace_id=56fe48a9a774606b
+2026-10-01T04:28:46Z INFO  billing request served path=/v1/items status=200 trace_id=23f6da5022aed27f
+2026-10-01T04:29:16Z INFO  billing cache refreshed keys=128 trace_id=9676ddba26bbf536
+2026-10-01T04:29:44Z WARN  billing retrying upstream attempt=2 trace_id=bd85b2b671904847
+2026-10-01T04:30:03Z INFO  billing request served path=/v1/items status=200 trace_id=3509c3b35816c38f
+2026-10-01T04:30:31Z INFO  billing request served path=/v1/items status=200 trace_id=9bf3f688547c09a1
+2026-10-01T04:31:11Z WARN  billing pool near capacity used=92% trace_id=e656bf00f4441301
+2026-10-01T04:31:21Z WARN  billing pool near capacity used=92% trace_id=412705b01433aff3
+2026-10-01T04:31:49Z INFO  billing heartbeat ok trace_id=0330aedc9d30f8d0
+2026-10-01T04:32:11Z INFO  billing heartbeat ok trace_id=cf4889eab8cce135
+2026-10-01T04:32:24Z INFO  billing heartbeat ok trace_id=a773e33eefa4560f
+2026-10-01T04:33:04Z WARN  billing retrying upstream attempt=2 trace_id=a50ed3d9e54fcd6c
+2026-10-01T04:33:33Z INFO  billing heartbeat ok trace_id=0439dfedaa7c3e3d
+2026-10-01T04:33:36Z INFO  billing request served path=/v1/items status=200 trace_id=10fea28ad7862ee2
+2026-10-01T04:33:42Z WARN  billing retrying upstream attempt=2 trace_id=c54eb12fc52d07ff
+2026-10-01T04:33:53Z INFO  billing heartbeat ok trace_id=0988de70c07071d1
+2026-10-01T04:34:19Z INFO  billing cache refreshed keys=128 trace_id=cb13ee2d3f8cb6ab
+2026-10-01T04:34:29Z INFO  billing request served path=/v1/items status=200 trace_id=b067196414096f8a
+2026-10-01T04:34:36Z ERROR billing upstream timeout code=E204 trace_id=12cbf389fa35c847
+2026-10-01T04:35:16Z ERROR billing queue overflow code=E101 trace_id=fe58c9487db1ac8f
+2026-10-01T04:35:44Z INFO  billing heartbeat ok trace_id=a5cb18ca0738d504
+2026-10-01T04:36:01Z INFO  billing heartbeat ok trace_id=2faae568c77a752d
+2026-10-01T04:36:31Z INFO  billing cache refreshed keys=128 trace_id=6d8e7ad91784aa5b
+2026-10-01T04:36:54Z INFO  billing cache refreshed keys=128 trace_id=998b1674583485de
+2026-10-01T04:37:19Z INFO  billing heartbeat ok trace_id=1906c3c672116cc0
+2026-10-01T04:37:49Z INFO  billing request served path=/v1/items status=200 trace_id=f9bcb6f6c46dbe81
+2026-10-01T04:37:59Z INFO  billing request served path=/v1/items status=200 trace_id=03c8ec55192ba6ea
+2026-10-01T04:38:07Z INFO  billing request served path=/v1/items status=200 trace_id=32f38723186a7f98
+2026-10-01T04:38:18Z INFO  billing heartbeat ok trace_id=7889b64f18d1234c
+2026-10-01T04:38:50Z WARN  billing slow response latency_ms=1840 trace_id=a6dc9e095afadc16
+2026-10-01T04:39:13Z INFO  billing heartbeat ok trace_id=d7c7eeb45dbb40ac
+2026-10-01T04:39:27Z WARN  billing pool near capacity used=92% trace_id=94966d5fefd503f1
+2026-10-01T04:39:40Z WARN  billing retrying upstream attempt=2 trace_id=41e67b10d5c6c475
+2026-10-01T04:40:09Z INFO  billing cache refreshed keys=128 trace_id=04f244ad49113f76
+2026-10-01T04:40:30Z INFO  billing heartbeat ok trace_id=f2c9e9420d46e1c4
+2026-10-01T04:40:49Z INFO  billing request served path=/v1/items status=200 trace_id=12b2eaea8fbdc587
+2026-10-01T04:41:21Z INFO  billing cache refreshed keys=128 trace_id=4565714a8fee2709
+2026-10-01T04:41:35Z INFO  billing request served path=/v1/items status=200 trace_id=8df69e20084b5779
+2026-10-01T04:41:45Z INFO  billing heartbeat ok trace_id=95be69122961a1bd
+2026-10-01T04:42:08Z INFO  billing job dequeued queue=default trace_id=4b2fb6a5141c6a82
+2026-10-01T04:42:30Z INFO  billing cache refreshed keys=128 trace_id=a79e4ca44a88a243
+2026-10-01T04:42:53Z INFO  billing job dequeued queue=default trace_id=455961eff0fc9720
+2026-10-01T04:43:31Z WARN  billing pool near capacity used=92% trace_id=ab2c7953a9ced095
+2026-10-01T04:44:11Z INFO  billing request served path=/v1/items status=200 trace_id=b63b6891716a4de4
+2026-10-01T04:44:51Z INFO  billing cache refreshed keys=128 trace_id=7d91a9726be3bf6b
+2026-10-01T04:45:23Z INFO  billing heartbeat ok trace_id=ec412b84f6f79d97
+2026-10-01T04:45:50Z WARN  billing slow response latency_ms=1840 trace_id=e9f91d7757b6c3e9
+2026-10-01T04:45:57Z INFO  billing job dequeued queue=default trace_id=b96f05de028ee6ef
+2026-10-01T04:46:08Z INFO  billing job dequeued queue=default trace_id=c90c5a81fe458257
+2026-10-01T04:46:31Z WARN  billing pool near capacity used=92% trace_id=555d6552a02ced5e
+2026-10-01T04:46:36Z INFO  billing request served path=/v1/items status=200 trace_id=c1f03b533962d653
+2026-10-01T04:46:45Z WARN  billing retrying upstream attempt=2 trace_id=dddeb07563abd665
+2026-10-01T04:47:00Z INFO  billing request served path=/v1/items status=200 trace_id=1094cef36b643561
+2026-10-01T04:47:34Z INFO  billing cache refreshed keys=128 trace_id=c7b54147f81d07d3
+2026-10-01T04:47:47Z ERROR billing queue overflow code=E318 trace_id=13c44c9f49d098a7
+2026-10-01T04:48:01Z INFO  billing job dequeued queue=default trace_id=59c8ddf7b328c3f0
+2026-10-01T04:48:03Z INFO  billing request served path=/v1/items status=200 trace_id=88b5e5795b4bc0c8
+2026-10-01T04:48:27Z WARN  billing pool near capacity used=92% trace_id=69e9df3551268d1a
+2026-10-01T04:49:01Z WARN  billing pool near capacity used=92% trace_id=caee46c36d80da7f
+2026-10-01T04:49:20Z INFO  billing request served path=/v1/items status=200 trace_id=ec6417a61fee1f67
+2026-10-01T04:49:45Z INFO  billing job dequeued queue=default trace_id=191dbbd0fb72f24d
+2026-10-01T04:50:25Z WARN  billing retrying upstream attempt=2 trace_id=aeca2b7edf0828f8
+2026-10-01T04:50:49Z INFO  billing job dequeued queue=default trace_id=d66a28cafb88f265
+2026-10-01T04:51:01Z INFO  billing request served path=/v1/items status=200 trace_id=39f5a2764d828c07
+2026-10-01T04:51:30Z INFO  billing request served path=/v1/items status=200 trace_id=1a7420008165c7a1
+2026-10-01T04:51:47Z INFO  billing heartbeat ok trace_id=905c3d7170ba4023
+2026-10-01T04:52:11Z INFO  billing cache refreshed keys=128 trace_id=85823df2d6dfba0b
+2026-10-01T04:52:30Z INFO  billing job dequeued queue=default trace_id=fc695d7b2a74104c
+2026-10-01T04:53:08Z INFO  billing request served path=/v1/items status=200 trace_id=2874284bdfb1fd30
+2026-10-01T04:53:21Z INFO  billing request served path=/v1/items status=200 trace_id=f9ef4f6552ef2b2f
+2026-10-01T04:53:41Z INFO  billing job dequeued queue=default trace_id=041b205fd0d0bb61
+2026-10-01T04:54:20Z INFO  billing cache refreshed keys=128 trace_id=1a389e20714fb305
+2026-10-01T04:54:47Z INFO  billing heartbeat ok trace_id=8423e2775fcfa801
+2026-10-01T04:54:52Z INFO  billing request served path=/v1/items status=200 trace_id=74335d3a35eda644
+2026-10-01T04:55:18Z INFO  billing cache refreshed keys=128 trace_id=5ee89db18eeddd5b
+2026-10-01T04:55:26Z INFO  billing cache refreshed keys=128 trace_id=4d46d44a1c3005fc
+2026-10-01T04:55:53Z INFO  billing request served path=/v1/items status=200 trace_id=7d64a03a4fdc59c8
+2026-10-01T04:56:22Z INFO  billing request served path=/v1/items status=200 trace_id=07d84c8599d3d81d
+2026-10-01T04:56:58Z INFO  billing job dequeued queue=default trace_id=57c0317c38887566
+2026-10-01T04:57:36Z INFO  billing heartbeat ok trace_id=5050177059061305
+2026-10-01T04:58:15Z WARN  billing retrying upstream attempt=2 trace_id=2b85e09763b6c365
+2026-10-01T04:58:52Z INFO  billing request served path=/v1/items status=200 trace_id=8d972927941aa14a
+2026-10-01T04:59:16Z WARN  billing retrying upstream attempt=2 trace_id=34d37d7ca98b085e
+2026-10-01T04:59:38Z INFO  billing request served path=/v1/items status=200 trace_id=cc47d2b337f273e1
+2026-10-01T05:00:10Z ERROR billing db deadlock detected code=E318 trace_id=60b32a887443bc76
+2026-10-01T05:00:21Z INFO  billing heartbeat ok trace_id=0e0031f34d64d6d6
+2026-10-01T05:00:40Z INFO  billing heartbeat ok trace_id=226a5639f415d389
+2026-10-01T05:00:49Z INFO  billing cache refreshed keys=128 trace_id=cc464e0eef7530ff
+2026-10-01T05:01:15Z INFO  billing heartbeat ok trace_id=e1350e92a1600f3c
+2026-10-01T05:01:45Z INFO  billing request served path=/v1/items status=200 trace_id=1ef1be59f0c5bdff
+2026-10-01T05:01:53Z INFO  billing heartbeat ok trace_id=dc2ccbff05de7048
+2026-10-01T05:02:03Z INFO  billing job dequeued queue=default trace_id=da5dcf3856e5ad26
+2026-10-01T05:02:09Z WARN  billing retrying upstream attempt=2 trace_id=6116652713da8599
+2026-10-01T05:02:24Z INFO  billing request served path=/v1/items status=200 trace_id=fe163a9c9f73505c
+2026-10-01T05:03:04Z INFO  billing job dequeued queue=default trace_id=93e3689201b60237
+2026-10-01T05:03:30Z INFO  billing heartbeat ok trace_id=91f8d2b0b9ce070f
+2026-10-01T05:03:36Z INFO  billing job dequeued queue=default trace_id=1317a7cbd8e81ddb
+2026-10-01T05:03:57Z ERROR billing db deadlock detected code=E318 trace_id=51d9a866cf427fac
+2026-10-01T05:03:59Z INFO  billing request served path=/v1/items status=200 trace_id=0d4d5e88c21bac54
+2026-10-01T05:04:31Z INFO  billing request served path=/v1/items status=200 trace_id=8cff58ac61f9fdff
+2026-10-01T05:04:55Z INFO  billing request served path=/v1/items status=200 trace_id=1dd01c7475aad1f2
+2026-10-01T05:05:18Z INFO  billing request served path=/v1/items status=200 trace_id=3150bdcdef6d955c
+2026-10-01T05:05:51Z INFO  billing job dequeued queue=default trace_id=dfa834c522f2abcc
+2026-10-01T05:06:23Z INFO  billing request served path=/v1/items status=200 trace_id=4525afbcc9d7d920
+2026-10-01T05:07:03Z INFO  billing request served path=/v1/items status=200 trace_id=c03c061e254046fb
+2026-10-01T05:07:23Z INFO  billing heartbeat ok trace_id=62355e23177bf0a4
+2026-10-01T05:07:29Z INFO  billing heartbeat ok trace_id=1d39197b41375ff5
+2026-10-01T05:07:52Z INFO  billing heartbeat ok trace_id=002c33c1c3f6227d
+2026-10-01T05:07:58Z WARN  billing slow response latency_ms=1840 trace_id=daa9e1151a459889
+2026-10-01T05:08:31Z ERROR billing db deadlock detected code=E422 trace_id=b4afc648e3d1235c
+2026-10-01T05:08:42Z INFO  billing cache refreshed keys=128 trace_id=2e9f442f928baf28
+2026-10-01T05:08:56Z INFO  billing job dequeued queue=default trace_id=e2f0f3d1f9b95b6f
+2026-10-01T05:09:10Z INFO  billing cache refreshed keys=128 trace_id=c3ccdcb4a25a550e
+2026-10-01T05:09:39Z INFO  billing request served path=/v1/items status=200 trace_id=fa73cac7c7bbb750
+2026-10-01T05:10:10Z INFO  billing heartbeat ok trace_id=cebd7947aff2e2d4
+2026-10-01T05:10:16Z INFO  billing job dequeued queue=default trace_id=31f8b825046b8d58
+2026-10-01T05:10:28Z INFO  billing job dequeued queue=default trace_id=e257f2334a904ed8
+2026-10-01T05:11:00Z INFO  billing job dequeued queue=default trace_id=bec62c5e3a37f794
+2026-10-01T05:11:27Z INFO  billing cache refreshed keys=128 trace_id=638767406b04529f
+2026-10-01T05:11:51Z INFO  billing job dequeued queue=default trace_id=04e26e2d86ee4577
+2026-10-01T05:12:18Z INFO  billing heartbeat ok trace_id=ad2e55e5e3d7cf22
+2026-10-01T05:12:42Z INFO  billing cache refreshed keys=128 trace_id=3fb139715a1a9c7e
+2026-10-01T05:13:11Z WARN  billing pool near capacity used=92% trace_id=d3889276f44e5b0f
+2026-10-01T05:13:23Z INFO  billing request served path=/v1/items status=200 trace_id=f0b4723aba2ee6f4
+2026-10-01T05:13:44Z INFO  billing job dequeued queue=default trace_id=5ba2eaa8f836cc98
+2026-10-01T05:14:08Z INFO  billing cache refreshed keys=128 trace_id=28faf52d711ce214
+2026-10-01T05:14:48Z INFO  billing job dequeued queue=default trace_id=ec54b470cb023133
+2026-10-01T05:15:24Z ERROR billing payment provider rejected code=E101 trace_id=3be0b1f6c4127008
+2026-10-01T05:15:52Z INFO  billing request served path=/v1/items status=200 trace_id=bdde524d921e55d1
+2026-10-01T05:16:16Z INFO  billing cache refreshed keys=128 trace_id=43488993ee3105ed
+2026-10-01T05:16:35Z INFO  billing heartbeat ok trace_id=527a6ecc045fb8ca
+2026-10-01T05:17:01Z WARN  billing pool near capacity used=92% trace_id=2086f823ec587129
+2026-10-01T05:17:40Z INFO  billing heartbeat ok trace_id=52eb21c7119aaf22
+2026-10-01T05:17:51Z WARN  billing pool near capacity used=92% trace_id=876d0eb4b1a4f639
+2026-10-01T05:18:26Z INFO  billing cache refreshed keys=128 trace_id=60cfa6b0da2aff23
+2026-10-01T05:18:50Z ERROR billing token signature invalid code=E204 trace_id=45c2f8efda6b60c9
+2026-10-01T05:19:09Z INFO  billing cache refreshed keys=128 trace_id=b1b6103854f3de8b
+2026-10-01T05:19:28Z INFO  billing request served path=/v1/items status=200 trace_id=786a3fd877206b3e
+2026-10-01T05:19:34Z INFO  billing cache refreshed keys=128 trace_id=0c3ddcabbd431a23
+2026-10-01T05:19:59Z WARN  billing retrying upstream attempt=2 trace_id=83e27fc2b796a6eb
+2026-10-01T05:20:09Z ERROR billing upstream timeout code=E318 trace_id=d7c78e8531786939
+2026-10-01T05:20:49Z INFO  billing request served path=/v1/items status=200 trace_id=8276ba97945275a1
+2026-10-01T05:21:21Z INFO  billing cache refreshed keys=128 trace_id=4c7bc995a0d5b1dc
+2026-10-01T05:21:58Z INFO  billing request served path=/v1/items status=200 trace_id=bbaabd5587f24865
+2026-10-01T05:22:08Z INFO  billing job dequeued queue=default trace_id=f2968c203225b690
+2026-10-01T05:22:30Z INFO  billing cache refreshed keys=128 trace_id=12697f141aa759d5
+2026-10-01T05:23:06Z INFO  billing job dequeued queue=default trace_id=856afdfdd0d0e2de
+2026-10-01T05:23:22Z INFO  billing cache refreshed keys=128 trace_id=558c33b90f587e7e
+2026-10-01T05:24:02Z ERROR billing queue overflow code=E101 trace_id=f71c663c716f8532
+2026-10-01T05:24:04Z INFO  billing heartbeat ok trace_id=09192ed778409f3e
+2026-10-01T05:24:17Z INFO  billing job dequeued queue=default trace_id=fe3ffdef45850912
+2026-10-01T05:24:42Z INFO  billing cache refreshed keys=128 trace_id=b3933d30a0b4887b
+2026-10-01T05:24:46Z INFO  billing cache refreshed keys=128 trace_id=71ad02ca8a72daec
+2026-10-01T05:25:24Z INFO  billing request served path=/v1/items status=200 trace_id=ea36abe894f18a06
+2026-10-01T05:25:30Z INFO  billing job dequeued queue=default trace_id=c3b188c709f882ca
+2026-10-01T05:25:34Z INFO  billing job dequeued queue=default trace_id=c5221ed9a73a4891
+2026-10-01T05:25:49Z INFO  billing cache refreshed keys=128 trace_id=f3c9cd5dcf5d5ebe
+2026-10-01T05:25:53Z INFO  billing heartbeat ok trace_id=4bbd697e8d7f3b6c
+2026-10-01T05:25:59Z INFO  billing cache refreshed keys=128 trace_id=0ef8de90f3844628
+2026-10-01T05:26:29Z INFO  billing job dequeued queue=default trace_id=bd80b73de01813a1
+2026-10-01T05:26:52Z WARN  billing retrying upstream attempt=2 trace_id=9cba353fe388b503
+2026-10-01T05:26:58Z ERROR billing queue overflow code=E318 trace_id=9096ccb5867515f1
+2026-10-01T05:27:35Z INFO  billing request served path=/v1/items status=200 trace_id=ebf625cb9a357031
+2026-10-01T05:27:59Z INFO  billing heartbeat ok trace_id=560a850a90583766
+2026-10-01T05:28:15Z WARN  billing pool near capacity used=92% trace_id=ff9a37874904daad
+2026-10-01T05:28:55Z INFO  billing job dequeued queue=default trace_id=05ff74d1ad9d889e
+2026-10-01T05:29:19Z INFO  billing job dequeued queue=default trace_id=327995114d5bb994
+2026-10-01T05:29:54Z WARN  billing pool near capacity used=92% trace_id=ba0a8b8e442cd7c5
+2026-10-01T05:30:21Z INFO  billing request served path=/v1/items status=200 trace_id=23931a7b364af2fc
+2026-10-01T05:30:36Z WARN  billing retrying upstream attempt=2 trace_id=84a29ba8fcf10c60
+2026-10-01T05:31:10Z INFO  billing job dequeued queue=default trace_id=8c0fdfe05a4a7645
+2026-10-01T05:31:45Z INFO  billing request served path=/v1/items status=200 trace_id=26194436590c1e8e
+2026-10-01T05:32:08Z INFO  billing heartbeat ok trace_id=3911d460207ca5ce
+2026-10-01T05:32:36Z WARN  billing slow response latency_ms=1840 trace_id=7bd8d03f17066313
+2026-10-01T05:32:51Z INFO  billing request served path=/v1/items status=200 trace_id=92b4ec79ed986960
+2026-10-01T05:33:16Z INFO  billing job dequeued queue=default trace_id=6a29fc5ea26a47b8
+2026-10-01T05:33:32Z INFO  billing request served path=/v1/items status=200 trace_id=2604886e8b8fa308
+2026-10-01T05:33:36Z INFO  billing request served path=/v1/items status=200 trace_id=3ec727518a5bb77e
+2026-10-01T05:33:39Z INFO  billing heartbeat ok trace_id=09db949865a3fda4
+2026-10-01T05:34:00Z INFO  billing cache refreshed keys=128 trace_id=3786cd5b74589945
+2026-10-01T05:34:07Z INFO  billing job dequeued queue=default trace_id=41c9cdcf65139a6f
+2026-10-01T05:34:17Z INFO  billing heartbeat ok trace_id=1cf268be867d49c7
+2026-10-01T05:34:43Z INFO  billing job dequeued queue=default trace_id=3c2005dda0d124d1
+2026-10-01T05:35:15Z ERROR billing payment provider rejected code=E318 trace_id=1e1dbb7ce6638153
+2026-10-01T05:35:35Z INFO  billing request served path=/v1/items status=200 trace_id=d8d8036ad21e3e3b
+2026-10-01T05:35:54Z INFO  billing heartbeat ok trace_id=4e06b391d662beac
+2026-10-01T05:36:01Z WARN  billing slow response latency_ms=1840 trace_id=91a9ae9cbc167860
+2026-10-01T05:36:03Z WARN  billing slow response latency_ms=1840 trace_id=104aa0aff32a7538
+2026-10-01T05:36:13Z INFO  billing job dequeued queue=default trace_id=307af99d738bcfa4
+2026-10-01T05:36:21Z INFO  billing job dequeued queue=default trace_id=5a96a6c220f63ba8
+2026-10-01T05:36:37Z INFO  billing request served path=/v1/items status=200 trace_id=f6872b4e624b829f
+2026-10-01T05:37:00Z INFO  billing heartbeat ok trace_id=4088155469952fa8
+2026-10-01T05:37:19Z INFO  billing cache refreshed keys=128 trace_id=b3034ec8fe834b0f
+2026-10-01T05:37:21Z INFO  billing job dequeued queue=default trace_id=66db9e86903c91fc
+2026-10-01T05:37:49Z INFO  billing request served path=/v1/items status=200 trace_id=e346318010212dc4
+2026-10-01T05:37:59Z INFO  billing heartbeat ok trace_id=2c0d536bdb5bc68e
+2026-10-01T05:38:29Z INFO  billing request served path=/v1/items status=200 trace_id=b9c2bff3139de5ee
+2026-10-01T05:38:52Z INFO  billing cache refreshed keys=128 trace_id=9b2a4b61623e5afe
+2026-10-01T05:39:20Z INFO  billing job dequeued queue=default trace_id=e36bba4bc31a415b
+2026-10-01T05:39:43Z INFO  billing job dequeued queue=default trace_id=32449cd3d7e9784f
+2026-10-01T05:39:53Z INFO  billing heartbeat ok trace_id=f16e78d765eb137a
+2026-10-01T05:40:00Z WARN  billing slow response latency_ms=1840 trace_id=90a6360c4487e73a
+2026-10-01T05:40:10Z INFO  billing heartbeat ok trace_id=386ff747917574e8
+2026-10-01T05:40:22Z INFO  billing heartbeat ok trace_id=b545c5d55bebe415
+2026-10-01T05:40:52Z INFO  billing request served path=/v1/items status=200 trace_id=54d04fbca8d9951d
+2026-10-01T05:41:23Z INFO  billing job dequeued queue=default trace_id=deff2d0ce576ab67
+2026-10-01T05:41:37Z INFO  billing heartbeat ok trace_id=8632b9ebd01bb8d6
+2026-10-01T05:41:51Z INFO  billing job dequeued queue=default trace_id=2d5efb6de3efeb7c
+2026-10-01T05:42:16Z INFO  billing job dequeued queue=default trace_id=b491694f0e9a5d0e
+2026-10-01T05:42:48Z INFO  billing job dequeued queue=default trace_id=feaf66688c14ff45
+2026-10-01T05:42:50Z WARN  billing pool near capacity used=92% trace_id=43127a460cad94cb
+2026-10-01T05:43:23Z INFO  billing cache refreshed keys=128 trace_id=31abdd365c352be3
+2026-10-01T05:44:01Z INFO  billing cache refreshed keys=128 trace_id=e1f4ee1e8497a604
+2026-10-01T05:44:24Z WARN  billing pool near capacity used=92% trace_id=40942ce00eb9115f
+2026-10-01T05:44:34Z WARN  billing retrying upstream attempt=2 trace_id=29a04c685667925c
+2026-10-01T05:44:37Z ERROR billing db deadlock detected code=E318 trace_id=118fb2298aee1f7c
+2026-10-01T05:44:57Z INFO  billing job dequeued queue=default trace_id=7c7dda826eee91f6
+2026-10-01T05:45:19Z INFO  billing heartbeat ok trace_id=7129dd888c362d2c
+2026-10-01T05:45:41Z INFO  billing job dequeued queue=default trace_id=c9d140f1ac5dfd65
+2026-10-01T05:45:47Z INFO  billing heartbeat ok trace_id=a2a7a7c12960757a
+2026-10-01T05:45:54Z INFO  billing heartbeat ok trace_id=e0d5146bd39887e9
+2026-10-01T05:46:06Z INFO  billing heartbeat ok trace_id=a00080545f6604f2
+2026-10-01T05:46:18Z ERROR billing upstream timeout code=E318 trace_id=919845e697401c3b
+2026-10-01T05:46:53Z ERROR billing db deadlock detected code=E204 trace_id=1f9cf05bcec196fc
+2026-10-01T05:47:01Z INFO  billing heartbeat ok trace_id=5545fa482cd53fda
+2026-10-01T05:47:18Z INFO  billing cache refreshed keys=128 trace_id=fc493f58d93788b7
+2026-10-01T05:47:56Z INFO  billing cache refreshed keys=128 trace_id=ce86d7a55c196b8a
+2026-10-01T05:48:31Z INFO  billing job dequeued queue=default trace_id=1f6dce032c7695df
+2026-10-01T05:48:54Z ERROR billing token signature invalid code=E422 trace_id=277ec74ba1b670f4
+2026-10-01T05:48:57Z INFO  billing request served path=/v1/items status=200 trace_id=468622dde468f4e4
+2026-10-01T05:49:03Z INFO  billing heartbeat ok trace_id=cd6aa8c6b58e57f4
+2026-10-01T05:49:37Z INFO  billing heartbeat ok trace_id=247414cd75b809bb
+2026-10-01T05:49:58Z INFO  billing cache refreshed keys=128 trace_id=c650341f0ce47991
+2026-10-01T05:50:25Z INFO  billing cache refreshed keys=128 trace_id=ffe9cf78f8b1a9f7
+2026-10-01T05:50:31Z INFO  billing heartbeat ok trace_id=5820956b62c64ac7
+2026-10-01T05:50:44Z INFO  billing request served path=/v1/items status=200 trace_id=3cb28022ea8a40ce
+2026-10-01T05:50:49Z INFO  billing cache refreshed keys=128 trace_id=9f3af43cd9d600d3
+2026-10-01T05:51:08Z INFO  billing job dequeued queue=default trace_id=dd92fd5b726f6671
+2026-10-01T05:51:48Z WARN  billing pool near capacity used=92% trace_id=53f525c00fe94c40
+2026-10-01T05:52:06Z INFO  billing cache refreshed keys=128 trace_id=52dc7eea14cbbfec
+2026-10-01T05:52:44Z INFO  billing job dequeued queue=default trace_id=5109cffa2db8cb6b
+2026-10-01T05:52:55Z WARN  billing retrying upstream attempt=2 trace_id=d5575eb2ed9db45d
+2026-10-01T05:53:20Z INFO  billing heartbeat ok trace_id=cb6f36bb46ce0b84
+2026-10-01T05:53:24Z INFO  billing request served path=/v1/items status=200 trace_id=dd45873aefe56d41
+2026-10-01T05:53:28Z INFO  billing cache refreshed keys=128 trace_id=3e7dd21807eae605
+2026-10-01T05:54:05Z INFO  billing heartbeat ok trace_id=5c81a59f989e17ba
+2026-10-01T05:54:14Z INFO  billing heartbeat ok trace_id=b4ab316607fc2903
+2026-10-01T05:54:24Z INFO  billing request served path=/v1/items status=200 trace_id=badb87e48dab6b76
+2026-10-01T05:54:28Z INFO  billing heartbeat ok trace_id=aaad39767118435f
+2026-10-01T05:55:05Z INFO  billing request served path=/v1/items status=200 trace_id=d7c02cd1665db491
+2026-10-01T05:55:18Z INFO  billing heartbeat ok trace_id=7eee30ad00945cd2
+2026-10-01T05:55:55Z INFO  billing heartbeat ok trace_id=a4786d14f28c896e
+2026-10-01T05:55:58Z WARN  billing slow response latency_ms=1840 trace_id=0eef0f8a630656de
+2026-10-01T05:56:15Z INFO  billing job dequeued queue=default trace_id=17976a4a9443ac11
+2026-10-01T05:56:16Z INFO  billing heartbeat ok trace_id=127ebf50427b76ef
+2026-10-01T05:56:48Z INFO  billing cache refreshed keys=128 trace_id=ff2427aec3bf54e2
+2026-10-01T05:57:16Z INFO  billing heartbeat ok trace_id=9017e4905b712326
+2026-10-01T05:57:49Z INFO  billing cache refreshed keys=128 trace_id=568d58678f1b2a0e
+2026-10-01T05:58:08Z INFO  billing heartbeat ok trace_id=23487b2a59640a45
+2026-10-01T05:58:36Z INFO  billing request served path=/v1/items status=200 trace_id=28d77d314d4bf1e1
+2026-10-01T05:58:52Z INFO  billing request served path=/v1/items status=200 trace_id=36f243a25db4e4d0
+2026-10-01T05:59:11Z INFO  billing job dequeued queue=default trace_id=e2464267728b7a4d
+2026-10-01T05:59:50Z INFO  billing heartbeat ok trace_id=c8d8612fccee4c2f
+2026-10-01T06:00:20Z INFO  billing request served path=/v1/items status=200 trace_id=a210d7dafa42ac73
+2026-10-01T06:00:43Z INFO  billing heartbeat ok trace_id=605d473cb95d8baf
+2026-10-01T06:01:23Z INFO  billing heartbeat ok trace_id=2685dfd5b70e50f1
+2026-10-01T06:01:53Z WARN  billing pool near capacity used=92% trace_id=7d6f810928f9b4e0
+2026-10-01T06:02:22Z WARN  billing slow response latency_ms=1840 trace_id=cec7f992052933bc
+2026-10-01T06:02:40Z INFO  billing job dequeued queue=default trace_id=e7977f8cec87c14d
+2026-10-01T06:02:55Z INFO  billing job dequeued queue=default trace_id=95413e0bad32180f
+2026-10-01T06:03:00Z WARN  billing slow response latency_ms=1840 trace_id=cdd53afea04f5fec
+2026-10-01T06:03:15Z INFO  billing cache refreshed keys=128 trace_id=390089053ef211f3
+2026-10-01T06:03:19Z INFO  billing job dequeued queue=default trace_id=bd52b476cd21f5ad
+2026-10-01T06:03:23Z INFO  billing job dequeued queue=default trace_id=901a994be1237dc2
+2026-10-01T06:03:47Z INFO  billing request served path=/v1/items status=200 trace_id=69202499a61bc33c
+2026-10-01T06:03:50Z INFO  billing request served path=/v1/items status=200 trace_id=d4daf5d872c94859
+2026-10-01T06:04:21Z INFO  billing request served path=/v1/items status=200 trace_id=ccb417fafe315b39
+2026-10-01T06:04:32Z ERROR billing queue overflow code=E101 trace_id=e900e346e86a29bb
+2026-10-01T06:04:58Z INFO  billing heartbeat ok trace_id=c2887952ec1889a5
+2026-10-01T06:05:24Z INFO  billing cache refreshed keys=128 trace_id=804b2555c939e957
+2026-10-01T06:05:30Z INFO  billing cache refreshed keys=128 trace_id=b4b57de03c6fb1cd
+2026-10-01T06:06:06Z INFO  billing request served path=/v1/items status=200 trace_id=c21afa935b7d35ce
+2026-10-01T06:06:08Z INFO  billing heartbeat ok trace_id=540b897ea1dfd6d9
+2026-10-01T06:06:30Z WARN  billing retrying upstream attempt=2 trace_id=46f2aff5e94fcbac
+2026-10-01T06:06:41Z INFO  billing heartbeat ok trace_id=1ce4434c385cd7d5
+2026-10-01T06:07:18Z INFO  billing cache refreshed keys=128 trace_id=bdab790af6455ac0
+2026-10-01T06:07:28Z WARN  billing slow response latency_ms=1840 trace_id=e558bf097d4961fb
+2026-10-01T06:07:33Z INFO  billing heartbeat ok trace_id=395d88706a3c3cb5
+2026-10-01T06:07:56Z ERROR billing upstream timeout code=E318 trace_id=ac0a3861e20f9cff
+2026-10-01T06:08:27Z INFO  billing request served path=/v1/items status=200 trace_id=593fe41de08fd460
+2026-10-01T06:08:29Z INFO  billing request served path=/v1/items status=200 trace_id=96a5913df2717e7a
+2026-10-01T06:08:57Z INFO  billing request served path=/v1/items status=200 trace_id=757c31bada1c2566
+2026-10-01T06:09:18Z INFO  billing cache refreshed keys=128 trace_id=a97b8f0694d97eec
+2026-10-01T06:09:28Z ERROR billing db deadlock detected code=E101 trace_id=dd2448cd46f769a1
+2026-10-01T06:09:50Z WARN  billing slow response latency_ms=1840 trace_id=993be70fc7687999
+2026-10-01T06:10:29Z INFO  billing request served path=/v1/items status=200 trace_id=9e56827e093ad92c
+2026-10-01T06:11:06Z WARN  billing retrying upstream attempt=2 trace_id=af72ac500c438427
+2026-10-01T06:11:20Z INFO  billing cache refreshed keys=128 trace_id=343a1330fcf0d2a7
+2026-10-01T06:11:53Z INFO  billing heartbeat ok trace_id=e5570546a9b9c8ff
+2026-10-01T06:12:29Z INFO  billing heartbeat ok trace_id=daeb02015caae775
+2026-10-01T06:13:04Z INFO  billing heartbeat ok trace_id=09e654b0b2aecf92
+2026-10-01T06:13:23Z INFO  billing heartbeat ok trace_id=a3141f7b346bd35f
+2026-10-01T06:13:57Z INFO  billing request served path=/v1/items status=200 trace_id=01bf71d627d3e34f
+2026-10-01T06:14:28Z INFO  billing job dequeued queue=default trace_id=f4f3dc7963d513d1
+2026-10-01T06:14:47Z INFO  billing cache refreshed keys=128 trace_id=26877916501eae51
+2026-10-01T06:14:49Z INFO  billing request served path=/v1/items status=200 trace_id=2b434136a4095015
+2026-10-01T06:15:19Z INFO  billing job dequeued queue=default trace_id=92a20c049a7c6c39
+2026-10-01T06:15:26Z INFO  billing cache refreshed keys=128 trace_id=3988a8eefdef5168
+2026-10-01T06:16:04Z INFO  billing cache refreshed keys=128 trace_id=cfeb68fb1342553e
+2026-10-01T06:16:39Z INFO  billing request served path=/v1/items status=200 trace_id=01d778211c87d618
+2026-10-01T06:17:10Z ERROR billing upstream timeout code=E101 trace_id=652846b60930dd16
+2026-10-01T06:17:34Z INFO  billing cache refreshed keys=128 trace_id=9724bcc6150bd6d2
+2026-10-01T06:17:41Z WARN  billing retrying upstream attempt=2 trace_id=2a551db2249d58a1
+2026-10-01T06:18:19Z INFO  billing heartbeat ok trace_id=8e5e1cbec199db88
+2026-10-01T06:18:47Z WARN  billing retrying upstream attempt=2 trace_id=c46f3700c5a9d56c
+2026-10-01T06:19:08Z INFO  billing job dequeued queue=default trace_id=83890e05af3c2dc0
+2026-10-01T06:19:39Z INFO  billing cache refreshed keys=128 trace_id=bd74e1986e2123cc
+2026-10-01T06:20:07Z WARN  billing pool near capacity used=92% trace_id=408d40d9826b2cb9
+2026-10-01T06:20:32Z INFO  billing heartbeat ok trace_id=942bf9dcdf6ffc9b
+2026-10-01T06:21:11Z WARN  billing slow response latency_ms=1840 trace_id=dd3af6d33d1c8813
+2026-10-01T06:21:23Z WARN  billing pool near capacity used=92% trace_id=4b389dd1bf188bc2
+2026-10-01T06:21:33Z INFO  billing job dequeued queue=default trace_id=deb6c60be0607155
+2026-10-01T06:21:50Z WARN  billing retrying upstream attempt=2 trace_id=9d2841f1395b89cd
+2026-10-01T06:22:15Z INFO  billing job dequeued queue=default trace_id=5e4a3d79f8f2806c
+2026-10-01T06:22:39Z INFO  billing cache refreshed keys=128 trace_id=b32c80710d514792
+2026-10-01T06:23:17Z INFO  billing cache refreshed keys=128 trace_id=be49603613ce0659
+2026-10-01T06:23:25Z INFO  billing cache refreshed keys=128 trace_id=e9634851a609baef
+2026-10-01T06:24:04Z INFO  billing heartbeat ok trace_id=64ecd8dcbf5b3656
+2026-10-01T06:24:39Z INFO  billing cache refreshed keys=128 trace_id=695418c7788397b5
+2026-10-01T06:24:51Z INFO  billing job dequeued queue=default trace_id=9233de9e893cbb10
+2026-10-01T06:24:59Z INFO  billing cache refreshed keys=128 trace_id=a234cf1d439df25e
+2026-10-01T06:25:01Z INFO  billing cache refreshed keys=128 trace_id=4bcdd8bd2cc2416b
+2026-10-01T06:25:03Z INFO  billing cache refreshed keys=128 trace_id=41a15138d66e9426
+2026-10-01T06:25:29Z WARN  billing pool near capacity used=92% trace_id=805e876b0be5cd26
+2026-10-01T06:25:57Z INFO  billing job dequeued queue=default trace_id=d8e2360e2d321f78
+2026-10-01T06:26:17Z INFO  billing job dequeued queue=default trace_id=c2454b49cee9cb97
+2026-10-01T06:26:19Z WARN  billing slow response latency_ms=1840 trace_id=9b701df37d60bc05
+2026-10-01T06:26:38Z INFO  billing cache refreshed keys=128 trace_id=a08690f9e22434ab
+2026-10-01T06:27:00Z INFO  billing request served path=/v1/items status=200 trace_id=569354a6ae4afca9
+2026-10-01T06:27:05Z INFO  billing cache refreshed keys=128 trace_id=64c85202d104146b
+2026-10-01T06:27:26Z INFO  billing job dequeued queue=default trace_id=a6d5871b8f43a216
+2026-10-01T06:27:35Z INFO  billing request served path=/v1/items status=200 trace_id=f1ee4c0d41821616
+2026-10-01T06:27:42Z WARN  billing pool near capacity used=92% trace_id=076a5d641431c17e
+2026-10-01T06:28:01Z INFO  billing cache refreshed keys=128 trace_id=2f6ea3b2dbabc052
+2026-10-01T06:28:25Z INFO  billing heartbeat ok trace_id=3786e8d491bee420
+2026-10-01T06:28:28Z INFO  billing request served path=/v1/items status=200 trace_id=77e64b0b0f70b9a2
+2026-10-01T06:28:35Z INFO  billing job dequeued queue=default trace_id=b278303515c4d533
+2026-10-01T06:28:57Z INFO  billing request served path=/v1/items status=200 trace_id=3789c01711adc54d
+2026-10-01T06:29:22Z INFO  billing heartbeat ok trace_id=94488b098858eaf0
+2026-10-01T06:29:24Z INFO  billing job dequeued queue=default trace_id=f64130adcb135d84
+2026-10-01T06:30:03Z INFO  billing cache refreshed keys=128 trace_id=ce8ee4d838fc2331
+2026-10-01T06:30:28Z ERROR billing db deadlock detected code=E204 trace_id=c617ed51c2ce7c1d
+2026-10-01T06:30:47Z WARN  billing pool near capacity used=92% trace_id=17b1bead081fd850
+2026-10-01T06:31:12Z ERROR billing upstream timeout code=E101 trace_id=36efb6768c2ab650
+2026-10-01T06:31:23Z ERROR billing payment provider rejected code=E204 trace_id=d8bc6c4366e0e616
+2026-10-01T06:31:40Z INFO  billing request served path=/v1/items status=200 trace_id=8fb567dc7e89cba7
+2026-10-01T06:32:05Z INFO  billing request served path=/v1/items status=200 trace_id=687a761eac2fde27
+2026-10-01T06:32:34Z INFO  billing cache refreshed keys=128 trace_id=280af5ab25e7a2ff
+2026-10-01T06:32:52Z INFO  billing cache refreshed keys=128 trace_id=f2a94a52df5b5bbc
+2026-10-01T06:33:17Z INFO  billing job dequeued queue=default trace_id=685ef5c52dbafe82
+2026-10-01T06:33:57Z INFO  billing request served path=/v1/items status=200 trace_id=910b90da7a8da8a6
+2026-10-01T06:34:17Z ERROR billing queue overflow code=E101 trace_id=b1ed889938f38648
+2026-10-01T06:34:46Z INFO  billing cache refreshed keys=128 trace_id=9a3b435e78189225
+2026-10-01T06:34:56Z INFO  billing heartbeat ok trace_id=b4d81942376993cc
+2026-10-01T06:35:32Z WARN  billing retrying upstream attempt=2 trace_id=aa09e867e7ce2e76
+2026-10-01T06:36:12Z WARN  billing slow response latency_ms=1840 trace_id=2026b7072bf74f25
+2026-10-01T06:36:15Z WARN  billing pool near capacity used=92% trace_id=67c74492877f79aa
+2026-10-01T06:36:23Z INFO  billing request served path=/v1/items status=200 trace_id=00ef44505e6b0180
+2026-10-01T06:37:00Z INFO  billing request served path=/v1/items status=200 trace_id=0422c445af2f87cd
+2026-10-01T06:37:11Z WARN  billing slow response latency_ms=1840 trace_id=4eef696e8a53c0d5
+2026-10-01T06:37:22Z ERROR billing queue overflow code=E318 trace_id=12ab34dd87633261
+2026-10-01T06:37:39Z INFO  billing job dequeued queue=default trace_id=c38dd31f7f2f0998
+2026-10-01T06:38:04Z INFO  billing job dequeued queue=default trace_id=c8984d9d38376f04
+2026-10-01T06:38:40Z INFO  billing job dequeued queue=default trace_id=9edc4a04df0530c7
+2026-10-01T06:39:18Z INFO  billing heartbeat ok trace_id=ed86b9226dc94c0c
+2026-10-01T06:39:50Z INFO  billing heartbeat ok trace_id=a2c134e7bad277b6
+2026-10-01T06:40:25Z INFO  billing heartbeat ok trace_id=7b483a5241cf4a97
+2026-10-01T06:40:38Z INFO  billing job dequeued queue=default trace_id=7a8c781e46fb88ce
+2026-10-01T06:40:54Z INFO  billing heartbeat ok trace_id=eb5e8241ba76d5e5
+2026-10-01T06:41:01Z INFO  billing cache refreshed keys=128 trace_id=4f7b49af12049bd7
+2026-10-01T06:41:13Z WARN  billing pool near capacity used=92% trace_id=89ad59be62bb326e
+2026-10-01T06:41:53Z INFO  billing request served path=/v1/items status=200 trace_id=cafd9d9eaa855d71
+2026-10-01T06:42:01Z INFO  billing heartbeat ok trace_id=47859a5a8325891c
+2026-10-01T06:42:37Z ERROR billing payment provider rejected code=E204 trace_id=c2fd74a879d85c26
+2026-10-01T06:42:45Z INFO  billing request served path=/v1/items status=200 trace_id=0bd3b34b3c307140
+2026-10-01T06:43:19Z INFO  billing request served path=/v1/items status=200 trace_id=130bf568eafe7358
+2026-10-01T06:43:55Z ERROR billing token signature invalid code=E101 trace_id=995cfd5468abbbbd
+2026-10-01T06:44:21Z INFO  billing cache refreshed keys=128 trace_id=ef7e20f04f096188
+2026-10-01T06:44:28Z INFO  billing heartbeat ok trace_id=76a22e5092691525
+2026-10-01T06:44:37Z INFO  billing job dequeued queue=default trace_id=6f3564fb49fcf721
+2026-10-01T06:45:00Z INFO  billing heartbeat ok trace_id=476cfbca9d69cc57
+2026-10-01T06:45:01Z INFO  billing cache refreshed keys=128 trace_id=55999fba5bf22364
+2026-10-01T06:45:15Z INFO  billing heartbeat ok trace_id=32138d4264d1bc3b
+2026-10-01T06:45:17Z INFO  billing request served path=/v1/items status=200 trace_id=fa0fa90bdeb965b2
+2026-10-01T06:45:27Z INFO  billing cache refreshed keys=128 trace_id=c329440a4f2675da
+2026-10-01T06:46:00Z WARN  billing pool near capacity used=92% trace_id=e9e8cc3551cf355b
+2026-10-01T06:46:06Z INFO  billing job dequeued queue=default trace_id=20533a64250ef9d0
+2026-10-01T06:46:15Z INFO  billing job dequeued queue=default trace_id=6bb7a908ca68befd
+2026-10-01T06:46:27Z INFO  billing cache refreshed keys=128 trace_id=2408ac76952a09cd
+2026-10-01T06:46:57Z ERROR billing db deadlock detected code=E318 trace_id=cb3593f38f567434
+2026-10-01T06:46:59Z WARN  billing retrying upstream attempt=2 trace_id=6fad97457a0b62a2
+2026-10-01T06:47:10Z INFO  billing cache refreshed keys=128 trace_id=0819044319a277de
+2026-10-01T06:47:12Z INFO  billing request served path=/v1/items status=200 trace_id=54da6f1f21841b61

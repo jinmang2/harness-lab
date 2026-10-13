@@ -1,0 +1,1200 @@
+2026-10-01T00:00:40Z INFO  api heartbeat ok trace_id=793fd3f1f49304e1
+2026-10-01T00:00:47Z INFO  api request served path=/v1/items status=200 trace_id=b89c4daed3dda3b4
+2026-10-01T00:01:03Z WARN  api slow response latency_ms=1840 trace_id=38a2da8d04ca9f15
+2026-10-01T00:01:40Z WARN  api slow response latency_ms=1840 trace_id=3ffb2a12fd31b5cc
+2026-10-01T00:02:19Z INFO  api job dequeued queue=default trace_id=ba4872107d4a0a68
+2026-10-01T00:02:29Z INFO  api cache refreshed keys=128 trace_id=95f45ef42e2a4cad
+2026-10-01T00:03:08Z INFO  api job dequeued queue=default trace_id=c18bfe416ad538d8
+2026-10-01T00:03:30Z INFO  api job dequeued queue=default trace_id=edc537decd376561
+2026-10-01T00:04:08Z INFO  api job dequeued queue=default trace_id=7541cfb86e63ea0d
+2026-10-01T00:04:34Z INFO  api heartbeat ok trace_id=d6d6c24f02a6a334
+2026-10-01T00:04:44Z INFO  api cache refreshed keys=128 trace_id=9a29508e1a3bd141
+2026-10-01T00:04:47Z INFO  api job dequeued queue=default trace_id=edc1bd1eab3b47ac
+2026-10-01T00:04:52Z INFO  api job dequeued queue=default trace_id=ff1e005e2430ef5a
+2026-10-01T00:05:26Z INFO  api request served path=/v1/items status=200 trace_id=6bb68029f43c41ae
+2026-10-01T00:05:40Z INFO  api cache refreshed keys=128 trace_id=b356936109f0c22d
+2026-10-01T00:06:11Z ERROR api payment provider rejected code=E318 trace_id=4b684ef937a4105a
+2026-10-01T00:06:21Z INFO  api job dequeued queue=default trace_id=2541667fbac0ed2a
+2026-10-01T00:06:57Z INFO  api cache refreshed keys=128 trace_id=a4d3e0fdda1d50c5
+2026-10-01T00:07:03Z INFO  api request served path=/v1/items status=200 trace_id=72c92270b6a054c7
+2026-10-01T00:07:16Z INFO  api job dequeued queue=default trace_id=1160db92c2697a0b
+2026-10-01T00:07:51Z INFO  api job dequeued queue=default trace_id=1e4a10bbc661ffb0
+2026-10-01T00:08:20Z ERROR api queue overflow code=E204 trace_id=81081429af428d65
+2026-10-01T00:08:57Z INFO  api job dequeued queue=default trace_id=d2fe610762095d64
+2026-10-01T00:09:00Z INFO  api heartbeat ok trace_id=b7222a55d0a2bcb3
+2026-10-01T00:09:14Z WARN  api slow response latency_ms=1840 trace_id=4943cc585c919abc
+2026-10-01T00:09:53Z INFO  api heartbeat ok trace_id=2bde17e5b7fbab17
+2026-10-01T00:10:30Z INFO  api heartbeat ok trace_id=91dbef5e96eef3c6
+2026-10-01T00:10:48Z INFO  api heartbeat ok trace_id=3253d570ecd40a6d
+2026-10-01T00:11:02Z INFO  api request served path=/v1/items status=200 trace_id=53f1d4831fcb228b
+2026-10-01T00:11:38Z INFO  api heartbeat ok trace_id=63dca5eb73766b79
+2026-10-01T00:12:02Z INFO  api cache refreshed keys=128 trace_id=5a7a3cb43c4397e3
+2026-10-01T00:12:25Z INFO  api cache refreshed keys=128 trace_id=52075a7daa7eb5e2
+2026-10-01T00:12:47Z INFO  api request served path=/v1/items status=200 trace_id=9b0bab1097a6de5e
+2026-10-01T00:13:09Z INFO  api cache refreshed keys=128 trace_id=61a3f57414c8397e
+2026-10-01T00:13:43Z INFO  api request served path=/v1/items status=200 trace_id=13b4629ef106df1f
+2026-10-01T00:14:10Z INFO  api cache refreshed keys=128 trace_id=fc591b86b064eb1f
+2026-10-01T00:14:32Z INFO  api request served path=/v1/items status=200 trace_id=ade338af6122b169
+2026-10-01T00:14:36Z WARN  api pool near capacity used=92% trace_id=9e44e78904ac0098
+2026-10-01T00:15:06Z INFO  api cache refreshed keys=128 trace_id=39803a0cc1a07f22
+2026-10-01T00:15:18Z INFO  api request served path=/v1/items status=200 trace_id=e4b1f4dcc745cc0d
+2026-10-01T00:15:25Z INFO  api job dequeued queue=default trace_id=54dfa76266caa159
+2026-10-01T00:15:42Z INFO  api cache refreshed keys=128 trace_id=cd629656f3340ab2
+2026-10-01T00:15:54Z INFO  api request served path=/v1/items status=200 trace_id=e8177ab6a4f3cbe7
+2026-10-01T00:16:24Z INFO  api request served path=/v1/items status=200 trace_id=4f443e8cbb2803b1
+2026-10-01T00:16:25Z INFO  api request served path=/v1/items status=200 trace_id=c530d6a53e3cfcf3
+2026-10-01T00:16:30Z INFO  api heartbeat ok trace_id=fe9a82b629b67d76
+2026-10-01T00:17:04Z WARN  api retrying upstream attempt=2 trace_id=4e726ac0edc39943
+2026-10-01T00:17:09Z WARN  api slow response latency_ms=1840 trace_id=fbabeab5083adefb
+2026-10-01T00:17:44Z INFO  api request served path=/v1/items status=200 trace_id=08e93ff4ef1342af
+2026-10-01T00:17:47Z INFO  api request served path=/v1/items status=200 trace_id=77a1e4cc4c16b934
+2026-10-01T00:18:11Z INFO  api cache refreshed keys=128 trace_id=a5792b23a6283c2a
+2026-10-01T00:18:47Z INFO  api job dequeued queue=default trace_id=7069819e595bfaec
+2026-10-01T00:18:52Z INFO  api job dequeued queue=default trace_id=94fc1cb2ecd1aca3
+2026-10-01T00:19:11Z INFO  api job dequeued queue=default trace_id=a7942acc3fb81a1e
+2026-10-01T00:19:30Z INFO  api heartbeat ok trace_id=740be51042a1a4d7
+2026-10-01T00:19:51Z ERROR api upstream timeout code=E318 trace_id=daaa54c74c26de5d
+2026-10-01T00:20:19Z WARN  api pool near capacity used=92% trace_id=590b65f77ecee6c8
+2026-10-01T00:20:32Z INFO  api job dequeued queue=default trace_id=9b82302b52b4af5d
+2026-10-01T00:20:34Z WARN  api retrying upstream attempt=2 trace_id=cba74f8ceab772a4
+2026-10-01T00:20:49Z INFO  api job dequeued queue=default trace_id=a9a25f8e6700e09c
+2026-10-01T00:21:20Z INFO  api heartbeat ok trace_id=b8b2df6eec1ab2ef
+2026-10-01T00:21:38Z INFO  api job dequeued queue=default trace_id=84624e9a1f12eb77
+2026-10-01T00:21:54Z INFO  api job dequeued queue=default trace_id=7065a640bbf8481f
+2026-10-01T00:21:58Z INFO  api request served path=/v1/items status=200 trace_id=03cd4c1e52ef8abc
+2026-10-01T00:22:01Z INFO  api heartbeat ok trace_id=e2ba18899756e064
+2026-10-01T00:22:19Z INFO  api job dequeued queue=default trace_id=17262669821385a3
+2026-10-01T00:22:40Z INFO  api job dequeued queue=default trace_id=5d7584bfafe661ba
+2026-10-01T00:22:49Z WARN  api slow response latency_ms=1840 trace_id=a3573b3fbd1692a1
+2026-10-01T00:23:18Z WARN  api slow response latency_ms=1840 trace_id=fc0de8ec2670ba3e
+2026-10-01T00:23:51Z INFO  api heartbeat ok trace_id=170a8469831d7f8e
+2026-10-01T00:24:13Z INFO  api cache refreshed keys=128 trace_id=e638821e557af818
+2026-10-01T00:24:52Z INFO  api job dequeued queue=default trace_id=8c736f5cc182fcf2
+2026-10-01T00:24:53Z ERROR api payment provider rejected code=E318 trace_id=f3a2116ef804e7ae
+2026-10-01T00:25:05Z INFO  api request served path=/v1/items status=200 trace_id=d33170a1ccbe51c4
+2026-10-01T00:25:37Z INFO  api job dequeued queue=default trace_id=7549b55d285c2815
+2026-10-01T00:25:56Z INFO  api request served path=/v1/items status=200 trace_id=39b9203514bd7b48
+2026-10-01T00:26:11Z INFO  api heartbeat ok trace_id=1024ebce5f4de7a8
+2026-10-01T00:26:17Z ERROR api payment provider rejected code=E422 trace_id=7ab6ae99e77d37ed
+2026-10-01T00:26:40Z INFO  api job dequeued queue=default trace_id=16baef98bdc9988b
+2026-10-01T00:27:15Z INFO  api cache refreshed keys=128 trace_id=982d75d0c2f53f10
+2026-10-01T00:27:40Z INFO  api heartbeat ok trace_id=b9aec92b4a6647cf
+2026-10-01T00:28:09Z INFO  api job dequeued queue=default trace_id=514dccf2ca4eb437
+2026-10-01T00:28:26Z INFO  api request served path=/v1/items status=200 trace_id=f3d3dde0c39ef171
+2026-10-01T00:28:38Z INFO  api job dequeued queue=default trace_id=958737a07c04b65f
+2026-10-01T00:28:49Z INFO  api cache refreshed keys=128 trace_id=a5c8b1790f4f753f
+2026-10-01T00:29:17Z INFO  api request served path=/v1/items status=200 trace_id=e38e8727af6b9317
+2026-10-01T00:29:43Z ERROR api token signature invalid code=E318 trace_id=7953425509314a27
+2026-10-01T00:29:53Z WARN  api pool near capacity used=92% trace_id=03db358f2e4b3a28
+2026-10-01T00:30:33Z INFO  api heartbeat ok trace_id=dde296947f0499d6
+2026-10-01T00:30:47Z INFO  api job dequeued queue=default trace_id=ba15194fbf9458ae
+2026-10-01T00:31:22Z INFO  api job dequeued queue=default trace_id=40541bd0a4181514
+2026-10-01T00:31:46Z INFO  api job dequeued queue=default trace_id=2980dd13ede48bc1
+2026-10-01T00:31:54Z INFO  api job dequeued queue=default trace_id=3500dbee3d83205d
+2026-10-01T00:32:22Z INFO  api job dequeued queue=default trace_id=11d8a0ca5ec05e89
+2026-10-01T00:32:30Z INFO  api heartbeat ok trace_id=75d4e2387d377e0e
+2026-10-01T00:32:47Z INFO  api heartbeat ok trace_id=9b037321325e1425
+2026-10-01T00:33:01Z WARN  api pool near capacity used=92% trace_id=eb854dee59e55e5e
+2026-10-01T00:33:10Z INFO  api cache refreshed keys=128 trace_id=5c74c268e54ddf86
+2026-10-01T00:33:13Z INFO  api heartbeat ok trace_id=84002bf68142114c
+2026-10-01T00:33:39Z ERROR api queue overflow code=E101 trace_id=6a30effa11a80ef6
+2026-10-01T00:34:14Z INFO  api request served path=/v1/items status=200 trace_id=fdd37929e0fc0722
+2026-10-01T00:34:54Z INFO  api request served path=/v1/items status=200 trace_id=ab7e5b137372060c
+2026-10-01T00:35:28Z WARN  api slow response latency_ms=1840 trace_id=7931564bbb7702cc
+2026-10-01T00:35:46Z INFO  api job dequeued queue=default trace_id=a6fdbb21e24e0d0e
+2026-10-01T00:36:20Z WARN  api retrying upstream attempt=2 trace_id=9c5405fe05fab5c5
+2026-10-01T00:36:54Z INFO  api job dequeued queue=default trace_id=038cd5d8ef60ab4d
+2026-10-01T00:37:15Z INFO  api job dequeued queue=default trace_id=a364fe7dccae517a
+2026-10-01T00:37:31Z INFO  api request served path=/v1/items status=200 trace_id=0df6d14fe536048e
+2026-10-01T00:37:57Z INFO  api heartbeat ok trace_id=55a7e904b8c7418d
+2026-10-01T00:38:04Z INFO  api heartbeat ok trace_id=053228936670a03d
+2026-10-01T00:38:29Z INFO  api heartbeat ok trace_id=5d136c185e94a4ca
+2026-10-01T00:38:53Z WARN  api slow response latency_ms=1840 trace_id=242c6b8f65970243
+2026-10-01T00:39:22Z INFO  api job dequeued queue=default trace_id=bb8e20bf0596fdc8
+2026-10-01T00:39:27Z INFO  api job dequeued queue=default trace_id=d9a86095630dae65
+2026-10-01T00:39:53Z INFO  api heartbeat ok trace_id=93d75cf61c92810f
+2026-10-01T00:40:04Z WARN  api retrying upstream attempt=2 trace_id=f637c912fc9831a7
+2026-10-01T00:40:26Z INFO  api request served path=/v1/items status=200 trace_id=58a5f70d1d1a6ae3
+2026-10-01T00:40:54Z INFO  api job dequeued queue=default trace_id=25571656bac186be
+2026-10-01T00:41:08Z INFO  api heartbeat ok trace_id=84113a6cf9bd63ce
+2026-10-01T00:41:29Z INFO  api heartbeat ok trace_id=7fcaab8cca8a4f04
+2026-10-01T00:42:05Z INFO  api heartbeat ok trace_id=22005232729982b8
+2026-10-01T00:42:06Z INFO  api job dequeued queue=default trace_id=a8d84f5578259ff6
+2026-10-01T00:42:31Z INFO  api cache refreshed keys=128 trace_id=7ca8a7099dde4deb
+2026-10-01T00:42:41Z INFO  api job dequeued queue=default trace_id=6a0778fa73c1f047
+2026-10-01T00:43:18Z INFO  api heartbeat ok trace_id=3317a4963b3fd3a8
+2026-10-01T00:43:46Z INFO  api cache refreshed keys=128 trace_id=935ef25a25a6738c
+2026-10-01T00:43:57Z ERROR api queue overflow code=E204 trace_id=2baaf5733e84e84e
+2026-10-01T00:44:12Z INFO  api job dequeued queue=default trace_id=0cd625c638746430
+2026-10-01T00:44:33Z INFO  api cache refreshed keys=128 trace_id=04e3aac1f1837e8f
+2026-10-01T00:44:44Z INFO  api heartbeat ok trace_id=acc04c9e506263a5
+2026-10-01T00:45:06Z INFO  api request served path=/v1/items status=200 trace_id=3c76761719cc6ab7
+2026-10-01T00:45:38Z WARN  api retrying upstream attempt=2 trace_id=62373d4dffd8154f
+2026-10-01T00:45:48Z INFO  api request served path=/v1/items status=200 trace_id=5c1a69722af69e76
+2026-10-01T00:45:52Z INFO  api cache refreshed keys=128 trace_id=b242ee9c14af5dae
+2026-10-01T00:46:25Z INFO  api job dequeued queue=default trace_id=6c7b8464d7af8911
+2026-10-01T00:46:34Z INFO  api heartbeat ok trace_id=141b668c714dd152
+2026-10-01T00:46:47Z INFO  api job dequeued queue=default trace_id=2363336af46ec72a
+2026-10-01T00:46:50Z INFO  api job dequeued queue=default trace_id=2521d02212810fb1
+2026-10-01T00:46:51Z INFO  api job dequeued queue=default trace_id=bc80aec7fb1564ac
+2026-10-01T00:47:20Z INFO  api request served path=/v1/items status=200 trace_id=d8d141bb97aec109
+2026-10-01T00:48:00Z WARN  api pool near capacity used=92% trace_id=f94f1f071ac042ec
+2026-10-01T00:48:20Z INFO  api heartbeat ok trace_id=774e2a39a7daa22e
+2026-10-01T00:48:40Z INFO  api heartbeat ok trace_id=218c7ecbebd6c4c6
+2026-10-01T00:49:12Z WARN  api slow response latency_ms=1840 trace_id=4752172ea4f9c0a7
+2026-10-01T00:49:19Z INFO  api cache refreshed keys=128 trace_id=400217f94d60ff1c
+2026-10-01T00:49:53Z INFO  api job dequeued queue=default trace_id=831bae5f494bef55
+2026-10-01T00:50:26Z INFO  api job dequeued queue=default trace_id=10b1fbab55b29e5c
+2026-10-01T00:50:46Z INFO  api request served path=/v1/items status=200 trace_id=7512723b6a616544
+2026-10-01T00:50:56Z INFO  api heartbeat ok trace_id=cfb6a354365a98f3
+2026-10-01T00:51:22Z INFO  api request served path=/v1/items status=200 trace_id=9b76e5903239b475
+2026-10-01T00:51:28Z INFO  api heartbeat ok trace_id=7ab6487dd8f1ca3a
+2026-10-01T00:51:55Z INFO  api heartbeat ok trace_id=d7af2d5d7b1fa84c
+2026-10-01T00:52:21Z INFO  api request served path=/v1/items status=200 trace_id=cc1219581e37bd21
+2026-10-01T00:52:28Z INFO  api request served path=/v1/items status=200 trace_id=2a35234c0ce246ba
+2026-10-01T00:52:59Z INFO  api cache refreshed keys=128 trace_id=7f77badf4acc42ec
+2026-10-01T00:53:22Z ERROR api upstream timeout code=E503 trace_id=c1c4163186a1b9dd
+2026-10-01T00:53:39Z INFO  api heartbeat ok trace_id=4c65cae79614d693
+2026-10-01T00:53:42Z WARN  api retrying upstream attempt=2 trace_id=ed3babc54513b0d3
+2026-10-01T00:53:51Z INFO  api request served path=/v1/items status=200 trace_id=34c14afa1bb385d5
+2026-10-01T00:54:27Z WARN  api retrying upstream attempt=2 trace_id=9602061fc1ec9f72
+2026-10-01T00:54:56Z INFO  api request served path=/v1/items status=200 trace_id=48a220c15a38c2cc
+2026-10-01T00:55:23Z INFO  api heartbeat ok trace_id=1fa91fffdc098992
+2026-10-01T00:55:52Z INFO  api job dequeued queue=default trace_id=593092408979ef31
+2026-10-01T00:56:09Z WARN  api slow response latency_ms=1840 trace_id=75dc946bd67569ab
+2026-10-01T00:56:46Z INFO  api cache refreshed keys=128 trace_id=68f2f1705b50080f
+2026-10-01T00:57:08Z INFO  api cache refreshed keys=128 trace_id=adc62053331dce08
+2026-10-01T00:57:30Z INFO  api cache refreshed keys=128 trace_id=61d1867e24bc6e5b
+2026-10-01T00:58:08Z INFO  api job dequeued queue=default trace_id=9f16dfd8c5326959
+2026-10-01T00:58:37Z INFO  api job dequeued queue=default trace_id=7e49c2212b5772a9
+2026-10-01T00:59:10Z INFO  api request served path=/v1/items status=200 trace_id=ca665b5b1fc6b284
+2026-10-01T00:59:38Z WARN  api pool near capacity used=92% trace_id=521e1b8a83b5b2e9
+2026-10-01T00:59:43Z INFO  api request served path=/v1/items status=200 trace_id=9608b9fffb61abe1
+2026-10-01T00:59:59Z WARN  api slow response latency_ms=1840 trace_id=d49bd8cb10c21199
+2026-10-01T01:00:01Z ERROR api db deadlock detected code=E101 trace_id=1226bead4a9181be
+2026-10-01T01:00:19Z INFO  api cache refreshed keys=128 trace_id=4a46992e0534dcca
+2026-10-01T01:00:43Z WARN  api slow response latency_ms=1840 trace_id=bea624147fcef813
+2026-10-01T01:01:20Z INFO  api heartbeat ok trace_id=300c716e653eb708
+2026-10-01T01:01:33Z INFO  api cache refreshed keys=128 trace_id=403f013e010538aa
+2026-10-01T01:02:04Z INFO  api job dequeued queue=default trace_id=fa8428d54fc38410
+2026-10-01T01:02:25Z INFO  api job dequeued queue=default trace_id=1127c3bfbaf11088
+2026-10-01T01:02:56Z INFO  api heartbeat ok trace_id=7d292fe0f65051cf
+2026-10-01T01:03:05Z INFO  api heartbeat ok trace_id=aa24279ee65d4f09
+2026-10-01T01:03:11Z ERROR api queue overflow code=E422 trace_id=09ff912466cb976a
+2026-10-01T01:03:48Z INFO  api heartbeat ok trace_id=149fdf8c246cb290
+2026-10-01T01:03:55Z INFO  api job dequeued queue=default trace_id=2f4a398290ca247c
+2026-10-01T01:04:33Z INFO  api heartbeat ok trace_id=d791abc45b71cf00
+2026-10-01T01:04:35Z INFO  api request served path=/v1/items status=200 trace_id=123c31af2ba41abd
+2026-10-01T01:05:14Z INFO  api job dequeued queue=default trace_id=6f806990c6e01f7c
+2026-10-01T01:05:18Z WARN  api pool near capacity used=92% trace_id=8e077684e5e04192
+2026-10-01T01:05:31Z INFO  api cache refreshed keys=128 trace_id=a06c2c2545ef02ae
+2026-10-01T01:05:41Z INFO  api heartbeat ok trace_id=620508e0549cb903
+2026-10-01T01:05:45Z WARN  api retrying upstream attempt=2 trace_id=c0279be71e66eeab
+2026-10-01T01:05:57Z INFO  api heartbeat ok trace_id=e3fd3b8209c2a9d1
+2026-10-01T01:06:26Z INFO  api heartbeat ok trace_id=f52f3ced7cfab7b0
+2026-10-01T01:06:33Z INFO  api request served path=/v1/items status=200 trace_id=8ba8b705b4000f98
+2026-10-01T01:07:10Z INFO  api heartbeat ok trace_id=1e09f0d73f378a6e
+2026-10-01T01:07:25Z INFO  api cache refreshed keys=128 trace_id=5da8f0e10e1079f0
+2026-10-01T01:07:54Z INFO  api request served path=/v1/items status=200 trace_id=65a7cf83e7deebdc
+2026-10-01T01:08:07Z WARN  api pool near capacity used=92% trace_id=1e43ac23f355eb1e
+2026-10-01T01:08:18Z INFO  api heartbeat ok trace_id=8eb43a6e06678abd
+2026-10-01T01:08:53Z WARN  api retrying upstream attempt=2 trace_id=6a756597b5382bf2
+2026-10-01T01:09:33Z INFO  api heartbeat ok trace_id=7c8b657ec3571d65
+2026-10-01T01:09:54Z INFO  api request served path=/v1/items status=200 trace_id=0b3a48e5f2aec087
+2026-10-01T01:10:10Z INFO  api heartbeat ok trace_id=580fd90bf849dfc0
+2026-10-01T01:10:18Z INFO  api cache refreshed keys=128 trace_id=49a9026770379e9e
+2026-10-01T01:10:32Z WARN  api retrying upstream attempt=2 trace_id=c3d66b0966a7c264
+2026-10-01T01:10:57Z INFO  api cache refreshed keys=128 trace_id=5f931869fc067690
+2026-10-01T01:11:28Z INFO  api job dequeued queue=default trace_id=8a11ce89a9bb1fbd
+2026-10-01T01:11:58Z INFO  api job dequeued queue=default trace_id=6ceee7b3ec82d1de
+2026-10-01T01:12:17Z INFO  api heartbeat ok trace_id=4d968e3fc62a7ac2
+2026-10-01T01:12:41Z INFO  api heartbeat ok trace_id=6f834fab29a56456
+2026-10-01T01:12:43Z INFO  api job dequeued queue=default trace_id=28f4c64640dab3c7
+2026-10-01T01:13:04Z INFO  api heartbeat ok trace_id=6596681a84b22225
+2026-10-01T01:13:43Z INFO  api heartbeat ok trace_id=82a21dd9f5373435
+2026-10-01T01:13:55Z INFO  api job dequeued queue=default trace_id=e5e1759022462b8f
+2026-10-01T01:14:01Z INFO  api request served path=/v1/items status=200 trace_id=557610a461080110
+2026-10-01T01:14:35Z INFO  api request served path=/v1/items status=200 trace_id=ec6c2db0e4fb88f3
+2026-10-01T01:14:57Z INFO  api cache refreshed keys=128 trace_id=9ebcc746e2953ea1
+2026-10-01T01:15:09Z INFO  api cache refreshed keys=128 trace_id=cae9cb742ae787de
+2026-10-01T01:15:30Z INFO  api request served path=/v1/items status=200 trace_id=8317abc052470474
+2026-10-01T01:15:39Z INFO  api cache refreshed keys=128 trace_id=e0fb2fc7a862aa37
+2026-10-01T01:16:19Z WARN  api pool near capacity used=92% trace_id=35b1e96e22b8155d
+2026-10-01T01:16:52Z INFO  api request served path=/v1/items status=200 trace_id=d6be7eca3e7cc5a3
+2026-10-01T01:17:00Z WARN  api slow response latency_ms=1840 trace_id=aac43fc118a128c0
+2026-10-01T01:17:37Z WARN  api pool near capacity used=92% trace_id=c8eaf2c52f5cff6e
+2026-10-01T01:18:08Z WARN  api retrying upstream attempt=2 trace_id=19260a0a5f153069
+2026-10-01T01:18:36Z INFO  api job dequeued queue=default trace_id=66eabf716e69a7f3
+2026-10-01T01:19:16Z WARN  api retrying upstream attempt=2 trace_id=59d501f027375159
+2026-10-01T01:19:36Z INFO  api cache refreshed keys=128 trace_id=c062222174c08dba
+2026-10-01T01:20:09Z WARN  api pool near capacity used=92% trace_id=dec6cd347cd684a1
+2026-10-01T01:20:35Z INFO  api request served path=/v1/items status=200 trace_id=a5bd842c3bd98b27
+2026-10-01T01:21:08Z WARN  api slow response latency_ms=1840 trace_id=f9e8e2016b9fdd8d
+2026-10-01T01:21:26Z INFO  api heartbeat ok trace_id=5effe46709c47ffc
+2026-10-01T01:21:51Z INFO  api request served path=/v1/items status=200 trace_id=e01ad66ef4c7950b
+2026-10-01T01:21:52Z INFO  api request served path=/v1/items status=200 trace_id=3a3e1a0fefc8e732
+2026-10-01T01:22:29Z INFO  api heartbeat ok trace_id=4383ca45cb76c6c2
+2026-10-01T01:22:38Z INFO  api request served path=/v1/items status=200 trace_id=5c227d6ac1a5d0e7
+2026-10-01T01:23:09Z INFO  api cache refreshed keys=128 trace_id=d4b4935e01f29eac
+2026-10-01T01:23:19Z INFO  api heartbeat ok trace_id=84392ab5e882903c
+2026-10-01T01:23:50Z INFO  api heartbeat ok trace_id=4fa1ef286dbc9b9c
+2026-10-01T01:24:20Z INFO  api request served path=/v1/items status=200 trace_id=9752cdba797b4f8a
+2026-10-01T01:24:33Z INFO  api request served path=/v1/items status=200 trace_id=47149d1d185f1e65
+2026-10-01T01:24:48Z INFO  api request served path=/v1/items status=200 trace_id=1ea563b5740ba582
+2026-10-01T01:25:18Z INFO  api request served path=/v1/items status=200 trace_id=98f53a5fd5acab9d
+2026-10-01T01:25:19Z INFO  api request served path=/v1/items status=200 trace_id=845bfed5f0c525a3
+2026-10-01T01:25:48Z ERROR api payment provider rejected code=E101 trace_id=ff18221ab2eb77a5
+2026-10-01T01:26:04Z INFO  api heartbeat ok trace_id=51e15efd4736766e
+2026-10-01T01:26:25Z INFO  api job dequeued queue=default trace_id=3d248b2690d25c1d
+2026-10-01T01:26:26Z WARN  api slow response latency_ms=1840 trace_id=4ec99726517df538
+2026-10-01T01:26:46Z INFO  api heartbeat ok trace_id=c22e453ad3a38dde
+2026-10-01T01:26:54Z INFO  api heartbeat ok trace_id=286c7529a07ba233
+2026-10-01T01:27:24Z INFO  api job dequeued queue=default trace_id=d3331f4b43f363b5
+2026-10-01T01:27:26Z ERROR api queue overflow code=E101 trace_id=e1071c6930921bb7
+2026-10-01T01:27:49Z INFO  api cache refreshed keys=128 trace_id=acfda8f42eac77ab
+2026-10-01T01:28:06Z INFO  api job dequeued queue=default trace_id=37fe5867ac1a385e
+2026-10-01T01:28:44Z INFO  api job dequeued queue=default trace_id=efabbf04c59259df
+2026-10-01T01:29:11Z INFO  api request served path=/v1/items status=200 trace_id=25c1aba1fd7300a2
+2026-10-01T01:29:22Z INFO  api cache refreshed keys=128 trace_id=6dd9f447cf3e39ec
+2026-10-01T01:29:53Z WARN  api slow response latency_ms=1840 trace_id=5f01c18d1a1664ea
+2026-10-01T01:30:18Z INFO  api request served path=/v1/items status=200 trace_id=75c82cb33b7e8e86
+2026-10-01T01:30:57Z INFO  api heartbeat ok trace_id=b4f0f1135cc210a6
+2026-10-01T01:31:02Z INFO  api job dequeued queue=default trace_id=c7b7a85fb3e93939
+2026-10-01T01:31:23Z INFO  api cache refreshed keys=128 trace_id=8e2a2d2cedde5368
+2026-10-01T01:31:51Z INFO  api job dequeued queue=default trace_id=e6ae7258db74139b
+2026-10-01T01:31:56Z INFO  api request served path=/v1/items status=200 trace_id=170220ff874606ec
+2026-10-01T01:32:02Z INFO  api heartbeat ok trace_id=93341c748d7b5495
+2026-10-01T01:32:09Z WARN  api slow response latency_ms=1840 trace_id=89dcfdb2bf274864
+2026-10-01T01:32:21Z INFO  api heartbeat ok trace_id=8c81b3b48710be2c
+2026-10-01T01:32:33Z INFO  api cache refreshed keys=128 trace_id=acc1710eca04116d
+2026-10-01T01:33:01Z INFO  api cache refreshed keys=128 trace_id=47a2f753d2666482
+2026-10-01T01:33:22Z INFO  api job dequeued queue=default trace_id=5378bc95cbbae00c
+2026-10-01T01:33:47Z INFO  api job dequeued queue=default trace_id=8ca9ee16ee8f45e7
+2026-10-01T01:34:24Z INFO  api request served path=/v1/items status=200 trace_id=f1ee32abad9a57c4
+2026-10-01T01:34:31Z INFO  api cache refreshed keys=128 trace_id=c820bcf74726429a
+2026-10-01T01:34:33Z INFO  api request served path=/v1/items status=200 trace_id=8bf7561eda704fc7
+2026-10-01T01:34:35Z INFO  api cache refreshed keys=128 trace_id=62e0de716fdd85af
+2026-10-01T01:34:36Z INFO  api job dequeued queue=default trace_id=2a4a2165ecbf3765
+2026-10-01T01:35:12Z INFO  api cache refreshed keys=128 trace_id=2f85a34dd829dee5
+2026-10-01T01:35:23Z INFO  api job dequeued queue=default trace_id=2bdd3822dc6789b6
+2026-10-01T01:35:52Z INFO  api request served path=/v1/items status=200 trace_id=66d523b7a05deee8
+2026-10-01T01:35:53Z INFO  api request served path=/v1/items status=200 trace_id=f29ace64b7584624
+2026-10-01T01:35:55Z INFO  api job dequeued queue=default trace_id=03a592dc8e855c21
+2026-10-01T01:36:15Z INFO  api job dequeued queue=default trace_id=0812ec5dc3b2054e
+2026-10-01T01:36:33Z WARN  api slow response latency_ms=1840 trace_id=bf67f4f4c3acdc6f
+2026-10-01T01:37:03Z INFO  api cache refreshed keys=128 trace_id=b3e4267ad7a0211f
+2026-10-01T01:37:25Z WARN  api pool near capacity used=92% trace_id=e32d128176307649
+2026-10-01T01:37:26Z INFO  api cache refreshed keys=128 trace_id=461a92b0b42300f9
+2026-10-01T01:38:04Z WARN  api slow response latency_ms=1840 trace_id=1387282fd865a0e1
+2026-10-01T01:38:44Z INFO  api cache refreshed keys=128 trace_id=37b60cef54528b32
+2026-10-01T01:39:19Z INFO  api request served path=/v1/items status=200 trace_id=b3f4cd8eaabd1648
+2026-10-01T01:39:57Z INFO  api request served path=/v1/items status=200 trace_id=d1bd652b24c18933
+2026-10-01T01:40:31Z INFO  api request served path=/v1/items status=200 trace_id=2ad87d18a8f31dbe
+2026-10-01T01:41:01Z INFO  api job dequeued queue=default trace_id=dd779cb012b62baa
+2026-10-01T01:41:12Z INFO  api cache refreshed keys=128 trace_id=6e3e857a68068ffb
+2026-10-01T01:41:35Z ERROR api upstream timeout code=E318 trace_id=0b570f01c517ed9a
+2026-10-01T01:41:38Z INFO  api request served path=/v1/items status=200 trace_id=8409960d8fe896ba
+2026-10-01T01:42:16Z INFO  api job dequeued queue=default trace_id=ecbd47b899f837ac
+2026-10-01T01:42:23Z INFO  api request served path=/v1/items status=200 trace_id=82234073d38ac105
+2026-10-01T01:42:41Z INFO  api heartbeat ok trace_id=2205090aa9ecf91f
+2026-10-01T01:43:21Z INFO  api heartbeat ok trace_id=5acceaf5a5c28568
+2026-10-01T01:43:22Z INFO  api cache refreshed keys=128 trace_id=a1624d1911cb41a8
+2026-10-01T01:43:52Z INFO  api job dequeued queue=default trace_id=be0e9dd0e5b66869
+2026-10-01T01:44:20Z INFO  api request served path=/v1/items status=200 trace_id=038286e494e77dcc
+2026-10-01T01:44:51Z INFO  api request served path=/v1/items status=200 trace_id=95f9abc4d6e2582a
+2026-10-01T01:45:24Z INFO  api request served path=/v1/items status=200 trace_id=39702324ed670231
+2026-10-01T01:45:55Z INFO  api job dequeued queue=default trace_id=56033737140d0138
+2026-10-01T01:45:59Z INFO  api job dequeued queue=default trace_id=eaa810b8cbef21e7
+2026-10-01T01:46:30Z WARN  api pool near capacity used=92% trace_id=ca903c551df4dfc1
+2026-10-01T01:46:32Z INFO  api job dequeued queue=default trace_id=ba55df928b39962e
+2026-10-01T01:47:02Z INFO  api heartbeat ok trace_id=21a673e1e991d40e
+2026-10-01T01:47:26Z INFO  api cache refreshed keys=128 trace_id=11b188c14199ad8a
+2026-10-01T01:47:58Z INFO  api job dequeued queue=default trace_id=27d1c1d50c858d23
+2026-10-01T01:48:09Z ERROR api payment provider rejected code=E318 trace_id=b55ad84f1c9ab7eb
+2026-10-01T01:48:30Z INFO  api heartbeat ok trace_id=bad6891349e90639
+2026-10-01T01:48:43Z INFO  api request served path=/v1/items status=200 trace_id=3bc16acb5e20e449
+2026-10-01T01:49:11Z INFO  api request served path=/v1/items status=200 trace_id=87fe861815139ae2
+2026-10-01T01:49:40Z INFO  api request served path=/v1/items status=200 trace_id=22415f09431cca36
+2026-10-01T01:50:14Z INFO  api cache refreshed keys=128 trace_id=0a4056f5cae91163
+2026-10-01T01:50:16Z INFO  api cache refreshed keys=128 trace_id=d0c18c8d6c5cb17d
+2026-10-01T01:50:29Z INFO  api heartbeat ok trace_id=7d93b29709b9d54c
+2026-10-01T01:50:39Z INFO  api job dequeued queue=default trace_id=675a3c07c713486c
+2026-10-01T01:50:56Z INFO  api job dequeued queue=default trace_id=c3824c24797233d5
+2026-10-01T01:51:08Z INFO  api heartbeat ok trace_id=d6ef7b86bfa1b27e
+2026-10-01T01:51:43Z ERROR api token signature invalid code=E422 trace_id=a59e6c9f0b4b2dbd
+2026-10-01T01:51:44Z INFO  api job dequeued queue=default trace_id=5d9ad8a008decb29
+2026-10-01T01:52:23Z INFO  api cache refreshed keys=128 trace_id=7b73320e0e0abd82
+2026-10-01T01:53:01Z INFO  api request served path=/v1/items status=200 trace_id=74dc116ee4d577c0
+2026-10-01T01:53:38Z INFO  api cache refreshed keys=128 trace_id=451f5a2a373b0ee2
+2026-10-01T01:53:45Z INFO  api heartbeat ok trace_id=54494ce1d41bf0ec
+2026-10-01T01:53:46Z INFO  api request served path=/v1/items status=200 trace_id=49253c350c7f7e2a
+2026-10-01T01:53:49Z INFO  api request served path=/v1/items status=200 trace_id=50cae71483929a7c
+2026-10-01T01:53:57Z INFO  api heartbeat ok trace_id=e96875e729064d30
+2026-10-01T01:54:27Z INFO  api cache refreshed keys=128 trace_id=48f537f5e3e4f229
+2026-10-01T01:54:48Z INFO  api request served path=/v1/items status=200 trace_id=d09b90500dc588cf
+2026-10-01T01:55:21Z INFO  api request served path=/v1/items status=200 trace_id=ac3645aa83033ff4
+2026-10-01T01:55:26Z INFO  api job dequeued queue=default trace_id=c9cc23268a1f463f
+2026-10-01T01:55:32Z INFO  api heartbeat ok trace_id=e1b3aaf001b53d5f
+2026-10-01T01:55:34Z INFO  api heartbeat ok trace_id=9ea18d9310a67e4c
+2026-10-01T01:55:58Z INFO  api heartbeat ok trace_id=20492738a062823b
+2026-10-01T01:56:33Z WARN  api slow response latency_ms=1840 trace_id=9829584a7dc05368
+2026-10-01T01:57:02Z INFO  api heartbeat ok trace_id=dee4fe4a963eaea9
+2026-10-01T01:57:31Z INFO  api job dequeued queue=default trace_id=d72ccb1c4514c43e
+2026-10-01T01:58:03Z WARN  api slow response latency_ms=1840 trace_id=1ec434bc963f196f
+2026-10-01T01:58:07Z INFO  api cache refreshed keys=128 trace_id=7c2fd859bbe75b54
+2026-10-01T01:58:47Z INFO  api request served path=/v1/items status=200 trace_id=ba804f64adf79775
+2026-10-01T01:58:56Z INFO  api job dequeued queue=default trace_id=f451885c0dccc216
+2026-10-01T01:59:19Z INFO  api request served path=/v1/items status=200 trace_id=805c4adc12ce71ff
+2026-10-01T01:59:50Z INFO  api job dequeued queue=default trace_id=162fbb435cf8f226
+2026-10-01T02:00:05Z WARN  api slow response latency_ms=1840 trace_id=1ebc6e94763e3de8
+2026-10-01T02:00:42Z INFO  api request served path=/v1/items status=200 trace_id=7e4c38a3a22b3350
+2026-10-01T02:01:07Z INFO  api job dequeued queue=default trace_id=39650b5b88d4e1c9
+2026-10-01T02:01:40Z INFO  api heartbeat ok trace_id=c60782b599c58fd0
+2026-10-01T02:02:07Z INFO  api job dequeued queue=default trace_id=e019bc1a5c7f0930
+2026-10-01T02:02:11Z INFO  api job dequeued queue=default trace_id=59093c1128534ddb
+2026-10-01T02:02:23Z INFO  api job dequeued queue=default trace_id=e7152692c1a68a14
+2026-10-01T02:02:46Z INFO  api request served path=/v1/items status=200 trace_id=64da37a8874163aa
+2026-10-01T02:03:21Z WARN  api slow response latency_ms=1840 trace_id=ef1824a3a9a4d26f
+2026-10-01T02:03:47Z WARN  api pool near capacity used=92% trace_id=6c3ea6045911f33a
+2026-10-01T02:04:21Z INFO  api heartbeat ok trace_id=cc011e031d21877e
+2026-10-01T02:04:23Z INFO  api cache refreshed keys=128 trace_id=72a3e45b70856bc9
+2026-10-01T02:04:53Z INFO  api cache refreshed keys=128 trace_id=59ea13fa2fefd38d
+2026-10-01T02:05:17Z ERROR api upstream timeout code=E318 trace_id=82a4a299fe552ac5
+2026-10-01T02:05:23Z ERROR api db deadlock detected code=E204 trace_id=fb3ded42f442ab6f
+2026-10-01T02:05:47Z ERROR api payment provider rejected code=E101 trace_id=8339eafb7c23373a
+2026-10-01T02:06:27Z INFO  api job dequeued queue=default trace_id=2aaa244ba1637285
+2026-10-01T02:07:06Z INFO  api cache refreshed keys=128 trace_id=b8e8815b3eef4559
+2026-10-01T02:07:33Z INFO  api cache refreshed keys=128 trace_id=7a994474d87140e1
+2026-10-01T02:07:54Z INFO  api job dequeued queue=default trace_id=08e910477ebe2720
+2026-10-01T02:08:10Z INFO  api heartbeat ok trace_id=d258a1adb61aa6fd
+2026-10-01T02:08:18Z ERROR api upstream timeout code=E318 trace_id=8576b7e2d15bff76
+2026-10-01T02:08:54Z INFO  api heartbeat ok trace_id=f5890582d08ca906
+2026-10-01T02:09:04Z INFO  api job dequeued queue=default trace_id=76acbe852891bb4d
+2026-10-01T02:09:22Z INFO  api job dequeued queue=default trace_id=36483839bb7082f2
+2026-10-01T02:09:24Z INFO  api heartbeat ok trace_id=2e124d839aa50a32
+2026-10-01T02:09:30Z INFO  api request served path=/v1/items status=200 trace_id=77778f7351871a1e
+2026-10-01T02:09:55Z INFO  api request served path=/v1/items status=200 trace_id=576132c69686c4a6
+2026-10-01T02:10:20Z INFO  api cache refreshed keys=128 trace_id=55df591f030d5b69
+2026-10-01T02:10:44Z INFO  api cache refreshed keys=128 trace_id=44741a829cd34548
+2026-10-01T02:11:15Z INFO  api job dequeued queue=default trace_id=b988862c391e2a95
+2026-10-01T02:11:37Z INFO  api heartbeat ok trace_id=3df237396ddfe1c4
+2026-10-01T02:12:11Z ERROR api upstream timeout code=E101 trace_id=8ef8bf61db7128de
+2026-10-01T02:12:40Z INFO  api job dequeued queue=default trace_id=3da6045e11571488
+2026-10-01T02:13:05Z INFO  api cache refreshed keys=128 trace_id=d15bd7750c7acbdd
+2026-10-01T02:13:13Z INFO  api heartbeat ok trace_id=955c3ea62ef452a0
+2026-10-01T02:13:35Z INFO  api cache refreshed keys=128 trace_id=fbf387a143cee118
+2026-10-01T02:13:58Z INFO  api cache refreshed keys=128 trace_id=19d3ee2fb62badaf
+2026-10-01T02:14:20Z INFO  api heartbeat ok trace_id=8e612114c7b5a83c
+2026-10-01T02:14:40Z INFO  api request served path=/v1/items status=200 trace_id=fb4e3f8365889ee8
+2026-10-01T02:14:54Z INFO  api job dequeued queue=default trace_id=c36486ab76c95837
+2026-10-01T02:14:56Z INFO  api heartbeat ok trace_id=742001bf038cece0
+2026-10-01T02:15:01Z ERROR api upstream timeout code=E101 trace_id=9b839b00a9b5181d
+2026-10-01T02:15:38Z INFO  api request served path=/v1/items status=200 trace_id=89b9bc1559057fc3
+2026-10-01T02:15:50Z INFO  api heartbeat ok trace_id=dd9fc27539b39851
+2026-10-01T02:16:09Z INFO  api heartbeat ok trace_id=5bc3451252362408
+2026-10-01T02:16:44Z INFO  api heartbeat ok trace_id=b3765da344e8177f
+2026-10-01T02:16:50Z INFO  api cache refreshed keys=128 trace_id=65c63592e06c1e04
+2026-10-01T02:16:59Z INFO  api cache refreshed keys=128 trace_id=e84e7f715b9f1cdc
+2026-10-01T02:17:28Z WARN  api pool near capacity used=92% trace_id=5ef4daf039412f6b
+2026-10-01T02:17:52Z INFO  api cache refreshed keys=128 trace_id=bca3456eb5f73251
+2026-10-01T02:18:19Z INFO  api request served path=/v1/items status=200 trace_id=335bf3884e0fb463
+2026-10-01T02:18:51Z INFO  api request served path=/v1/items status=200 trace_id=0b30960ae1b09a77
+2026-10-01T02:19:11Z ERROR api queue overflow code=E204 trace_id=936cac7681fdedc7
+2026-10-01T02:19:16Z ERROR api queue overflow code=E318 trace_id=9413930de169d554
+2026-10-01T02:19:32Z INFO  api job dequeued queue=default trace_id=772f0a1981dd122d
+2026-10-01T02:19:43Z WARN  api retrying upstream attempt=2 trace_id=65b67405517fae26
+2026-10-01T02:20:00Z INFO  api job dequeued queue=default trace_id=15dd04bd557db3a9
+2026-10-01T02:20:07Z INFO  api cache refreshed keys=128 trace_id=025b8e62a68ce525
+2026-10-01T02:20:47Z INFO  api request served path=/v1/items status=200 trace_id=61d9e8f67f911331
+2026-10-01T02:21:15Z INFO  api job dequeued queue=default trace_id=093f82e9dfceac40
+2026-10-01T02:21:54Z INFO  api cache refreshed keys=128 trace_id=3081546ae54b2ea3
+2026-10-01T02:22:06Z INFO  api job dequeued queue=default trace_id=fdf619d5aa1c83b0
+2026-10-01T02:22:09Z INFO  api cache refreshed keys=128 trace_id=01aa0cbe1c1f57fa
+2026-10-01T02:22:22Z INFO  api cache refreshed keys=128 trace_id=f93cc46a1cda9765
+2026-10-01T02:22:23Z INFO  api heartbeat ok trace_id=f37b979aa2f93a3a
+2026-10-01T02:22:58Z INFO  api cache refreshed keys=128 trace_id=1b1ceb67f651f14d
+2026-10-01T02:23:16Z INFO  api heartbeat ok trace_id=e8c0406c527bbcc0
+2026-10-01T02:23:38Z WARN  api slow response latency_ms=1840 trace_id=02cd0f0c88dc5386
+2026-10-01T02:24:08Z INFO  api job dequeued queue=default trace_id=2a9bc10b335dc492
+2026-10-01T02:24:27Z INFO  api job dequeued queue=default trace_id=0fd8e540950580e5
+2026-10-01T02:24:28Z INFO  api request served path=/v1/items status=200 trace_id=3656b224a0f0c9bb
+2026-10-01T02:24:29Z WARN  api pool near capacity used=92% trace_id=c8fc1e773449ccef
+2026-10-01T02:24:30Z INFO  api job dequeued queue=default trace_id=50f8eab69868da3c
+2026-10-01T02:24:33Z INFO  api cache refreshed keys=128 trace_id=2265a01bbc891581
+2026-10-01T02:25:03Z INFO  api cache refreshed keys=128 trace_id=ebed46fbcc6cc27b
+2026-10-01T02:25:38Z INFO  api job dequeued queue=default trace_id=e6c7f0d7ffb9271b
+2026-10-01T02:26:04Z INFO  api job dequeued queue=default trace_id=d5d6f0c83f0571c5
+2026-10-01T02:26:40Z WARN  api slow response latency_ms=1840 trace_id=2fd387f3995dfedf
+2026-10-01T02:27:09Z INFO  api heartbeat ok trace_id=2ecbf011b23c81d2
+2026-10-01T02:27:27Z INFO  api cache refreshed keys=128 trace_id=8bdbf023654ce248
+2026-10-01T02:27:38Z INFO  api request served path=/v1/items status=200 trace_id=7b8b6bbece8ceecf
+2026-10-01T02:28:17Z INFO  api request served path=/v1/items status=200 trace_id=7a8720a66e4a1c5a
+2026-10-01T02:28:33Z INFO  api cache refreshed keys=128 trace_id=e7fe5d1442587f26
+2026-10-01T02:28:40Z INFO  api heartbeat ok trace_id=f8c21d48f24589fb
+2026-10-01T02:29:19Z INFO  api cache refreshed keys=128 trace_id=8672d0a79f24b344
+2026-10-01T02:29:25Z INFO  api cache refreshed keys=128 trace_id=2f029ce8effbf8a2
+2026-10-01T02:30:05Z INFO  api cache refreshed keys=128 trace_id=2c2d5fa15aa2158c
+2026-10-01T02:30:42Z INFO  api job dequeued queue=default trace_id=3c32de4ffb9695c6
+2026-10-01T02:30:55Z INFO  api job dequeued queue=default trace_id=9cd449c49d6dde0f
+2026-10-01T02:31:04Z INFO  api cache refreshed keys=128 trace_id=e1c7530f90c68a21
+2026-10-01T02:31:19Z INFO  api heartbeat ok trace_id=b2ec76d468dc8a8b
+2026-10-01T02:31:26Z INFO  api heartbeat ok trace_id=e01d356cf9f3e786
+2026-10-01T02:31:54Z WARN  api slow response latency_ms=1840 trace_id=d52bcab30f1ff2f8
+2026-10-01T02:32:06Z INFO  api request served path=/v1/items status=200 trace_id=54d0ff0a8af53572
+2026-10-01T02:32:24Z INFO  api heartbeat ok trace_id=cfb1757ac346b628
+2026-10-01T02:32:55Z INFO  api heartbeat ok trace_id=ee684312c26014b2
+2026-10-01T02:33:03Z WARN  api retrying upstream attempt=2 trace_id=4f5b97b719ca3e55
+2026-10-01T02:33:06Z ERROR api payment provider rejected code=E318 trace_id=b33faa054b5b43f2
+2026-10-01T02:33:21Z INFO  api cache refreshed keys=128 trace_id=b45950aa9cb7eb73
+2026-10-01T02:33:59Z WARN  api pool near capacity used=92% trace_id=8192a53d7eed3aab
+2026-10-01T02:34:22Z INFO  api heartbeat ok trace_id=d755bbcfeb676544
+2026-10-01T02:34:36Z INFO  api request served path=/v1/items status=200 trace_id=640a4e5b61547be4
+2026-10-01T02:35:00Z INFO  api cache refreshed keys=128 trace_id=2c1d8b4c17c01098
+2026-10-01T02:35:24Z INFO  api job dequeued queue=default trace_id=e34f13a1d3d1a6eb
+2026-10-01T02:35:59Z INFO  api cache refreshed keys=128 trace_id=fbf3b610cae13020
+2026-10-01T02:36:17Z INFO  api cache refreshed keys=128 trace_id=b15ab1ec952f6dd4
+2026-10-01T02:36:43Z INFO  api cache refreshed keys=128 trace_id=740d5a3bf87bc6a9
+2026-10-01T02:37:19Z INFO  api job dequeued queue=default trace_id=56ddd44a24052d73
+2026-10-01T02:37:52Z INFO  api request served path=/v1/items status=200 trace_id=fe17edd297ca921e
+2026-10-01T02:38:06Z INFO  api request served path=/v1/items status=200 trace_id=b5f098e56add4c6b
+2026-10-01T02:38:37Z INFO  api cache refreshed keys=128 trace_id=24195dd8dd6f6f54
+2026-10-01T02:39:16Z INFO  api job dequeued queue=default trace_id=4fd9b4480530818d
+2026-10-01T02:39:50Z INFO  api job dequeued queue=default trace_id=a7cb480e4506d334
+2026-10-01T02:40:12Z WARN  api slow response latency_ms=1840 trace_id=fe116c37f7bc5847
+2026-10-01T02:40:39Z INFO  api request served path=/v1/items status=200 trace_id=f98527a41d6f2bd7
+2026-10-01T02:40:58Z INFO  api request served path=/v1/items status=200 trace_id=9a0a0ac943de4df7
+2026-10-01T02:41:16Z WARN  api pool near capacity used=92% trace_id=e2fea564342c23c7
+2026-10-01T02:41:22Z WARN  api slow response latency_ms=1840 trace_id=e2134a30af4420dc
+2026-10-01T02:41:48Z INFO  api cache refreshed keys=128 trace_id=140d85c10cf0980d
+2026-10-01T02:42:22Z WARN  api pool near capacity used=92% trace_id=3f46155c68a778a8
+2026-10-01T02:42:50Z INFO  api request served path=/v1/items status=200 trace_id=929ba1a3306c8a63
+2026-10-01T02:43:26Z INFO  api request served path=/v1/items status=200 trace_id=b674ee8fa9f215c6
+2026-10-01T02:43:56Z INFO  api request served path=/v1/items status=200 trace_id=8873c812f810b70c
+2026-10-01T02:44:29Z INFO  api cache refreshed keys=128 trace_id=f78e94a394fcdfd7
+2026-10-01T02:44:46Z INFO  api job dequeued queue=default trace_id=4d26814968dc55d9
+2026-10-01T02:45:21Z INFO  api cache refreshed keys=128 trace_id=1a7402a03f8ff167
+2026-10-01T02:45:56Z INFO  api request served path=/v1/items status=200 trace_id=5fae1194e13ec8cc
+2026-10-01T02:46:15Z WARN  api retrying upstream attempt=2 trace_id=4d346eb81d54da7c
+2026-10-01T02:46:35Z INFO  api job dequeued queue=default trace_id=8b07e5a8af52fff0
+2026-10-01T02:46:53Z INFO  api request served path=/v1/items status=200 trace_id=493cb520773eabcc
+2026-10-01T02:47:14Z WARN  api slow response latency_ms=1840 trace_id=31b9c91930d914af
+2026-10-01T02:47:20Z INFO  api request served path=/v1/items status=200 trace_id=1a4a20c47c17fecd
+2026-10-01T02:47:24Z INFO  api heartbeat ok trace_id=f027c25092ed829d
+2026-10-01T02:47:53Z INFO  api cache refreshed keys=128 trace_id=e683b80387e25940
+2026-10-01T02:48:30Z WARN  api retrying upstream attempt=2 trace_id=b4e85cb8aa950241
+2026-10-01T02:48:52Z INFO  api job dequeued queue=default trace_id=02ebcaae44223e6e
+2026-10-01T02:49:11Z INFO  api heartbeat ok trace_id=8eb7b6845e7d7114
+2026-10-01T02:49:39Z INFO  api heartbeat ok trace_id=08c420ad4c9c5b24
+2026-10-01T02:49:50Z INFO  api cache refreshed keys=128 trace_id=d1b0c8d97c45ceda
+2026-10-01T02:50:22Z INFO  api cache refreshed keys=128 trace_id=9883efe31639eba0
+2026-10-01T02:50:29Z WARN  api retrying upstream attempt=2 trace_id=100c80c58616de2d
+2026-10-01T02:50:57Z INFO  api heartbeat ok trace_id=b8911495ab015dcd
+2026-10-01T02:51:15Z INFO  api job dequeued queue=default trace_id=2ddb2105953b6464
+2026-10-01T02:51:47Z INFO  api cache refreshed keys=128 trace_id=d71e418a0ddf1a72
+2026-10-01T02:51:55Z INFO  api heartbeat ok trace_id=4ac005498b279b75
+2026-10-01T02:52:17Z INFO  api job dequeued queue=default trace_id=ff6d8998f271f086
+2026-10-01T02:52:19Z ERROR api upstream timeout code=E318 trace_id=3772bd0fc8007ce0
+2026-10-01T02:52:41Z WARN  api slow response latency_ms=1840 trace_id=e0ba69af356e08d0
+2026-10-01T02:52:58Z INFO  api heartbeat ok trace_id=643e8f0837414a49
+2026-10-01T02:53:22Z INFO  api heartbeat ok trace_id=a91ae8da7139b0db
+2026-10-01T02:53:36Z INFO  api request served path=/v1/items status=200 trace_id=d24a208361eb7d61
+2026-10-01T02:53:42Z WARN  api slow response latency_ms=1840 trace_id=e07cd0533fe661af
+2026-10-01T02:54:04Z INFO  api request served path=/v1/items status=200 trace_id=3c0dedb188b5275c
+2026-10-01T02:54:43Z INFO  api request served path=/v1/items status=200 trace_id=6083cae68a2c4850
+2026-10-01T02:54:46Z INFO  api request served path=/v1/items status=200 trace_id=61043e8c08b4e011
+2026-10-01T02:54:47Z INFO  api heartbeat ok trace_id=6e8b1bfbf93a5269
+2026-10-01T02:54:53Z INFO  api request served path=/v1/items status=200 trace_id=8552288ccf924300
+2026-10-01T02:54:58Z INFO  api cache refreshed keys=128 trace_id=06f2b462c1751aa6
+2026-10-01T02:55:27Z INFO  api cache refreshed keys=128 trace_id=13986b2dd8b0387c
+2026-10-01T02:55:31Z INFO  api job dequeued queue=default trace_id=da9eea6c963cd290
+2026-10-01T02:56:10Z WARN  api retrying upstream attempt=2 trace_id=a01f8c10b842a1b7
+2026-10-01T02:56:14Z INFO  api heartbeat ok trace_id=00f446087cfa0fce
+2026-10-01T02:56:29Z INFO  api request served path=/v1/items status=200 trace_id=bfdffbd79d76e63e
+2026-10-01T02:56:34Z INFO  api job dequeued queue=default trace_id=d510be06a3273021
+2026-10-01T02:56:55Z INFO  api request served path=/v1/items status=200 trace_id=3b2769e20cc9515e
+2026-10-01T02:57:22Z INFO  api cache refreshed keys=128 trace_id=84ba0091611637f7
+2026-10-01T02:57:49Z INFO  api heartbeat ok trace_id=291a4b49b44a1782
+2026-10-01T02:57:57Z INFO  api heartbeat ok trace_id=c1f96bad7ef865e4
+2026-10-01T02:58:08Z INFO  api heartbeat ok trace_id=5624126df1ce2dcf
+2026-10-01T02:58:14Z INFO  api request served path=/v1/items status=200 trace_id=322a926bb20398b2
+2026-10-01T02:58:39Z WARN  api slow response latency_ms=1840 trace_id=7b01fb4408d28a2d
+2026-10-01T02:59:03Z INFO  api cache refreshed keys=128 trace_id=bb255c54bca54610
+2026-10-01T02:59:26Z INFO  api cache refreshed keys=128 trace_id=acf614a653b9c0c3
+2026-10-01T02:59:58Z INFO  api heartbeat ok trace_id=ae1886e55ebf0d51
+2026-10-01T03:00:16Z INFO  api request served path=/v1/items status=200 trace_id=2484c27f70bd32e7
+2026-10-01T03:00:38Z INFO  api request served path=/v1/items status=200 trace_id=2417c034f4c460e7
+2026-10-01T03:01:11Z WARN  api retrying upstream attempt=2 trace_id=cfae6149650cea24
+2026-10-01T03:01:42Z INFO  api heartbeat ok trace_id=c9aab500e9b31a2b
+2026-10-01T03:02:11Z INFO  api job dequeued queue=default trace_id=78e870c8e56f8661
+2026-10-01T03:02:49Z INFO  api cache refreshed keys=128 trace_id=9d83fb839154b356
+2026-10-01T03:03:18Z INFO  api request served path=/v1/items status=200 trace_id=7e3d4d06b1e409fd
+2026-10-01T03:03:40Z INFO  api cache refreshed keys=128 trace_id=f837b6f2822acb72
+2026-10-01T03:04:20Z INFO  api cache refreshed keys=128 trace_id=266c7fadbc0dba42
+2026-10-01T03:04:56Z INFO  api cache refreshed keys=128 trace_id=68cc577c24c225c3
+2026-10-01T03:05:14Z ERROR api payment provider rejected code=E318 trace_id=cc9d459025452b02
+2026-10-01T03:05:35Z WARN  api slow response latency_ms=1840 trace_id=9f2f658013278a45
+2026-10-01T03:05:47Z INFO  api cache refreshed keys=128 trace_id=4c882ddefe4f39b5
+2026-10-01T03:05:56Z INFO  api cache refreshed keys=128 trace_id=df77b268c3f73476
+2026-10-01T03:05:57Z INFO  api cache refreshed keys=128 trace_id=a4867722f6fc8a4b
+2026-10-01T03:06:08Z ERROR api db deadlock detected code=E318 trace_id=6759b2ecb82f3b5f
+2026-10-01T03:06:13Z INFO  api request served path=/v1/items status=200 trace_id=9bcbf16614681e61
+2026-10-01T03:06:14Z INFO  api request served path=/v1/items status=200 trace_id=e7a6e46bb502ced5
+2026-10-01T03:06:26Z INFO  api cache refreshed keys=128 trace_id=ae0ed7320349b547
+2026-10-01T03:06:54Z INFO  api job dequeued queue=default trace_id=956e63ce4ea0cd60
+2026-10-01T03:07:32Z INFO  api heartbeat ok trace_id=f9e58d3bda1c0aaa
+2026-10-01T03:07:43Z INFO  api heartbeat ok trace_id=9816c84f4f83b3d5
+2026-10-01T03:08:09Z INFO  api request served path=/v1/items status=200 trace_id=fafe22cb83364860
+2026-10-01T03:08:39Z INFO  api cache refreshed keys=128 trace_id=dde9be0dd9fb177f
+2026-10-01T03:08:47Z INFO  api heartbeat ok trace_id=40e38dbcf5bef62a
+2026-10-01T03:09:00Z INFO  api heartbeat ok trace_id=c080978bbf22ff9c
+2026-10-01T03:09:38Z INFO  api heartbeat ok trace_id=5413c8250f18072d
+2026-10-01T03:10:02Z WARN  api slow response latency_ms=1840 trace_id=68e412bd6c5ab7c9
+2026-10-01T03:10:37Z WARN  api retrying upstream attempt=2 trace_id=3bcb80a1e26cd20c
+2026-10-01T03:11:04Z INFO  api job dequeued queue=default trace_id=4b50b5098e4a12d8
+2026-10-01T03:11:40Z INFO  api request served path=/v1/items status=200 trace_id=c5b8a61dc7e52921
+2026-10-01T03:12:20Z INFO  api cache refreshed keys=128 trace_id=5156f273d996875c
+2026-10-01T03:12:38Z WARN  api retrying upstream attempt=2 trace_id=35e7136ca922fe5c
+2026-10-01T03:13:10Z INFO  api heartbeat ok trace_id=0f561c97c5a7271a
+2026-10-01T03:13:28Z INFO  api job dequeued queue=default trace_id=c8d0ec39e3563329
+2026-10-01T03:13:33Z ERROR api queue overflow code=E204 trace_id=cc002a597f8103d4
+2026-10-01T03:13:35Z INFO  api job dequeued queue=default trace_id=4aa0ba534cf339e6
+2026-10-01T03:13:56Z INFO  api job dequeued queue=default trace_id=04f71a02f4cf316b
+2026-10-01T03:14:11Z INFO  api job dequeued queue=default trace_id=86b78a9f13960a64
+2026-10-01T03:14:23Z INFO  api cache refreshed keys=128 trace_id=825329cad902962b
+2026-10-01T03:14:36Z INFO  api cache refreshed keys=128 trace_id=eceaf92999b66d90
+2026-10-01T03:14:41Z INFO  api cache refreshed keys=128 trace_id=3f3f138fe5dcf5d9
+2026-10-01T03:15:17Z INFO  api cache refreshed keys=128 trace_id=7b56ba19cd35d1ad
+2026-10-01T03:15:30Z INFO  api heartbeat ok trace_id=64300499f1c1e31f
+2026-10-01T03:15:44Z INFO  api cache refreshed keys=128 trace_id=1f359712908d3a77
+2026-10-01T03:16:19Z INFO  api heartbeat ok trace_id=81fb2dc6bc179d0a
+2026-10-01T03:16:49Z INFO  api heartbeat ok trace_id=b4723902cc91bc13
+2026-10-01T03:17:20Z WARN  api retrying upstream attempt=2 trace_id=a216f68cc4188d0e
+2026-10-01T03:17:52Z INFO  api job dequeued queue=default trace_id=afd0fd0e84211c9e
+2026-10-01T03:18:07Z INFO  api request served path=/v1/items status=200 trace_id=9dcd3495e0f1eb02
+2026-10-01T03:18:36Z WARN  api slow response latency_ms=1840 trace_id=be8cf9e1775b5245
+2026-10-01T03:19:03Z INFO  api cache refreshed keys=128 trace_id=bc70a53c837b41f5
+2026-10-01T03:19:41Z WARN  api retrying upstream attempt=2 trace_id=cd4b2c4d0e10aa31
+2026-10-01T03:20:12Z INFO  api job dequeued queue=default trace_id=380b1e9536d133c5
+2026-10-01T03:20:37Z INFO  api job dequeued queue=default trace_id=982c867c67d7dc3d
+2026-10-01T03:21:03Z INFO  api heartbeat ok trace_id=40df8be4bd0a4c73
+2026-10-01T03:21:24Z INFO  api cache refreshed keys=128 trace_id=ba56e7ba7aa9347a
+2026-10-01T03:21:35Z WARN  api slow response latency_ms=1840 trace_id=7e46f17a808203f4
+2026-10-01T03:21:50Z INFO  api heartbeat ok trace_id=2de453b9da1184cb
+2026-10-01T03:22:28Z ERROR api token signature invalid code=E503 trace_id=e36b492a7b7dee70
+2026-10-01T03:22:44Z INFO  api request served path=/v1/items status=200 trace_id=1d577a1ce3c78a9a
+2026-10-01T03:23:21Z INFO  api heartbeat ok trace_id=fe05dea859efd575
+2026-10-01T03:23:42Z INFO  api job dequeued queue=default trace_id=46bbc903701552e5
+2026-10-01T03:23:54Z ERROR api upstream timeout code=E204 trace_id=43ced8830e21e52d
+2026-10-01T03:24:29Z INFO  api heartbeat ok trace_id=24822c51164e7b56
+2026-10-01T03:24:32Z INFO  api heartbeat ok trace_id=c8eaa2d1f489cea3
+2026-10-01T03:24:59Z INFO  api heartbeat ok trace_id=b8a2f2a7aaa084f0
+2026-10-01T03:25:24Z INFO  api request served path=/v1/items status=200 trace_id=ac0b4e1b9b7277fe
+2026-10-01T03:25:45Z INFO  api request served path=/v1/items status=200 trace_id=c509e4794c8a97b6
+2026-10-01T03:25:52Z INFO  api cache refreshed keys=128 trace_id=4015a355334936bf
+2026-10-01T03:26:23Z INFO  api heartbeat ok trace_id=6f53b9eba3f9a024
+2026-10-01T03:26:37Z INFO  api job dequeued queue=default trace_id=a7ffc63b832a9352
+2026-10-01T03:26:41Z INFO  api request served path=/v1/items status=200 trace_id=49f27ba2f94d5e58
+2026-10-01T03:27:03Z INFO  api job dequeued queue=default trace_id=f33843120238db9e
+2026-10-01T03:27:38Z INFO  api request served path=/v1/items status=200 trace_id=19fd4bcb5e25d390
+2026-10-01T03:28:14Z INFO  api heartbeat ok trace_id=bad64209e904bbbf
+2026-10-01T03:28:37Z INFO  api request served path=/v1/items status=200 trace_id=6988db2afcc9c805
+2026-10-01T03:28:38Z INFO  api cache refreshed keys=128 trace_id=8581d08ea4a3aac7
+2026-10-01T03:28:55Z WARN  api pool near capacity used=92% trace_id=81bce6a3b5836822
+2026-10-01T03:29:25Z INFO  api cache refreshed keys=128 trace_id=09714406d1ed3b5e
+2026-10-01T03:30:00Z WARN  api slow response latency_ms=1840 trace_id=24ec17bed586b4f9
+2026-10-01T03:30:26Z INFO  api job dequeued queue=default trace_id=b5755781ed4e685c
+2026-10-01T03:30:43Z INFO  api heartbeat ok trace_id=0a6ca1071a932d97
+2026-10-01T03:31:16Z INFO  api cache refreshed keys=128 trace_id=3b68855c758bed29
+2026-10-01T03:31:27Z INFO  api heartbeat ok trace_id=a2a3eca70da9e821
+2026-10-01T03:31:29Z INFO  api request served path=/v1/items status=200 trace_id=f01be68c7864e186
+2026-10-01T03:31:41Z INFO  api heartbeat ok trace_id=b5002cccd15384f4
+2026-10-01T03:32:01Z INFO  api request served path=/v1/items status=200 trace_id=7bcc921cae7b14d4
+2026-10-01T03:32:38Z INFO  api job dequeued queue=default trace_id=774942440ff04f1a
+2026-10-01T03:33:03Z INFO  api heartbeat ok trace_id=fac0b167f44ee339
+2026-10-01T03:33:10Z ERROR api payment provider rejected code=E318 trace_id=4062e3c1df45999a
+2026-10-01T03:33:48Z INFO  api job dequeued queue=default trace_id=3dde846861692c4c
+2026-10-01T03:33:52Z WARN  api slow response latency_ms=1840 trace_id=2a1b3777ac1bc543
+2026-10-01T03:34:18Z INFO  api job dequeued queue=default trace_id=5a06b1410a88b0cf
+2026-10-01T03:34:57Z INFO  api job dequeued queue=default trace_id=fb93ea9db6d2eb8e
+2026-10-01T03:35:22Z INFO  api job dequeued queue=default trace_id=faac2d14b9d670df
+2026-10-01T03:35:53Z INFO  api heartbeat ok trace_id=907d9e86178ec8d1
+2026-10-01T03:36:22Z INFO  api heartbeat ok trace_id=bb1875f8138af6a5
+2026-10-01T03:36:26Z INFO  api request served path=/v1/items status=200 trace_id=ffb4a1b4b2d5f0c4
+2026-10-01T03:36:57Z INFO  api heartbeat ok trace_id=04beb1303ff3dcd2
+2026-10-01T03:37:17Z INFO  api request served path=/v1/items status=200 trace_id=14e34aedc2c1c2ce
+2026-10-01T03:37:43Z INFO  api request served path=/v1/items status=200 trace_id=29609f45da82d72d
+2026-10-01T03:38:08Z INFO  api job dequeued queue=default trace_id=ea93e24d089ef8a4
+2026-10-01T03:38:18Z INFO  api job dequeued queue=default trace_id=0e30a9a8660eebeb
+2026-10-01T03:38:48Z INFO  api request served path=/v1/items status=200 trace_id=559c1f8d6b1db601
+2026-10-01T03:39:15Z INFO  api cache refreshed keys=128 trace_id=f1d6f41cf492c161
+2026-10-01T03:39:55Z INFO  api heartbeat ok trace_id=05282d1443541234
+2026-10-01T03:40:31Z INFO  api request served path=/v1/items status=200 trace_id=355e066b0d55aafd
+2026-10-01T03:40:37Z WARN  api slow response latency_ms=1840 trace_id=84f6d89be2a835b3
+2026-10-01T03:40:43Z INFO  api request served path=/v1/items status=200 trace_id=1ef1bb9fbace0a6e
+2026-10-01T03:41:10Z INFO  api job dequeued queue=default trace_id=2fccde8d7df7b898
+2026-10-01T03:41:28Z WARN  api slow response latency_ms=1840 trace_id=0e044c0c479f2894
+2026-10-01T03:41:49Z ERROR api queue overflow code=E101 trace_id=4f2dae25cdf7f82c
+2026-10-01T03:42:03Z INFO  api request served path=/v1/items status=200 trace_id=bcee6373a852b0ce
+2026-10-01T03:42:10Z INFO  api heartbeat ok trace_id=5fbeda2e52c54987
+2026-10-01T03:42:25Z INFO  api job dequeued queue=default trace_id=e0286af109834d7c
+2026-10-01T03:42:51Z INFO  api cache refreshed keys=128 trace_id=c0403b79558b9d3b
+2026-10-01T03:43:03Z INFO  api cache refreshed keys=128 trace_id=c8f8a0c3b84596b6
+2026-10-01T03:43:31Z WARN  api pool near capacity used=92% trace_id=636f55c3cc2e25fb
+2026-10-01T03:43:40Z INFO  api request served path=/v1/items status=200 trace_id=4eb70d2199e6bf38
+2026-10-01T03:43:53Z INFO  api heartbeat ok trace_id=2e692407ad7cc035
+2026-10-01T03:44:18Z INFO  api job dequeued queue=default trace_id=aa3aa8312b8a3582
+2026-10-01T03:44:42Z INFO  api request served path=/v1/items status=200 trace_id=5daf19ea0c87448c
+2026-10-01T03:44:52Z INFO  api request served path=/v1/items status=200 trace_id=68ce86d808e39b15
+2026-10-01T03:45:14Z INFO  api heartbeat ok trace_id=8d8e1a722690fd58
+2026-10-01T03:45:20Z INFO  api heartbeat ok trace_id=e6ffbd193be5e1ec
+2026-10-01T03:45:54Z INFO  api heartbeat ok trace_id=cef389247a69e73d
+2026-10-01T03:45:57Z INFO  api heartbeat ok trace_id=591c3d67ab30e24b
+2026-10-01T03:46:19Z INFO  api request served path=/v1/items status=200 trace_id=709b716b0a79678d
+2026-10-01T03:46:22Z INFO  api request served path=/v1/items status=200 trace_id=19d230384039e64c
+2026-10-01T03:46:43Z INFO  api job dequeued queue=default trace_id=6aadf5202f9ea44a
+2026-10-01T03:46:45Z INFO  api heartbeat ok trace_id=371b3ba4182ba8c3
+2026-10-01T03:47:04Z INFO  api request served path=/v1/items status=200 trace_id=09b082304032bd72
+2026-10-01T03:47:38Z INFO  api request served path=/v1/items status=200 trace_id=efd1fb8f839122ff
+2026-10-01T03:47:48Z INFO  api request served path=/v1/items status=200 trace_id=20001f598c39969c
+2026-10-01T03:48:28Z INFO  api job dequeued queue=default trace_id=ea09e8a16083c7a9
+2026-10-01T03:48:29Z INFO  api job dequeued queue=default trace_id=ab2c29194efef9ac
+2026-10-01T03:49:00Z INFO  api request served path=/v1/items status=200 trace_id=c4bc6de2a6ebb2da
+2026-10-01T03:49:01Z INFO  api job dequeued queue=default trace_id=b185dfc3cf7ac45d
+2026-10-01T03:49:20Z INFO  api request served path=/v1/items status=200 trace_id=a260a1800bf76529
+2026-10-01T03:49:46Z ERROR api queue overflow code=E318 trace_id=18fe9b58ee7cace7
+2026-10-01T03:49:51Z WARN  api retrying upstream attempt=2 trace_id=21419ddce6e2adc1
+2026-10-01T03:50:20Z INFO  api job dequeued queue=default trace_id=0293d0a99a4d1a35
+2026-10-01T03:50:44Z INFO  api cache refreshed keys=128 trace_id=119e4c9347831a8b
+2026-10-01T03:51:01Z INFO  api heartbeat ok trace_id=97aed5a9f41611c2
+2026-10-01T03:51:37Z ERROR api token signature invalid code=E318 trace_id=dddec1fc1e8f740b
+2026-10-01T03:52:06Z ERROR api token signature invalid code=E204 trace_id=09db1cecf64b847d
+2026-10-01T03:52:41Z WARN  api retrying upstream attempt=2 trace_id=64881c6b6025b01b
+2026-10-01T03:52:48Z WARN  api pool near capacity used=92% trace_id=b3d845c3d60f5788
+2026-10-01T03:53:06Z WARN  api slow response latency_ms=1840 trace_id=d9499d869a65ad41
+2026-10-01T03:53:29Z INFO  api cache refreshed keys=128 trace_id=03167c4ce53b6027
+2026-10-01T03:53:30Z INFO  api cache refreshed keys=128 trace_id=c39edc12d62df1e5
+2026-10-01T03:54:06Z INFO  api request served path=/v1/items status=200 trace_id=4fed4c7b731cd7ac
+2026-10-01T03:54:30Z INFO  api request served path=/v1/items status=200 trace_id=80431683254a551a
+2026-10-01T03:55:09Z INFO  api cache refreshed keys=128 trace_id=f99fff112dbe3c23
+2026-10-01T03:55:20Z INFO  api cache refreshed keys=128 trace_id=db272d9479404ea7
+2026-10-01T03:55:33Z INFO  api heartbeat ok trace_id=603197887bc6c6f8
+2026-10-01T03:55:55Z INFO  api job dequeued queue=default trace_id=17effc20fd6e3234
+2026-10-01T03:56:00Z INFO  api cache refreshed keys=128 trace_id=a92f50d3e96fcdcb
+2026-10-01T03:56:35Z INFO  api heartbeat ok trace_id=a2b5525893ec87ed
+2026-10-01T03:57:07Z INFO  api heartbeat ok trace_id=a6ac84b0c7c7bbab
+2026-10-01T03:57:25Z WARN  api slow response latency_ms=1840 trace_id=555322184a442e1d
+2026-10-01T03:57:52Z INFO  api cache refreshed keys=128 trace_id=71c88c214021a340
+2026-10-01T03:57:58Z INFO  api cache refreshed keys=128 trace_id=4951cde466ccd347
+2026-10-01T03:58:07Z INFO  api cache refreshed keys=128 trace_id=eb100a871fad3c3d
+2026-10-01T03:58:22Z INFO  api request served path=/v1/items status=200 trace_id=edb2ec1a0e8b4342
+2026-10-01T03:58:49Z INFO  api request served path=/v1/items status=200 trace_id=f9ea4855248d5dd3
+2026-10-01T03:58:53Z INFO  api request served path=/v1/items status=200 trace_id=7365aa160b79d9e8
+2026-10-01T03:59:08Z INFO  api request served path=/v1/items status=200 trace_id=b3de306838164d83
+2026-10-01T03:59:18Z INFO  api job dequeued queue=default trace_id=b3db40d9cef8e828
+2026-10-01T03:59:46Z INFO  api cache refreshed keys=128 trace_id=6b565539523e3afd
+2026-10-01T04:00:25Z INFO  api cache refreshed keys=128 trace_id=f6081ba7030d1666
+2026-10-01T04:00:41Z WARN  api retrying upstream attempt=2 trace_id=45ab9e2ceb9ecaf5
+2026-10-01T04:01:14Z INFO  api heartbeat ok trace_id=c6ddd7720d63675b
+2026-10-01T04:01:49Z INFO  api heartbeat ok trace_id=70984165ac7dd593
+2026-10-01T04:02:23Z WARN  api pool near capacity used=92% trace_id=e960a5eb690a8dcf
+2026-10-01T04:02:52Z INFO  api heartbeat ok trace_id=06d02c4a437b1f60
+2026-10-01T04:03:04Z INFO  api heartbeat ok trace_id=9b29930074ae0963
+2026-10-01T04:03:38Z ERROR api queue overflow code=E101 trace_id=7713b60d948ec81a
+2026-10-01T04:04:08Z WARN  api pool near capacity used=92% trace_id=dc2645ab31a8a403
+2026-10-01T04:04:39Z INFO  api heartbeat ok trace_id=156c86e207de54df
+2026-10-01T04:04:47Z INFO  api cache refreshed keys=128 trace_id=3d3552f9710f62f1
+2026-10-01T04:05:16Z INFO  api heartbeat ok trace_id=c6ace2b13277e0a2
+2026-10-01T04:05:44Z INFO  api cache refreshed keys=128 trace_id=50e27b2560e7794b
+2026-10-01T04:06:19Z INFO  api request served path=/v1/items status=200 trace_id=0c3344b65ee1bb2e
+2026-10-01T04:06:28Z INFO  api heartbeat ok trace_id=a13ee28642d7ab3f
+2026-10-01T04:06:42Z WARN  api pool near capacity used=92% trace_id=8c3f26ba9812c8bc
+2026-10-01T04:07:13Z INFO  api heartbeat ok trace_id=59869a5dfa044f0b
+2026-10-01T04:07:28Z INFO  api request served path=/v1/items status=200 trace_id=95986accf9057ba4
+2026-10-01T04:07:41Z INFO  api job dequeued queue=default trace_id=786e71d21ee5134b
+2026-10-01T04:08:03Z INFO  api request served path=/v1/items status=200 trace_id=5fa06822e439c705
+2026-10-01T04:08:31Z INFO  api request served path=/v1/items status=200 trace_id=c5474f7ec88abbe6
+2026-10-01T04:08:45Z INFO  api request served path=/v1/items status=200 trace_id=2555ea892c8ede8d
+2026-10-01T04:09:06Z INFO  api cache refreshed keys=128 trace_id=2ec98cd0640f181f
+2026-10-01T04:09:30Z INFO  api job dequeued queue=default trace_id=2062aa652d6ba63e
+2026-10-01T04:09:59Z INFO  api heartbeat ok trace_id=6b18670fe83ce1c7
+2026-10-01T04:10:14Z INFO  api cache refreshed keys=128 trace_id=bd6270fe0bbbe469
+2026-10-01T04:10:25Z INFO  api heartbeat ok trace_id=1b9ad8be089b7a96
+2026-10-01T04:10:49Z INFO  api heartbeat ok trace_id=f7c4d0b544e0877e
+2026-10-01T04:10:57Z INFO  api cache refreshed keys=128 trace_id=0fcd470e4452ec9f
+2026-10-01T04:11:07Z INFO  api cache refreshed keys=128 trace_id=a74d05b3f1616b2b
+2026-10-01T04:11:08Z INFO  api request served path=/v1/items status=200 trace_id=25d016735a047f97
+2026-10-01T04:11:27Z INFO  api cache refreshed keys=128 trace_id=acd321bad58a58a8
+2026-10-01T04:11:42Z WARN  api retrying upstream attempt=2 trace_id=42ad9417f63d750c
+2026-10-01T04:12:02Z INFO  api request served path=/v1/items status=200 trace_id=4cd98968396c1c8b
+2026-10-01T04:12:35Z INFO  api request served path=/v1/items status=200 trace_id=30a7885fbcb7d035
+2026-10-01T04:12:43Z INFO  api job dequeued queue=default trace_id=e8f72f34f7612d71
+2026-10-01T04:13:13Z INFO  api heartbeat ok trace_id=0d8c41b2e301f1e3
+2026-10-01T04:13:41Z INFO  api request served path=/v1/items status=200 trace_id=e4e0919f6063724f
+2026-10-01T04:14:16Z INFO  api request served path=/v1/items status=200 trace_id=9f32c00bf97e9e0f
+2026-10-01T04:14:51Z INFO  api job dequeued queue=default trace_id=886c46fda4958d36
+2026-10-01T04:15:24Z INFO  api heartbeat ok trace_id=22f7e669745bf155
+2026-10-01T04:15:55Z INFO  api cache refreshed keys=128 trace_id=3208e09dd8bf0776
+2026-10-01T04:16:13Z INFO  api request served path=/v1/items status=200 trace_id=83e751786d9f7d3d
+2026-10-01T04:16:33Z INFO  api cache refreshed keys=128 trace_id=4a0c5d7a41b53113
+2026-10-01T04:16:46Z INFO  api job dequeued queue=default trace_id=f4ec1cdf57cbb7b0
+2026-10-01T04:17:22Z WARN  api pool near capacity used=92% trace_id=846f19b3667cb841
+2026-10-01T04:17:56Z INFO  api cache refreshed keys=128 trace_id=aeaf59efb7358d9f
+2026-10-01T04:18:14Z INFO  api request served path=/v1/items status=200 trace_id=e9a231f8101b5470
+2026-10-01T04:18:34Z INFO  api heartbeat ok trace_id=fd91296770064616
+2026-10-01T04:18:50Z INFO  api job dequeued queue=default trace_id=ae869675996b403f
+2026-10-01T04:19:01Z INFO  api request served path=/v1/items status=200 trace_id=28e389a185406294
+2026-10-01T04:19:14Z INFO  api job dequeued queue=default trace_id=6b0544eae9d226b6
+2026-10-01T04:19:24Z INFO  api cache refreshed keys=128 trace_id=8495579e8275f03c
+2026-10-01T04:19:32Z INFO  api cache refreshed keys=128 trace_id=bd7a00e94f9f2431
+2026-10-01T04:20:07Z INFO  api request served path=/v1/items status=200 trace_id=2db506fdf239c716
+2026-10-01T04:20:23Z INFO  api request served path=/v1/items status=200 trace_id=d0523da619fac15c
+2026-10-01T04:20:33Z INFO  api job dequeued queue=default trace_id=675fd56118fb7e7d
+2026-10-01T04:21:05Z WARN  api retrying upstream attempt=2 trace_id=246726dc3e8482e8
+2026-10-01T04:21:44Z INFO  api cache refreshed keys=128 trace_id=4316cc684a69cea9
+2026-10-01T04:21:58Z INFO  api job dequeued queue=default trace_id=4a6448406690a1ac
+2026-10-01T04:22:22Z WARN  api pool near capacity used=92% trace_id=327e48976c4c6e99
+2026-10-01T04:22:44Z INFO  api request served path=/v1/items status=200 trace_id=75e9c5a8c49783eb
+2026-10-01T04:23:08Z INFO  api heartbeat ok trace_id=f42e8012be395c3c
+2026-10-01T04:23:28Z INFO  api cache refreshed keys=128 trace_id=f22e232e0e72db98
+2026-10-01T04:23:37Z INFO  api heartbeat ok trace_id=7bfb0fa684f9574b
+2026-10-01T04:24:01Z INFO  api job dequeued queue=default trace_id=2b64ec855b54c8b0
+2026-10-01T04:24:22Z INFO  api job dequeued queue=default trace_id=997260d0a9170687
+2026-10-01T04:24:39Z ERROR api queue overflow code=E101 trace_id=c935009520e45870
+2026-10-01T04:24:57Z WARN  api slow response latency_ms=1840 trace_id=3bb0e6551306558e
+2026-10-01T04:24:58Z INFO  api request served path=/v1/items status=200 trace_id=3fcf99f7ef913f89
+2026-10-01T04:25:32Z INFO  api job dequeued queue=default trace_id=dbce3f82fdce82f9
+2026-10-01T04:25:41Z INFO  api heartbeat ok trace_id=1be8fc14785816d0
+2026-10-01T04:26:04Z INFO  api cache refreshed keys=128 trace_id=6e490f43489e0816
+2026-10-01T04:26:43Z INFO  api heartbeat ok trace_id=0dc3b388e5a56a7e
+2026-10-01T04:26:58Z WARN  api pool near capacity used=92% trace_id=10ebb7995e7894bc
+2026-10-01T04:27:23Z INFO  api job dequeued queue=default trace_id=e8b18cec1cf5bcda
+2026-10-01T04:27:45Z INFO  api request served path=/v1/items status=200 trace_id=e87e1658ecdaf0fb
+2026-10-01T04:28:05Z ERROR api db deadlock detected code=E101 trace_id=e85ef9ea3b1a80d8
+2026-10-01T04:28:39Z WARN  api slow response latency_ms=1840 trace_id=71ee0f3ce95ba847
+2026-10-01T04:28:46Z INFO  api request served path=/v1/items status=200 trace_id=438220d813836e01
+2026-10-01T04:29:26Z INFO  api job dequeued queue=default trace_id=df97923afd4e9532
+2026-10-01T04:29:33Z WARN  api slow response latency_ms=1840 trace_id=3ccb928a343400f9
+2026-10-01T04:29:36Z ERROR api token signature invalid code=E318 trace_id=2c6604d1a829d868
+2026-10-01T04:29:44Z INFO  api job dequeued queue=default trace_id=f0eecd86aba9d30c
+2026-10-01T04:30:23Z INFO  api job dequeued queue=default trace_id=7691f482bd124636
+2026-10-01T04:30:37Z INFO  api request served path=/v1/items status=200 trace_id=4578283dd42f9e93
+2026-10-01T04:30:58Z INFO  api job dequeued queue=default trace_id=6ba963d82f747dc0
+2026-10-01T04:31:17Z INFO  api heartbeat ok trace_id=dccd734ec1a06d11
+2026-10-01T04:31:23Z WARN  api slow response latency_ms=1840 trace_id=b697e35df682b1e0
+2026-10-01T04:31:48Z INFO  api cache refreshed keys=128 trace_id=c71c128048175f84
+2026-10-01T04:32:12Z WARN  api retrying upstream attempt=2 trace_id=bc126b25fcf2238e
+2026-10-01T04:32:23Z ERROR api payment provider rejected code=E204 trace_id=93d4b7ca36002b8e
+2026-10-01T04:32:39Z INFO  api cache refreshed keys=128 trace_id=f82a4302729ccbcc
+2026-10-01T04:33:10Z INFO  api request served path=/v1/items status=200 trace_id=de3c506b5aaf0c7c
+2026-10-01T04:33:37Z INFO  api cache refreshed keys=128 trace_id=826b21a4303e15df
+2026-10-01T04:33:52Z INFO  api heartbeat ok trace_id=15dc02de3dfae006
+2026-10-01T04:34:06Z INFO  api heartbeat ok trace_id=c245a34f11a32215
+2026-10-01T04:34:19Z INFO  api job dequeued queue=default trace_id=744aecb2ab9f9873
+2026-10-01T04:34:45Z WARN  api pool near capacity used=92% trace_id=28e9fbf273582f03
+2026-10-01T04:35:04Z INFO  api request served path=/v1/items status=200 trace_id=e1c314cb5c9d58e9
+2026-10-01T04:35:12Z INFO  api job dequeued queue=default trace_id=7c4cd5007199527f
+2026-10-01T04:35:49Z ERROR api payment provider rejected code=E318 trace_id=e14379f8c6c26108
+2026-10-01T04:35:54Z INFO  api heartbeat ok trace_id=172f54391dd80969
+2026-10-01T04:35:56Z WARN  api retrying upstream attempt=2 trace_id=4f4a7820962a7122
+2026-10-01T04:36:18Z INFO  api job dequeued queue=default trace_id=0ae569ccd214d895
+2026-10-01T04:36:30Z INFO  api cache refreshed keys=128 trace_id=7f265aa79de9aa67
+2026-10-01T04:37:01Z INFO  api cache refreshed keys=128 trace_id=8f12824f1c0aba20
+2026-10-01T04:37:34Z INFO  api cache refreshed keys=128 trace_id=31408ab9c8ba6626
+2026-10-01T04:37:59Z INFO  api cache refreshed keys=128 trace_id=4460e3cb80fa8d23
+2026-10-01T04:38:10Z INFO  api job dequeued queue=default trace_id=1d030a5febaf6866
+2026-10-01T04:38:36Z INFO  api heartbeat ok trace_id=01c938bcc51dee45
+2026-10-01T04:39:15Z INFO  api job dequeued queue=default trace_id=c04e6a9b776bb40c
+2026-10-01T04:39:39Z INFO  api job dequeued queue=default trace_id=35c44fd4e38e9e24
+2026-10-01T04:39:52Z INFO  api cache refreshed keys=128 trace_id=84c7c444b7256217
+2026-10-01T04:39:57Z INFO  api cache refreshed keys=128 trace_id=14dd62815862fce4
+2026-10-01T04:40:26Z INFO  api cache refreshed keys=128 trace_id=9b2c2f4f6e2db1ce
+2026-10-01T04:40:41Z INFO  api heartbeat ok trace_id=222998034d1fd7de
+2026-10-01T04:41:20Z INFO  api heartbeat ok trace_id=c5d2515f00e0d28a
+2026-10-01T04:41:32Z WARN  api retrying upstream attempt=2 trace_id=6eb59bdccb4d20f5
+2026-10-01T04:41:39Z INFO  api request served path=/v1/items status=200 trace_id=979af1541ed7f67f
+2026-10-01T04:41:44Z WARN  api pool near capacity used=92% trace_id=92340f99559edadd
+2026-10-01T04:42:01Z INFO  api job dequeued queue=default trace_id=6e2b8e2782667f36
+2026-10-01T04:42:29Z INFO  api cache refreshed keys=128 trace_id=732477340807ef3c
+2026-10-01T04:42:30Z INFO  api cache refreshed keys=128 trace_id=b0688a321bda5dee
+2026-10-01T04:42:40Z WARN  api slow response latency_ms=1840 trace_id=b671a2e9fbd15911
+2026-10-01T04:42:59Z INFO  api heartbeat ok trace_id=f2b256aebcf305d2
+2026-10-01T04:43:28Z INFO  api heartbeat ok trace_id=b9bd4f9e9ab41578
+2026-10-01T04:43:51Z WARN  api slow response latency_ms=1840 trace_id=e0edecb9cb738740
+2026-10-01T04:44:08Z INFO  api request served path=/v1/items status=200 trace_id=912692f833318473
+2026-10-01T04:44:25Z WARN  api retrying upstream attempt=2 trace_id=f3ae2359783fe03a
+2026-10-01T04:44:44Z INFO  api job dequeued queue=default trace_id=c0d39df0d3d27689
+2026-10-01T04:45:00Z INFO  api request served path=/v1/items status=200 trace_id=1f054bb330a79909
+2026-10-01T04:45:38Z INFO  api cache refreshed keys=128 trace_id=2245a8a6bac0a3df
+2026-10-01T04:46:07Z INFO  api job dequeued queue=default trace_id=e5e8ab921fca16b8
+2026-10-01T04:46:34Z INFO  api cache refreshed keys=128 trace_id=bacd95079baecbba
+2026-10-01T04:46:41Z INFO  api request served path=/v1/items status=200 trace_id=95cbd140cf587090
+2026-10-01T04:47:11Z INFO  api job dequeued queue=default trace_id=1dce91e4046ab23a
+2026-10-01T04:47:47Z INFO  api job dequeued queue=default trace_id=a83cf6ad6b5bcce6
+2026-10-01T04:48:10Z INFO  api heartbeat ok trace_id=b852328fce9870dc
+2026-10-01T04:48:40Z INFO  api job dequeued queue=default trace_id=4668cedbb175cd90
+2026-10-01T04:48:50Z INFO  api heartbeat ok trace_id=9351ee088601620f
+2026-10-01T04:49:08Z WARN  api pool near capacity used=92% trace_id=d961d21a35bde67c
+2026-10-01T04:49:39Z INFO  api heartbeat ok trace_id=6a6441c0c313bbf5
+2026-10-01T04:50:13Z WARN  api retrying upstream attempt=2 trace_id=cfe34e9036d5d28c
+2026-10-01T04:50:33Z INFO  api heartbeat ok trace_id=bb2695b93f5bf01b
+2026-10-01T04:50:58Z ERROR api payment provider rejected code=E318 trace_id=82c49a0128c357fe
+2026-10-01T04:50:59Z INFO  api heartbeat ok trace_id=65d8f890dd5db8a9
+2026-10-01T04:51:08Z INFO  api heartbeat ok trace_id=793f0dfd122f1cf2
+2026-10-01T04:51:10Z INFO  api heartbeat ok trace_id=68d30541712101b6
+2026-10-01T04:51:41Z INFO  api heartbeat ok trace_id=b553f545be34f6b6
+2026-10-01T04:51:44Z INFO  api heartbeat ok trace_id=7134cd71701dd644
+2026-10-01T04:51:58Z INFO  api cache refreshed keys=128 trace_id=881aa3b07a3dc775
+2026-10-01T04:51:59Z INFO  api heartbeat ok trace_id=942d8701a463a455
+2026-10-01T04:52:15Z INFO  api request served path=/v1/items status=200 trace_id=f3ff297f4cc17c37
+2026-10-01T04:52:55Z INFO  api request served path=/v1/items status=200 trace_id=643bfa9e41d0986a
+2026-10-01T04:52:58Z INFO  api request served path=/v1/items status=200 trace_id=502963e2006dd178
+2026-10-01T04:53:09Z INFO  api request served path=/v1/items status=200 trace_id=ad00db15c3a5099a
+2026-10-01T04:53:13Z WARN  api retrying upstream attempt=2 trace_id=d901ba2f1fe02d2b
+2026-10-01T04:53:27Z INFO  api request served path=/v1/items status=200 trace_id=bc87356ebd87c136
+2026-10-01T04:53:52Z INFO  api job dequeued queue=default trace_id=4a917824479e36e3
+2026-10-01T04:54:00Z ERROR api db deadlock detected code=E422 trace_id=50eeb2ae359cf410
+2026-10-01T04:54:20Z INFO  api request served path=/v1/items status=200 trace_id=bc879755053fdafd
+2026-10-01T04:54:26Z INFO  api cache refreshed keys=128 trace_id=4648e9851bf4d767
+2026-10-01T04:55:06Z INFO  api job dequeued queue=default trace_id=25748b1e3f0af6f4
+2026-10-01T04:55:46Z INFO  api cache refreshed keys=128 trace_id=7798d8123eb51dcc
+2026-10-01T04:56:16Z INFO  api cache refreshed keys=128 trace_id=2209eca5432c31e2
+2026-10-01T04:56:53Z INFO  api heartbeat ok trace_id=b479e959caf3ab5d
+2026-10-01T04:57:07Z INFO  api job dequeued queue=default trace_id=010c7bae37e1511a
+2026-10-01T04:57:45Z WARN  api retrying upstream attempt=2 trace_id=2156e27f079f5809
+2026-10-01T04:57:48Z INFO  api request served path=/v1/items status=200 trace_id=dd90b585f07aec3e
+2026-10-01T04:58:12Z INFO  api cache refreshed keys=128 trace_id=92e1aeb09d844191
+2026-10-01T04:58:27Z INFO  api cache refreshed keys=128 trace_id=44114e5719b93ad0
+2026-10-01T04:59:06Z ERROR api payment provider rejected code=E101 trace_id=da96e2240c2a4354
+2026-10-01T04:59:44Z WARN  api slow response latency_ms=1840 trace_id=4b6830fac9f22bde
+2026-10-01T05:00:03Z INFO  api cache refreshed keys=128 trace_id=e80f988b810a2f39
+2026-10-01T05:00:17Z INFO  api job dequeued queue=default trace_id=caba4d144fe2ce91
+2026-10-01T05:00:56Z INFO  api job dequeued queue=default trace_id=1db587b2cd10c0e9
+2026-10-01T05:01:04Z INFO  api cache refreshed keys=128 trace_id=bcce03c0596cb521
+2026-10-01T05:01:36Z WARN  api retrying upstream attempt=2 trace_id=76a6a5f42ea4319b
+2026-10-01T05:02:12Z INFO  api request served path=/v1/items status=200 trace_id=1bf799b88f67ade3
+2026-10-01T05:02:49Z INFO  api job dequeued queue=default trace_id=47cc8ea4e5a51fd9
+2026-10-01T05:03:02Z INFO  api cache refreshed keys=128 trace_id=640078fa548de268
+2026-10-01T05:03:14Z INFO  api cache refreshed keys=128 trace_id=e7e84588c96c11b8
+2026-10-01T05:03:18Z INFO  api job dequeued queue=default trace_id=77f8983dd0ceb4f1
+2026-10-01T05:03:32Z INFO  api heartbeat ok trace_id=9ac36c1ac8137009
+2026-10-01T05:04:07Z INFO  api heartbeat ok trace_id=2e390acff1c89573
+2026-10-01T05:04:24Z INFO  api job dequeued queue=default trace_id=96812fb4b9cd4f0b
+2026-10-01T05:04:30Z WARN  api retrying upstream attempt=2 trace_id=e8c8a9960afef81f
+2026-10-01T05:04:49Z ERROR api db deadlock detected code=E318 trace_id=d96b9ac8e1f75e8b
+2026-10-01T05:04:57Z WARN  api pool near capacity used=92% trace_id=38aefe4812b344be
+2026-10-01T05:05:26Z INFO  api request served path=/v1/items status=200 trace_id=800d9e7015b24eed
+2026-10-01T05:05:56Z INFO  api heartbeat ok trace_id=7397b7372f55d9c5
+2026-10-01T05:06:28Z INFO  api request served path=/v1/items status=200 trace_id=159c6a4835b3bbbe
+2026-10-01T05:06:52Z INFO  api job dequeued queue=default trace_id=10b0eb36742b4554
+2026-10-01T05:07:00Z INFO  api heartbeat ok trace_id=045941f99c5b4fa1
+2026-10-01T05:07:39Z INFO  api heartbeat ok trace_id=7ab0b21cf4b79d22
+2026-10-01T05:08:11Z INFO  api heartbeat ok trace_id=1a6d23d6d2a09e72
+2026-10-01T05:08:37Z ERROR api upstream timeout code=E503 trace_id=d18ee38b98a4cbfd
+2026-10-01T05:08:59Z INFO  api request served path=/v1/items status=200 trace_id=d621702276832276
+2026-10-01T05:09:30Z INFO  api request served path=/v1/items status=200 trace_id=66ac396c921aadbe
+2026-10-01T05:09:41Z WARN  api retrying upstream attempt=2 trace_id=ee475715ab5b308b
+2026-10-01T05:09:55Z INFO  api heartbeat ok trace_id=9c29ceebd993ecf4
+2026-10-01T05:10:34Z INFO  api heartbeat ok trace_id=5fef9f005334fa4b
+2026-10-01T05:10:59Z INFO  api job dequeued queue=default trace_id=e838ba630cb537a6
+2026-10-01T05:11:06Z INFO  api request served path=/v1/items status=200 trace_id=e96e04c1de589ded
+2026-10-01T05:11:40Z INFO  api cache refreshed keys=128 trace_id=e84173b551d519d8
+2026-10-01T05:12:18Z INFO  api request served path=/v1/items status=200 trace_id=b5fdf3b297be2081
+2026-10-01T05:12:53Z WARN  api retrying upstream attempt=2 trace_id=16ff28c113b86a13
+2026-10-01T05:13:20Z INFO  api job dequeued queue=default trace_id=00a25955711bf013
+2026-10-01T05:13:47Z INFO  api request served path=/v1/items status=200 trace_id=0227f65c8056a4be
+2026-10-01T05:13:51Z INFO  api job dequeued queue=default trace_id=a9964b3b2209d4f8
+2026-10-01T05:14:15Z WARN  api pool near capacity used=92% trace_id=f958a79bea8fca04
+2026-10-01T05:14:47Z INFO  api job dequeued queue=default trace_id=d2a6207a18d20ca4
+2026-10-01T05:15:11Z INFO  api cache refreshed keys=128 trace_id=e4006fc2b5b2030f
+2026-10-01T05:15:35Z INFO  api heartbeat ok trace_id=c84013eaa9de5059
+2026-10-01T05:15:55Z INFO  api cache refreshed keys=128 trace_id=32c6bcd0cd1335e2
+2026-10-01T05:16:13Z INFO  api cache refreshed keys=128 trace_id=40d47bb0dfda88a4
+2026-10-01T05:16:34Z INFO  api cache refreshed keys=128 trace_id=bc63d20ea10bba10
+2026-10-01T05:17:06Z INFO  api request served path=/v1/items status=200 trace_id=681247f45e1990ab
+2026-10-01T05:17:23Z INFO  api job dequeued queue=default trace_id=307c29748953da90
+2026-10-01T05:17:33Z INFO  api job dequeued queue=default trace_id=0f025a5c32399506
+2026-10-01T05:17:36Z INFO  api cache refreshed keys=128 trace_id=41eb3a6a34e29628
+2026-10-01T05:17:42Z INFO  api heartbeat ok trace_id=3c4aec0219a0ac35
+2026-10-01T05:18:12Z INFO  api request served path=/v1/items status=200 trace_id=159f0b9a67d7f82b
+2026-10-01T05:18:13Z INFO  api request served path=/v1/items status=200 trace_id=c95c5b55327be018
+2026-10-01T05:18:22Z INFO  api cache refreshed keys=128 trace_id=494146de7f32c782
+2026-10-01T05:18:55Z INFO  api job dequeued queue=default trace_id=1fc7641771244523
+2026-10-01T05:19:33Z INFO  api request served path=/v1/items status=200 trace_id=862597bc74217617
+2026-10-01T05:20:05Z WARN  api slow response latency_ms=1840 trace_id=0bfdae2bce429fac
+2026-10-01T05:20:31Z INFO  api job dequeued queue=default trace_id=0b392e44ff581e05
+2026-10-01T05:21:02Z INFO  api cache refreshed keys=128 trace_id=29269d9a13e8acb7
+2026-10-01T05:21:03Z WARN  api retrying upstream attempt=2 trace_id=d78e4e3ddb241ef8
+2026-10-01T05:21:42Z ERROR api token signature invalid code=E101 trace_id=e6ce19df9262b45d
+2026-10-01T05:21:44Z INFO  api heartbeat ok trace_id=47219de170d029e8
+2026-10-01T05:21:51Z ERROR api token signature invalid code=E422 trace_id=ae136bb5b1421645
+2026-10-01T05:21:59Z INFO  api cache refreshed keys=128 trace_id=bbd49e70e823db2e
+2026-10-01T05:22:10Z INFO  api heartbeat ok trace_id=5f49fbb14b076240
+2026-10-01T05:22:25Z INFO  api cache refreshed keys=128 trace_id=64e12698639c8425
+2026-10-01T05:23:00Z INFO  api job dequeued queue=default trace_id=fd85d29d30138118
+2026-10-01T05:23:25Z INFO  api heartbeat ok trace_id=4c7a555eb92b48b5
+2026-10-01T05:23:46Z INFO  api cache refreshed keys=128 trace_id=54cee8e40af187b6
+2026-10-01T05:24:00Z INFO  api cache refreshed keys=128 trace_id=bd552ebfb55e1f7a
+2026-10-01T05:24:02Z INFO  api request served path=/v1/items status=200 trace_id=2efda24b037c3526
+2026-10-01T05:24:24Z INFO  api job dequeued queue=default trace_id=6390da5413e4da47
+2026-10-01T05:24:52Z INFO  api heartbeat ok trace_id=b52320835e9cbadf
+2026-10-01T05:24:56Z WARN  api slow response latency_ms=1840 trace_id=46df1c54f9ccfbbd
+2026-10-01T05:25:02Z WARN  api retrying upstream attempt=2 trace_id=2b8aabd4b70ff6a8
+2026-10-01T05:25:13Z INFO  api request served path=/v1/items status=200 trace_id=3ee3aceed6f9a976
+2026-10-01T05:25:34Z ERROR api db deadlock detected code=E318 trace_id=d528f4116211339d
+2026-10-01T05:26:05Z INFO  api job dequeued queue=default trace_id=994a63a9c505d2af
+2026-10-01T05:26:40Z INFO  api job dequeued queue=default trace_id=3cbd128c46acf8a0
+2026-10-01T05:26:51Z INFO  api heartbeat ok trace_id=5ba2341013c0efd5
+2026-10-01T05:27:03Z INFO  api cache refreshed keys=128 trace_id=2e3a2ecdbb566fa7
+2026-10-01T05:27:22Z INFO  api heartbeat ok trace_id=d819d2d08734b312
+2026-10-01T05:27:24Z INFO  api cache refreshed keys=128 trace_id=89c1b7165640067c
+2026-10-01T05:27:39Z INFO  api cache refreshed keys=128 trace_id=3233dfe0ff85062c
+2026-10-01T05:27:49Z INFO  api heartbeat ok trace_id=28e8f923bcd95b9d
+2026-10-01T05:27:51Z WARN  api retrying upstream attempt=2 trace_id=69027278cec130e8
+2026-10-01T05:28:30Z INFO  api request served path=/v1/items status=200 trace_id=3b487bc8ce1dbb05
+2026-10-01T05:29:00Z INFO  api job dequeued queue=default trace_id=a45afa40325a42d5
+2026-10-01T05:29:16Z INFO  api request served path=/v1/items status=200 trace_id=33abc51b71c869fc
+2026-10-01T05:29:27Z WARN  api pool near capacity used=92% trace_id=254a5c3c0532038f
+2026-10-01T05:29:43Z INFO  api request served path=/v1/items status=200 trace_id=3b6d103e2313ac95
+2026-10-01T05:30:18Z WARN  api slow response latency_ms=1840 trace_id=ec79fb72cee2e4f0
+2026-10-01T05:30:30Z INFO  api request served path=/v1/items status=200 trace_id=318cc79a99ddfb37
+2026-10-01T05:31:07Z INFO  api job dequeued queue=default trace_id=0862a918ccbc9405
+2026-10-01T05:31:42Z WARN  api slow response latency_ms=1840 trace_id=c189f690cd9204c7
+2026-10-01T05:32:05Z INFO  api cache refreshed keys=128 trace_id=27ab6ee3121c439b
+2026-10-01T05:32:13Z INFO  api job dequeued queue=default trace_id=57733811b1d78873
+2026-10-01T05:32:20Z INFO  api job dequeued queue=default trace_id=c6ce9a0a4088597f
+2026-10-01T05:32:53Z INFO  api heartbeat ok trace_id=b756355597d25633
+2026-10-01T05:33:22Z ERROR api token signature invalid code=E318 trace_id=3cb73f0f24af9c62
+2026-10-01T05:33:28Z INFO  api cache refreshed keys=128 trace_id=2f29761a5df06de3
+2026-10-01T05:33:39Z INFO  api job dequeued queue=default trace_id=3acb4a4d0d8f31e6
+2026-10-01T05:34:16Z INFO  api job dequeued queue=default trace_id=adf7519570cff7aa
+2026-10-01T05:34:23Z INFO  api heartbeat ok trace_id=6672990f992b1267
+2026-10-01T05:34:59Z INFO  api cache refreshed keys=128 trace_id=5ff9d4bc4320e9a1
+2026-10-01T05:35:06Z INFO  api cache refreshed keys=128 trace_id=e488a9ff5cd94425
+2026-10-01T05:35:37Z INFO  api cache refreshed keys=128 trace_id=6c073710a56dc6a0
+2026-10-01T05:36:08Z ERROR api token signature invalid code=E503 trace_id=59b3f4115896907d
+2026-10-01T05:36:31Z INFO  api job dequeued queue=default trace_id=23ce22eef90d3125
+2026-10-01T05:37:10Z INFO  api job dequeued queue=default trace_id=4dc173b9083c46c7
+2026-10-01T05:37:39Z ERROR api payment provider rejected code=E318 trace_id=0e6dc71b767dd45c
+2026-10-01T05:38:15Z INFO  api request served path=/v1/items status=200 trace_id=93773e5717068aea
+2026-10-01T05:38:45Z INFO  api heartbeat ok trace_id=960e35c0a9427000
+2026-10-01T05:39:09Z WARN  api slow response latency_ms=1840 trace_id=f1d85685c2fc9ec6
+2026-10-01T05:39:33Z INFO  api cache refreshed keys=128 trace_id=0c426079bb0033f3
+2026-10-01T05:39:49Z INFO  api cache refreshed keys=128 trace_id=b2d4c505bb843684
+2026-10-01T05:40:27Z INFO  api cache refreshed keys=128 trace_id=fe4c35fbe1f7f73c
+2026-10-01T05:41:05Z INFO  api cache refreshed keys=128 trace_id=b227de13454e797d
+2026-10-01T05:41:36Z INFO  api cache refreshed keys=128 trace_id=ae54581f280a188a
+2026-10-01T05:42:08Z INFO  api cache refreshed keys=128 trace_id=cea193eb6828e19e
+2026-10-01T05:42:36Z INFO  api job dequeued queue=default trace_id=69814b60598b420c
+2026-10-01T05:43:01Z INFO  api request served path=/v1/items status=200 trace_id=4179a62bcace7307
+2026-10-01T05:43:18Z INFO  api cache refreshed keys=128 trace_id=7b7e7c0f28ef6581
+2026-10-01T05:43:54Z INFO  api request served path=/v1/items status=200 trace_id=ec0883a9c3d2b5f5
+2026-10-01T05:44:14Z INFO  api request served path=/v1/items status=200 trace_id=beb7e0bc2fed198b
+2026-10-01T05:44:33Z INFO  api request served path=/v1/items status=200 trace_id=b904ea377e1b4cf9
+2026-10-01T05:44:52Z INFO  api job dequeued queue=default trace_id=cec8e3142340f829
+2026-10-01T05:45:31Z INFO  api cache refreshed keys=128 trace_id=9e4d61dfc31fa85d
+2026-10-01T05:45:34Z ERROR api upstream timeout code=E101 trace_id=757e421f47bc1736
+2026-10-01T05:45:50Z INFO  api heartbeat ok trace_id=188b915104034698
+2026-10-01T05:46:23Z INFO  api request served path=/v1/items status=200 trace_id=39a8690f92cefb22
+2026-10-01T05:46:28Z INFO  api heartbeat ok trace_id=85a21622b2e99795
+2026-10-01T05:46:50Z INFO  api job dequeued queue=default trace_id=00802989209656c2
+2026-10-01T05:47:04Z INFO  api request served path=/v1/items status=200 trace_id=46c6ce54a858efd3
+2026-10-01T05:47:42Z INFO  api heartbeat ok trace_id=1107a2f71e10b956
+2026-10-01T05:47:51Z WARN  api pool near capacity used=92% trace_id=5e202eaa33795ddc
+2026-10-01T05:48:10Z INFO  api heartbeat ok trace_id=446437c9253b8e0d
+2026-10-01T05:48:41Z WARN  api slow response latency_ms=1840 trace_id=dac22f3da1d5f90a
+2026-10-01T05:49:19Z INFO  api cache refreshed keys=128 trace_id=f8655f79c4e155b3
+2026-10-01T05:49:48Z INFO  api heartbeat ok trace_id=841693120eb82578
+2026-10-01T05:50:10Z INFO  api heartbeat ok trace_id=08f2620562250576
+2026-10-01T05:50:47Z WARN  api retrying upstream attempt=2 trace_id=bdc47dd9353fa044
+2026-10-01T05:51:04Z ERROR api queue overflow code=E503 trace_id=4efcae813aeb1434
+2026-10-01T05:51:39Z INFO  api request served path=/v1/items status=200 trace_id=dce7634dfebd7797
+2026-10-01T05:51:50Z INFO  api request served path=/v1/items status=200 trace_id=b9822bbe6a56f0da
+2026-10-01T05:52:30Z INFO  api cache refreshed keys=128 trace_id=9cda9602dd6539d0
+2026-10-01T05:53:07Z WARN  api slow response latency_ms=1840 trace_id=153a03ddcb9f3c68
+2026-10-01T05:53:24Z INFO  api job dequeued queue=default trace_id=2f0b4c9b4394b01d
+2026-10-01T05:53:29Z INFO  api cache refreshed keys=128 trace_id=9f1a03246a545020
+2026-10-01T05:53:35Z INFO  api request served path=/v1/items status=200 trace_id=390a134a4118e787
+2026-10-01T05:53:49Z INFO  api request served path=/v1/items status=200 trace_id=2c316684a455b987
+2026-10-01T05:54:17Z INFO  api job dequeued queue=default trace_id=5cde3bc43496c57a
+2026-10-01T05:54:21Z INFO  api job dequeued queue=default trace_id=6f9d69f9fd30b50b
+2026-10-01T05:54:58Z INFO  api cache refreshed keys=128 trace_id=e35848ac385da938
+2026-10-01T05:55:38Z INFO  api cache refreshed keys=128 trace_id=569dfb1208642ffe
+2026-10-01T05:56:14Z WARN  api pool near capacity used=92% trace_id=158002b5d014fdfd
+2026-10-01T05:56:37Z INFO  api heartbeat ok trace_id=583981a364a42b5d
+2026-10-01T05:57:05Z INFO  api job dequeued queue=default trace_id=1bd7798060140823
+2026-10-01T05:57:17Z INFO  api heartbeat ok trace_id=7f22ceff1dfef9ae
+2026-10-01T05:57:34Z INFO  api request served path=/v1/items status=200 trace_id=52234c5f7be420d2
+2026-10-01T05:58:04Z INFO  api request served path=/v1/items status=200 trace_id=d64685eb7f60b991
+2026-10-01T05:58:21Z WARN  api slow response latency_ms=1840 trace_id=d0b34e2ff99a649d
+2026-10-01T05:58:59Z WARN  api pool near capacity used=92% trace_id=74dbe9f1dffa196a
+2026-10-01T05:59:28Z INFO  api request served path=/v1/items status=200 trace_id=f9f9cdf9cb63830b
+2026-10-01T05:59:30Z INFO  api cache refreshed keys=128 trace_id=f8fa24ceb86bc42a
+2026-10-01T05:59:51Z INFO  api cache refreshed keys=128 trace_id=ffdccbdac39c7f9f
+2026-10-01T06:00:05Z INFO  api request served path=/v1/items status=200 trace_id=fa534eb4bae7446d
+2026-10-01T06:00:16Z INFO  api heartbeat ok trace_id=92a33d91a9c25b90
+2026-10-01T06:00:52Z INFO  api heartbeat ok trace_id=608e2c953c87b37d
+2026-10-01T06:00:53Z WARN  api retrying upstream attempt=2 trace_id=fcc931c5551022f0
+2026-10-01T06:01:05Z INFO  api request served path=/v1/items status=200 trace_id=3820e8369449777d
+2026-10-01T06:01:06Z INFO  api heartbeat ok trace_id=badeb74897bc7e92
+2026-10-01T06:01:40Z INFO  api request served path=/v1/items status=200 trace_id=7a41fe6f48cac987
+2026-10-01T06:02:03Z WARN  api slow response latency_ms=1840 trace_id=ad735b8e8a10953d
+2026-10-01T06:02:15Z INFO  api job dequeued queue=default trace_id=681fe569e135eeb4
+2026-10-01T06:02:21Z INFO  api heartbeat ok trace_id=b90c599c0a8157ef
+2026-10-01T06:02:35Z INFO  api cache refreshed keys=128 trace_id=3eeff6df79a1773e
+2026-10-01T06:03:05Z INFO  api job dequeued queue=default trace_id=4d19e1cb3992f559
+2026-10-01T06:03:13Z INFO  api heartbeat ok trace_id=199824b41fb06d2b
+2026-10-01T06:03:19Z INFO  api heartbeat ok trace_id=d31574c6a364b675
+2026-10-01T06:03:47Z INFO  api heartbeat ok trace_id=63b758b313bf1c83
+2026-10-01T06:04:21Z INFO  api request served path=/v1/items status=200 trace_id=6399c8e4a99398fa
+2026-10-01T06:04:30Z INFO  api request served path=/v1/items status=200 trace_id=ba8b24ba6f078701
+2026-10-01T06:04:38Z INFO  api heartbeat ok trace_id=ffdc8c6c0044e0bf
+2026-10-01T06:04:40Z INFO  api request served path=/v1/items status=200 trace_id=a79f9f7295822660
+2026-10-01T06:04:45Z INFO  api request served path=/v1/items status=200 trace_id=912e3ac424bfa61a
+2026-10-01T06:04:58Z INFO  api heartbeat ok trace_id=e3abef06c088342b
+2026-10-01T06:05:38Z INFO  api request served path=/v1/items status=200 trace_id=200cfdf358d704f1
+2026-10-01T06:05:53Z INFO  api job dequeued queue=default trace_id=4469fe2bcb1545c9
+2026-10-01T06:06:03Z INFO  api cache refreshed keys=128 trace_id=9c926dd4a99ffb91
+2026-10-01T06:06:30Z INFO  api request served path=/v1/items status=200 trace_id=7d4f593a41c313b8
+2026-10-01T06:06:47Z INFO  api job dequeued queue=default trace_id=4375bdccdb4918ca
+2026-10-01T06:07:03Z INFO  api cache refreshed keys=128 trace_id=46791dd51cbbddc4
+2026-10-01T06:07:13Z INFO  api job dequeued queue=default trace_id=515d2619b5457220
+2026-10-01T06:07:32Z INFO  api heartbeat ok trace_id=ec6f923ee7f3ac9e
+2026-10-01T06:08:05Z ERROR api payment provider rejected code=E318 trace_id=e6516c8865e6fe0b
+2026-10-01T06:08:19Z INFO  api job dequeued queue=default trace_id=5716cf09da65a218
+2026-10-01T06:08:29Z INFO  api heartbeat ok trace_id=dd19effc5362006b
+2026-10-01T06:08:37Z INFO  api request served path=/v1/items status=200 trace_id=19d6001400390b82
+2026-10-01T06:08:51Z INFO  api heartbeat ok trace_id=50439ecdac55e4d4
+2026-10-01T06:09:24Z ERROR api queue overflow code=E422 trace_id=f2244827e4209422
+2026-10-01T06:09:29Z INFO  api job dequeued queue=default trace_id=08a9026e468b0e17
+2026-10-01T06:09:41Z INFO  api job dequeued queue=default trace_id=7b8dbb57015be8dd
+2026-10-01T06:09:56Z INFO  api job dequeued queue=default trace_id=259152aa62e8f143
+2026-10-01T06:10:33Z WARN  api pool near capacity used=92% trace_id=2d9a1a649a029486
+2026-10-01T06:10:51Z INFO  api request served path=/v1/items status=200 trace_id=899122eff4f1f570
+2026-10-01T06:11:19Z INFO  api heartbeat ok trace_id=dcbfa324077fb25d
+2026-10-01T06:11:47Z INFO  api cache refreshed keys=128 trace_id=9be02a7dc5a28f8d
+2026-10-01T06:12:21Z INFO  api heartbeat ok trace_id=6d0b8a1b1ef38e3a
+2026-10-01T06:12:47Z INFO  api request served path=/v1/items status=200 trace_id=467318cab5b77ba8
+2026-10-01T06:13:17Z INFO  api request served path=/v1/items status=200 trace_id=50b1c66a893daf58
+2026-10-01T06:13:37Z INFO  api cache refreshed keys=128 trace_id=dda6dbe38967ef7d
+2026-10-01T06:14:09Z INFO  api request served path=/v1/items status=200 trace_id=6f603a3a8d398b31
+2026-10-01T06:14:40Z INFO  api request served path=/v1/items status=200 trace_id=cca206f7ebd79ffa
+2026-10-01T06:14:45Z INFO  api request served path=/v1/items status=200 trace_id=0415fd41afbe6948
+2026-10-01T06:15:08Z INFO  api job dequeued queue=default trace_id=00eb4b11e6bf6474
+2026-10-01T06:15:34Z INFO  api job dequeued queue=default trace_id=036b7dd6a34f425e
+2026-10-01T06:15:56Z INFO  api heartbeat ok trace_id=2e3b30684fb5fe86
+2026-10-01T06:16:15Z INFO  api job dequeued queue=default trace_id=96469d2f46ebdc9c
+2026-10-01T06:16:52Z INFO  api heartbeat ok trace_id=b423a20e20cc9469
+2026-10-01T06:17:13Z INFO  api job dequeued queue=default trace_id=e3b71b31a2c0511b
+2026-10-01T06:17:19Z INFO  api request served path=/v1/items status=200 trace_id=0275b6dba6cfefbc
+2026-10-01T06:17:53Z INFO  api job dequeued queue=default trace_id=2c59d78acb906819
+2026-10-01T06:17:59Z INFO  api heartbeat ok trace_id=e580db167d5d4a17
+2026-10-01T06:18:08Z INFO  api heartbeat ok trace_id=34696f9ca7b27c01
+2026-10-01T06:18:37Z INFO  api heartbeat ok trace_id=ef819425d501ef14
+2026-10-01T06:19:08Z INFO  api job dequeued queue=default trace_id=cc86472603eb8120
+2026-10-01T06:19:22Z INFO  api request served path=/v1/items status=200 trace_id=cb369ae98094f45e
+2026-10-01T06:19:26Z WARN  api slow response latency_ms=1840 trace_id=80fe9797d098d1ba
+2026-10-01T06:19:58Z INFO  api cache refreshed keys=128 trace_id=13e1b28cfcd6aeaa
+2026-10-01T06:20:38Z ERROR api payment provider rejected code=E318 trace_id=0ccece21c24ccb1e
+2026-10-01T06:20:54Z INFO  api heartbeat ok trace_id=ca39a907c61f0592
+2026-10-01T06:21:05Z WARN  api slow response latency_ms=1840 trace_id=c3279d8828f34341
+2026-10-01T06:21:37Z INFO  api heartbeat ok trace_id=422330b797e9a297
+2026-10-01T06:21:41Z INFO  api job dequeued queue=default trace_id=660524101903dbe8
+2026-10-01T06:22:08Z WARN  api slow response latency_ms=1840 trace_id=a397d5c8ebf03fff
+2026-10-01T06:22:34Z INFO  api heartbeat ok trace_id=b52cde88e1a475f8
+2026-10-01T06:22:49Z INFO  api job dequeued queue=default trace_id=59fd4dd0d9f1c3e1
+2026-10-01T06:23:22Z INFO  api heartbeat ok trace_id=0057712a4882503d
+2026-10-01T06:23:25Z INFO  api heartbeat ok trace_id=a207be9d6e16c4a9
+2026-10-01T06:23:26Z INFO  api job dequeued queue=default trace_id=a4539edc6988736d
+2026-10-01T06:23:40Z INFO  api request served path=/v1/items status=200 trace_id=d1c6a5a72f256fde
+2026-10-01T06:23:42Z INFO  api job dequeued queue=default trace_id=6b7b06eb3426da73
+2026-10-01T06:24:00Z INFO  api job dequeued queue=default trace_id=18a2c75143288ded
+2026-10-01T06:24:38Z INFO  api job dequeued queue=default trace_id=04aa479591197bcf
+2026-10-01T06:25:01Z ERROR api token signature invalid code=E503 trace_id=9ec84dc152bff496
+2026-10-01T06:25:25Z INFO  api cache refreshed keys=128 trace_id=07ba7822152cc551
+2026-10-01T06:25:38Z INFO  api job dequeued queue=default trace_id=3c7973d632308f1f
+2026-10-01T06:26:02Z INFO  api heartbeat ok trace_id=af70eba432ae4be6
+2026-10-01T06:26:15Z INFO  api request served path=/v1/items status=200 trace_id=0a6675ec96caf46f
+2026-10-01T06:26:20Z WARN  api retrying upstream attempt=2 trace_id=5cf847fc5ea1c313
+2026-10-01T06:27:00Z INFO  api job dequeued queue=default trace_id=a771db9209b99bd0
+2026-10-01T06:27:23Z INFO  api cache refreshed keys=128 trace_id=9ab79909f4b0c817
+2026-10-01T06:27:45Z INFO  api heartbeat ok trace_id=0516c817a2d06a2f
+2026-10-01T06:28:15Z INFO  api cache refreshed keys=128 trace_id=6b7c84a9b78bb5e7
+2026-10-01T06:28:16Z WARN  api retrying upstream attempt=2 trace_id=5c656fcb28762b88
+2026-10-01T06:28:27Z INFO  api cache refreshed keys=128 trace_id=ba32dfe1767b2345
+2026-10-01T06:28:44Z INFO  api job dequeued queue=default trace_id=c2c2cdd7903b1f09
+2026-10-01T06:29:06Z INFO  api cache refreshed keys=128 trace_id=3f9e32fbfc195832
+2026-10-01T06:29:18Z INFO  api cache refreshed keys=128 trace_id=03aad667124d79d8
+2026-10-01T06:29:42Z INFO  api heartbeat ok trace_id=2d1ad31dfc40a0a1
+2026-10-01T06:30:09Z INFO  api cache refreshed keys=128 trace_id=f9b1da338971785c
+2026-10-01T06:30:19Z INFO  api request served path=/v1/items status=200 trace_id=c7b128998604a977
+2026-10-01T06:30:42Z WARN  api slow response latency_ms=1840 trace_id=6d8e333eb8838731
+2026-10-01T06:30:54Z INFO  api cache refreshed keys=128 trace_id=c0d2427bcb9b0a9e
+2026-10-01T06:30:58Z INFO  api request served path=/v1/items status=200 trace_id=5148427182f6bb98
+2026-10-01T06:31:15Z ERROR api token signature invalid code=E318 trace_id=422b05261c7b2b9b
+2026-10-01T06:31:47Z INFO  api request served path=/v1/items status=200 trace_id=cc797fc8dca75f5a
+2026-10-01T06:32:24Z INFO  api request served path=/v1/items status=200 trace_id=4335424baa161a3a
+2026-10-01T06:33:03Z INFO  api request served path=/v1/items status=200 trace_id=61b1f1954f54be6f
+2026-10-01T06:33:28Z INFO  api job dequeued queue=default trace_id=a3adcd6fe9ebe1ca
+2026-10-01T06:33:49Z INFO  api request served path=/v1/items status=200 trace_id=2681acd6bd7a0685
+2026-10-01T06:34:26Z INFO  api heartbeat ok trace_id=62a96cf500d4a331
+2026-10-01T06:35:05Z WARN  api slow response latency_ms=1840 trace_id=b6756d4c9d211c0f
+2026-10-01T06:35:27Z INFO  api job dequeued queue=default trace_id=3e5115f929f44900
+2026-10-01T06:35:57Z INFO  api heartbeat ok trace_id=6eb140e1b3e3f100
+2026-10-01T06:36:20Z INFO  api job dequeued queue=default trace_id=8724c61edee10acc
+2026-10-01T06:36:26Z INFO  api heartbeat ok trace_id=458dfdb81b64f802
+2026-10-01T06:36:49Z INFO  api cache refreshed keys=128 trace_id=5cbca4581324488d
+2026-10-01T06:37:02Z INFO  api request served path=/v1/items status=200 trace_id=0cc2654bc91df63e
+2026-10-01T06:37:26Z INFO  api heartbeat ok trace_id=cbe43f099dcff551
+2026-10-01T06:37:30Z INFO  api job dequeued queue=default trace_id=bc974c8a2f024f23
+2026-10-01T06:37:57Z INFO  api job dequeued queue=default trace_id=eec057e1caca1359
+2026-10-01T06:38:29Z INFO  api request served path=/v1/items status=200 trace_id=8395e041257df85f
+2026-10-01T06:38:47Z INFO  api job dequeued queue=default trace_id=54dbc0bc86c0634a
+2026-10-01T06:39:14Z ERROR api upstream timeout code=E318 trace_id=0e668a0d1d54bdca
+2026-10-01T06:39:39Z INFO  api job dequeued queue=default trace_id=25cd8b4ecc4718be
+2026-10-01T06:39:42Z WARN  api slow response latency_ms=1840 trace_id=01fe4801564b2a9c
+2026-10-01T06:39:53Z INFO  api job dequeued queue=default trace_id=6347d35015e1006c
+2026-10-01T06:40:19Z ERROR api payment provider rejected code=E318 trace_id=9b5c0678b8764b82
+2026-10-01T06:40:53Z INFO  api request served path=/v1/items status=200 trace_id=fe200b25bbf76a48
+2026-10-01T06:41:19Z INFO  api request served path=/v1/items status=200 trace_id=635a3df7090e9866
+2026-10-01T06:41:36Z WARN  api slow response latency_ms=1840 trace_id=cb75c83dd7e20968
+2026-10-01T06:42:11Z INFO  api job dequeued queue=default trace_id=6d6eae2161b04299
+2026-10-01T06:42:18Z WARN  api retrying upstream attempt=2 trace_id=bce4bd46098449ca
+2026-10-01T06:42:25Z INFO  api cache refreshed keys=128 trace_id=cf12c2bfbf81f4cc
+2026-10-01T06:43:04Z INFO  api cache refreshed keys=128 trace_id=b6b5c50c36510d72
+2026-10-01T06:43:35Z WARN  api slow response latency_ms=1840 trace_id=74e0180238e5213e
+2026-10-01T06:43:54Z WARN  api pool near capacity used=92% trace_id=ed1de0a147896125
+2026-10-01T06:44:23Z INFO  api request served path=/v1/items status=200 trace_id=f2dd4aef65bb12f7
+2026-10-01T06:44:57Z WARN  api retrying upstream attempt=2 trace_id=5683a7385bcc3c5d
+2026-10-01T06:45:31Z INFO  api request served path=/v1/items status=200 trace_id=86616aa7da9cd582
+2026-10-01T06:45:33Z INFO  api cache refreshed keys=128 trace_id=646f8dbbaa7754bc
+2026-10-01T06:45:46Z INFO  api cache refreshed keys=128 trace_id=6280aa3dd23eb84a
+2026-10-01T06:46:16Z INFO  api cache refreshed keys=128 trace_id=43d0758ebf656eaa
+2026-10-01T06:46:48Z INFO  api heartbeat ok trace_id=c20a075750448185
+2026-10-01T06:47:04Z INFO  api cache refreshed keys=128 trace_id=65fe8a47a74bcdfa
+2026-10-01T06:47:19Z INFO  api heartbeat ok trace_id=ecaef0ccc1b285f9
+2026-10-01T06:47:54Z WARN  api retrying upstream attempt=2 trace_id=80c4d92066c9e09d
+2026-10-01T06:48:21Z INFO  api heartbeat ok trace_id=4a18d044eabf7f61
+2026-10-01T06:48:22Z WARN  api slow response latency_ms=1840 trace_id=324c4394805bb61c
+2026-10-01T06:48:38Z INFO  api job dequeued queue=default trace_id=9835fe5e7ed79dc2
+2026-10-01T06:48:42Z INFO  api job dequeued queue=default trace_id=98e3cd873e999e60
+2026-10-01T06:49:02Z INFO  api heartbeat ok trace_id=0bf2ea7e8fe8f5e0
+2026-10-01T06:49:30Z INFO  api request served path=/v1/items status=200 trace_id=b4f644a4d4704480
+2026-10-01T06:50:03Z INFO  api cache refreshed keys=128 trace_id=0f9c74bd768f3a13
+2026-10-01T06:50:28Z INFO  api cache refreshed keys=128 trace_id=fafebbacf37b3f40
+2026-10-01T06:51:00Z INFO  api request served path=/v1/items status=200 trace_id=ccc5f17341f0414a
+2026-10-01T06:51:29Z INFO  api cache refreshed keys=128 trace_id=3acb81440bc3306c
+2026-10-01T06:51:56Z INFO  api request served path=/v1/items status=200 trace_id=a34b0ae43a609125
+2026-10-01T06:52:11Z INFO  api heartbeat ok trace_id=f596086d4a8b4096
+2026-10-01T06:52:51Z WARN  api pool near capacity used=92% trace_id=5ea02acfb7daf91b
+2026-10-01T06:53:17Z INFO  api heartbeat ok trace_id=819c26b5a157164a
+2026-10-01T06:53:41Z INFO  api request served path=/v1/items status=200 trace_id=bbcdf7ce4c528c25
+2026-10-01T06:54:08Z INFO  api request served path=/v1/items status=200 trace_id=da23cf61114146f1
+2026-10-01T06:54:33Z INFO  api cache refreshed keys=128 trace_id=f3e00c1780960285
+2026-10-01T06:54:51Z INFO  api job dequeued queue=default trace_id=4c7048770f56ca67
+2026-10-01T06:55:06Z INFO  api request served path=/v1/items status=200 trace_id=af422040e70da81b
+2026-10-01T06:55:33Z INFO  api heartbeat ok trace_id=a4282137278620c1
+2026-10-01T06:55:54Z INFO  api cache refreshed keys=128 trace_id=4fdeb774a731110c
+2026-10-01T06:56:08Z INFO  api heartbeat ok trace_id=9393879552d4530e
+2026-10-01T06:56:42Z INFO  api job dequeued queue=default trace_id=45265f6a1bea9d7f
+2026-10-01T06:56:53Z INFO  api job dequeued queue=default trace_id=31c0ea5c878a6df9
+2026-10-01T06:56:54Z INFO  api cache refreshed keys=128 trace_id=4734a393447c2cca

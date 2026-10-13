@@ -1,0 +1,1200 @@
+2026-10-01T00:00:35Z WARN  worker slow response latency_ms=1840 trace_id=84336f8a0fdfcddb
+2026-10-01T00:00:49Z WARN  worker slow response latency_ms=1840 trace_id=d00e97e9b6d057fd
+2026-10-01T00:01:03Z ERROR worker payment provider rejected code=E101 trace_id=52aae34401656b6e
+2026-10-01T00:01:21Z INFO  worker request served path=/v1/items status=200 trace_id=bfaacbcaf14079c4
+2026-10-01T00:01:42Z INFO  worker job dequeued queue=default trace_id=4bbd76f7a3afc27d
+2026-10-01T00:02:06Z INFO  worker cache refreshed keys=128 trace_id=91c0a4bf8955712e
+2026-10-01T00:02:45Z WARN  worker pool near capacity used=92% trace_id=5e087332fa22303a
+2026-10-01T00:02:46Z ERROR worker db deadlock detected code=E101 trace_id=b0de85ebd66183ba
+2026-10-01T00:03:06Z INFO  worker cache refreshed keys=128 trace_id=804c41b69a04042e
+2026-10-01T00:03:38Z INFO  worker heartbeat ok trace_id=fd10e2ff85b7195e
+2026-10-01T00:04:04Z ERROR worker queue overflow code=E318 trace_id=76af5502f215b375
+2026-10-01T00:04:22Z INFO  worker heartbeat ok trace_id=aa8dbe54b3a69ea8
+2026-10-01T00:04:49Z INFO  worker heartbeat ok trace_id=89312c0bf8038cd2
+2026-10-01T00:05:22Z WARN  worker retrying upstream attempt=2 trace_id=e5702352055e4607
+2026-10-01T00:05:49Z INFO  worker cache refreshed keys=128 trace_id=5801fccf4d59c054
+2026-10-01T00:06:15Z INFO  worker heartbeat ok trace_id=a6733d3c13c8c3b8
+2026-10-01T00:06:31Z WARN  worker pool near capacity used=92% trace_id=eabd2b019ea45b89
+2026-10-01T00:07:07Z INFO  worker heartbeat ok trace_id=8a050576e89f7bf7
+2026-10-01T00:07:44Z INFO  worker request served path=/v1/items status=200 trace_id=53e5b73d5cace352
+2026-10-01T00:08:12Z INFO  worker job dequeued queue=default trace_id=9a178d53902400b0
+2026-10-01T00:08:25Z INFO  worker cache refreshed keys=128 trace_id=38ed4ed76100464f
+2026-10-01T00:09:02Z INFO  worker request served path=/v1/items status=200 trace_id=f1de5080c9f18cd6
+2026-10-01T00:09:32Z INFO  worker heartbeat ok trace_id=1e15f80ccc680407
+2026-10-01T00:10:11Z INFO  worker request served path=/v1/items status=200 trace_id=8a173e2d20f71630
+2026-10-01T00:10:42Z ERROR worker upstream timeout code=E101 trace_id=7261c0c9762a59ee
+2026-10-01T00:11:03Z INFO  worker cache refreshed keys=128 trace_id=f2f02ddfd1ab68a9
+2026-10-01T00:11:35Z INFO  worker cache refreshed keys=128 trace_id=dba21a1e223e932e
+2026-10-01T00:12:09Z INFO  worker job dequeued queue=default trace_id=9cd3cd3e3cf071b1
+2026-10-01T00:12:23Z ERROR worker queue overflow code=E422 trace_id=21dac855cfef7019
+2026-10-01T00:12:56Z INFO  worker cache refreshed keys=128 trace_id=7fa2176d41836994
+2026-10-01T00:13:25Z INFO  worker job dequeued queue=default trace_id=a704c109255b9fe2
+2026-10-01T00:13:56Z INFO  worker cache refreshed keys=128 trace_id=857840fca8109a2d
+2026-10-01T00:14:05Z INFO  worker cache refreshed keys=128 trace_id=99724ff11b08d9d1
+2026-10-01T00:14:17Z INFO  worker request served path=/v1/items status=200 trace_id=c418dfb68238d7b9
+2026-10-01T00:14:23Z INFO  worker job dequeued queue=default trace_id=f77a8161a50956db
+2026-10-01T00:14:24Z INFO  worker request served path=/v1/items status=200 trace_id=847b771937718048
+2026-10-01T00:15:03Z INFO  worker job dequeued queue=default trace_id=e3fc07f6b25dd80a
+2026-10-01T00:15:23Z INFO  worker cache refreshed keys=128 trace_id=8bbc5650e0049b88
+2026-10-01T00:15:52Z INFO  worker heartbeat ok trace_id=bc64e1c5ac614be8
+2026-10-01T00:16:03Z INFO  worker cache refreshed keys=128 trace_id=54fe79a8cd6075d5
+2026-10-01T00:16:33Z WARN  worker slow response latency_ms=1840 trace_id=6c947e4cc500baa2
+2026-10-01T00:16:50Z INFO  worker heartbeat ok trace_id=ba305da7c0de6327
+2026-10-01T00:17:29Z INFO  worker request served path=/v1/items status=200 trace_id=1773d515fdbce7d2
+2026-10-01T00:17:55Z ERROR worker payment provider rejected code=E422 trace_id=e108d76184ec2da5
+2026-10-01T00:18:35Z INFO  worker heartbeat ok trace_id=b2701d05c81526d2
+2026-10-01T00:18:57Z INFO  worker heartbeat ok trace_id=42536fb4874f5db6
+2026-10-01T00:18:59Z INFO  worker request served path=/v1/items status=200 trace_id=55b7cc3aaa7b7d79
+2026-10-01T00:19:21Z INFO  worker request served path=/v1/items status=200 trace_id=ef15643c5764b775
+2026-10-01T00:19:43Z INFO  worker cache refreshed keys=128 trace_id=61b7c8ab049a2416
+2026-10-01T00:19:50Z INFO  worker cache refreshed keys=128 trace_id=0dce633faa9aa72d
+2026-10-01T00:19:59Z INFO  worker cache refreshed keys=128 trace_id=543f65d6c6a06e63
+2026-10-01T00:20:30Z INFO  worker job dequeued queue=default trace_id=bcfb5d96a810b65b
+2026-10-01T00:20:55Z WARN  worker pool near capacity used=92% trace_id=de75f55394bfe52e
+2026-10-01T00:21:22Z INFO  worker request served path=/v1/items status=200 trace_id=bbc31f03f1cd05ca
+2026-10-01T00:21:48Z INFO  worker cache refreshed keys=128 trace_id=bd06d8c3f0181db9
+2026-10-01T00:22:06Z INFO  worker request served path=/v1/items status=200 trace_id=b689e13fb4aa3b4b
+2026-10-01T00:22:35Z INFO  worker job dequeued queue=default trace_id=9c6bf0ba7989dfbd
+2026-10-01T00:23:15Z INFO  worker request served path=/v1/items status=200 trace_id=d4830c818c397a3b
+2026-10-01T00:23:24Z INFO  worker request served path=/v1/items status=200 trace_id=c3e5c11778d0e09a
+2026-10-01T00:23:46Z INFO  worker heartbeat ok trace_id=3b468da429c837fe
+2026-10-01T00:23:51Z INFO  worker heartbeat ok trace_id=94f8a81ff1d4dda8
+2026-10-01T00:24:31Z INFO  worker heartbeat ok trace_id=dd10bdebed4d068e
+2026-10-01T00:24:51Z INFO  worker request served path=/v1/items status=200 trace_id=44d7a74dae03b91c
+2026-10-01T00:24:59Z INFO  worker cache refreshed keys=128 trace_id=178376ec0e3f250b
+2026-10-01T00:25:07Z INFO  worker cache refreshed keys=128 trace_id=3b5e104e0d1ab915
+2026-10-01T00:25:29Z INFO  worker cache refreshed keys=128 trace_id=9cd2f8b5fbc5a70b
+2026-10-01T00:25:41Z INFO  worker request served path=/v1/items status=200 trace_id=b25003b98cf6e4d9
+2026-10-01T00:25:59Z INFO  worker cache refreshed keys=128 trace_id=243f393d080db2ad
+2026-10-01T00:26:28Z INFO  worker request served path=/v1/items status=200 trace_id=2a38f617634cd0d2
+2026-10-01T00:27:03Z INFO  worker heartbeat ok trace_id=a6106c1d088022be
+2026-10-01T00:27:38Z INFO  worker request served path=/v1/items status=200 trace_id=a238ee68d19b1fcc
+2026-10-01T00:27:58Z INFO  worker heartbeat ok trace_id=7987144cae225538
+2026-10-01T00:28:17Z INFO  worker heartbeat ok trace_id=6975929df1a6ecd4
+2026-10-01T00:28:41Z INFO  worker request served path=/v1/items status=200 trace_id=16c12da2658be9e5
+2026-10-01T00:29:04Z INFO  worker cache refreshed keys=128 trace_id=37a228646e6bd33c
+2026-10-01T00:29:19Z ERROR worker db deadlock detected code=E204 trace_id=3612eec3adb0184f
+2026-10-01T00:29:23Z INFO  worker heartbeat ok trace_id=ecdc14117550159a
+2026-10-01T00:29:55Z WARN  worker pool near capacity used=92% trace_id=48c3fd6b6bf442cd
+2026-10-01T00:29:58Z INFO  worker request served path=/v1/items status=200 trace_id=22a9a1089cfe4f80
+2026-10-01T00:30:18Z INFO  worker heartbeat ok trace_id=7b6faede32c2710b
+2026-10-01T00:30:26Z INFO  worker cache refreshed keys=128 trace_id=0d2648751035eb56
+2026-10-01T00:30:40Z INFO  worker job dequeued queue=default trace_id=9889123384d254ed
+2026-10-01T00:30:53Z INFO  worker cache refreshed keys=128 trace_id=8a883d3ca76433b2
+2026-10-01T00:31:08Z INFO  worker job dequeued queue=default trace_id=e14c99c9a66c8885
+2026-10-01T00:31:43Z ERROR worker payment provider rejected code=E318 trace_id=ca916821b75d6c8e
+2026-10-01T00:31:48Z WARN  worker pool near capacity used=92% trace_id=2de2d39fff81cb4e
+2026-10-01T00:31:58Z INFO  worker request served path=/v1/items status=200 trace_id=025ec16d7eb19313
+2026-10-01T00:32:07Z WARN  worker slow response latency_ms=1840 trace_id=a5476f7bbd819816
+2026-10-01T00:32:11Z INFO  worker heartbeat ok trace_id=df45e5aeeaa57d35
+2026-10-01T00:32:33Z INFO  worker job dequeued queue=default trace_id=26ac388ae93a0163
+2026-10-01T00:32:59Z WARN  worker slow response latency_ms=1840 trace_id=075e03c43f525e4c
+2026-10-01T00:33:28Z WARN  worker retrying upstream attempt=2 trace_id=d84b3629068700f8
+2026-10-01T00:33:31Z INFO  worker job dequeued queue=default trace_id=3dd6685f2f7b1147
+2026-10-01T00:34:07Z INFO  worker request served path=/v1/items status=200 trace_id=1003dbd75d542946
+2026-10-01T00:34:34Z INFO  worker heartbeat ok trace_id=5488c1a7cba949b0
+2026-10-01T00:34:46Z INFO  worker heartbeat ok trace_id=32f6d5f601817724
+2026-10-01T00:35:15Z INFO  worker request served path=/v1/items status=200 trace_id=ff841bfaa206b839
+2026-10-01T00:35:35Z INFO  worker request served path=/v1/items status=200 trace_id=3983ae3d3675050f
+2026-10-01T00:35:52Z INFO  worker heartbeat ok trace_id=337a59e2fb9c609f
+2026-10-01T00:36:24Z WARN  worker pool near capacity used=92% trace_id=b4c371e6279003e5
+2026-10-01T00:37:01Z INFO  worker request served path=/v1/items status=200 trace_id=cdb5749071b978d8
+2026-10-01T00:37:34Z ERROR worker db deadlock detected code=E318 trace_id=5b0769f942d081b6
+2026-10-01T00:37:53Z INFO  worker heartbeat ok trace_id=e5946e9f40c10248
+2026-10-01T00:38:22Z INFO  worker heartbeat ok trace_id=dda093a365c779cd
+2026-10-01T00:38:48Z INFO  worker heartbeat ok trace_id=9a5960baea346b5d
+2026-10-01T00:39:20Z INFO  worker request served path=/v1/items status=200 trace_id=ab0e1234172347c1
+2026-10-01T00:39:23Z WARN  worker retrying upstream attempt=2 trace_id=59867d20d7084d44
+2026-10-01T00:39:25Z INFO  worker cache refreshed keys=128 trace_id=051608d94b1b7bf5
+2026-10-01T00:39:54Z INFO  worker cache refreshed keys=128 trace_id=5ff65fd34388f848
+2026-10-01T00:39:57Z INFO  worker heartbeat ok trace_id=0f93a41c879bd649
+2026-10-01T00:40:04Z INFO  worker request served path=/v1/items status=200 trace_id=daef246e86559c8b
+2026-10-01T00:40:11Z INFO  worker heartbeat ok trace_id=e9aa15c91799cf39
+2026-10-01T00:40:43Z INFO  worker heartbeat ok trace_id=46888863298a80ff
+2026-10-01T00:40:45Z INFO  worker job dequeued queue=default trace_id=4ee6111c106ca939
+2026-10-01T00:41:08Z INFO  worker cache refreshed keys=128 trace_id=d166ef2373bf514a
+2026-10-01T00:41:31Z INFO  worker cache refreshed keys=128 trace_id=cd812a68d2af7766
+2026-10-01T00:41:45Z INFO  worker job dequeued queue=default trace_id=c42c6841b6dc9a0f
+2026-10-01T00:42:05Z INFO  worker request served path=/v1/items status=200 trace_id=8855307db7fe9ac1
+2026-10-01T00:42:13Z INFO  worker job dequeued queue=default trace_id=c3a414e65b657be9
+2026-10-01T00:42:15Z INFO  worker job dequeued queue=default trace_id=80b7360bf8c76651
+2026-10-01T00:42:26Z INFO  worker request served path=/v1/items status=200 trace_id=a6a1be7a529aaabd
+2026-10-01T00:43:03Z INFO  worker job dequeued queue=default trace_id=27f53463507c693a
+2026-10-01T00:43:16Z INFO  worker cache refreshed keys=128 trace_id=8a93a5b469572d26
+2026-10-01T00:43:56Z INFO  worker heartbeat ok trace_id=ac0de310df87823f
+2026-10-01T00:44:24Z INFO  worker heartbeat ok trace_id=48cd7123913229e4
+2026-10-01T00:44:31Z ERROR worker db deadlock detected code=E101 trace_id=b616a634bf8fb9b6
+2026-10-01T00:44:47Z WARN  worker slow response latency_ms=1840 trace_id=c48ea27f6de7fc80
+2026-10-01T00:45:11Z INFO  worker job dequeued queue=default trace_id=0b1a95ff3032fd32
+2026-10-01T00:45:25Z INFO  worker cache refreshed keys=128 trace_id=99af8f0bb7f30078
+2026-10-01T00:45:27Z INFO  worker heartbeat ok trace_id=37ec419e7b85b0be
+2026-10-01T00:45:37Z WARN  worker pool near capacity used=92% trace_id=8c8c25b5c6daed84
+2026-10-01T00:45:43Z INFO  worker job dequeued queue=default trace_id=c62e6bf56ae63d11
+2026-10-01T00:46:10Z INFO  worker cache refreshed keys=128 trace_id=d9e08e3d88a6bbcb
+2026-10-01T00:46:12Z INFO  worker request served path=/v1/items status=200 trace_id=ceec3f85fe5118ab
+2026-10-01T00:46:32Z INFO  worker job dequeued queue=default trace_id=19b92f3148800003
+2026-10-01T00:46:51Z INFO  worker job dequeued queue=default trace_id=76a10495ca8b0d07
+2026-10-01T00:47:25Z INFO  worker cache refreshed keys=128 trace_id=d12733ef83ab2901
+2026-10-01T00:47:36Z INFO  worker heartbeat ok trace_id=a03415aa9a4573d0
+2026-10-01T00:48:03Z INFO  worker job dequeued queue=default trace_id=cccf197d12c4399a
+2026-10-01T00:48:35Z INFO  worker heartbeat ok trace_id=1e8f5c90dc22162f
+2026-10-01T00:49:07Z INFO  worker cache refreshed keys=128 trace_id=ec87bc40b53abec2
+2026-10-01T00:49:12Z INFO  worker cache refreshed keys=128 trace_id=0473b55ff069b909
+2026-10-01T00:49:23Z INFO  worker cache refreshed keys=128 trace_id=caacd64fc7140134
+2026-10-01T00:49:33Z INFO  worker request served path=/v1/items status=200 trace_id=563021707f64220c
+2026-10-01T00:49:59Z INFO  worker heartbeat ok trace_id=fcc4e92e7e33b228
+2026-10-01T00:50:14Z INFO  worker heartbeat ok trace_id=ea04da4b18ff5787
+2026-10-01T00:50:30Z WARN  worker retrying upstream attempt=2 trace_id=6f2c861f2e755b4a
+2026-10-01T00:50:33Z INFO  worker job dequeued queue=default trace_id=5f6db48ae2f56073
+2026-10-01T00:50:35Z INFO  worker job dequeued queue=default trace_id=038b8fc185d8af2c
+2026-10-01T00:50:41Z INFO  worker cache refreshed keys=128 trace_id=b360fad0cae05f6f
+2026-10-01T00:51:04Z WARN  worker slow response latency_ms=1840 trace_id=9e5dae7dd448565d
+2026-10-01T00:51:37Z INFO  worker job dequeued queue=default trace_id=913a75fde1154954
+2026-10-01T00:52:13Z INFO  worker job dequeued queue=default trace_id=fec8dead892e6c64
+2026-10-01T00:52:17Z INFO  worker cache refreshed keys=128 trace_id=520de7f723d9279a
+2026-10-01T00:52:22Z INFO  worker cache refreshed keys=128 trace_id=660ad9f608861d4f
+2026-10-01T00:52:36Z INFO  worker cache refreshed keys=128 trace_id=3bda5c801cffb309
+2026-10-01T00:53:15Z INFO  worker cache refreshed keys=128 trace_id=188fbe6fefd070d5
+2026-10-01T00:53:49Z INFO  worker cache refreshed keys=128 trace_id=701e63335ac18638
+2026-10-01T00:54:09Z INFO  worker cache refreshed keys=128 trace_id=c4edec4c09670242
+2026-10-01T00:54:40Z INFO  worker heartbeat ok trace_id=133d867459b01b14
+2026-10-01T00:55:17Z ERROR worker upstream timeout code=E503 trace_id=ecc5883e2dd49077
+2026-10-01T00:55:34Z WARN  worker retrying upstream attempt=2 trace_id=bbf32214cc3cf3e0
+2026-10-01T00:55:35Z INFO  worker job dequeued queue=default trace_id=0c117561896e80b6
+2026-10-01T00:56:02Z INFO  worker job dequeued queue=default trace_id=8e5c5477f6d06123
+2026-10-01T00:56:19Z INFO  worker request served path=/v1/items status=200 trace_id=719093374abcb5bd
+2026-10-01T00:56:50Z INFO  worker cache refreshed keys=128 trace_id=b13a51eccb027027
+2026-10-01T00:57:24Z WARN  worker retrying upstream attempt=2 trace_id=84f3fc27dfe290a0
+2026-10-01T00:57:58Z INFO  worker job dequeued queue=default trace_id=edcecc00f2f7fa1a
+2026-10-01T00:58:16Z WARN  worker pool near capacity used=92% trace_id=fba3e6e28c4514a6
+2026-10-01T00:58:44Z INFO  worker request served path=/v1/items status=200 trace_id=04c9acc8e0cda536
+2026-10-01T00:58:59Z INFO  worker request served path=/v1/items status=200 trace_id=a4528c2d8a988908
+2026-10-01T00:59:00Z INFO  worker cache refreshed keys=128 trace_id=604d664c1719c43e
+2026-10-01T00:59:26Z INFO  worker cache refreshed keys=128 trace_id=2e132b7ef00f5e01
+2026-10-01T00:59:41Z WARN  worker slow response latency_ms=1840 trace_id=6bf5900034531c99
+2026-10-01T01:00:16Z INFO  worker request served path=/v1/items status=200 trace_id=b9d85cfb9711cd5f
+2026-10-01T01:00:33Z INFO  worker heartbeat ok trace_id=c1c5a51972551947
+2026-10-01T01:01:01Z INFO  worker job dequeued queue=default trace_id=880f164fa1c63747
+2026-10-01T01:01:02Z INFO  worker job dequeued queue=default trace_id=49280b8b68d1e017
+2026-10-01T01:01:36Z INFO  worker request served path=/v1/items status=200 trace_id=b3d7fc7f64e6c130
+2026-10-01T01:01:49Z INFO  worker cache refreshed keys=128 trace_id=ef309373c69c1d89
+2026-10-01T01:02:04Z INFO  worker heartbeat ok trace_id=46d462f424943460
+2026-10-01T01:02:43Z INFO  worker request served path=/v1/items status=200 trace_id=1f3c03724dde5401
+2026-10-01T01:02:51Z INFO  worker request served path=/v1/items status=200 trace_id=4016713d30919c61
+2026-10-01T01:03:25Z INFO  worker cache refreshed keys=128 trace_id=bd5eb8469725b84f
+2026-10-01T01:03:52Z INFO  worker request served path=/v1/items status=200 trace_id=30254e1843fd0026
+2026-10-01T01:04:15Z INFO  worker job dequeued queue=default trace_id=75e89d8bcae2b0a2
+2026-10-01T01:04:45Z INFO  worker cache refreshed keys=128 trace_id=7e42526f47c5e4b6
+2026-10-01T01:04:52Z INFO  worker cache refreshed keys=128 trace_id=841ee55a4c87a645
+2026-10-01T01:04:54Z INFO  worker heartbeat ok trace_id=5debc738d904c202
+2026-10-01T01:05:32Z INFO  worker job dequeued queue=default trace_id=6176289a0fc9750c
+2026-10-01T01:05:38Z INFO  worker heartbeat ok trace_id=2b402a116c77804a
+2026-10-01T01:05:59Z INFO  worker heartbeat ok trace_id=027ea15c58b32838
+2026-10-01T01:06:08Z INFO  worker job dequeued queue=default trace_id=288d3ec4e45b5372
+2026-10-01T01:06:40Z INFO  worker cache refreshed keys=128 trace_id=d22e4bd64f07f7d3
+2026-10-01T01:07:11Z INFO  worker heartbeat ok trace_id=134caf600a21d75c
+2026-10-01T01:07:51Z INFO  worker heartbeat ok trace_id=45c5aad39e2900e6
+2026-10-01T01:08:21Z INFO  worker request served path=/v1/items status=200 trace_id=4e6e4993736bdada
+2026-10-01T01:08:43Z INFO  worker heartbeat ok trace_id=a37bd93672da64ef
+2026-10-01T01:09:21Z INFO  worker request served path=/v1/items status=200 trace_id=4692e65e32066b80
+2026-10-01T01:09:50Z WARN  worker retrying upstream attempt=2 trace_id=094da121e0222cfa
+2026-10-01T01:10:13Z INFO  worker cache refreshed keys=128 trace_id=bb9b94c87ce6f60e
+2026-10-01T01:10:40Z INFO  worker cache refreshed keys=128 trace_id=c24dfb44063d6aa9
+2026-10-01T01:10:51Z INFO  worker heartbeat ok trace_id=8593685ba96d1d0c
+2026-10-01T01:10:57Z WARN  worker slow response latency_ms=1840 trace_id=15b2bf63d618ca57
+2026-10-01T01:11:24Z INFO  worker heartbeat ok trace_id=e9eaffa08d840c47
+2026-10-01T01:11:50Z INFO  worker cache refreshed keys=128 trace_id=fe9fcfcd1ababf19
+2026-10-01T01:12:12Z INFO  worker heartbeat ok trace_id=8fa723dd458235a8
+2026-10-01T01:12:46Z INFO  worker cache refreshed keys=128 trace_id=4cb7faa3aec5b5f8
+2026-10-01T01:12:48Z INFO  worker request served path=/v1/items status=200 trace_id=15e437ba348a7650
+2026-10-01T01:13:00Z INFO  worker cache refreshed keys=128 trace_id=b8b76cd7f58de5c0
+2026-10-01T01:13:07Z INFO  worker cache refreshed keys=128 trace_id=8433c1c9493c33f8
+2026-10-01T01:13:23Z INFO  worker cache refreshed keys=128 trace_id=4c1ad070625304d2
+2026-10-01T01:13:26Z INFO  worker job dequeued queue=default trace_id=08f608d512fe5df5
+2026-10-01T01:13:27Z INFO  worker heartbeat ok trace_id=45fad029107cde5a
+2026-10-01T01:13:58Z ERROR worker token signature invalid code=E422 trace_id=e6fe13efd5532094
+2026-10-01T01:14:09Z INFO  worker job dequeued queue=default trace_id=e61302e859ae9f5a
+2026-10-01T01:14:37Z WARN  worker retrying upstream attempt=2 trace_id=0ff16c2d566429d0
+2026-10-01T01:14:59Z INFO  worker heartbeat ok trace_id=efea57af2142c4a4
+2026-10-01T01:15:02Z INFO  worker cache refreshed keys=128 trace_id=460c81f95dec9e4b
+2026-10-01T01:15:38Z WARN  worker retrying upstream attempt=2 trace_id=df714a52e66b751c
+2026-10-01T01:15:46Z INFO  worker job dequeued queue=default trace_id=1fb92184e1fb913f
+2026-10-01T01:16:22Z INFO  worker cache refreshed keys=128 trace_id=fc3c3f204f3b42be
+2026-10-01T01:16:30Z INFO  worker job dequeued queue=default trace_id=00c8fd35292534bb
+2026-10-01T01:16:34Z WARN  worker pool near capacity used=92% trace_id=cf73c9879deb2fd5
+2026-10-01T01:16:56Z INFO  worker heartbeat ok trace_id=b13daac40afe94a3
+2026-10-01T01:17:11Z INFO  worker job dequeued queue=default trace_id=e9e919669ad485a2
+2026-10-01T01:17:39Z INFO  worker request served path=/v1/items status=200 trace_id=36e001df879e365a
+2026-10-01T01:18:09Z INFO  worker job dequeued queue=default trace_id=8ed27207796c2f9f
+2026-10-01T01:18:18Z INFO  worker heartbeat ok trace_id=108c14e9e5102790
+2026-10-01T01:18:40Z INFO  worker request served path=/v1/items status=200 trace_id=47456af535fa7329
+2026-10-01T01:18:48Z INFO  worker request served path=/v1/items status=200 trace_id=6ae60b2bfcba533f
+2026-10-01T01:19:03Z INFO  worker heartbeat ok trace_id=7ff4867df7175d83
+2026-10-01T01:19:39Z INFO  worker job dequeued queue=default trace_id=369dae92e4f67c71
+2026-10-01T01:19:55Z INFO  worker heartbeat ok trace_id=cdd5550ff5bdfe28
+2026-10-01T01:20:08Z INFO  worker job dequeued queue=default trace_id=0d9b11d5f71ccef2
+2026-10-01T01:20:21Z INFO  worker heartbeat ok trace_id=cf7d9a1ae4ecf498
+2026-10-01T01:20:43Z INFO  worker request served path=/v1/items status=200 trace_id=a230458378f4454b
+2026-10-01T01:20:56Z WARN  worker pool near capacity used=92% trace_id=569f4047cdf457e5
+2026-10-01T01:21:07Z INFO  worker heartbeat ok trace_id=97caf9ed38a66fd0
+2026-10-01T01:21:08Z INFO  worker job dequeued queue=default trace_id=caeacc10e194ce6a
+2026-10-01T01:21:32Z INFO  worker job dequeued queue=default trace_id=d3601303bce9c346
+2026-10-01T01:21:35Z ERROR worker token signature invalid code=E318 trace_id=c6253825f76cbea6
+2026-10-01T01:22:10Z INFO  worker request served path=/v1/items status=200 trace_id=75144264fc0f3ed2
+2026-10-01T01:22:45Z INFO  worker cache refreshed keys=128 trace_id=198142daef4fa92e
+2026-10-01T01:23:15Z INFO  worker heartbeat ok trace_id=c1ef577605e3205f
+2026-10-01T01:23:51Z INFO  worker cache refreshed keys=128 trace_id=a8d1201302ad70d1
+2026-10-01T01:24:19Z INFO  worker cache refreshed keys=128 trace_id=d897f1d91fa827b2
+2026-10-01T01:24:23Z INFO  worker job dequeued queue=default trace_id=6fadb819d9161185
+2026-10-01T01:24:26Z INFO  worker heartbeat ok trace_id=cf55d4aa564f70c0
+2026-10-01T01:25:03Z INFO  worker request served path=/v1/items status=200 trace_id=2250200807a761e0
+2026-10-01T01:25:10Z INFO  worker request served path=/v1/items status=200 trace_id=be82d3245f76fe45
+2026-10-01T01:25:24Z INFO  worker cache refreshed keys=128 trace_id=64862cafbfe2d243
+2026-10-01T01:26:01Z INFO  worker request served path=/v1/items status=200 trace_id=a754f599378d9dee
+2026-10-01T01:26:02Z INFO  worker cache refreshed keys=128 trace_id=8a79ff6c2d417ae0
+2026-10-01T01:26:37Z WARN  worker slow response latency_ms=1840 trace_id=680580a7f9c91102
+2026-10-01T01:26:56Z WARN  worker retrying upstream attempt=2 trace_id=7313f9fa00156328
+2026-10-01T01:27:22Z WARN  worker pool near capacity used=92% trace_id=b79711da02dcfc5c
+2026-10-01T01:27:38Z INFO  worker heartbeat ok trace_id=8ac264b7bc61d180
+2026-10-01T01:28:08Z INFO  worker request served path=/v1/items status=200 trace_id=4626cd025940175d
+2026-10-01T01:28:33Z INFO  worker cache refreshed keys=128 trace_id=f74ed56e6a678ab4
+2026-10-01T01:29:02Z INFO  worker request served path=/v1/items status=200 trace_id=ccde1454013d4db4
+2026-10-01T01:29:15Z INFO  worker cache refreshed keys=128 trace_id=9445eb530b8e8df6
+2026-10-01T01:29:52Z INFO  worker job dequeued queue=default trace_id=656dd08537b19fc2
+2026-10-01T01:29:53Z INFO  worker cache refreshed keys=128 trace_id=c8fda44823daa201
+2026-10-01T01:29:54Z INFO  worker cache refreshed keys=128 trace_id=41d2aff4dd97eb8d
+2026-10-01T01:30:29Z ERROR worker payment provider rejected code=E204 trace_id=33eb448db246bfc0
+2026-10-01T01:30:43Z INFO  worker job dequeued queue=default trace_id=9cef33ec4874df18
+2026-10-01T01:30:50Z ERROR worker payment provider rejected code=E318 trace_id=d83b0b50fe9728a4
+2026-10-01T01:31:22Z INFO  worker request served path=/v1/items status=200 trace_id=ce4edbd44d49ab23
+2026-10-01T01:31:44Z WARN  worker slow response latency_ms=1840 trace_id=6df5ec81a65c2212
+2026-10-01T01:32:02Z INFO  worker cache refreshed keys=128 trace_id=292c17bbcfff8a4e
+2026-10-01T01:32:23Z INFO  worker job dequeued queue=default trace_id=b3813d0fc6e5921f
+2026-10-01T01:32:41Z INFO  worker request served path=/v1/items status=200 trace_id=3dc128f04cc54831
+2026-10-01T01:32:54Z INFO  worker cache refreshed keys=128 trace_id=54d932f4e7cad24c
+2026-10-01T01:33:00Z INFO  worker cache refreshed keys=128 trace_id=715da37c65eca853
+2026-10-01T01:33:11Z INFO  worker cache refreshed keys=128 trace_id=44a3a59c9795908c
+2026-10-01T01:33:41Z ERROR worker db deadlock detected code=E204 trace_id=79ad8651bef46cda
+2026-10-01T01:34:16Z INFO  worker heartbeat ok trace_id=6a4f074653c6edc7
+2026-10-01T01:34:39Z INFO  worker job dequeued queue=default trace_id=d3aa98c7956755f7
+2026-10-01T01:35:10Z INFO  worker cache refreshed keys=128 trace_id=9ccd68a93d7821e4
+2026-10-01T01:35:17Z INFO  worker cache refreshed keys=128 trace_id=4c4dd42417aba949
+2026-10-01T01:35:35Z INFO  worker cache refreshed keys=128 trace_id=812917b8a55a8e97
+2026-10-01T01:35:36Z INFO  worker job dequeued queue=default trace_id=94fd74cafa471b23
+2026-10-01T01:36:05Z INFO  worker job dequeued queue=default trace_id=29d644a2e899e820
+2026-10-01T01:36:27Z WARN  worker retrying upstream attempt=2 trace_id=aec36400f1733761
+2026-10-01T01:36:55Z INFO  worker job dequeued queue=default trace_id=bc43ad4fe30a1393
+2026-10-01T01:37:23Z WARN  worker slow response latency_ms=1840 trace_id=903873df210a49f8
+2026-10-01T01:37:50Z INFO  worker cache refreshed keys=128 trace_id=6849b5e7d8c71267
+2026-10-01T01:38:10Z INFO  worker job dequeued queue=default trace_id=95ed1515729ece72
+2026-10-01T01:38:48Z INFO  worker heartbeat ok trace_id=883c90a92a63f9a0
+2026-10-01T01:38:50Z INFO  worker heartbeat ok trace_id=278e6e09057860c7
+2026-10-01T01:39:03Z INFO  worker heartbeat ok trace_id=b878447bfba5b4e4
+2026-10-01T01:39:10Z WARN  worker pool near capacity used=92% trace_id=901399d6c6afea86
+2026-10-01T01:39:21Z INFO  worker request served path=/v1/items status=200 trace_id=98ac2ad9f5606603
+2026-10-01T01:39:48Z INFO  worker request served path=/v1/items status=200 trace_id=d8321170f77744be
+2026-10-01T01:39:59Z INFO  worker heartbeat ok trace_id=9a3332a85d9b35c1
+2026-10-01T01:40:21Z WARN  worker slow response latency_ms=1840 trace_id=f1301a9419d12c05
+2026-10-01T01:40:55Z INFO  worker job dequeued queue=default trace_id=a0e541ff6447d97e
+2026-10-01T01:41:08Z INFO  worker heartbeat ok trace_id=20cdbd35ca1e87d6
+2026-10-01T01:41:45Z INFO  worker request served path=/v1/items status=200 trace_id=48ea68b72f945fe8
+2026-10-01T01:42:24Z INFO  worker cache refreshed keys=128 trace_id=dcf33e119f5b9b6c
+2026-10-01T01:42:35Z INFO  worker cache refreshed keys=128 trace_id=f5add41a71982200
+2026-10-01T01:42:40Z WARN  worker pool near capacity used=92% trace_id=332c01497b5f943a
+2026-10-01T01:42:43Z INFO  worker request served path=/v1/items status=200 trace_id=2cd58e40b867609c
+2026-10-01T01:43:23Z INFO  worker job dequeued queue=default trace_id=6cd685c30d5c7531
+2026-10-01T01:43:47Z INFO  worker heartbeat ok trace_id=d56e51a3cf880ee4
+2026-10-01T01:44:11Z INFO  worker job dequeued queue=default trace_id=4909396a05acd669
+2026-10-01T01:44:14Z WARN  worker slow response latency_ms=1840 trace_id=79e066038d13a76e
+2026-10-01T01:44:34Z INFO  worker request served path=/v1/items status=200 trace_id=a0c485dba7786d3b
+2026-10-01T01:44:46Z INFO  worker cache refreshed keys=128 trace_id=bc2833c2044cc936
+2026-10-01T01:44:54Z INFO  worker request served path=/v1/items status=200 trace_id=3683020d2a31b658
+2026-10-01T01:45:03Z INFO  worker heartbeat ok trace_id=021ef696d803c23c
+2026-10-01T01:45:34Z INFO  worker request served path=/v1/items status=200 trace_id=da235da2f89aa4c1
+2026-10-01T01:46:12Z INFO  worker job dequeued queue=default trace_id=4512d4e0eab9565f
+2026-10-01T01:46:52Z INFO  worker request served path=/v1/items status=200 trace_id=9e2eaca6c9a2277b
+2026-10-01T01:47:19Z INFO  worker heartbeat ok trace_id=137c471374725a22
+2026-10-01T01:47:39Z INFO  worker request served path=/v1/items status=200 trace_id=a7f941722735e2e6
+2026-10-01T01:48:12Z INFO  worker job dequeued queue=default trace_id=acfcc454866c51eb
+2026-10-01T01:48:17Z ERROR worker token signature invalid code=E318 trace_id=2c6e628fb3a83dc9
+2026-10-01T01:48:47Z INFO  worker cache refreshed keys=128 trace_id=8a6e621cea24f7a1
+2026-10-01T01:49:02Z INFO  worker job dequeued queue=default trace_id=ac1e6c0dd284e848
+2026-10-01T01:49:27Z INFO  worker request served path=/v1/items status=200 trace_id=d884d71027a26352
+2026-10-01T01:49:29Z INFO  worker cache refreshed keys=128 trace_id=bfbe1e89819bf3c1
+2026-10-01T01:49:39Z INFO  worker job dequeued queue=default trace_id=cbe9120e8b82fe7e
+2026-10-01T01:49:49Z INFO  worker cache refreshed keys=128 trace_id=900db6ffa5640b37
+2026-10-01T01:50:05Z INFO  worker cache refreshed keys=128 trace_id=0adc8aa33c658b7a
+2026-10-01T01:50:30Z WARN  worker pool near capacity used=92% trace_id=e61bd4f10f570892
+2026-10-01T01:50:36Z ERROR worker upstream timeout code=E318 trace_id=6d3ed69688947d67
+2026-10-01T01:50:56Z ERROR worker db deadlock detected code=E204 trace_id=e569c11bfd59c5a0
+2026-10-01T01:51:02Z INFO  worker cache refreshed keys=128 trace_id=28fe7d96915f50b6
+2026-10-01T01:51:42Z INFO  worker request served path=/v1/items status=200 trace_id=f8dd40fcc9aefdce
+2026-10-01T01:52:05Z INFO  worker request served path=/v1/items status=200 trace_id=8162f5b64326c329
+2026-10-01T01:52:34Z INFO  worker job dequeued queue=default trace_id=0cb3f32d1580eec0
+2026-10-01T01:52:36Z INFO  worker request served path=/v1/items status=200 trace_id=02fd1b02efbdda93
+2026-10-01T01:52:43Z INFO  worker heartbeat ok trace_id=8f23264ba428f68b
+2026-10-01T01:53:05Z INFO  worker cache refreshed keys=128 trace_id=f140ee0d3cd26d8a
+2026-10-01T01:53:42Z INFO  worker job dequeued queue=default trace_id=811861ef04d9a73b
+2026-10-01T01:53:56Z INFO  worker job dequeued queue=default trace_id=5d9d40faf6e64991
+2026-10-01T01:54:19Z INFO  worker request served path=/v1/items status=200 trace_id=5be3e9954bb7907c
+2026-10-01T01:54:37Z INFO  worker job dequeued queue=default trace_id=cf6d708cda13a704
+2026-10-01T01:54:59Z INFO  worker request served path=/v1/items status=200 trace_id=eb85cbe83a81faba
+2026-10-01T01:55:37Z INFO  worker job dequeued queue=default trace_id=aa8a74370427594a
+2026-10-01T01:56:10Z WARN  worker pool near capacity used=92% trace_id=3f4b41bc591ef8ef
+2026-10-01T01:56:31Z WARN  worker pool near capacity used=92% trace_id=1e1bace2d84f1152
+2026-10-01T01:56:34Z INFO  worker heartbeat ok trace_id=af40e4db971bf042
+2026-10-01T01:57:02Z WARN  worker slow response latency_ms=1840 trace_id=0d65af0e307b2fea
+2026-10-01T01:57:20Z INFO  worker cache refreshed keys=128 trace_id=d0ea359cd6d93414
+2026-10-01T01:57:59Z INFO  worker cache refreshed keys=128 trace_id=eac10672165805da
+2026-10-01T01:58:04Z INFO  worker cache refreshed keys=128 trace_id=5b44cb0c98916518
+2026-10-01T01:58:37Z INFO  worker request served path=/v1/items status=200 trace_id=85916c09f5e0db9e
+2026-10-01T01:58:54Z INFO  worker job dequeued queue=default trace_id=8647530483913648
+2026-10-01T01:59:15Z INFO  worker cache refreshed keys=128 trace_id=74d181c4fdabd316
+2026-10-01T01:59:25Z INFO  worker heartbeat ok trace_id=86ee58710a7e58ef
+2026-10-01T02:00:00Z INFO  worker heartbeat ok trace_id=aa540b02076d58de
+2026-10-01T02:00:14Z ERROR worker db deadlock detected code=E101 trace_id=6932f7313b9c339f
+2026-10-01T02:00:21Z INFO  worker job dequeued queue=default trace_id=6e7979812d0a3147
+2026-10-01T02:00:27Z INFO  worker job dequeued queue=default trace_id=ad85e37523530cc1
+2026-10-01T02:00:48Z INFO  worker job dequeued queue=default trace_id=8155475752e850af
+2026-10-01T02:01:28Z INFO  worker request served path=/v1/items status=200 trace_id=950a46a0b4ccb625
+2026-10-01T02:02:01Z INFO  worker request served path=/v1/items status=200 trace_id=497e7ac99c0be308
+2026-10-01T02:02:34Z INFO  worker cache refreshed keys=128 trace_id=762ed57290379df8
+2026-10-01T02:02:37Z INFO  worker cache refreshed keys=128 trace_id=4348046189bab1bd
+2026-10-01T02:02:50Z INFO  worker cache refreshed keys=128 trace_id=4d26bd3e6b282519
+2026-10-01T02:02:52Z INFO  worker job dequeued queue=default trace_id=ff0438e7eefe5498
+2026-10-01T02:02:59Z INFO  worker heartbeat ok trace_id=d645e3ae5d835614
+2026-10-01T02:03:30Z INFO  worker heartbeat ok trace_id=f26bb60f4abc2ff1
+2026-10-01T02:03:34Z INFO  worker heartbeat ok trace_id=9383b3cf66cabf62
+2026-10-01T02:03:58Z INFO  worker cache refreshed keys=128 trace_id=cfbd7d34c61feefb
+2026-10-01T02:04:26Z WARN  worker pool near capacity used=92% trace_id=52413a48a10c48f8
+2026-10-01T02:04:49Z INFO  worker cache refreshed keys=128 trace_id=c0b75671b656425c
+2026-10-01T02:05:19Z INFO  worker request served path=/v1/items status=200 trace_id=8d5a914967022b20
+2026-10-01T02:05:23Z INFO  worker cache refreshed keys=128 trace_id=868a8b51e5493074
+2026-10-01T02:05:32Z INFO  worker heartbeat ok trace_id=dbda16e1cd910120
+2026-10-01T02:05:44Z INFO  worker heartbeat ok trace_id=fd9fbdbc0b540e4f
+2026-10-01T02:05:46Z INFO  worker request served path=/v1/items status=200 trace_id=7054b22d37e46283
+2026-10-01T02:05:57Z INFO  worker heartbeat ok trace_id=6061ac3031844470
+2026-10-01T02:06:36Z INFO  worker heartbeat ok trace_id=062584fd86ac928f
+2026-10-01T02:07:08Z INFO  worker cache refreshed keys=128 trace_id=9d1e901efe027dfa
+2026-10-01T02:07:19Z WARN  worker slow response latency_ms=1840 trace_id=bf8790ff1ba1a1d6
+2026-10-01T02:07:22Z WARN  worker pool near capacity used=92% trace_id=10769b6640cfdea2
+2026-10-01T02:07:35Z INFO  worker job dequeued queue=default trace_id=caeff38f28b2d206
+2026-10-01T02:08:04Z INFO  worker heartbeat ok trace_id=3ed7f233ab9fae9f
+2026-10-01T02:08:13Z INFO  worker job dequeued queue=default trace_id=189b0c04fbbb7562
+2026-10-01T02:08:18Z INFO  worker cache refreshed keys=128 trace_id=4eadcff0eaed9f22
+2026-10-01T02:08:40Z INFO  worker heartbeat ok trace_id=54b1b93638a99fbf
+2026-10-01T02:09:08Z INFO  worker cache refreshed keys=128 trace_id=79a73cda016446c2
+2026-10-01T02:09:37Z INFO  worker heartbeat ok trace_id=5f67f64f6b27b2f8
+2026-10-01T02:10:07Z INFO  worker heartbeat ok trace_id=a452bd6774450857
+2026-10-01T02:10:13Z INFO  worker job dequeued queue=default trace_id=3d59e51dc8d7a75f
+2026-10-01T02:10:24Z INFO  worker job dequeued queue=default trace_id=2cb136d4737d367c
+2026-10-01T02:10:58Z INFO  worker job dequeued queue=default trace_id=af8858fed53d4f1f
+2026-10-01T02:11:38Z INFO  worker job dequeued queue=default trace_id=6122fbf49235f9ff
+2026-10-01T02:11:50Z WARN  worker pool near capacity used=92% trace_id=bc522eb866d843d5
+2026-10-01T02:11:59Z INFO  worker request served path=/v1/items status=200 trace_id=fac423105b1d7afb
+2026-10-01T02:12:09Z WARN  worker slow response latency_ms=1840 trace_id=e63347b47075afe6
+2026-10-01T02:12:46Z INFO  worker cache refreshed keys=128 trace_id=a6e47480657cc087
+2026-10-01T02:13:15Z INFO  worker job dequeued queue=default trace_id=5c92d9f8d4a80f26
+2026-10-01T02:13:47Z INFO  worker job dequeued queue=default trace_id=8e48640f1075ed86
+2026-10-01T02:14:12Z INFO  worker job dequeued queue=default trace_id=e983200067b7dc72
+2026-10-01T02:14:20Z INFO  worker heartbeat ok trace_id=feb18c2149f15a1d
+2026-10-01T02:14:26Z INFO  worker job dequeued queue=default trace_id=6211476f6a118ef8
+2026-10-01T02:14:43Z INFO  worker cache refreshed keys=128 trace_id=5544a0df35d2c643
+2026-10-01T02:14:49Z INFO  worker job dequeued queue=default trace_id=3a5299b83b0cce91
+2026-10-01T02:15:16Z INFO  worker cache refreshed keys=128 trace_id=df77d6206bbac4f7
+2026-10-01T02:15:29Z INFO  worker job dequeued queue=default trace_id=fda39cb55e5c51df
+2026-10-01T02:15:51Z INFO  worker heartbeat ok trace_id=3eccd132981d80ec
+2026-10-01T02:16:29Z INFO  worker cache refreshed keys=128 trace_id=5dbc726730143bd3
+2026-10-01T02:17:02Z INFO  worker cache refreshed keys=128 trace_id=82e1747dd70cc1bd
+2026-10-01T02:17:28Z INFO  worker request served path=/v1/items status=200 trace_id=6442d7c67b7d0481
+2026-10-01T02:17:53Z INFO  worker cache refreshed keys=128 trace_id=1dc37bce66853450
+2026-10-01T02:17:56Z WARN  worker slow response latency_ms=1840 trace_id=c7ac49ee41fa239b
+2026-10-01T02:18:12Z INFO  worker job dequeued queue=default trace_id=53c1568174950f56
+2026-10-01T02:18:44Z INFO  worker job dequeued queue=default trace_id=0853e5576ca49823
+2026-10-01T02:18:47Z INFO  worker heartbeat ok trace_id=7d07d0a55bdb643e
+2026-10-01T02:19:10Z INFO  worker cache refreshed keys=128 trace_id=b2f57b85a07c8bb4
+2026-10-01T02:19:44Z INFO  worker job dequeued queue=default trace_id=ea9c84945fa041ad
+2026-10-01T02:20:22Z WARN  worker slow response latency_ms=1840 trace_id=b124c6444ba76791
+2026-10-01T02:20:25Z INFO  worker job dequeued queue=default trace_id=553de05153fe5e9b
+2026-10-01T02:20:45Z ERROR worker upstream timeout code=E318 trace_id=771764132d450c0f
+2026-10-01T02:21:19Z WARN  worker pool near capacity used=92% trace_id=52ebc01729752795
+2026-10-01T02:21:56Z INFO  worker heartbeat ok trace_id=483066f7c98a9c38
+2026-10-01T02:22:10Z INFO  worker request served path=/v1/items status=200 trace_id=5c2228aee9da28c0
+2026-10-01T02:22:50Z WARN  worker slow response latency_ms=1840 trace_id=165572252d4d6159
+2026-10-01T02:23:00Z INFO  worker heartbeat ok trace_id=4dba8dcedb23cb48
+2026-10-01T02:23:39Z INFO  worker cache refreshed keys=128 trace_id=8ec266753b0d591b
+2026-10-01T02:23:42Z INFO  worker request served path=/v1/items status=200 trace_id=98106abcf4329a33
+2026-10-01T02:24:13Z INFO  worker heartbeat ok trace_id=1136ae09760a7aed
+2026-10-01T02:24:44Z ERROR worker upstream timeout code=E204 trace_id=9199990f21211e4c
+2026-10-01T02:24:52Z INFO  worker heartbeat ok trace_id=2ee95f593a7e894f
+2026-10-01T02:25:07Z WARN  worker retrying upstream attempt=2 trace_id=0443d96091823220
+2026-10-01T02:25:26Z INFO  worker cache refreshed keys=128 trace_id=0b91c959ada51fbc
+2026-10-01T02:25:56Z INFO  worker cache refreshed keys=128 trace_id=c0627e21359063df
+2026-10-01T02:26:29Z INFO  worker heartbeat ok trace_id=b4540c5b0d96da21
+2026-10-01T02:26:35Z INFO  worker job dequeued queue=default trace_id=139ad8342624ff07
+2026-10-01T02:26:56Z INFO  worker heartbeat ok trace_id=ad424ab317710433
+2026-10-01T02:27:33Z INFO  worker heartbeat ok trace_id=d7e657f73a55219e
+2026-10-01T02:28:13Z INFO  worker job dequeued queue=default trace_id=63f0c37de5774b9e
+2026-10-01T02:28:35Z INFO  worker cache refreshed keys=128 trace_id=ef1fffb2792c1b81
+2026-10-01T02:28:37Z INFO  worker cache refreshed keys=128 trace_id=a61d70a47054e4f5
+2026-10-01T02:29:07Z INFO  worker job dequeued queue=default trace_id=ce796b6e01436f24
+2026-10-01T02:29:25Z INFO  worker cache refreshed keys=128 trace_id=4ed0ee2862b28db1
+2026-10-01T02:29:30Z INFO  worker request served path=/v1/items status=200 trace_id=114369b3d21c2ac2
+2026-10-01T02:29:38Z INFO  worker request served path=/v1/items status=200 trace_id=4279e37f2bd8e41c
+2026-10-01T02:30:11Z INFO  worker heartbeat ok trace_id=de43c05f4e0c7bfe
+2026-10-01T02:30:23Z INFO  worker heartbeat ok trace_id=7a81d11219b5d6c8
+2026-10-01T02:30:52Z INFO  worker cache refreshed keys=128 trace_id=2b6bad30630fb3da
+2026-10-01T02:31:26Z INFO  worker cache refreshed keys=128 trace_id=29d2df4d38ff7550
+2026-10-01T02:32:03Z INFO  worker job dequeued queue=default trace_id=46d88f2bda5e172d
+2026-10-01T02:32:29Z INFO  worker job dequeued queue=default trace_id=a297dc9fa8b6edc2
+2026-10-01T02:32:49Z INFO  worker heartbeat ok trace_id=8ae52d72da328bc7
+2026-10-01T02:33:12Z INFO  worker request served path=/v1/items status=200 trace_id=583b9a2e8e07cddb
+2026-10-01T02:33:16Z INFO  worker heartbeat ok trace_id=ab5bbffd098c232c
+2026-10-01T02:33:23Z INFO  worker job dequeued queue=default trace_id=e104178d07ea564a
+2026-10-01T02:33:55Z INFO  worker heartbeat ok trace_id=55ebbf42a611e55a
+2026-10-01T02:34:11Z INFO  worker heartbeat ok trace_id=bd8f09041c7c5f42
+2026-10-01T02:34:20Z INFO  worker heartbeat ok trace_id=26293092f416e708
+2026-10-01T02:34:45Z INFO  worker job dequeued queue=default trace_id=5a2efd7dfa978c07
+2026-10-01T02:35:19Z ERROR worker queue overflow code=E101 trace_id=087f044b2d2094b5
+2026-10-01T02:35:53Z WARN  worker retrying upstream attempt=2 trace_id=03f2523cc4ec474d
+2026-10-01T02:36:01Z INFO  worker job dequeued queue=default trace_id=ee7168c66f7a8223
+2026-10-01T02:36:10Z INFO  worker cache refreshed keys=128 trace_id=63028839ef551842
+2026-10-01T02:36:28Z INFO  worker request served path=/v1/items status=200 trace_id=10e1bb692d3251ae
+2026-10-01T02:37:08Z INFO  worker request served path=/v1/items status=200 trace_id=943a09e81efe959a
+2026-10-01T02:37:18Z ERROR worker token signature invalid code=E318 trace_id=5e58993322478046
+2026-10-01T02:37:48Z INFO  worker request served path=/v1/items status=200 trace_id=666853b873d35a29
+2026-10-01T02:37:49Z WARN  worker pool near capacity used=92% trace_id=d4f9b0e4371449c2
+2026-10-01T02:38:21Z INFO  worker job dequeued queue=default trace_id=d448558633317cc7
+2026-10-01T02:38:34Z ERROR worker token signature invalid code=E101 trace_id=a0ff6a25144a0fcc
+2026-10-01T02:39:00Z WARN  worker pool near capacity used=92% trace_id=28865992e8a5e4be
+2026-10-01T02:39:23Z WARN  worker slow response latency_ms=1840 trace_id=f91a987200d4b934
+2026-10-01T02:40:00Z INFO  worker heartbeat ok trace_id=014e769ebad3be9b
+2026-10-01T02:40:08Z INFO  worker request served path=/v1/items status=200 trace_id=1afb0d1d6d040082
+2026-10-01T02:40:21Z WARN  worker pool near capacity used=92% trace_id=8acdb9fc7dbedb4f
+2026-10-01T02:40:27Z INFO  worker job dequeued queue=default trace_id=5738a22d825e143a
+2026-10-01T02:41:00Z INFO  worker request served path=/v1/items status=200 trace_id=83c012a2bed2e665
+2026-10-01T02:41:32Z INFO  worker cache refreshed keys=128 trace_id=98aee80dcd985571
+2026-10-01T02:41:43Z ERROR worker payment provider rejected code=E422 trace_id=c4f68554b7792e9f
+2026-10-01T02:42:20Z INFO  worker heartbeat ok trace_id=c94e75bccfeecae4
+2026-10-01T02:42:39Z INFO  worker job dequeued queue=default trace_id=08fc1dab2bec3fbd
+2026-10-01T02:43:11Z INFO  worker heartbeat ok trace_id=e21d0016ec50b85e
+2026-10-01T02:43:21Z INFO  worker request served path=/v1/items status=200 trace_id=74ee472aab117dd4
+2026-10-01T02:43:27Z INFO  worker heartbeat ok trace_id=d0f0ed8b1b7cb152
+2026-10-01T02:44:07Z INFO  worker request served path=/v1/items status=200 trace_id=0fa4cd7f10a9820f
+2026-10-01T02:44:23Z INFO  worker job dequeued queue=default trace_id=d1e32ad665449d27
+2026-10-01T02:44:29Z WARN  worker retrying upstream attempt=2 trace_id=830317abab0f9528
+2026-10-01T02:44:33Z INFO  worker job dequeued queue=default trace_id=1da162a283894d01
+2026-10-01T02:44:43Z WARN  worker pool near capacity used=92% trace_id=258935930c76c325
+2026-10-01T02:45:19Z INFO  worker job dequeued queue=default trace_id=b8398d9e4bb14c28
+2026-10-01T02:45:32Z INFO  worker heartbeat ok trace_id=407db718044bdcb7
+2026-10-01T02:45:42Z INFO  worker request served path=/v1/items status=200 trace_id=795a3e5e0a2965b5
+2026-10-01T02:46:06Z INFO  worker job dequeued queue=default trace_id=b4539403d534f242
+2026-10-01T02:46:25Z INFO  worker heartbeat ok trace_id=9146cd76a912c604
+2026-10-01T02:46:55Z INFO  worker job dequeued queue=default trace_id=0c44d5c34ad1163f
+2026-10-01T02:47:35Z INFO  worker heartbeat ok trace_id=f9d5484ae1d51bc7
+2026-10-01T02:48:06Z INFO  worker request served path=/v1/items status=200 trace_id=9f670ae17e241bde
+2026-10-01T02:48:14Z INFO  worker heartbeat ok trace_id=b824ce7f00f11b14
+2026-10-01T02:48:24Z INFO  worker job dequeued queue=default trace_id=5e2cc681eb32f4dd
+2026-10-01T02:48:44Z INFO  worker request served path=/v1/items status=200 trace_id=c79300f7ddc706b2
+2026-10-01T02:48:58Z INFO  worker job dequeued queue=default trace_id=c6bebac82d148194
+2026-10-01T02:49:23Z INFO  worker job dequeued queue=default trace_id=bfacd91818b8c9a9
+2026-10-01T02:49:48Z INFO  worker cache refreshed keys=128 trace_id=9124b920c5d3abfa
+2026-10-01T02:49:53Z INFO  worker cache refreshed keys=128 trace_id=3ef4537fac3f2502
+2026-10-01T02:50:17Z INFO  worker cache refreshed keys=128 trace_id=bd5c00ba401eeb04
+2026-10-01T02:50:51Z INFO  worker heartbeat ok trace_id=90c92ea7d761cc10
+2026-10-01T02:50:58Z INFO  worker request served path=/v1/items status=200 trace_id=f7299309e9a7996e
+2026-10-01T02:51:28Z INFO  worker job dequeued queue=default trace_id=61de64ee82297da8
+2026-10-01T02:51:34Z WARN  worker slow response latency_ms=1840 trace_id=4c4e5e990cae84f7
+2026-10-01T02:52:04Z INFO  worker request served path=/v1/items status=200 trace_id=ff93aa2638353bab
+2026-10-01T02:52:12Z INFO  worker request served path=/v1/items status=200 trace_id=4804f4a1c858cf07
+2026-10-01T02:52:32Z INFO  worker request served path=/v1/items status=200 trace_id=2b38b75f48acc719
+2026-10-01T02:52:35Z INFO  worker heartbeat ok trace_id=cd3649ca7130f578
+2026-10-01T02:52:44Z INFO  worker heartbeat ok trace_id=884d370e507055e1
+2026-10-01T02:53:04Z ERROR worker upstream timeout code=E101 trace_id=f5dd726bad793254
+2026-10-01T02:53:20Z WARN  worker retrying upstream attempt=2 trace_id=f5d562ea8d3fef00
+2026-10-01T02:53:50Z INFO  worker heartbeat ok trace_id=a104e164330c09e5
+2026-10-01T02:53:52Z WARN  worker pool near capacity used=92% trace_id=38a0c41aacdf45ac
+2026-10-01T02:54:29Z INFO  worker request served path=/v1/items status=200 trace_id=79cd484443cb831f
+2026-10-01T02:55:01Z INFO  worker cache refreshed keys=128 trace_id=85445c067f05c618
+2026-10-01T02:55:03Z INFO  worker cache refreshed keys=128 trace_id=63afae67cbc4788c
+2026-10-01T02:55:12Z INFO  worker request served path=/v1/items status=200 trace_id=9dcd8a202bd351d0
+2026-10-01T02:55:18Z ERROR worker db deadlock detected code=E318 trace_id=9da7980521cc5c49
+2026-10-01T02:55:49Z INFO  worker job dequeued queue=default trace_id=f2b8b16e1a0bb73d
+2026-10-01T02:56:28Z INFO  worker job dequeued queue=default trace_id=69bc023aa4aad726
+2026-10-01T02:56:42Z INFO  worker heartbeat ok trace_id=6c42da9bc68ea9ad
+2026-10-01T02:56:55Z INFO  worker job dequeued queue=default trace_id=9afc9813aee00066
+2026-10-01T02:57:09Z INFO  worker job dequeued queue=default trace_id=5f89e67ea81b6484
+2026-10-01T02:57:25Z INFO  worker heartbeat ok trace_id=8b9f23a5ba55ce13
+2026-10-01T02:57:43Z INFO  worker request served path=/v1/items status=200 trace_id=5082d32ed9b89239
+2026-10-01T02:57:54Z INFO  worker heartbeat ok trace_id=aefde786e49ce81f
+2026-10-01T02:57:56Z INFO  worker cache refreshed keys=128 trace_id=f877b4b34ecd7041
+2026-10-01T02:58:17Z INFO  worker request served path=/v1/items status=200 trace_id=615f3086f0d2851b
+2026-10-01T02:58:45Z INFO  worker job dequeued queue=default trace_id=23dc289f7a7c3450
+2026-10-01T02:59:07Z INFO  worker heartbeat ok trace_id=8a4d86eec586f25b
+2026-10-01T02:59:34Z INFO  worker job dequeued queue=default trace_id=d3db332884da78ee
+2026-10-01T02:59:51Z WARN  worker slow response latency_ms=1840 trace_id=da9b0b98ce6821da
+2026-10-01T03:00:16Z INFO  worker cache refreshed keys=128 trace_id=3f1fffdda47fc83d
+2026-10-01T03:00:21Z INFO  worker cache refreshed keys=128 trace_id=2175fdf7162619e9
+2026-10-01T03:00:47Z INFO  worker request served path=/v1/items status=200 trace_id=307d6e55a21857e5
+2026-10-01T03:01:04Z INFO  worker heartbeat ok trace_id=f32fbecb70498233
+2026-10-01T03:01:13Z INFO  worker cache refreshed keys=128 trace_id=49e7a7ceb47f5d34
+2026-10-01T03:01:35Z INFO  worker request served path=/v1/items status=200 trace_id=2fafbcd46e351f3f
+2026-10-01T03:01:49Z INFO  worker job dequeued queue=default trace_id=919a54fd13c161dc
+2026-10-01T03:02:09Z INFO  worker job dequeued queue=default trace_id=46db226ea52248c7
+2026-10-01T03:02:33Z INFO  worker heartbeat ok trace_id=eaa77aa2921faa38
+2026-10-01T03:02:45Z WARN  worker slow response latency_ms=1840 trace_id=1caf6236d62b57d4
+2026-10-01T03:03:10Z INFO  worker job dequeued queue=default trace_id=21ad873387ab6d1a
+2026-10-01T03:03:45Z INFO  worker request served path=/v1/items status=200 trace_id=25116fdb43b28595
+2026-10-01T03:03:57Z INFO  worker cache refreshed keys=128 trace_id=0adfab662b9100a3
+2026-10-01T03:04:27Z WARN  worker pool near capacity used=92% trace_id=76f07a6ac7f6b4f7
+2026-10-01T03:04:44Z INFO  worker heartbeat ok trace_id=188ca78fb3bc2371
+2026-10-01T03:05:08Z INFO  worker job dequeued queue=default trace_id=c3b58cb7cd38253c
+2026-10-01T03:05:31Z INFO  worker request served path=/v1/items status=200 trace_id=679718f5185092a8
+2026-10-01T03:05:49Z INFO  worker cache refreshed keys=128 trace_id=cf5edb303c75394d
+2026-10-01T03:06:11Z INFO  worker request served path=/v1/items status=200 trace_id=d1cb3730aa3c0994
+2026-10-01T03:06:22Z INFO  worker request served path=/v1/items status=200 trace_id=d0a6490ce93e7e9e
+2026-10-01T03:06:42Z INFO  worker job dequeued queue=default trace_id=f1c771c2c629e25d
+2026-10-01T03:07:00Z INFO  worker heartbeat ok trace_id=e0ace189daa2e686
+2026-10-01T03:07:06Z INFO  worker request served path=/v1/items status=200 trace_id=cd4b92bb94b14fe6
+2026-10-01T03:07:36Z INFO  worker cache refreshed keys=128 trace_id=d25f87dbb04a2c0d
+2026-10-01T03:08:07Z INFO  worker request served path=/v1/items status=200 trace_id=08ba3071c80fd2d4
+2026-10-01T03:08:40Z INFO  worker job dequeued queue=default trace_id=a169f011668db6e9
+2026-10-01T03:08:41Z INFO  worker request served path=/v1/items status=200 trace_id=548a8eab8077f545
+2026-10-01T03:09:06Z INFO  worker request served path=/v1/items status=200 trace_id=19c34afa36be3e3e
+2026-10-01T03:09:09Z INFO  worker heartbeat ok trace_id=d53813cdc8af3c6a
+2026-10-01T03:09:42Z INFO  worker job dequeued queue=default trace_id=c93dca3d11b8a336
+2026-10-01T03:10:03Z INFO  worker cache refreshed keys=128 trace_id=0a8034c217794282
+2026-10-01T03:10:20Z INFO  worker job dequeued queue=default trace_id=0d63810b131f324e
+2026-10-01T03:10:54Z WARN  worker pool near capacity used=92% trace_id=6598fa915621f813
+2026-10-01T03:11:22Z ERROR worker payment provider rejected code=E204 trace_id=7d60e33c339c39fe
+2026-10-01T03:11:48Z INFO  worker cache refreshed keys=128 trace_id=832ea13e3f93e7e9
+2026-10-01T03:12:10Z INFO  worker job dequeued queue=default trace_id=3afef1bc37dbb587
+2026-10-01T03:12:49Z WARN  worker pool near capacity used=92% trace_id=03232a62a8c7f3d5
+2026-10-01T03:13:27Z ERROR worker token signature invalid code=E101 trace_id=1ccf89589af3d7f7
+2026-10-01T03:13:40Z INFO  worker job dequeued queue=default trace_id=e4e3a2a624643167
+2026-10-01T03:13:43Z ERROR worker db deadlock detected code=E204 trace_id=1ebd9b7b6cdd64e8
+2026-10-01T03:13:57Z INFO  worker heartbeat ok trace_id=7a80a4a4766164df
+2026-10-01T03:14:29Z WARN  worker slow response latency_ms=1840 trace_id=f6d2513e0a3e5e06
+2026-10-01T03:14:50Z INFO  worker cache refreshed keys=128 trace_id=5b13be381a6d687b
+2026-10-01T03:14:58Z INFO  worker heartbeat ok trace_id=34f71edda7dac5c4
+2026-10-01T03:15:12Z INFO  worker job dequeued queue=default trace_id=587287bb88c10627
+2026-10-01T03:15:13Z INFO  worker heartbeat ok trace_id=4dec3ace9c0b7686
+2026-10-01T03:15:48Z INFO  worker job dequeued queue=default trace_id=e6564f6a6634e1f4
+2026-10-01T03:16:07Z INFO  worker job dequeued queue=default trace_id=9e1854079e79061f
+2026-10-01T03:16:08Z INFO  worker request served path=/v1/items status=200 trace_id=764137b3893d691d
+2026-10-01T03:16:14Z INFO  worker job dequeued queue=default trace_id=4aaa7fe32faba151
+2026-10-01T03:16:36Z INFO  worker cache refreshed keys=128 trace_id=b518906066cbb7c3
+2026-10-01T03:17:16Z INFO  worker job dequeued queue=default trace_id=104b0668efb0ca40
+2026-10-01T03:17:46Z WARN  worker pool near capacity used=92% trace_id=069868e7417506fd
+2026-10-01T03:18:25Z INFO  worker heartbeat ok trace_id=c5e74a971d180f2a
+2026-10-01T03:18:59Z INFO  worker cache refreshed keys=128 trace_id=2c44b416a19a953c
+2026-10-01T03:19:04Z INFO  worker cache refreshed keys=128 trace_id=de56c6b10b130967
+2026-10-01T03:19:14Z INFO  worker heartbeat ok trace_id=7e7991432a9123f4
+2026-10-01T03:19:42Z ERROR worker payment provider rejected code=E204 trace_id=d5fc55d45a14017d
+2026-10-01T03:19:45Z INFO  worker job dequeued queue=default trace_id=0bb61e4285bff58f
+2026-10-01T03:20:11Z INFO  worker cache refreshed keys=128 trace_id=45f15f7f257d19b8
+2026-10-01T03:20:38Z INFO  worker heartbeat ok trace_id=8e422b065d5e5f5f
+2026-10-01T03:21:06Z INFO  worker cache refreshed keys=128 trace_id=2660fc8ba0903d2e
+2026-10-01T03:21:36Z INFO  worker heartbeat ok trace_id=d8f4755f047c7978
+2026-10-01T03:22:04Z INFO  worker request served path=/v1/items status=200 trace_id=9c69a0b77b1863f5
+2026-10-01T03:22:19Z INFO  worker job dequeued queue=default trace_id=9f84f6a12d7cd374
+2026-10-01T03:22:44Z INFO  worker request served path=/v1/items status=200 trace_id=4b38cb4f70877e5a
+2026-10-01T03:22:56Z INFO  worker job dequeued queue=default trace_id=f404d2776264ee9d
+2026-10-01T03:23:05Z INFO  worker cache refreshed keys=128 trace_id=1a08b3fda61130cd
+2026-10-01T03:23:35Z INFO  worker cache refreshed keys=128 trace_id=5f9e344199a7eff8
+2026-10-01T03:24:02Z INFO  worker job dequeued queue=default trace_id=c80f146d0495e166
+2026-10-01T03:24:28Z INFO  worker cache refreshed keys=128 trace_id=9fffdc24f2b181e5
+2026-10-01T03:24:58Z INFO  worker request served path=/v1/items status=200 trace_id=357f098ca7852141
+2026-10-01T03:25:31Z INFO  worker request served path=/v1/items status=200 trace_id=1d21c15f19792e63
+2026-10-01T03:25:54Z INFO  worker cache refreshed keys=128 trace_id=067c760923d74db6
+2026-10-01T03:26:01Z ERROR worker payment provider rejected code=E101 trace_id=9774704f64f88e04
+2026-10-01T03:26:16Z WARN  worker retrying upstream attempt=2 trace_id=5e1ac08c9dfd4cc9
+2026-10-01T03:26:35Z INFO  worker request served path=/v1/items status=200 trace_id=3648907d2509ed08
+2026-10-01T03:26:44Z INFO  worker heartbeat ok trace_id=e33868f0441f55dc
+2026-10-01T03:27:16Z INFO  worker request served path=/v1/items status=200 trace_id=753cece1937ed663
+2026-10-01T03:27:20Z WARN  worker slow response latency_ms=1840 trace_id=9f9f22410f4af85f
+2026-10-01T03:27:41Z INFO  worker request served path=/v1/items status=200 trace_id=49d17ec4f1108396
+2026-10-01T03:28:18Z INFO  worker heartbeat ok trace_id=f0e7b6342fcd15da
+2026-10-01T03:28:26Z INFO  worker cache refreshed keys=128 trace_id=d8cb02f39bd678db
+2026-10-01T03:29:06Z INFO  worker cache refreshed keys=128 trace_id=0303670de23158f6
+2026-10-01T03:29:46Z INFO  worker heartbeat ok trace_id=c41ea2e4ddb458a7
+2026-10-01T03:29:50Z INFO  worker heartbeat ok trace_id=f24574225c79eca7
+2026-10-01T03:30:15Z INFO  worker job dequeued queue=default trace_id=5bb93c97621c02a8
+2026-10-01T03:30:31Z INFO  worker job dequeued queue=default trace_id=1830b8bc8d2802b4
+2026-10-01T03:31:07Z INFO  worker cache refreshed keys=128 trace_id=eee641756fa3eba4
+2026-10-01T03:31:08Z INFO  worker heartbeat ok trace_id=867ee8f5243fce66
+2026-10-01T03:31:17Z INFO  worker request served path=/v1/items status=200 trace_id=4d738807e755bcb1
+2026-10-01T03:31:32Z ERROR worker db deadlock detected code=E101 trace_id=c780d1a5bbc5e8aa
+2026-10-01T03:31:39Z INFO  worker heartbeat ok trace_id=fc4ae9837d6c522a
+2026-10-01T03:31:49Z INFO  worker job dequeued queue=default trace_id=eb3f70ac61c93a09
+2026-10-01T03:32:06Z INFO  worker heartbeat ok trace_id=83193663bf7f4b85
+2026-10-01T03:32:23Z INFO  worker cache refreshed keys=128 trace_id=919c61acf2efa250
+2026-10-01T03:32:25Z INFO  worker cache refreshed keys=128 trace_id=eaf9caf084d4b6d0
+2026-10-01T03:32:44Z INFO  worker cache refreshed keys=128 trace_id=f45050a5b8da8576
+2026-10-01T03:32:52Z INFO  worker cache refreshed keys=128 trace_id=49b3fe50de902605
+2026-10-01T03:33:28Z INFO  worker job dequeued queue=default trace_id=1168dfa13a3ee6d6
+2026-10-01T03:33:30Z INFO  worker heartbeat ok trace_id=53e131624a78966a
+2026-10-01T03:34:00Z INFO  worker cache refreshed keys=128 trace_id=e24d5df4b63914da
+2026-10-01T03:34:26Z INFO  worker request served path=/v1/items status=200 trace_id=8e311a7cc9ebcdf0
+2026-10-01T03:34:39Z INFO  worker cache refreshed keys=128 trace_id=e130267efa901174
+2026-10-01T03:34:41Z INFO  worker heartbeat ok trace_id=7c584b2c11538187
+2026-10-01T03:34:52Z INFO  worker request served path=/v1/items status=200 trace_id=78e74b05d3293365
+2026-10-01T03:35:15Z INFO  worker cache refreshed keys=128 trace_id=ec166890b10f46d8
+2026-10-01T03:35:55Z ERROR worker queue overflow code=E318 trace_id=849d2214f05b926a
+2026-10-01T03:35:56Z INFO  worker cache refreshed keys=128 trace_id=20e4116a73657864
+2026-10-01T03:36:14Z INFO  worker job dequeued queue=default trace_id=434193395b326c07
+2026-10-01T03:36:50Z INFO  worker request served path=/v1/items status=200 trace_id=335f5639a5933293
+2026-10-01T03:37:25Z WARN  worker slow response latency_ms=1840 trace_id=75d08b85bd31c801
+2026-10-01T03:38:04Z INFO  worker cache refreshed keys=128 trace_id=7a8ed946b84bb10b
+2026-10-01T03:38:10Z INFO  worker job dequeued queue=default trace_id=5fe8adf32dd1fc53
+2026-10-01T03:38:13Z WARN  worker slow response latency_ms=1840 trace_id=4f4761c4c2d6f1ad
+2026-10-01T03:38:30Z WARN  worker slow response latency_ms=1840 trace_id=4344432387f8fbc2
+2026-10-01T03:38:55Z INFO  worker heartbeat ok trace_id=dc0e1764d8a43882
+2026-10-01T03:39:20Z INFO  worker job dequeued queue=default trace_id=1cfb5d4ce5731b28
+2026-10-01T03:39:28Z INFO  worker heartbeat ok trace_id=1fd1dd4a0dc22f46
+2026-10-01T03:39:31Z INFO  worker request served path=/v1/items status=200 trace_id=4618b673f38b05ab
+2026-10-01T03:40:08Z ERROR worker db deadlock detected code=E101 trace_id=0b64fabbdc0afd25
+2026-10-01T03:40:12Z INFO  worker heartbeat ok trace_id=d5ec1a588c1c541f
+2026-10-01T03:40:43Z INFO  worker cache refreshed keys=128 trace_id=7f359db79b1089e0
+2026-10-01T03:41:06Z INFO  worker heartbeat ok trace_id=99e22db4ee80b5a9
+2026-10-01T03:41:43Z INFO  worker heartbeat ok trace_id=3aef128e95e2aba7
+2026-10-01T03:41:44Z INFO  worker heartbeat ok trace_id=a502a06f6b7a4a4d
+2026-10-01T03:41:50Z INFO  worker request served path=/v1/items status=200 trace_id=4fa280ede4e57be8
+2026-10-01T03:42:03Z INFO  worker job dequeued queue=default trace_id=36a18d355b50550a
+2026-10-01T03:42:06Z ERROR worker payment provider rejected code=E204 trace_id=a22ac39a3dddff22
+2026-10-01T03:42:29Z INFO  worker job dequeued queue=default trace_id=b398241dcf382c0c
+2026-10-01T03:42:30Z WARN  worker pool near capacity used=92% trace_id=670e9109a282f3cd
+2026-10-01T03:42:58Z WARN  worker pool near capacity used=92% trace_id=b9b2aa6505ff75cb
+2026-10-01T03:43:12Z INFO  worker request served path=/v1/items status=200 trace_id=cfccc8f671e7a603
+2026-10-01T03:43:51Z INFO  worker request served path=/v1/items status=200 trace_id=089069c498ba5fd5
+2026-10-01T03:44:18Z INFO  worker request served path=/v1/items status=200 trace_id=386be6d2eb403c58
+2026-10-01T03:44:38Z INFO  worker cache refreshed keys=128 trace_id=ba5f61ccafbe9d80
+2026-10-01T03:45:07Z INFO  worker heartbeat ok trace_id=8209cbb15c73361b
+2026-10-01T03:45:25Z INFO  worker request served path=/v1/items status=200 trace_id=c6179184ccdf849d
+2026-10-01T03:45:59Z INFO  worker request served path=/v1/items status=200 trace_id=4eeab32c920e138a
+2026-10-01T03:46:19Z INFO  worker job dequeued queue=default trace_id=9b1658127c4a825c
+2026-10-01T03:46:42Z INFO  worker job dequeued queue=default trace_id=f47a6cd913e36bd2
+2026-10-01T03:46:49Z INFO  worker cache refreshed keys=128 trace_id=eeb418710c4e8b56
+2026-10-01T03:47:25Z INFO  worker cache refreshed keys=128 trace_id=c5a69fcc87be4b65
+2026-10-01T03:47:36Z INFO  worker job dequeued queue=default trace_id=8bf422644224cdf9
+2026-10-01T03:47:43Z INFO  worker cache refreshed keys=128 trace_id=3f6c0eb9ad9fecb9
+2026-10-01T03:48:13Z WARN  worker slow response latency_ms=1840 trace_id=e713ff6c83c0294f
+2026-10-01T03:48:24Z INFO  worker request served path=/v1/items status=200 trace_id=3c1042bf74f08d05
+2026-10-01T03:48:33Z INFO  worker request served path=/v1/items status=200 trace_id=3f08d4fe84971c97
+2026-10-01T03:48:59Z WARN  worker retrying upstream attempt=2 trace_id=135ddc609911baf1
+2026-10-01T03:49:02Z INFO  worker request served path=/v1/items status=200 trace_id=48e0243e724cbf44
+2026-10-01T03:49:30Z INFO  worker job dequeued queue=default trace_id=fb8c0697f883ec10
+2026-10-01T03:50:04Z INFO  worker heartbeat ok trace_id=2417f518c992f2e4
+2026-10-01T03:50:06Z WARN  worker retrying upstream attempt=2 trace_id=8ea5b5cf95dec434
+2026-10-01T03:50:43Z INFO  worker cache refreshed keys=128 trace_id=181ca6716e63d1a3
+2026-10-01T03:50:49Z WARN  worker slow response latency_ms=1840 trace_id=e85a613bfa8ab7ae
+2026-10-01T03:51:21Z INFO  worker cache refreshed keys=128 trace_id=13a099154447b0e2
+2026-10-01T03:52:01Z INFO  worker cache refreshed keys=128 trace_id=377ad8647e27280c
+2026-10-01T03:52:35Z INFO  worker job dequeued queue=default trace_id=e3b681f4ad79a229
+2026-10-01T03:53:09Z INFO  worker heartbeat ok trace_id=20feac6856afb90c
+2026-10-01T03:53:38Z INFO  worker heartbeat ok trace_id=add500ae2019e926
+2026-10-01T03:54:06Z INFO  worker heartbeat ok trace_id=be2be1f156f297d2
+2026-10-01T03:54:28Z INFO  worker heartbeat ok trace_id=2412afe4e83fcecb
+2026-10-01T03:54:58Z INFO  worker heartbeat ok trace_id=d2377ab7f200666c
+2026-10-01T03:55:23Z INFO  worker cache refreshed keys=128 trace_id=6e8fc5c689469e01
+2026-10-01T03:55:55Z INFO  worker request served path=/v1/items status=200 trace_id=ced5583eb7b75998
+2026-10-01T03:56:16Z INFO  worker request served path=/v1/items status=200 trace_id=3f181b0b6d846c97
+2026-10-01T03:56:22Z INFO  worker job dequeued queue=default trace_id=99e95dbf354cb716
+2026-10-01T03:56:49Z ERROR worker queue overflow code=E204 trace_id=72b510c052229957
+2026-10-01T03:57:10Z INFO  worker request served path=/v1/items status=200 trace_id=78d14e6d473b52f1
+2026-10-01T03:57:18Z INFO  worker heartbeat ok trace_id=f9812f50665e7443
+2026-10-01T03:57:27Z INFO  worker job dequeued queue=default trace_id=172da150feb7f81e
+2026-10-01T03:57:45Z INFO  worker request served path=/v1/items status=200 trace_id=7e1bb3144807ba88
+2026-10-01T03:57:46Z INFO  worker cache refreshed keys=128 trace_id=b28755d1ea249fbe
+2026-10-01T03:58:05Z INFO  worker request served path=/v1/items status=200 trace_id=2d14430fd0ed77e8
+2026-10-01T03:58:07Z ERROR worker db deadlock detected code=E318 trace_id=88fe6bfdfd3c5cae
+2026-10-01T03:58:08Z INFO  worker job dequeued queue=default trace_id=a3184d5d19e8458f
+2026-10-01T03:58:30Z WARN  worker slow response latency_ms=1840 trace_id=1b611366bec92ac6
+2026-10-01T03:58:42Z INFO  worker cache refreshed keys=128 trace_id=21c92a89645a3d64
+2026-10-01T03:58:48Z INFO  worker cache refreshed keys=128 trace_id=d6f52f7c04288c88
+2026-10-01T03:58:57Z INFO  worker job dequeued queue=default trace_id=72bb768c468aad80
+2026-10-01T03:59:07Z INFO  worker heartbeat ok trace_id=516e2beb4f7fa9c5
+2026-10-01T03:59:23Z INFO  worker request served path=/v1/items status=200 trace_id=4384e30e7409d9b8
+2026-10-01T03:59:40Z INFO  worker request served path=/v1/items status=200 trace_id=3ed4f87e9a19b92d
+2026-10-01T03:59:54Z INFO  worker job dequeued queue=default trace_id=1149262d70211f40
+2026-10-01T03:59:59Z INFO  worker request served path=/v1/items status=200 trace_id=c5e71e101357313c
+2026-10-01T04:00:24Z WARN  worker slow response latency_ms=1840 trace_id=8c09bcecb945a561
+2026-10-01T04:00:25Z INFO  worker request served path=/v1/items status=200 trace_id=4b6b7f248a95bcdd
+2026-10-01T04:00:52Z INFO  worker request served path=/v1/items status=200 trace_id=14ea4e1b64741f58
+2026-10-01T04:00:58Z INFO  worker request served path=/v1/items status=200 trace_id=2f0feb476ac6abca
+2026-10-01T04:01:04Z INFO  worker request served path=/v1/items status=200 trace_id=24bd23eb49f1957b
+2026-10-01T04:01:23Z INFO  worker cache refreshed keys=128 trace_id=69917f62dfd8c4ef
+2026-10-01T04:01:37Z INFO  worker job dequeued queue=default trace_id=79792ee555c86946
+2026-10-01T04:01:58Z INFO  worker heartbeat ok trace_id=0d4431d075d316f8
+2026-10-01T04:02:25Z INFO  worker cache refreshed keys=128 trace_id=0b9a35ac886584c0
+2026-10-01T04:02:32Z INFO  worker request served path=/v1/items status=200 trace_id=d5351dc26e2f5e2f
+2026-10-01T04:02:33Z INFO  worker heartbeat ok trace_id=b9ddfb607c31800f
+2026-10-01T04:03:12Z INFO  worker heartbeat ok trace_id=3f4b9d152791a91f
+2026-10-01T04:03:30Z INFO  worker request served path=/v1/items status=200 trace_id=59e320ec55b3b4ee
+2026-10-01T04:03:40Z INFO  worker request served path=/v1/items status=200 trace_id=abdc2fb1ba6b3f80
+2026-10-01T04:03:55Z INFO  worker job dequeued queue=default trace_id=e6173ca540f0331d
+2026-10-01T04:04:11Z INFO  worker cache refreshed keys=128 trace_id=dc3af811628f0fe2
+2026-10-01T04:04:19Z INFO  worker cache refreshed keys=128 trace_id=cee650785d31ac92
+2026-10-01T04:04:28Z INFO  worker cache refreshed keys=128 trace_id=e6b8cc4f453204cc
+2026-10-01T04:04:58Z INFO  worker cache refreshed keys=128 trace_id=a2a60aa691a92d35
+2026-10-01T04:05:26Z INFO  worker cache refreshed keys=128 trace_id=6901a4c11930b8e6
+2026-10-01T04:05:43Z INFO  worker job dequeued queue=default trace_id=9c28004e162ad337
+2026-10-01T04:05:50Z INFO  worker request served path=/v1/items status=200 trace_id=d2fa9bd2c1c1cc0e
+2026-10-01T04:06:07Z INFO  worker heartbeat ok trace_id=2713f4c8e07eaaf5
+2026-10-01T04:06:44Z INFO  worker job dequeued queue=default trace_id=737e475d8bf29fcc
+2026-10-01T04:07:06Z WARN  worker slow response latency_ms=1840 trace_id=d6d2d5b016c34dde
+2026-10-01T04:07:24Z INFO  worker request served path=/v1/items status=200 trace_id=8a8ca5e6fb0bf4b2
+2026-10-01T04:07:42Z WARN  worker retrying upstream attempt=2 trace_id=aa1659d564973e6a
+2026-10-01T04:07:46Z WARN  worker retrying upstream attempt=2 trace_id=c313ed6f78541fa1
+2026-10-01T04:07:48Z WARN  worker pool near capacity used=92% trace_id=23fa713e24dd1cc7
+2026-10-01T04:08:18Z ERROR worker payment provider rejected code=E318 trace_id=48d26b67445484ae
+2026-10-01T04:08:47Z ERROR worker upstream timeout code=E318 trace_id=1f330d41974746d5
+2026-10-01T04:08:53Z WARN  worker retrying upstream attempt=2 trace_id=b364c161bbbd76f5
+2026-10-01T04:09:20Z WARN  worker pool near capacity used=92% trace_id=f48bdbf2aa99d453
+2026-10-01T04:09:37Z WARN  worker retrying upstream attempt=2 trace_id=9d220edb8de0268c
+2026-10-01T04:10:10Z INFO  worker request served path=/v1/items status=200 trace_id=68ce0452b16836a8
+2026-10-01T04:10:30Z INFO  worker request served path=/v1/items status=200 trace_id=1fbc299c5d6fd9f0
+2026-10-01T04:11:06Z INFO  worker request served path=/v1/items status=200 trace_id=0ed322f944222f34
+2026-10-01T04:11:39Z INFO  worker job dequeued queue=default trace_id=dc83b02eed7d72b8
+2026-10-01T04:11:42Z INFO  worker cache refreshed keys=128 trace_id=bb91954df2feb1e2
+2026-10-01T04:11:49Z INFO  worker request served path=/v1/items status=200 trace_id=bc3c737949857928
+2026-10-01T04:12:03Z ERROR worker queue overflow code=E318 trace_id=574ba85a9a61450b
+2026-10-01T04:12:20Z WARN  worker retrying upstream attempt=2 trace_id=bd62de9d9385e9a2
+2026-10-01T04:12:21Z INFO  worker job dequeued queue=default trace_id=f0f5333a293881db
+2026-10-01T04:12:40Z INFO  worker request served path=/v1/items status=200 trace_id=6dbc5c127272d838
+2026-10-01T04:13:10Z INFO  worker request served path=/v1/items status=200 trace_id=e1f5d714491e288f
+2026-10-01T04:13:34Z INFO  worker cache refreshed keys=128 trace_id=02c439a9b18640dd
+2026-10-01T04:14:03Z INFO  worker request served path=/v1/items status=200 trace_id=d476ed41e73f5fb6
+2026-10-01T04:14:27Z INFO  worker job dequeued queue=default trace_id=0537485d41c2faf0
+2026-10-01T04:14:45Z WARN  worker pool near capacity used=92% trace_id=249b5f2976f29a92
+2026-10-01T04:15:12Z INFO  worker heartbeat ok trace_id=a1caa914d22f6fcf
+2026-10-01T04:15:28Z INFO  worker heartbeat ok trace_id=a311705a0cb7b04e
+2026-10-01T04:15:35Z INFO  worker request served path=/v1/items status=200 trace_id=b8a121eee5ff06c6
+2026-10-01T04:16:03Z INFO  worker request served path=/v1/items status=200 trace_id=3a5daeb894d5bd42
+2026-10-01T04:16:39Z INFO  worker job dequeued queue=default trace_id=e02d63f6fa44634b
+2026-10-01T04:16:48Z INFO  worker heartbeat ok trace_id=a922408ea508201c
+2026-10-01T04:17:13Z INFO  worker cache refreshed keys=128 trace_id=3bb20d09d58a0b89
+2026-10-01T04:17:21Z WARN  worker retrying upstream attempt=2 trace_id=6ada82b808258b17
+2026-10-01T04:17:36Z INFO  worker job dequeued queue=default trace_id=be5204161036ac24
+2026-10-01T04:17:45Z INFO  worker job dequeued queue=default trace_id=6e531a19204115bf
+2026-10-01T04:18:12Z INFO  worker cache refreshed keys=128 trace_id=a20fdb55f7eeffd3
+2026-10-01T04:18:29Z WARN  worker slow response latency_ms=1840 trace_id=9d86fbd027561da0
+2026-10-01T04:18:36Z INFO  worker request served path=/v1/items status=200 trace_id=8e9f33bc37da3ef5
+2026-10-01T04:18:48Z INFO  worker heartbeat ok trace_id=3a0221e44f1db3b6
+2026-10-01T04:18:56Z INFO  worker request served path=/v1/items status=200 trace_id=b44ff2c1de04ecbc
+2026-10-01T04:19:09Z INFO  worker heartbeat ok trace_id=c53ca8c142f0ee32
+2026-10-01T04:19:31Z INFO  worker cache refreshed keys=128 trace_id=ad662b05fc9eba06
+2026-10-01T04:19:58Z INFO  worker heartbeat ok trace_id=5ea61f18d78d871e
+2026-10-01T04:20:05Z INFO  worker heartbeat ok trace_id=bde1a54a555deb57
+2026-10-01T04:20:38Z INFO  worker cache refreshed keys=128 trace_id=e9c2255eb531c533
+2026-10-01T04:21:12Z INFO  worker job dequeued queue=default trace_id=9d4b4437705b041a
+2026-10-01T04:21:35Z INFO  worker job dequeued queue=default trace_id=9250650cf1bd5efa
+2026-10-01T04:21:39Z INFO  worker request served path=/v1/items status=200 trace_id=9787698a46d00db6
+2026-10-01T04:21:54Z INFO  worker job dequeued queue=default trace_id=7091236655c0e8e8
+2026-10-01T04:22:26Z INFO  worker job dequeued queue=default trace_id=854916c4c77991fc
+2026-10-01T04:22:29Z INFO  worker job dequeued queue=default trace_id=22c6c6839720aa94
+2026-10-01T04:22:40Z INFO  worker cache refreshed keys=128 trace_id=50ea49ed92cf203f
+2026-10-01T04:23:14Z INFO  worker job dequeued queue=default trace_id=472907c87f1e85d1
+2026-10-01T04:23:42Z INFO  worker cache refreshed keys=128 trace_id=3a5c0619e8a3b246
+2026-10-01T04:24:22Z WARN  worker retrying upstream attempt=2 trace_id=8346bb86bfb9327e
+2026-10-01T04:25:00Z INFO  worker job dequeued queue=default trace_id=83ec65e66539a4c6
+2026-10-01T04:25:24Z INFO  worker cache refreshed keys=128 trace_id=bddcfe16387dfa25
+2026-10-01T04:25:48Z INFO  worker cache refreshed keys=128 trace_id=2bd284165df119e0
+2026-10-01T04:26:28Z WARN  worker pool near capacity used=92% trace_id=ed786e4d6d6cc6ed
+2026-10-01T04:26:38Z WARN  worker slow response latency_ms=1840 trace_id=fc77f3752ad7d0d1
+2026-10-01T04:26:50Z INFO  worker cache refreshed keys=128 trace_id=595396934250fbd1
+2026-10-01T04:26:51Z INFO  worker heartbeat ok trace_id=e66ad64d059c5f9b
+2026-10-01T04:27:17Z WARN  worker slow response latency_ms=1840 trace_id=211c5d85d8ba7c37
+2026-10-01T04:27:20Z WARN  worker retrying upstream attempt=2 trace_id=ec4044c69763265f
+2026-10-01T04:27:34Z INFO  worker cache refreshed keys=128 trace_id=cdfc0ba21c38b54d
+2026-10-01T04:27:35Z INFO  worker request served path=/v1/items status=200 trace_id=54667b5c90ee787c
+2026-10-01T04:28:07Z INFO  worker heartbeat ok trace_id=b014cbcf83ee5281
+2026-10-01T04:28:20Z WARN  worker pool near capacity used=92% trace_id=29e53398295fa8f1
+2026-10-01T04:28:45Z INFO  worker request served path=/v1/items status=200 trace_id=10036598b2929291
+2026-10-01T04:28:50Z INFO  worker heartbeat ok trace_id=bf30a2ce2c21f43b
+2026-10-01T04:29:24Z INFO  worker job dequeued queue=default trace_id=139c0c70ef69c6c8
+2026-10-01T04:29:38Z INFO  worker cache refreshed keys=128 trace_id=d25ec64d29125d2d
+2026-10-01T04:30:10Z INFO  worker job dequeued queue=default trace_id=51ecaa52a66d8e93
+2026-10-01T04:30:49Z INFO  worker job dequeued queue=default trace_id=6fbf1e2a12d1e346
+2026-10-01T04:31:08Z INFO  worker job dequeued queue=default trace_id=8861c6304ce66fd3
+2026-10-01T04:31:13Z INFO  worker cache refreshed keys=128 trace_id=84abf18cbf3875c5
+2026-10-01T04:31:41Z INFO  worker cache refreshed keys=128 trace_id=e05be35cd1b33a56
+2026-10-01T04:32:10Z INFO  worker heartbeat ok trace_id=bd41b4cd5f7254f7
+2026-10-01T04:32:15Z INFO  worker job dequeued queue=default trace_id=9deec61cc156debb
+2026-10-01T04:32:45Z INFO  worker job dequeued queue=default trace_id=8b94397c1c5ac063
+2026-10-01T04:33:03Z INFO  worker cache refreshed keys=128 trace_id=e9e5f049e720fc17
+2026-10-01T04:33:08Z INFO  worker heartbeat ok trace_id=89dc7a0c2df4ac0f
+2026-10-01T04:33:31Z WARN  worker slow response latency_ms=1840 trace_id=e6df373d481f5271
+2026-10-01T04:33:56Z INFO  worker request served path=/v1/items status=200 trace_id=c7e4cd19f4da5e1f
+2026-10-01T04:34:29Z INFO  worker cache refreshed keys=128 trace_id=75e5811b438ae6da
+2026-10-01T04:34:34Z INFO  worker job dequeued queue=default trace_id=eda3075be3445a06
+2026-10-01T04:35:05Z INFO  worker job dequeued queue=default trace_id=4668f2f284c30f1f
+2026-10-01T04:35:22Z INFO  worker cache refreshed keys=128 trace_id=ae184ab4785441c6
+2026-10-01T04:36:01Z INFO  worker cache refreshed keys=128 trace_id=96cb68a71aa2bada
+2026-10-01T04:36:23Z INFO  worker job dequeued queue=default trace_id=6c9d8f98a65917ee
+2026-10-01T04:36:44Z INFO  worker request served path=/v1/items status=200 trace_id=0b25f0664f7231bb
+2026-10-01T04:37:14Z INFO  worker heartbeat ok trace_id=e241746356a2db9a
+2026-10-01T04:37:37Z INFO  worker job dequeued queue=default trace_id=990bb08cf9c807d6
+2026-10-01T04:38:14Z INFO  worker job dequeued queue=default trace_id=9499c0fd41d0c0f6
+2026-10-01T04:38:54Z INFO  worker heartbeat ok trace_id=2e578fcdb833b0bb
+2026-10-01T04:39:19Z INFO  worker heartbeat ok trace_id=4910f74fd53b2d1c
+2026-10-01T04:39:29Z INFO  worker heartbeat ok trace_id=e9ed8ff3da666ac3
+2026-10-01T04:39:34Z INFO  worker job dequeued queue=default trace_id=7593e178f1290293
+2026-10-01T04:40:06Z WARN  worker pool near capacity used=92% trace_id=f265be7bf48c8843
+2026-10-01T04:40:33Z INFO  worker cache refreshed keys=128 trace_id=4558269759bc3be9
+2026-10-01T04:40:59Z INFO  worker heartbeat ok trace_id=a43c71cedc7ade9a
+2026-10-01T04:41:29Z INFO  worker heartbeat ok trace_id=c6c1e4fd3c244ccc
+2026-10-01T04:41:57Z INFO  worker heartbeat ok trace_id=621ee15a097a5192
+2026-10-01T04:42:27Z INFO  worker request served path=/v1/items status=200 trace_id=e72896bf80bc56ee
+2026-10-01T04:42:29Z INFO  worker cache refreshed keys=128 trace_id=d4de42288a8b7e2c
+2026-10-01T04:42:36Z INFO  worker request served path=/v1/items status=200 trace_id=9fd72492d6de41b7
+2026-10-01T04:43:14Z INFO  worker request served path=/v1/items status=200 trace_id=a385928138171964
+2026-10-01T04:43:43Z INFO  worker request served path=/v1/items status=200 trace_id=1f4cac9d7c7c28b5
+2026-10-01T04:44:00Z WARN  worker pool near capacity used=92% trace_id=a572e462277c6b7e
+2026-10-01T04:44:31Z INFO  worker request served path=/v1/items status=200 trace_id=cbdbb8d59a860acc
+2026-10-01T04:44:44Z INFO  worker heartbeat ok trace_id=7c5c49d8e7d1a9bc
+2026-10-01T04:44:50Z WARN  worker slow response latency_ms=1840 trace_id=b0eaf0ecd0b6aef4
+2026-10-01T04:45:23Z ERROR worker token signature invalid code=E101 trace_id=c6bb71af51f116e2
+2026-10-01T04:45:26Z INFO  worker request served path=/v1/items status=200 trace_id=73b1efd1a4cd5740
+2026-10-01T04:46:06Z INFO  worker job dequeued queue=default trace_id=2a8f02ed5d06bc45
+2026-10-01T04:46:16Z ERROR worker payment provider rejected code=E318 trace_id=5e9a7b1a670c991c
+2026-10-01T04:46:23Z INFO  worker job dequeued queue=default trace_id=c23d887c802fefe6
+2026-10-01T04:46:29Z INFO  worker request served path=/v1/items status=200 trace_id=561edc74435a1709
+2026-10-01T04:47:02Z ERROR worker upstream timeout code=E101 trace_id=1649bc02d54b691a
+2026-10-01T04:47:15Z WARN  worker pool near capacity used=92% trace_id=a0c16c83ba87ec60
+2026-10-01T04:47:47Z INFO  worker cache refreshed keys=128 trace_id=2db0dd37e97a0e8c
+2026-10-01T04:48:25Z INFO  worker heartbeat ok trace_id=a6ddb82af5a0d334
+2026-10-01T04:48:33Z INFO  worker job dequeued queue=default trace_id=f6a265c89e6aab11
+2026-10-01T04:49:06Z WARN  worker pool near capacity used=92% trace_id=7e81030bfd8af909
+2026-10-01T04:49:33Z INFO  worker cache refreshed keys=128 trace_id=c25edddb80bb4a90
+2026-10-01T04:49:42Z INFO  worker job dequeued queue=default trace_id=d215797583c32c43
+2026-10-01T04:50:01Z INFO  worker job dequeued queue=default trace_id=bbefda9ef7790a8c
+2026-10-01T04:50:27Z INFO  worker cache refreshed keys=128 trace_id=f970d0a7fb25f609
+2026-10-01T04:51:05Z INFO  worker heartbeat ok trace_id=2ee385c9638e1442
+2026-10-01T04:51:33Z WARN  worker retrying upstream attempt=2 trace_id=3d0d19944ec837df
+2026-10-01T04:52:03Z INFO  worker heartbeat ok trace_id=7572241c57174a82
+2026-10-01T04:52:43Z INFO  worker request served path=/v1/items status=200 trace_id=cc4da4578accd5b9
+2026-10-01T04:52:49Z WARN  worker pool near capacity used=92% trace_id=8782f975148d140d
+2026-10-01T04:53:07Z INFO  worker job dequeued queue=default trace_id=79362077b4ad9064
+2026-10-01T04:53:09Z INFO  worker heartbeat ok trace_id=133e0925498e1a77
+2026-10-01T04:53:12Z INFO  worker cache refreshed keys=128 trace_id=1ebb5a4bed57ec5a
+2026-10-01T04:53:24Z INFO  worker job dequeued queue=default trace_id=023d7bd1dc6aa8ad
+2026-10-01T04:53:58Z ERROR worker upstream timeout code=E101 trace_id=f6b568cb3f0af0fe
+2026-10-01T04:54:12Z INFO  worker cache refreshed keys=128 trace_id=57429436cd0eec0b
+2026-10-01T04:54:27Z INFO  worker job dequeued queue=default trace_id=2cb74887ac7bc576
+2026-10-01T04:55:07Z WARN  worker pool near capacity used=92% trace_id=3911725840289854
+2026-10-01T04:55:14Z INFO  worker heartbeat ok trace_id=503f0e24c878bd9a
+2026-10-01T04:55:19Z INFO  worker heartbeat ok trace_id=6c10a7015a55ce62
+2026-10-01T04:55:34Z INFO  worker heartbeat ok trace_id=517f2add5cab95f1
+2026-10-01T04:55:49Z INFO  worker request served path=/v1/items status=200 trace_id=434f70d7e94ecd84
+2026-10-01T04:55:54Z INFO  worker cache refreshed keys=128 trace_id=1be48fd67ab6da27
+2026-10-01T04:56:06Z INFO  worker job dequeued queue=default trace_id=aae250b1f0786c58
+2026-10-01T04:56:13Z INFO  worker heartbeat ok trace_id=f6b75d656f146bfe
+2026-10-01T04:56:22Z WARN  worker retrying upstream attempt=2 trace_id=c41728f71b99d3c1
+2026-10-01T04:56:26Z INFO  worker heartbeat ok trace_id=33569e70fd25d767
+2026-10-01T04:56:28Z ERROR worker token signature invalid code=E503 trace_id=708e5d6dd87b109c
+2026-10-01T04:56:48Z INFO  worker request served path=/v1/items status=200 trace_id=cca65a3bdf8a8eb1
+2026-10-01T04:57:09Z INFO  worker request served path=/v1/items status=200 trace_id=836fbf65fd4239d4
+2026-10-01T04:57:19Z INFO  worker cache refreshed keys=128 trace_id=322ba5f7ff330b6a
+2026-10-01T04:57:41Z INFO  worker request served path=/v1/items status=200 trace_id=570554b3f410457e
+2026-10-01T04:57:56Z INFO  worker request served path=/v1/items status=200 trace_id=ddb91ba6163af512
+2026-10-01T04:58:10Z INFO  worker cache refreshed keys=128 trace_id=0120ed5162a05f75
+2026-10-01T04:58:16Z INFO  worker heartbeat ok trace_id=45a6a01ab75b36b4
+2026-10-01T04:58:42Z INFO  worker job dequeued queue=default trace_id=84e379f3e6366753
+2026-10-01T04:59:16Z INFO  worker request served path=/v1/items status=200 trace_id=32671dd71f90830f
+2026-10-01T04:59:55Z INFO  worker request served path=/v1/items status=200 trace_id=d8ca8cc7a41e6396
+2026-10-01T05:00:05Z INFO  worker request served path=/v1/items status=200 trace_id=a425bf3172006fd4
+2026-10-01T05:00:26Z INFO  worker heartbeat ok trace_id=539b571a0d725ead
+2026-10-01T05:00:52Z INFO  worker job dequeued queue=default trace_id=b73d44ee2e90e1b6
+2026-10-01T05:00:56Z INFO  worker request served path=/v1/items status=200 trace_id=c12339928ff31939
+2026-10-01T05:01:10Z INFO  worker heartbeat ok trace_id=53e2415ad9bec66d
+2026-10-01T05:01:28Z INFO  worker heartbeat ok trace_id=4120c8d29668c8a1
+2026-10-01T05:02:04Z INFO  worker job dequeued queue=default trace_id=3fe9f04e9a68422e
+2026-10-01T05:02:16Z INFO  worker heartbeat ok trace_id=68ecff33421d72e9
+2026-10-01T05:02:55Z INFO  worker heartbeat ok trace_id=c95117894a63d667
+2026-10-01T05:02:58Z INFO  worker heartbeat ok trace_id=6b65368f724c8a38
+2026-10-01T05:03:02Z ERROR worker upstream timeout code=E101 trace_id=51d7ea11f25ed73c
+2026-10-01T05:03:21Z INFO  worker heartbeat ok trace_id=7b7f133e570b73e1
+2026-10-01T05:03:32Z INFO  worker heartbeat ok trace_id=0685219f41f74f88
+2026-10-01T05:04:00Z INFO  worker job dequeued queue=default trace_id=6186d296aabd21fc
+2026-10-01T05:04:07Z INFO  worker request served path=/v1/items status=200 trace_id=c53cd290bbeb33c7
+2026-10-01T05:04:33Z INFO  worker heartbeat ok trace_id=35b95cfa3b4a7097
+2026-10-01T05:04:49Z INFO  worker job dequeued queue=default trace_id=fdca9a547e82a1a9
+2026-10-01T05:05:21Z INFO  worker heartbeat ok trace_id=e9c7c1a0cfd33c6d
+2026-10-01T05:05:53Z INFO  worker job dequeued queue=default trace_id=71483bf63b533709
+2026-10-01T05:06:02Z INFO  worker heartbeat ok trace_id=6773c00ec0d3ef03
+2026-10-01T05:06:38Z ERROR worker queue overflow code=E318 trace_id=923f31c6aa3e03cf
+2026-10-01T05:06:54Z WARN  worker pool near capacity used=92% trace_id=73bc987f4e3bfb08
+2026-10-01T05:06:59Z INFO  worker heartbeat ok trace_id=91fe724fb8c6fb88
+2026-10-01T05:07:18Z INFO  worker heartbeat ok trace_id=f6f160c53c336d27
+2026-10-01T05:07:52Z WARN  worker retrying upstream attempt=2 trace_id=6c39bf3e8476d5fb
+2026-10-01T05:07:55Z WARN  worker slow response latency_ms=1840 trace_id=e36c8c5edea26065
+2026-10-01T05:08:10Z ERROR worker queue overflow code=E318 trace_id=70134b0f9c3f44b3
+2026-10-01T05:08:22Z INFO  worker job dequeued queue=default trace_id=5799a9adf756bf6f
+2026-10-01T05:08:37Z INFO  worker job dequeued queue=default trace_id=a41eb10e8af21448
+2026-10-01T05:09:14Z INFO  worker heartbeat ok trace_id=ccfd97aa074b1f41
+2026-10-01T05:09:25Z INFO  worker job dequeued queue=default trace_id=d8d378829ffff15a
+2026-10-01T05:09:59Z INFO  worker heartbeat ok trace_id=1f3b7a30de2b1a37
+2026-10-01T05:10:03Z ERROR worker db deadlock detected code=E503 trace_id=93950c8dc8d772fd
+2026-10-01T05:10:25Z INFO  worker job dequeued queue=default trace_id=c4b1878cf16422f5
+2026-10-01T05:10:52Z INFO  worker cache refreshed keys=128 trace_id=fc67ce745d0cef85
+2026-10-01T05:11:02Z INFO  worker job dequeued queue=default trace_id=d554c935d5f4a6a7
+2026-10-01T05:11:40Z INFO  worker cache refreshed keys=128 trace_id=0764600a0891646c
+2026-10-01T05:11:49Z INFO  worker heartbeat ok trace_id=05bb9fd0f123fab0
+2026-10-01T05:12:24Z INFO  worker heartbeat ok trace_id=a7a328ca0bef91f3
+2026-10-01T05:12:40Z INFO  worker cache refreshed keys=128 trace_id=10bc0de0fe9d8a46
+2026-10-01T05:13:19Z INFO  worker cache refreshed keys=128 trace_id=f4115bd461da7816
+2026-10-01T05:13:39Z INFO  worker request served path=/v1/items status=200 trace_id=dadad4b17b743af8
+2026-10-01T05:14:07Z INFO  worker request served path=/v1/items status=200 trace_id=de510e44c25d7619
+2026-10-01T05:14:23Z INFO  worker heartbeat ok trace_id=04997a3f598f1e18
+2026-10-01T05:14:54Z INFO  worker cache refreshed keys=128 trace_id=ef3fd61abce87763
+2026-10-01T05:15:09Z INFO  worker request served path=/v1/items status=200 trace_id=ab99307d20d543d7
+2026-10-01T05:15:19Z WARN  worker slow response latency_ms=1840 trace_id=64c7bc380847661d
+2026-10-01T05:15:33Z INFO  worker request served path=/v1/items status=200 trace_id=d0726124941ce6b5
+2026-10-01T05:15:38Z INFO  worker cache refreshed keys=128 trace_id=7e0e21a942d8524b
+2026-10-01T05:16:14Z INFO  worker job dequeued queue=default trace_id=837a5b79219625c0
+2026-10-01T05:16:49Z INFO  worker request served path=/v1/items status=200 trace_id=997b6a33ff30d3e4
+2026-10-01T05:16:57Z INFO  worker heartbeat ok trace_id=2ffad309e7b9baf4
+2026-10-01T05:17:00Z INFO  worker heartbeat ok trace_id=fbb874929ac8f08f
+2026-10-01T05:17:03Z INFO  worker request served path=/v1/items status=200 trace_id=4b63674a16f1514f
+2026-10-01T05:17:21Z INFO  worker cache refreshed keys=128 trace_id=e8a2912dd0c3e20e
+2026-10-01T05:17:24Z INFO  worker request served path=/v1/items status=200 trace_id=9004649088e43d35
+2026-10-01T05:17:32Z INFO  worker cache refreshed keys=128 trace_id=a9e3ce759bd16df2
+2026-10-01T05:17:59Z WARN  worker slow response latency_ms=1840 trace_id=f650989b44be5d90
+2026-10-01T05:18:25Z WARN  worker retrying upstream attempt=2 trace_id=088a14f605358872
+2026-10-01T05:18:48Z INFO  worker heartbeat ok trace_id=88ad5f892081f369
+2026-10-01T05:19:07Z INFO  worker job dequeued queue=default trace_id=4d39571121d41543
+2026-10-01T05:19:35Z ERROR worker upstream timeout code=E204 trace_id=7f07ddbf20483ce7
+2026-10-01T05:20:12Z INFO  worker job dequeued queue=default trace_id=ed8a54a1bdbe75bd
+2026-10-01T05:20:49Z INFO  worker heartbeat ok trace_id=fd8af680c611de93
+2026-10-01T05:21:28Z INFO  worker job dequeued queue=default trace_id=3cfa62944e7b4cd9
+2026-10-01T05:22:02Z INFO  worker heartbeat ok trace_id=fe36c7021052ae4b
+2026-10-01T05:22:06Z INFO  worker job dequeued queue=default trace_id=b37cf4eb49cdf7b2
+2026-10-01T05:22:41Z INFO  worker request served path=/v1/items status=200 trace_id=02638a3ac86b7090
+2026-10-01T05:23:19Z INFO  worker request served path=/v1/items status=200 trace_id=c0995a53db7da709
+2026-10-01T05:23:55Z INFO  worker request served path=/v1/items status=200 trace_id=65f15406a0633908
+2026-10-01T05:23:59Z ERROR worker payment provider rejected code=E318 trace_id=3572be9980c1903d
+2026-10-01T05:24:24Z INFO  worker job dequeued queue=default trace_id=059ee1e9f3f58a5a
+2026-10-01T05:24:26Z INFO  worker cache refreshed keys=128 trace_id=7aed07fb29887227
+2026-10-01T05:24:56Z INFO  worker request served path=/v1/items status=200 trace_id=4c8f11eea5cfadc5
+2026-10-01T05:25:12Z INFO  worker heartbeat ok trace_id=788100c3ce593798
+2026-10-01T05:25:37Z INFO  worker cache refreshed keys=128 trace_id=558873dcb5e5eb0f
+2026-10-01T05:26:00Z INFO  worker job dequeued queue=default trace_id=07ba14ce8469bfc3
+2026-10-01T05:26:25Z INFO  worker cache refreshed keys=128 trace_id=07b2aae39e2071a4
+2026-10-01T05:26:36Z INFO  worker job dequeued queue=default trace_id=1383621908489050
+2026-10-01T05:26:38Z INFO  worker request served path=/v1/items status=200 trace_id=52f4e4c524a0ae67
+2026-10-01T05:26:58Z INFO  worker heartbeat ok trace_id=4390f3d9fd30ced6
+2026-10-01T05:27:19Z INFO  worker job dequeued queue=default trace_id=249f6ab2045ccf31
+2026-10-01T05:27:54Z INFO  worker heartbeat ok trace_id=0128849b16c14123
+2026-10-01T05:28:13Z INFO  worker request served path=/v1/items status=200 trace_id=d69b90e12cac15cc
+2026-10-01T05:28:46Z WARN  worker slow response latency_ms=1840 trace_id=71cf06b73969b4bb
+2026-10-01T05:29:08Z INFO  worker cache refreshed keys=128 trace_id=59cf0e891f4d7736
+2026-10-01T05:29:46Z INFO  worker cache refreshed keys=128 trace_id=58ee7aa0016bf16e
+2026-10-01T05:30:06Z INFO  worker cache refreshed keys=128 trace_id=24680d68c71e7dcc
+2026-10-01T05:30:43Z WARN  worker slow response latency_ms=1840 trace_id=2e82bc39456a81d0
+2026-10-01T05:30:57Z INFO  worker job dequeued queue=default trace_id=80ae5e2c273c84e0
+2026-10-01T05:31:30Z INFO  worker cache refreshed keys=128 trace_id=a3af1f2ba678aa2f
+2026-10-01T05:31:36Z INFO  worker job dequeued queue=default trace_id=bb1b750e8ee78ce0
+2026-10-01T05:31:41Z INFO  worker heartbeat ok trace_id=0fb2380efcd6c190
+2026-10-01T05:32:01Z INFO  worker request served path=/v1/items status=200 trace_id=7a2200783f0a87b4
+2026-10-01T05:32:26Z INFO  worker job dequeued queue=default trace_id=0d3f955aea623aa7
+2026-10-01T05:32:52Z INFO  worker cache refreshed keys=128 trace_id=118a25dd1d432f75
+2026-10-01T05:33:01Z INFO  worker cache refreshed keys=128 trace_id=f9a4db90a98daf54
+2026-10-01T05:33:05Z INFO  worker heartbeat ok trace_id=21335c0f875c4f55
+2026-10-01T05:33:11Z INFO  worker cache refreshed keys=128 trace_id=2dd50dcc5cba049f
+2026-10-01T05:33:39Z INFO  worker request served path=/v1/items status=200 trace_id=bd273a255c5bb92a
+2026-10-01T05:33:46Z INFO  worker job dequeued queue=default trace_id=d4263e5a8ba83271
+2026-10-01T05:34:00Z WARN  worker slow response latency_ms=1840 trace_id=f0d5fddc9bd1b954
+2026-10-01T05:34:40Z INFO  worker cache refreshed keys=128 trace_id=93c3777f5f2374ac
+2026-10-01T05:35:07Z INFO  worker request served path=/v1/items status=200 trace_id=f987d309ab4cdb26
+2026-10-01T05:35:25Z WARN  worker pool near capacity used=92% trace_id=d53d573509f3c7cf
+2026-10-01T05:35:47Z INFO  worker job dequeued queue=default trace_id=d99f2ad0bdf01332
+2026-10-01T05:36:25Z INFO  worker job dequeued queue=default trace_id=df01c3ea426491e7
+2026-10-01T05:36:42Z INFO  worker cache refreshed keys=128 trace_id=eb7720fe94b31346
+2026-10-01T05:37:15Z INFO  worker heartbeat ok trace_id=8f543259ea4456ed
+2026-10-01T05:37:21Z INFO  worker job dequeued queue=default trace_id=6c7cb52abd83b260
+2026-10-01T05:37:54Z INFO  worker cache refreshed keys=128 trace_id=008cc7ba77f7ee8d
+2026-10-01T05:38:08Z INFO  worker job dequeued queue=default trace_id=380e5bace3dfd78d
+2026-10-01T05:38:48Z WARN  worker pool near capacity used=92% trace_id=9d4818fb8a0d64f3
+2026-10-01T05:38:54Z WARN  worker slow response latency_ms=1840 trace_id=66d5cdd824067c41
+2026-10-01T05:39:11Z INFO  worker request served path=/v1/items status=200 trace_id=28bb9aa901d36872
+2026-10-01T05:39:48Z INFO  worker request served path=/v1/items status=200 trace_id=8918675f441ab27a
+2026-10-01T05:39:51Z INFO  worker request served path=/v1/items status=200 trace_id=b2de6e200bcaac3b
+2026-10-01T05:40:08Z INFO  worker heartbeat ok trace_id=1b0dce9ed0210541
+2026-10-01T05:40:36Z ERROR worker db deadlock detected code=E101 trace_id=35a5d87629f283f8
+2026-10-01T05:40:48Z INFO  worker cache refreshed keys=128 trace_id=96ed440e9df7d52a
+2026-10-01T05:41:17Z WARN  worker pool near capacity used=92% trace_id=30592d2acfa6eb1a
+2026-10-01T05:41:28Z INFO  worker request served path=/v1/items status=200 trace_id=50135a51ed59730a
+2026-10-01T05:42:05Z INFO  worker request served path=/v1/items status=200 trace_id=ee228e2ee2f8aaa5
+2026-10-01T05:42:41Z INFO  worker cache refreshed keys=128 trace_id=456f26dec324a352
+2026-10-01T05:42:48Z INFO  worker job dequeued queue=default trace_id=0a9c3f6d4bd8c7db
+2026-10-01T05:43:18Z WARN  worker slow response latency_ms=1840 trace_id=54e8dd3cc7214c03
+2026-10-01T05:43:30Z INFO  worker job dequeued queue=default trace_id=608aa02d79d45b68
+2026-10-01T05:43:52Z ERROR worker payment provider rejected code=E101 trace_id=8ae5093a5288085a
+2026-10-01T05:44:11Z WARN  worker retrying upstream attempt=2 trace_id=a3371d934093b515
+2026-10-01T05:44:12Z INFO  worker cache refreshed keys=128 trace_id=78f99f41de975def
+2026-10-01T05:44:22Z INFO  worker cache refreshed keys=128 trace_id=f06189786a898e64
+2026-10-01T05:44:56Z INFO  worker request served path=/v1/items status=200 trace_id=3cd3445c3f39a9de
+2026-10-01T05:45:20Z ERROR worker db deadlock detected code=E204 trace_id=a0458296c4e293c1
+2026-10-01T05:45:23Z INFO  worker heartbeat ok trace_id=67a00267c8959b78
+2026-10-01T05:45:57Z INFO  worker cache refreshed keys=128 trace_id=367f9e26c835021a
+2026-10-01T05:46:22Z ERROR worker payment provider rejected code=E422 trace_id=6a480785848816d0
+2026-10-01T05:46:34Z INFO  worker cache refreshed keys=128 trace_id=c4fc14cf5e97bbbc
+2026-10-01T05:47:04Z INFO  worker request served path=/v1/items status=200 trace_id=fb0a3e10dbbf6e64
+2026-10-01T05:47:15Z INFO  worker request served path=/v1/items status=200 trace_id=9ccfaf29b7e08405
+2026-10-01T05:47:22Z INFO  worker heartbeat ok trace_id=e2c9f8d866e07a4e
+2026-10-01T05:47:56Z WARN  worker slow response latency_ms=1840 trace_id=d52a16cd6226d7c0
+2026-10-01T05:48:34Z INFO  worker heartbeat ok trace_id=7b584545a322643b
+2026-10-01T05:49:06Z INFO  worker job dequeued queue=default trace_id=cfaef4c3c2613162
+2026-10-01T05:49:31Z INFO  worker request served path=/v1/items status=200 trace_id=0a86f7527f7a71ce
+2026-10-01T05:49:37Z INFO  worker heartbeat ok trace_id=48a5a7c1564dafc2
+2026-10-01T05:50:09Z INFO  worker request served path=/v1/items status=200 trace_id=8b812587e5898f02
+2026-10-01T05:50:46Z INFO  worker heartbeat ok trace_id=20f79f7247892739
+2026-10-01T05:51:06Z INFO  worker request served path=/v1/items status=200 trace_id=ade7dd378da8cd62
+2026-10-01T05:51:16Z WARN  worker pool near capacity used=92% trace_id=ef473a94e51c4d51
+2026-10-01T05:51:22Z WARN  worker retrying upstream attempt=2 trace_id=7ae79c5492b5a284
+2026-10-01T05:51:49Z INFO  worker heartbeat ok trace_id=2a733261bde90c84
+2026-10-01T05:52:06Z INFO  worker job dequeued queue=default trace_id=71f71b9fe74cefef
+2026-10-01T05:52:38Z INFO  worker cache refreshed keys=128 trace_id=4f28835e31dcef9b
+2026-10-01T05:53:09Z INFO  worker cache refreshed keys=128 trace_id=8b4d44cf75b50a78
+2026-10-01T05:53:36Z INFO  worker request served path=/v1/items status=200 trace_id=0118f5dd638b53d3
+2026-10-01T05:53:46Z WARN  worker slow response latency_ms=1840 trace_id=89f5520414737fcd
+2026-10-01T05:54:07Z INFO  worker job dequeued queue=default trace_id=cc314e30f743c49f
+2026-10-01T05:54:20Z INFO  worker request served path=/v1/items status=200 trace_id=55ea22ea0c921f80
+2026-10-01T05:54:58Z INFO  worker request served path=/v1/items status=200 trace_id=08ecb8d30a2c454e
+2026-10-01T05:55:33Z INFO  worker cache refreshed keys=128 trace_id=9f46eee34f9f1386
+2026-10-01T05:55:57Z INFO  worker cache refreshed keys=128 trace_id=99dfd2ffe7c687ec
+2026-10-01T05:56:27Z INFO  worker request served path=/v1/items status=200 trace_id=507a75213a68b1b1
+2026-10-01T05:56:44Z INFO  worker request served path=/v1/items status=200 trace_id=919b9b4dca79535e
+2026-10-01T05:56:45Z ERROR worker payment provider rejected code=E204 trace_id=6769c8e39974777b
+2026-10-01T05:57:16Z INFO  worker heartbeat ok trace_id=d08359857a3f7428
+2026-10-01T05:57:54Z WARN  worker pool near capacity used=92% trace_id=07753ebaf8bcc4bd
+2026-10-01T05:58:13Z INFO  worker job dequeued queue=default trace_id=2d2916d8db0e6485
+2026-10-01T05:58:18Z INFO  worker job dequeued queue=default trace_id=8800eeca32e7473d
+2026-10-01T05:58:28Z INFO  worker job dequeued queue=default trace_id=baed78f33ce04019
+2026-10-01T05:59:02Z INFO  worker cache refreshed keys=128 trace_id=291d3b3959861a9a
+2026-10-01T05:59:07Z WARN  worker retrying upstream attempt=2 trace_id=322a5744be195df9
+2026-10-01T05:59:29Z INFO  worker request served path=/v1/items status=200 trace_id=8572266e51711d05
+2026-10-01T05:59:49Z INFO  worker heartbeat ok trace_id=19876a69899ae7e1
+2026-10-01T05:59:57Z INFO  worker heartbeat ok trace_id=85af66607fa78210
+2026-10-01T06:00:03Z WARN  worker slow response latency_ms=1840 trace_id=5bd6ff32653d03d0
+2026-10-01T06:00:15Z INFO  worker heartbeat ok trace_id=a73af3ace375c77f
+2026-10-01T06:00:19Z INFO  worker job dequeued queue=default trace_id=cdd84dcad23d9779
+2026-10-01T06:00:54Z INFO  worker job dequeued queue=default trace_id=b4d9b365ea928690
+2026-10-01T06:01:16Z INFO  worker request served path=/v1/items status=200 trace_id=f8f1582474431418
+2026-10-01T06:01:17Z INFO  worker heartbeat ok trace_id=d1dd9e3a0c4498db
+2026-10-01T06:01:53Z INFO  worker heartbeat ok trace_id=621dd1914d153f2e
+2026-10-01T06:02:15Z INFO  worker job dequeued queue=default trace_id=9fde7a218f750318
+2026-10-01T06:02:42Z INFO  worker job dequeued queue=default trace_id=26bdf5e7e29e34f1
+2026-10-01T06:03:19Z INFO  worker cache refreshed keys=128 trace_id=189bc5a88b0486bb
+2026-10-01T06:03:54Z WARN  worker pool near capacity used=92% trace_id=177a8c7f3969a704
+2026-10-01T06:04:29Z WARN  worker pool near capacity used=92% trace_id=f13423f43f8d328e
+2026-10-01T06:04:30Z ERROR worker payment provider rejected code=E503 trace_id=d4284c6ea5bd2d9a
+2026-10-01T06:04:42Z INFO  worker request served path=/v1/items status=200 trace_id=43304f7cbd522881
+2026-10-01T06:05:02Z INFO  worker request served path=/v1/items status=200 trace_id=2b47025b90275d27
+2026-10-01T06:05:34Z INFO  worker job dequeued queue=default trace_id=eb7ffd8af0d91321
+2026-10-01T06:05:36Z INFO  worker job dequeued queue=default trace_id=ce2622cb5910587f
+2026-10-01T06:05:59Z INFO  worker cache refreshed keys=128 trace_id=b36357defbabfb89
+2026-10-01T06:06:14Z INFO  worker request served path=/v1/items status=200 trace_id=e71006a00042f26e
+2026-10-01T06:06:46Z INFO  worker request served path=/v1/items status=200 trace_id=2bbbb77614c1b012
+2026-10-01T06:07:22Z INFO  worker heartbeat ok trace_id=0afac62c8e23780f
+2026-10-01T06:07:32Z INFO  worker request served path=/v1/items status=200 trace_id=7dea2a5e82077238
+2026-10-01T06:08:08Z WARN  worker slow response latency_ms=1840 trace_id=b30ea4233e243e1e
+2026-10-01T06:08:38Z INFO  worker cache refreshed keys=128 trace_id=6ed4d9fa3f189640
+2026-10-01T06:08:59Z WARN  worker retrying upstream attempt=2 trace_id=211b478836e1c577
+2026-10-01T06:09:39Z INFO  worker request served path=/v1/items status=200 trace_id=3b4439f8a4d3886f
+2026-10-01T06:10:05Z INFO  worker heartbeat ok trace_id=570d0b1fd56b5826
+2026-10-01T06:10:28Z INFO  worker cache refreshed keys=128 trace_id=a48b4d977fbbb20d
+2026-10-01T06:11:03Z INFO  worker job dequeued queue=default trace_id=4e1db9f7eccbb01d
+2026-10-01T06:11:04Z INFO  worker request served path=/v1/items status=200 trace_id=5d9e41b23c30e9f0
+2026-10-01T06:11:30Z INFO  worker cache refreshed keys=128 trace_id=a1c35ee2e42af5bf
+2026-10-01T06:12:08Z INFO  worker heartbeat ok trace_id=4ec94c67953e1171
+2026-10-01T06:12:44Z INFO  worker request served path=/v1/items status=200 trace_id=589de665db1e7dcd
+2026-10-01T06:12:56Z INFO  worker heartbeat ok trace_id=9fb8d99afc9e6346
+2026-10-01T06:13:00Z INFO  worker job dequeued queue=default trace_id=1477789ee02194dd
+2026-10-01T06:13:03Z ERROR worker token signature invalid code=E204 trace_id=4bd778df2156c2a5
+2026-10-01T06:13:07Z INFO  worker job dequeued queue=default trace_id=95ebe9be0e2633f7
+2026-10-01T06:13:36Z INFO  worker cache refreshed keys=128 trace_id=f737716b1cd8d487
+2026-10-01T06:14:10Z INFO  worker request served path=/v1/items status=200 trace_id=6cfcac8e1e56c652
+2026-10-01T06:14:49Z INFO  worker cache refreshed keys=128 trace_id=0dbd561abad2c695
+2026-10-01T06:15:01Z INFO  worker job dequeued queue=default trace_id=9903a0b61dee00bb
+2026-10-01T06:15:32Z INFO  worker heartbeat ok trace_id=0d3fb0035dd309ae
+2026-10-01T06:16:04Z INFO  worker job dequeued queue=default trace_id=c160344d13772c73
+2026-10-01T06:16:15Z WARN  worker pool near capacity used=92% trace_id=040de7f45d672710
+2026-10-01T06:16:43Z WARN  worker retrying upstream attempt=2 trace_id=cef80bb0aa0fa949
+2026-10-01T06:17:19Z WARN  worker slow response latency_ms=1840 trace_id=cf02a978f4025db0
+2026-10-01T06:17:35Z INFO  worker cache refreshed keys=128 trace_id=21f5381b3dcdb1ea
+2026-10-01T06:17:48Z WARN  worker retrying upstream attempt=2 trace_id=26ef4e3e71cce2a3
+2026-10-01T06:18:09Z INFO  worker job dequeued queue=default trace_id=c3ecff30f8ae0295
+2026-10-01T06:18:30Z INFO  worker job dequeued queue=default trace_id=3ccd8a41b0c083bd
+2026-10-01T06:18:39Z INFO  worker cache refreshed keys=128 trace_id=e8c7fa124a8f3b26
+2026-10-01T06:18:53Z INFO  worker request served path=/v1/items status=200 trace_id=4bc5664851a5c618
+2026-10-01T06:19:17Z WARN  worker retrying upstream attempt=2 trace_id=33bce0ee8a90a1fb
+2026-10-01T06:19:53Z INFO  worker heartbeat ok trace_id=4401a4f27c9fba80
+2026-10-01T06:20:09Z INFO  worker cache refreshed keys=128 trace_id=a4dc319d49bd1065
+2026-10-01T06:20:20Z INFO  worker cache refreshed keys=128 trace_id=0b7d3c850becba7f
+2026-10-01T06:20:38Z INFO  worker job dequeued queue=default trace_id=fb2b763642dba279
+2026-10-01T06:20:40Z INFO  worker job dequeued queue=default trace_id=34b4a25ce235e702
+2026-10-01T06:21:10Z ERROR worker db deadlock detected code=E318 trace_id=ffdf5beb77911c57
+2026-10-01T06:21:35Z INFO  worker heartbeat ok trace_id=2d4b52b30db766d0
+2026-10-01T06:21:54Z INFO  worker cache refreshed keys=128 trace_id=ae6c21365510bb35
+2026-10-01T06:22:21Z INFO  worker cache refreshed keys=128 trace_id=f49c74268800be06
+2026-10-01T06:22:54Z INFO  worker cache refreshed keys=128 trace_id=6c1e5edc47ec8116
+2026-10-01T06:23:15Z INFO  worker job dequeued queue=default trace_id=52adf85988fa1cb0
+2026-10-01T06:23:21Z INFO  worker heartbeat ok trace_id=f775ea5f292e4b76
+2026-10-01T06:23:42Z INFO  worker cache refreshed keys=128 trace_id=902be73e491fa992
+2026-10-01T06:24:07Z INFO  worker cache refreshed keys=128 trace_id=f7c7da9a6d9dedcf
+2026-10-01T06:24:15Z WARN  worker slow response latency_ms=1840 trace_id=a237aea4d897ff78
+2026-10-01T06:24:51Z WARN  worker pool near capacity used=92% trace_id=568922a26406dbaa
+2026-10-01T06:25:28Z ERROR worker db deadlock detected code=E318 trace_id=bdc591c7fae6d316
+2026-10-01T06:26:08Z WARN  worker pool near capacity used=92% trace_id=f178de8e3c622255
+2026-10-01T06:26:40Z INFO  worker request served path=/v1/items status=200 trace_id=20b9c4769c96c144
+2026-10-01T06:26:51Z INFO  worker heartbeat ok trace_id=1e7938a3e576c7aa
+2026-10-01T06:27:03Z INFO  worker cache refreshed keys=128 trace_id=fe31f27ed97d99fc
+2026-10-01T06:27:42Z INFO  worker heartbeat ok trace_id=100db9589507067c
+2026-10-01T06:28:02Z INFO  worker heartbeat ok trace_id=a8a879e84bfebbfd
+2026-10-01T06:28:11Z INFO  worker request served path=/v1/items status=200 trace_id=f45d177f3a5639b0
+2026-10-01T06:28:41Z INFO  worker cache refreshed keys=128 trace_id=3849157a0431b0b3
+2026-10-01T06:28:57Z INFO  worker heartbeat ok trace_id=b39240d226cb029b
+2026-10-01T06:29:06Z INFO  worker request served path=/v1/items status=200 trace_id=0e4fbec51823b214
+2026-10-01T06:29:18Z INFO  worker job dequeued queue=default trace_id=7a217f7c9030126c
+2026-10-01T06:29:55Z INFO  worker request served path=/v1/items status=200 trace_id=ac5734cf3eb4666b
+2026-10-01T06:30:21Z INFO  worker heartbeat ok trace_id=a0dd656bfb9b20c1
+2026-10-01T06:30:43Z INFO  worker job dequeued queue=default trace_id=ee945f6259b3c12c
+2026-10-01T06:30:54Z INFO  worker heartbeat ok trace_id=db3eb54fe38b02eb
+2026-10-01T06:31:15Z WARN  worker pool near capacity used=92% trace_id=0203d8be04884cb9
+2026-10-01T06:31:49Z INFO  worker request served path=/v1/items status=200 trace_id=5ce2fc6aabc1377a
+2026-10-01T06:32:05Z INFO  worker job dequeued queue=default trace_id=4d1f50c6dd736360
+2026-10-01T06:32:09Z INFO  worker cache refreshed keys=128 trace_id=7822a1aceeb09bb0
+2026-10-01T06:32:41Z WARN  worker retrying upstream attempt=2 trace_id=6314f931dfb82562
+2026-10-01T06:33:11Z INFO  worker request served path=/v1/items status=200 trace_id=384030a19657c6b9
+2026-10-01T06:33:46Z INFO  worker heartbeat ok trace_id=19164178086f7077
+2026-10-01T06:33:49Z INFO  worker job dequeued queue=default trace_id=f1ec69aed6f7f05e
+2026-10-01T06:33:57Z INFO  worker request served path=/v1/items status=200 trace_id=c166164737236ca9
+2026-10-01T06:34:34Z INFO  worker cache refreshed keys=128 trace_id=6d10bed4a3dbc58e
+2026-10-01T06:34:56Z INFO  worker job dequeued queue=default trace_id=468f146001cf2937
+2026-10-01T06:35:02Z INFO  worker heartbeat ok trace_id=e1b49ae02c156e82
+2026-10-01T06:35:32Z INFO  worker request served path=/v1/items status=200 trace_id=00c339223bf6dc23
+2026-10-01T06:35:45Z INFO  worker cache refreshed keys=128 trace_id=6453b628f01911e7
+2026-10-01T06:35:54Z INFO  worker heartbeat ok trace_id=d3b875cbc2c71818
+2026-10-01T06:36:25Z INFO  worker job dequeued queue=default trace_id=fe9da20f1124c5d0
+2026-10-01T06:36:59Z INFO  worker request served path=/v1/items status=200 trace_id=6a08111099aebf85
+2026-10-01T06:37:37Z INFO  worker heartbeat ok trace_id=f4937cee4ae5330e
+2026-10-01T06:37:55Z ERROR worker upstream timeout code=E503 trace_id=f7128aa8012f073a
+2026-10-01T06:38:02Z INFO  worker heartbeat ok trace_id=347b093a835ac2ce
+2026-10-01T06:38:28Z INFO  worker cache refreshed keys=128 trace_id=3efd35c13204ae96
+2026-10-01T06:38:54Z INFO  worker cache refreshed keys=128 trace_id=525e8289c60a68b2
+2026-10-01T06:39:19Z ERROR worker upstream timeout code=E101 trace_id=c1e1b1ff63008b19
+2026-10-01T06:39:45Z INFO  worker heartbeat ok trace_id=6cd59575268c1cc2
+2026-10-01T06:40:20Z INFO  worker job dequeued queue=default trace_id=b6245f3bd02c1b88
+2026-10-01T06:40:26Z INFO  worker job dequeued queue=default trace_id=63c7be51e687c60f
+2026-10-01T06:40:50Z INFO  worker heartbeat ok trace_id=9f5dbbc7e5114f90
+2026-10-01T06:41:13Z ERROR worker payment provider rejected code=E204 trace_id=eb559c4eb9ad959d
+2026-10-01T06:41:27Z INFO  worker cache refreshed keys=128 trace_id=5ade333d2af935d2
+2026-10-01T06:41:39Z INFO  worker cache refreshed keys=128 trace_id=a986df47667776d0
+2026-10-01T06:42:08Z INFO  worker cache refreshed keys=128 trace_id=b8c0da82682b0f59
+2026-10-01T06:42:30Z INFO  worker request served path=/v1/items status=200 trace_id=2eb9675f491ee757
+2026-10-01T06:42:57Z INFO  worker job dequeued queue=default trace_id=1eef429553ea3c89
+2026-10-01T06:43:28Z INFO  worker heartbeat ok trace_id=1475682103048189
+2026-10-01T06:43:39Z INFO  worker heartbeat ok trace_id=220825b7d632f8ef
+2026-10-01T06:44:00Z INFO  worker cache refreshed keys=128 trace_id=7b634c72908b2bcd
