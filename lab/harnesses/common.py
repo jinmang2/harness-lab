@@ -43,6 +43,13 @@ def interrupts(ctx: Any, base: dict[str, Any] | None = None) -> dict[str, Any] |
     return merged or None
 
 
+def collaboration(ctx: Any) -> list[Any]:
+    """DSH standard's ask_user_question + plan mode (see lab/middleware/collaboration.py)."""
+    from lab.middleware.collaboration import CollaborationMiddleware
+
+    return [CollaborationMiddleware(interactive=getattr(ctx, "interactive", False))]
+
+
 def approvals(ctx: Any) -> list[Any]:
     """Middleware for create_agent harnesses: approval before shell and file writes when asked."""
     on = interrupts(ctx)

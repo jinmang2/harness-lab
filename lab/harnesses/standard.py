@@ -9,14 +9,15 @@
 | compaction-basic            | SummarizationMiddleware                           |
 | tool-web (fetch)            | fetch_url                                         |
 | tool-skill                  | not here; see `tools-skills`                      |
-| plan mode, goal, workflow   | no equivalent (DSH-only)                          |
+| plan-mode, tool-ask-user    | CollaborationMiddleware (same names, schemas, prompt)|
+| goal, workflow              | no equivalent (DSH-only)                          |
 """
 
 from deepagents import create_deep_agent
 from deepagents.backends import LocalShellBackend
 
 from lab.harnesses import BuildContext, harness
-from lab.harnesses.common import fetch_url, interrupts, shell_env
+from lab.harnesses.common import collaboration, fetch_url, interrupts, shell_env
 
 
 def prompt(ctx: BuildContext) -> str:
@@ -31,5 +32,5 @@ def backend(ctx: BuildContext) -> LocalShellBackend:
 def build(ctx: BuildContext):
     return create_deep_agent(
         ctx.model, tools=[fetch_url], system_prompt=prompt(ctx), backend=backend(ctx),
-        interrupt_on=interrupts(ctx), checkpointer=ctx.checkpointer,
+        middleware=collaboration(ctx), interrupt_on=interrupts(ctx), checkpointer=ctx.checkpointer,
     )

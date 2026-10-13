@@ -20,7 +20,7 @@ from langchain.agents.middleware import ContextEditingMiddleware, SummarizationM
 from langchain.agents.middleware.context_editing import ClearToolUsesEdit
 
 from lab.harnesses import BuildContext, harness
-from lab.harnesses.common import approvals, fetch_url, interrupts, persistent_bash
+from lab.harnesses.common import approvals, collaboration, fetch_url, interrupts, persistent_bash
 from lab.harnesses.minimal import PROMPT as MINIMAL_PROMPT
 from lab.harnesses.standard import backend, prompt
 from lab.middleware import ToolResultPruner
@@ -84,6 +84,7 @@ def build_delegate(ctx: BuildContext):
         system_prompt=prompt(ctx) + "\n\nDelegate independent sub-tasks to the researcher and coder subagents with the task tool, then combine their results.",
         backend=backend(ctx),
         subagents=SUBAGENTS,
+        middleware=collaboration(ctx),
         interrupt_on=interrupts(ctx),
         checkpointer=ctx.checkpointer,
     )
@@ -99,6 +100,7 @@ def build_hitl(ctx: BuildContext):
         tools=[fetch_url],
         system_prompt=prompt(ctx),
         backend=backend(ctx),
+        middleware=collaboration(ctx),
         interrupt_on=interrupts(ctx, HITL_TOOLS),
         checkpointer=ctx.checkpointer,
     )

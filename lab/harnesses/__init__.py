@@ -28,6 +28,9 @@ class BuildContext:
     # "ask": pause for approval before shell commands and file writes (DSH's approval
     # policy `ask`); "auto": never. Builders apply it with common.approvals/interrupts.
     approval: str = "auto"
+    # True only in the chat UI, where a person can answer ask_user_question and
+    # review plans; batch runs answer neither, like DSH headless.
+    interactive: bool = False
 
 
 @dataclass(frozen=True)

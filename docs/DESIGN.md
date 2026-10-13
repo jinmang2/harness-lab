@@ -117,7 +117,7 @@ tasks/            week1.yaml (+ fixtures)
 | compaction-basic | `SummarizationMiddleware` |
 | tool-result-pruner | `ContextEditingMiddleware`, 직접 만든 `ToolResultPruner` |
 | tool-skill | `SkillsMiddleware` (`skills=`), 또는 list/load 도구 |
-| plan mode, approval, ask_user | `interrupt_on`, `HumanInTheLoopMiddleware` |
+| plan mode, approval, ask_user | `interrupt_on`, `HumanInTheLoopMiddleware`, `CollaborationMiddleware`(`interrupt()`) |
 | guard / repeat-tool-reminder | 직접 만든 `RepeatToolCallGuard`, `ToolCallLimitMiddleware` |
 | llm-retry | `ModelRetryMiddleware`, `ModelFallbackMiddleware` |
 | ptc (`run_code`) | 직접 대응 없음 (실험 소재) |
@@ -132,7 +132,7 @@ tasks/            week1.yaml (+ fixtures)
 | Tool System, Skill & Preset | ✅ | `prompt-only`, `tools`, `tools-skills`, `custom`, `skills/` |
 | Context & Session | ✅ | `ctx-*` 하네스 + `tasks/context.yaml` |
 | Permission & Guard | ✅ | `hitl` (일괄 정책, Playground 승인), `custom` 가드 |
-| Planning | ⚠️ | todo(`write_todos`)만 있어요. DSH plan mode는 Web/TUI 기능이라 headless 비교가 어려워요 |
+| Planning | ✅ | todo(`write_todos`)와 DSH plan mode(`exit_plan_mode`, plan 섹션)가 lab standard 계열에 있어요. headless DSH는 계획 검토를 받을 수 없어서 대화 화면에서만 비교해요 |
 | Cordis (Plugin, Service, Event) | 코드 읽기 | DSH 소스. 이 문서의 대응표(6절) |
 | 평가 지표 7개 | ✅ | README "평가 지표" |
 | GUI | ✅ | `lab ui`: DSH Web과 같은 구조와 디자인(React, DSH 토큰). 세션, Chat/Trajectory, 승인, Stop, todo, context 링, 통계, Files, Settings 4섹션 + Runs, New run, Harnesses. `lab view`는 읽기 전용 |

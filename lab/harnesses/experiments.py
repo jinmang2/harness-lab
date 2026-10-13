@@ -14,7 +14,7 @@ from langchain.agents.middleware import ModelRetryMiddleware, ToolCallLimitMiddl
 
 from lab import SKILLS_DIR
 from lab.harnesses import BuildContext, harness
-from lab.harnesses.common import approvals, fetch_url, interrupts, persistent_bash
+from lab.harnesses.common import approvals, collaboration, fetch_url, interrupts, persistent_bash
 from lab.harnesses.minimal import PROMPT as MINIMAL_PROMPT
 from lab.harnesses.standard import backend, prompt
 from lab.middleware import HookLogger, RepeatToolCallGuard, ToolResultPruner
@@ -44,6 +44,7 @@ def build_tools_skills(ctx: BuildContext):
         system_prompt=prompt(ctx),
         backend=backend(ctx),
         skills=[str(SKILLS_DIR)],
+        middleware=collaboration(ctx),
         interrupt_on=interrupts(ctx),
         checkpointer=ctx.checkpointer,
     )
@@ -61,6 +62,7 @@ def build_custom(ctx: BuildContext):
             ToolCallLimitMiddleware(run_limit=40),
             RepeatToolCallGuard(threshold=3),
             ToolResultPruner(),
+            *collaboration(ctx),
         ],
         interrupt_on=interrupts(ctx),
         checkpointer=ctx.checkpointer,

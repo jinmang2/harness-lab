@@ -19,3 +19,4 @@
 | [0009](0009-secrets-write-only.md) | 비밀값은 쓰기 전용, 에이전트 셸에서는 뺀다 | 채택 |
 | [0010](0010-ui-react-dsh-design.md) | UI는 DSH Web과 같은 React 18 + CSS Modules, DSH 디자인 토큰을 쓴다 | 채택 |
 | [0011](0011-week1-assignment-pipeline.md) | week1 과제는 태스크 파일과 제출용 결과 생성기로 돌린다 | 채택 |
+| [0012](0012-plan-mode-and-questions.md) | plan mode와 `ask_user_question`은 DSH 문구 그대로, LangGraph interrupt로 받는다 | 채택 |

@@ -11,3 +11,9 @@ body {
 button { font: inherit; color: inherit; }
 code, pre, kbd { font-family: var(--ds-font-family-code); }
 .lab-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+/* Phone width: DSH's question/plan footers keep one row and clip the primary button
+   inside our narrower composer seat; let them wrap (lab-only, DSH CSS left untouched). */
+@media (max-width: 520px) {
+  [data-question-key] footer, [data-plan-review-key] [role="status"] + div { flex-wrap: wrap; justify-content: flex-end; }
+  [data-question-key] footer { row-gap: 8px; }
+}

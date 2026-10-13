@@ -6,10 +6,19 @@ export interface TextItem { kind: 'text'; key: string; text: string; nested: boo
 export interface ToolItem { kind: 'tool'; key: string; name: string; args: unknown; preview?: string; error?: boolean; done: boolean; nested: boolean }
 export interface NoteItem { kind: 'note'; key: string; text: string; tone?: 'error' | 'muted' }
 export interface ApprovalItem { kind: 'approval'; key: string; actions: { name: string; args: unknown; description?: string }[]; decision?: string }
-export type ProcessItem = ThinkItem | TextItem | ToolItem | NoteItem | ApprovalItem
+export interface QuestionOption { label: string; description?: string }
+export interface Question { id: string; question: string; header?: string; detail?: string; options?: QuestionOption[]; multiSelect?: boolean; intent?: { kind: string; approve: string } }
+export interface QuestionAnswer { id: string; selected: string[]; custom?: string }
+/** A pending ask_user_question / plan review (lab/middleware/collaboration.py); the composer seat renders it. */
+export interface QuestionItem { kind: 'question'; key: string; qkind: 'question' | 'plan-review'; questions: Question[]; title?: string; answered?: boolean }
+/** A slash command's outcome row (DSH GenericCommandCard). */
+export interface CommandItem { kind: 'command'; key: string; name: string; text: string }
+export type ProcessItem = ThinkItem | TextItem | ToolItem | NoteItem | ApprovalItem | QuestionItem
 
 export interface Turn {
   index: number
+  /** Commands run between the previous turn and this one (e.g. /plan). */
+  before: CommandItem[]
   user: string
   userT: number
   items: ProcessItem[]
@@ -28,12 +37,14 @@ export interface Folded {
   session?: Record<string, unknown>
   request?: { system: string; tools: string[] }
   turns: Turn[]
+  /** Commands after the last turn. */
+  after: CommandItem[]
 }
 
 const emptyUsage = () => ({ input: 0, cached: 0, output: 0, reasoning: 0, steps: 0, lastInput: 0 })
 
 export function fold(events: PlayEvent[]): Folded {
-  const out: Folded = { turns: [] }
+  const out: Folded = { turns: [], after: [] }
   let turn: Turn | null = null
   const llm = new Map<string, { think?: ThinkItem; text?: TextItem; nested: boolean; t0: number }>()
   const tools = new Map<string, ToolItem & { t0: number }>()
@@ -42,8 +53,12 @@ export function fold(events: PlayEvent[]): Folded {
       case 'session': out.session = ev; break
       case 'request': out.request = { system: String(ev.system ?? ''), tools: (ev.tools as string[]) ?? [] }; break
       case 'user':
-        turn = { index: out.turns.length, user: String(ev.text ?? ''), userT: ev.t, items: [], answer: '', answerKey: null, status: 'running', usage: emptyUsage(), llmMs: 0, toolMs: 0 }
+        turn = { index: out.turns.length, before: out.after, user: String(ev.text ?? ''), userT: ev.t, items: [], answer: '', answerKey: null, status: 'running', usage: emptyUsage(), llmMs: 0, toolMs: 0 }
         out.turns.push(turn)
+        out.after = []
+        break
+      case 'command':
+        out.after.push({ kind: 'command', key: 'cmd' + ev.seq, name: String(ev.name ?? ''), text: String(ev.text ?? '') })
         break
       default: {
         if (!turn) break
@@ -94,6 +109,14 @@ export function fold(events: PlayEvent[]): Folded {
           const last = [...t.items].reverse().find(i => i.kind === 'approval') as ApprovalItem | undefined
           if (last) last.decision = String(ev.decision)
           t.status = 'running'
+        } else if (ev.type === 'question') {
+          t.items.push({ kind: 'question', key: String(ev.key), qkind: ev.qkind === 'plan-review' ? 'plan-review' : 'question',
+            questions: (ev.questions as Question[]) ?? [], ...(typeof ev.title === 'string' ? { title: ev.title } : {}) })
+          t.status = 'waiting'
+        } else if (ev.type === 'answered') {
+          const q = t.items.find(i => i.kind === 'question' && i.key === String(ev.key)) as QuestionItem | undefined
+          if (q) q.answered = true
+          t.status = 'running'
         } else if (ev.type === 'note' || ev.type === 'warning') {
           t.items.push({ kind: 'note', key: 'n' + ev.seq, text: String(ev.text ?? ''), tone: 'muted' })
         } else if (ev.type === 'error') {
@@ -133,6 +156,7 @@ export function toolTitle(name: string): string {
     bash: 'Bash', execute: 'Bash', shell: 'Bash', read_file: 'Read', read: 'Read', write_file: 'Write', write: 'Write',
     edit_file: 'Edit', edit: 'Edit', ls: 'List', glob: 'Glob', grep: 'Grep', fetch_url: 'Fetch', web_fetch: 'Fetch',
     web_search: 'Search', write_todos: 'Todo', todo_write: 'Todo', task: 'Subagent', skill: 'Skill',
+    ask_user_question: 'Ask question',
   }
   return map[name] ?? name
 }
@@ -156,6 +180,7 @@ export function toolSummary(name: string, args: unknown): string {
     case 'Fetch': return pick('url')
     case 'Subagent': return pick('description', 'subagent_type')
     case 'Todo': return Array.isArray(a.todos) ? `${(a.todos as unknown[]).length} items` : ''
+    case 'exit_plan_mode': return typeof a.plan === 'string' ? (a.plan.trim().split('\n')[0] ?? '') : ''
     default: return pick('description', 'query', 'path', 'input')
   }
 }

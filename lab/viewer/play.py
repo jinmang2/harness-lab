@@ -69,6 +69,11 @@ class _Stream(BaseCallbackHandler):
         self.session = session
         self._tools: dict[UUID, str] = {}
         self._parents: dict[UUID, UUID | None] = {}  # run tree, to find model calls inside a tool (subagents)
+        # A tool that pauses on interrupt() runs again from the start on resume; the rerun
+        # reports under the first run's id so the UI keeps one card for the call.
+        self._paused: dict[str, str] = {}
+        self._ids: dict[UUID, str] = {}
+        self._keys: dict[UUID, str] = {}
 
     def _inside_tool(self, run_id: UUID | None) -> bool:
         for _ in range(200):
@@ -116,8 +121,15 @@ class _Stream(BaseCallbackHandler):
         self._parents[run_id] = parent_run_id
         self._tools[run_id] = name
         self.session.tool_runs.add(run_id)
-        self.session.emit("tool_start", run_id=str(run_id), name=name, args=inputs if inputs is not None else input_str,
-                          nested=self._inside_tool(parent_run_id))
+        args = inputs if inputs is not None else input_str
+        # The model's tool_call_id is stable across the rerun; name+args is a fallback for callers without it.
+        key = kw.get("tool_call_id") or name + json.dumps(args, sort_keys=True, ensure_ascii=False, default=str)
+        self._keys[run_id] = key
+        if key in self._paused:
+            self._ids[run_id] = self._paused.pop(key)
+            return
+        self._ids[run_id] = str(run_id)
+        self.session.emit("tool_start", run_id=str(run_id), name=name, args=args, nested=self._inside_tool(parent_run_id))
 
     def on_tool_end(self, output: Any, *, run_id: UUID, **kw: Any) -> None:
         update = getattr(output, "update", None)
@@ -125,11 +137,28 @@ class _Stream(BaseCallbackHandler):
             output = next((m for m in reversed(update.get("messages") or []) if getattr(m, "type", None) == "tool"), output)
         text = getattr(output, "content", output)
         text = text if isinstance(text, str) else json.dumps(text, ensure_ascii=False, default=str)
-        self.session.emit("tool_end", run_id=str(run_id), name=self._tools.pop(run_id, "?"), preview=text[:2000],
-                          error=getattr(output, "status", None) == "error")
+        self._keys.pop(run_id, None)
+        self.session.emit("tool_end", run_id=self._ids.pop(run_id, str(run_id)), name=self._tools.pop(run_id, "?"),
+                          preview=text[:2000], error=getattr(output, "status", None) == "error")
+
+    def close_paused(self) -> None:
+        """The turn ended without resuming these calls (error, stop): settle their cards."""
+        for rid in self._paused.values():
+            self.session.emit("tool_end", run_id=rid, name="?", preview="Not answered: the turn ended first.", error=True)
+        self._paused.clear()
 
     def on_tool_error(self, error: BaseException, *, run_id: UUID, **kw: Any) -> None:
-        self.session.emit("tool_end", run_id=str(run_id), name=self._tools.pop(run_id, "?"), preview=repr(error), error=True)
+        from langgraph.errors import GraphBubbleUp
+
+        if isinstance(error, GraphBubbleUp):  # interrupt(): the call is waiting for a person, not failed
+            key = self._keys.pop(run_id, None)
+            if key is not None:
+                self._paused[key] = self._ids.get(run_id, str(run_id))
+            self._tools.pop(run_id, None)
+            self._ids.pop(run_id, None)
+            return
+        self.session.emit("tool_end", run_id=self._ids.pop(run_id, str(run_id)), name=self._tools.pop(run_id, "?"),
+                          preview=repr(error), error=True)
 
 
 def _effort_env(model: str | None, effort: str | None) -> dict[str, str]:
@@ -194,6 +223,9 @@ class PlaySession:
         self._t0_ms = int(time.time() * 1000)
         self._turn: dict[str, Any] = {}
         self.gateway = _uses_gateway()
+        self.supports_plan = False  # harness has DSH's plan mode + ask_user_question (lab engine only)
+        self.plan_mode = False
+        self._plan_told: bool | None = None  # plan state the model last saw at a turn start
 
         if engine == "lab":
             from langgraph.checkpoint.memory import InMemorySaver
@@ -207,11 +239,13 @@ class PlaySession:
             self.run_dir.mkdir(parents=True)
             self.workdir.mkdir(parents=True, exist_ok=True)
             self.ctx = BuildContext(model=model_obj, model_name=self.model_name, workdir=self.workdir,
-                                    checkpointer=InMemorySaver(), approval=self.approval)
+                                    checkpointer=InMemorySaver(), approval=self.approval, interactive=True)
             self.recorder = TraceRecorder()
+            self._stream = _Stream(self)
             self.agent = get(harness_name).build(self.ctx)
+            self.supports_plan = "plan_mode" in getattr(self.agent, "channels", {})
             self.config = {
-                "callbacks": [_CancelCheck(self), self.recorder, _Stream(self), *extra_callbacks()],
+                "callbacks": [_CancelCheck(self), self.recorder, self._stream, *extra_callbacks()],
                 "recursion_limit": 200,
                 "configurable": {"thread_id": self.id},
                 "run_name": f"play:{harness_name}",
@@ -280,8 +314,35 @@ class PlaySession:
             self.emit("user", text=text)
         if self.engine == "dsh":
             threading.Thread(target=self._run_dsh, args=(text,), daemon=True).start()
-        else:
-            self._start({"messages": [{"role": "user", "content": text}]})
+            return
+        messages = [{"role": "user", "content": text}]
+        if self._plan_told is not None and self._plan_told != self.plan_mode:
+            # DSH narrates a user switch the model has not been told about yet.
+            from lab.middleware.collaboration import SWITCHED_OFF, SWITCHED_ON
+
+            messages.insert(0, {"role": "user", "content": SWITCHED_ON if self.plan_mode else SWITCHED_OFF})
+        self._plan_told = self.plan_mode
+        self._start({"messages": messages})
+
+    def set_plan(self, active: bool) -> str:
+        """`/plan` and `/plan off` between turns (DSH commits these at once when no turn is open)."""
+        with self._lock:
+            if not self.supports_plan:
+                raise ValueError("plan mode needs a lab harness with plan mode (standard family); "
+                                 "headless DSH runs one-shot and cannot review a plan")
+            if self.status in ("running", "waiting"):
+                raise ValueError(f"session is {self.status}; change plan mode between turns")
+            if active == self.plan_mode:
+                text = "Plan mode is already on. Use /plan off to leave." if active else "Plan mode is already inactive."
+            else:
+                self.agent.update_state(self.config, {"plan_mode": active})
+                self.plan_mode = active
+                text = "Plan mode on. Use /plan off to leave." if active else "Plan mode off."
+                self.emit("plan_mode", active=active)
+            self.emit("command", name="plan", text=text)
+            self.interrupt_log.append({"kind": "plan_mode", "t": time.time(), "active": active})
+        self._persist(self.status)  # a session that only ran /plan still survives a restart
+        return text
 
     def resume(self, decision: str, message: str | None = None) -> None:
         from langgraph.types import Command
@@ -289,6 +350,8 @@ class PlaySession:
         with self._lock:
             if self.status != "waiting" or not self.pending:
                 raise ValueError("nothing is waiting for approval")
+            if any(_question_kind(i) for i in self.pending):
+                raise ValueError("a question is waiting; answer it instead")
             pending, self.pending, self.status = self.pending, [], "running"
             self.cancel_requested = False
         chosen = {"type": "approve"} if decision == "approve" else {"type": "reject", "message": message or "Rejected by the user."}
@@ -301,6 +364,27 @@ class PlaySession:
         resume = next(iter(answers.values())) if len(answers) == 1 else answers
         self.emit("decision", decision=decision)
         self._start(Command(resume=resume))
+
+    def answer(self, reply: dict[str, Any]) -> None:
+        """Answer the first pending ask_user_question / plan review: {"answers": [...]} or {"cancelled": true}."""
+        from langgraph.types import Command
+
+        with self._lock:
+            first = next((i for i in self.pending if _question_kind(i)), None)
+            if self.status != "waiting" or first is None:
+                raise ValueError("no question is waiting")
+            cancelled = bool(reply.get("cancelled"))
+            answers = reply.get("answers")
+            if not cancelled and not (isinstance(answers, list) and all(isinstance(a, dict) for a in answers)):
+                raise ValueError("answers must be a list of {id, selected, custom?}")
+            value = {"cancelled": True} if cancelled else {"answers": answers}
+            self.pending, self.status = [], "running"
+            self.cancel_requested = False
+            tool = "exit_plan_mode" if _question_kind(first) == "plan-review" else "ask_user_question"
+            self.interrupt_log.append({"kind": "interrupt", "t": time.time(), "policy": "human:answer",
+                                       "actions": [{"name": tool}], "question": first.value, "answer": value})
+        self.emit("answered", key=first.id, cancelled=cancelled, answers=value.get("answers"))
+        self._start(Command(resume={first.id: value}))
 
     def cancel(self) -> None:
         with self._lock:
@@ -430,8 +514,13 @@ class PlaySession:
 
     def _finish(self, next_status: str, pending: list[Any]) -> None:
         stats = self._turn_stats()
+        if not pending and self.engine == "lab":
+            self._stream.close_paused()
         with self._lock:  # closing events first, so the saved chat-events.jsonl has them too
-            if pending:
+            if pending and (question := next((i for i in pending if _question_kind(i)), None)) is not None:
+                self.emit("question", key=question.id, qkind=question.value["kind"], questions=question.value["questions"],
+                          title=question.value.get("title"))
+            elif pending:
                 actions = [r for intr in pending for r in ((intr.value or {}).get("action_requests") or [])]
                 self.emit("interrupt", actions=[{"name": a.get("name"), "args": a.get("args"), "description": a.get("description")} for a in actions])
             elif next_status == "error":
@@ -440,11 +529,26 @@ class PlaySession:
             else:
                 self.emit("cancelled" if next_status == "cancelled" else "final", text=self.final)
                 self.emit("turn_end", stats=stats)
+        self._sync_plan()
         self._persist(next_status)  # before the status flips, so the next turn cannot overlap it
         with self._lock:
             if pending:
                 self.pending = list(pending)
             self.status = "idle" if next_status == "cancelled" else next_status
+
+    def _sync_plan(self) -> None:
+        """exit_plan_mode approval turns plan mode off inside the graph; mirror it for the UI."""
+        if not self.supports_plan:
+            return
+        try:
+            active = bool(self.agent.get_state(self.config).values.get("plan_mode"))
+        except Exception:  # a broken checkpoint read must not hide the turn result; keep the last known state
+            return
+        with self._lock:
+            if active != self.plan_mode:
+                self.plan_mode = active
+                self.emit("plan_mode", active=active)
+            self._plan_told = active  # the model saw this state at the end of the turn
 
     # ── persistence (as an ordinary run) ───────────────────────────────────
 
@@ -489,7 +593,13 @@ class PlaySession:
         return {"id": self.id, "engine": self.engine, "harness": self.harness, "model": self.model_name, "effort": self.effort,
                 "approval": self.approval, "title": self.title, "status": self.status, "batch": self.batch,
                 "run_id": self.run_id, "workdir": str(self.workdir), "created": self.created, "updated": self.updated,
-                "turns": len(self.turns), "events": len(self.events)}
+                "turns": len(self.turns), "events": len(self.events),
+                "supports_plan": self.supports_plan, "plan_mode": self.plan_mode}
+
+
+def _question_kind(intr: Any) -> str | None:
+    kind = (intr.value or {}).get("kind") if isinstance(intr.value, dict) else None
+    return kind if kind in ("question", "plan-review") else None
 
 
 def _atomic_json(path: Path, value: Any) -> None:
@@ -525,7 +635,7 @@ class ArchivedSession:
         return self._events[after:]
 
     def describe(self) -> dict[str, Any]:
-        return {**self.meta, "status": "archived"}
+        return {**self.meta, "status": "archived", "supports_plan": False}
 
     def rename(self, title: str) -> None:
         self.meta["title"] = title.strip()[:80]
@@ -534,7 +644,7 @@ class ArchivedSession:
     def _closed(self, *_: Any, **__: Any) -> None:
         raise ValueError("this session is from an earlier `lab ui` run and is read-only; start a new one")
 
-    send = resume = cancel = _closed
+    send = resume = cancel = answer = set_plan = _closed
 
 
 class PlayRegistry:
@@ -549,8 +659,15 @@ class PlayRegistry:
             self.sessions[old.id] = old
 
     def start(self, harness: str, engine: str = "lab", model: str | None = None, effort: str | None = None,
-              approval: str = "auto", workdir: Path | None = None) -> PlaySession:
+              approval: str = "auto", workdir: Path | None = None, plan: bool = False) -> PlaySession:
         session = PlaySession(harness, engine, model, effort, approval, workdir)
+        if plan and not session.supports_plan:
+            # `/plan` from the start page: refuse before the session exists anywhere. run_dir was
+            # created just now (mkdir without exist_ok), so removing it touches nothing else.
+            shutil.rmtree(session.run_dir, ignore_errors=True)
+            raise ValueError(f"{engine}/{harness} has no plan mode; pick a lab standard-family preset for /plan")
+        if plan:
+            session.set_plan(True)
         with self._lock:
             self.sessions[session.id] = session
         return session

@@ -287,7 +287,8 @@ class _Handler(BaseHTTPRequestHandler):
 
                     session = self.play.start(str(body.get("harness") or "minimal"), str(body.get("engine") or "lab"),
                                               body.get("model") or None, body.get("effort") or None,
-                                              str(body.get("approval") or "auto"), workspaces.resolve(body.get("workspace")))
+                                              str(body.get("approval") or "auto"), workspaces.resolve(body.get("workspace")),
+                                              plan=bool(body.get("plan")))
                     self._json(session.describe())
                 case ["api", "workspaces", "add"]:
                     from lab.viewer import workspaces
@@ -339,6 +340,16 @@ class _Handler(BaseHTTPRequestHandler):
                 case ["api", "play", sid, "resume"]:
                     self.play.get(sid).resume(str(body.get("decision") or "approve"), body.get("message"))
                     self._json({"ok": True})
+                case ["api", "play", sid, "answer"]:
+                    self.play.get(sid).answer(body)
+                    self._json({"ok": True})
+                case ["api", "play", sid, "plan"]:  # `/plan [message]` and `/plan off`
+                    session = self.play.get(sid)
+                    text = session.set_plan(bool(body.get("active")))
+                    message = str(body.get("message") or "").strip()
+                    if message and body.get("active"):
+                        session.send(message)
+                    self._json({"ok": True, "text": text})
                 case _:
                     self._json({"error": "not found"}, 404)
         except (KeyError, ValueError, TypeError) as exc:

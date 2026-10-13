@@ -12,8 +12,9 @@ import { post, type SessionInfo } from '../lib/api.ts'
 import { cx } from '../lib/format.ts'
 import { useSessionEvents } from '../lib/session.ts'
 import { modeLabel, useStore } from '../lib/store.tsx'
-import { fold, type ApprovalItem } from '../lib/turns.ts'
+import { fold, type ApprovalItem, type QuestionItem } from '../lib/turns.ts'
 import { ApprovalPanel, ChatView, CwdContext, TodoPanel, latestTodos } from './Chat.tsx'
+import { PlanChip, QuestionComposer, type QuestionReply } from './Questions.tsx'
 import { ContextMeter, InputBar, ModelSelect, PermissionSelect, StatsPills, modelDisplay, type SessionStats } from './Composer.tsx'
 import { LabMark } from './Sidebar.tsx'
 import { Menu, MenuItem, MenuLabel, MenuSeparator } from './primitives.tsx'
@@ -82,6 +83,14 @@ function WorkspaceChip() {
   )
 }
 
+/** `/plan [message]` and `/plan off` (DSH's plan command); null for an ordinary message. */
+function planCommand(text: string): { active: boolean; message: string } | null {
+  const m = /^\/plan(?:\s+([\s\S]*))?$/.exec(text.trim())
+  if (!m) return null
+  const arg = (m[1] ?? '').trim()
+  return arg === 'off' ? { active: false, message: '' } : { active: true, message: arg }
+}
+
 export function NewSession() {
   const s = useStore()
   const [error, setError] = useState('')
@@ -91,11 +100,13 @@ export function NewSession() {
   const start = async (text: string) => {
     setError('')
     try {
+      const plan = planCommand(text)
       const info = await post<SessionInfo>('play/start', {
         engine: s.draft.engine, harness: s.draft.harness, model: s.draft.model || undefined, effort: s.draft.effort || undefined,
-        approval, workspace: s.draft.workspace || undefined,
+        approval, workspace: s.draft.workspace || undefined, plan: plan?.active || undefined,
       })
-      await post(`play/${info.id}/send`, { text })
+      const message = plan ? plan.message : text
+      if (message) await post(`play/${info.id}/send`, { text: message })
       await s.refreshSessions()
       s.go({ kind: 'session', id: info.id })
     } catch (e) { setError((e as Error).message) }
@@ -175,7 +186,15 @@ export function SessionView({ id }: { id: string }) {
     ttftMs: t.stats?.ttft_ms != null ? [...acc.ttftMs, t.stats.ttft_ms] : acc.ttftMs,
   }), { turns: 0, steps: 0, input: 0, cached: 0, output: 0, llmMs: 0, toolMs: 0, ttftMs: [] as number[] })
   const sysTokens = folded.request ? Math.round(folded.request.system.length / 4) : 0
-  const send = async (text: string) => { try { await post(`play/${id}/send`, { text }); kick() } catch (e) { alert((e as Error).message) } }
+  const send = async (text: string) => {
+    const plan = planCommand(text)
+    try { await (plan ? post(`play/${id}/plan`, plan) : post(`play/${id}/send`, { text })); kick() } catch (e) { alert((e as Error).message) }
+  }
+  const setPlan = async (active: boolean) => { await post(`play/${id}/plan`, { active }); kick() }
+  const reply = async (r: QuestionReply) => { await post(`play/${id}/answer`, r); kick() }
+  const pendingQuestion = info?.status === 'waiting'
+    ? [...(folded.turns.at(-1)?.items ?? [])].reverse().find(i => i.kind === 'question' && !i.answered) as QuestionItem | undefined
+    : undefined
   const stop = async () => { try { await post(`play/${id}/cancel`) } catch (e) { alert((e as Error).message) } }
   const decide = async (d: 'approve' | 'reject') => {
     try { await post(`play/${id}/resume`, { decision: d }); kick(); return true } catch (e) { alert((e as Error).message); return false }
@@ -233,12 +252,17 @@ export function SessionView({ id }: { id: string }) {
             <div className={root.composerSeat} data-composer-seat="">
               <div className={root.composerStack}>
                 {todos && todos.length > 0 && <TodoPanel todos={todos} />}
-                {pendingApproval
+                {pendingQuestion
+                  ? <QuestionComposer key={pendingQuestion.key} item={pendingQuestion} onReply={reply} />
+                  : pendingApproval
                   ? <ApprovalPanel key={pendingApproval.key} item={pendingApproval} onAnswer={decide} />
                   : (
                     <InputBar placeholder={info.engine === 'dsh' ? 'Message (each message is a new headless task in this workspace)' : 'Message or run a task'}
                       onSend={send} onStop={stop} busy={busy}
-                      modes={<PermissionSelect value={info.approval} onChange={() => {}} disabled title="Set when the session starts" />}
+                      modes={<>
+                        <PermissionSelect value={info.approval} onChange={() => {}} disabled title="Set when the session starts" />
+                        <PlanChip active={Boolean(info.plan_mode)} locked={busy} onOff={() => setPlan(false)} />
+                      </>}
                       trailing={<>
                         <ModelSelect model={info.model} effort={effortLabel} onChange={() => {}} disabled />
                         {lastTurn && <ContextMeter used={lastTurn.usage.lastInput} window={ctxWindow}

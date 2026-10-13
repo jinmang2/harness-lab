@@ -106,6 +106,28 @@ def _mock_args(schema: dict[str, Any]) -> dict[str, Any]:
     return args
 
 
+# `[mock:ask]` / `[mock:ask2]` / `[mock:plan]` in the user's message script calls, to exercise the
+# question and plan-review UI without a real model.
+_SCRIPTS = {
+    "[mock:ask]": ("ask_user_question", {"questions": [{
+        "id": "color", "header": "Pick one", "question": "Which color do you prefer?", "multi_select": False,
+        "options": [{"label": "Blue (Recommended)", "description": "Calm and readable."}, {"label": "Green", "description": "Restful."}]}]}),
+    "[mock:plan]": ("exit_plan_mode", {"plan": "# Add a --greeting flag\n\n- **Find the parser** in `cli.py`.\n- **Add** `--greeting` with default `Hello`."}),
+}
+
+
+def _scripted_calls(messages: list[dict[str, Any]], tools: list[dict[str, Any]]) -> list[dict[str, Any]] | None:
+    """`[mock:ask2]` asks the same question twice in one step (two identical parallel calls)."""
+    text = str(messages[-1].get("content") or "")
+    names = {t.get("name") for t in tools}
+    if "[mock:ask2]" in text and "ask_user_question" in names:
+        return [{"name": "ask_user_question", "arguments": json.dumps(_SCRIPTS["[mock:ask]"][1])}] * 2
+    for marker, (name, args) in _SCRIPTS.items():
+        if marker in text and name in names:
+            return [{"name": name, "arguments": json.dumps(args)}]
+    return None
+
+
 def mock_reply(body: dict[str, Any]) -> dict[str, Any]:
     messages = body.get("messages") or []
     tools = [t.get("function", {}) for t in body.get("tools") or []]
@@ -118,6 +140,9 @@ def mock_reply(body: dict[str, Any]) -> dict[str, Any]:
     if "harness-lab-judge" in system_text:
         message["content"] = json.dumps({"scores": {"mock": 3}, "overall": 3, "reason": "mock judge"})
         finish = "stop"
+    elif tools and last_role == "user" and (scripted := _scripted_calls(messages, tools)) is not None:
+        message["tool_calls"] = [{"id": f"call_{uuid.uuid4().hex[:12]}", "type": "function", "function": f} for f in scripted]
+        finish = "tool_calls"
     elif tools and last_role == "user":
         chosen = next((t for name in _PREFERRED_TOOLS for t in tools if t.get("name") == name), tools[0])
         message["tool_calls"] = [

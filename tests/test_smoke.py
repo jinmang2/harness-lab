@@ -547,3 +547,121 @@ def test_bash_output_without_trailing_newline(tmp_path):
             assert (result.output, result.exit_code, result.timed_out) == (output, code, False)
     finally:
         session.stop(2)
+
+
+def test_plan_mode_and_questions(mock_gateway):
+    """DSH plan mode + ask_user_question in the chat UI: /plan, question takeover, plan review."""
+    import time
+    import urllib.request
+
+    from lab.viewer.server import serve
+
+    server = serve(port=0, play=True)
+    threading.Thread(target=server.serve_forever, daemon=True).start()
+    base = f"http://127.0.0.1:{server.server_address[1]}/api"
+
+    def call(path, body=None):
+        req = urllib.request.Request(base + path, data=None if body is None else json.dumps(body).encode(),
+                                     method="POST" if body is not None else "GET")
+        req.add_header("Content-Type", "application/json")
+        req.add_header("X-Lab", "1")
+        try:
+            with urllib.request.urlopen(req) as r:
+                return r.status, json.loads(r.read())
+        except urllib.error.HTTPError as e:
+            return e.code, json.loads(e.read())
+
+    def wait(sid, status):
+        for _ in range(100):
+            _, d = call(f"/play/{sid}/events?after=0")
+            if d["status"] == status:
+                return d
+            time.sleep(0.1)
+        raise AssertionError(f"never reached {status}: {d['status']}")
+
+    try:
+        _, minimal = call("/play/start", {"harness": "minimal"})
+        assert minimal["supports_plan"] is False and call(f"/play/{minimal['id']}/plan", {"active": True})[0] == 409
+
+        _, s = call("/play/start", {"harness": "standard"})
+        sid = s["id"]
+        assert s["supports_plan"] is True and s["plan_mode"] is False
+        status, r = call(f"/play/{sid}/plan", {"active": True, "message": "[mock:ask] pick a color"})
+        assert status == 200 and r["text"] == "Plan mode on. Use /plan off to leave."
+
+        d = wait(sid, "waiting")
+        assert d["plan_mode"] is True
+        q = [e for e in d["items"] if e["type"] == "question"][-1]
+        assert q["qkind"] == "question" and q["questions"][0]["id"] == "color"
+        assert call(f"/play/{sid}/resume", {"decision": "approve"})[0] == 409  # questions are answered, not approved
+        assert call(f"/play/{sid}/answer", {"answers": [{"id": "color", "selected": ["Blue (Recommended)"]}]})[0] == 200
+        d = wait(sid, "idle")
+        asks = [e for e in d["items"] if e["type"] == "tool_start" and e["name"] == "ask_user_question"]
+        ends = [e for e in d["items"] if e["type"] == "tool_end" and e["name"] == "ask_user_question"]
+        assert len(asks) == 1 and len(ends) == 1 and ends[0]["run_id"] == asks[0]["run_id"]  # one card across the pause
+        assert json.loads(ends[0]["preview"]) == {"answers": [{"id": "color", "selected": ["Blue (Recommended)"]}]}
+
+        assert call(f"/play/{sid}/send", {"text": "[mock:plan] now plan it"})[0] == 200
+        d = wait(sid, "waiting")
+        review = [e for e in d["items"] if e["type"] == "question"][-1]
+        assert review["qkind"] == "plan-review" and review["title"] == "Add a --greeting flag"
+        assert review["questions"][0]["intent"] == {"kind": "plan-review", "approve": "Approve"}
+        assert call(f"/play/{sid}/answer", {"answers": [{"id": "plan-review", "selected": ["Approve"]}]})[0] == 200
+        d = wait(sid, "idle")
+        assert d["plan_mode"] is False and [e for e in d["items"] if e["type"] == "plan_mode"][-1]["active"] is False
+        plan_end = [e for e in d["items"] if e["type"] == "tool_end" and e["name"] == "exit_plan_mode"][-1]
+        assert plan_end["preview"].startswith("Plan approved") and not plan_end["error"]
+
+        # Cancelling a question is the user's own choice: the model is told so and the turn ends normally.
+        assert call(f"/play/{sid}/send", {"text": "[mock:ask] again"})[0] == 200
+        wait(sid, "waiting")
+        assert call(f"/play/{sid}/answer", {"cancelled": True})[0] == 200
+        d = wait(sid, "idle")
+        end = [e for e in d["items"] if e["type"] == "tool_end" and e["name"] == "ask_user_question"][-1]
+        assert end["error"] and "cancelled" in end["preview"]
+
+        # Two identical questions in one step: answered one at a time, each keeps its own card.
+        assert call(f"/play/{sid}/send", {"text": "[mock:ask2] twice"})[0] == 200
+        for pick in ("Green", "Blue (Recommended)"):
+            wait(sid, "waiting")
+            assert call(f"/play/{sid}/answer", {"answers": [{"id": "color", "selected": [pick]}]})[0] == 200
+        d = wait(sid, "idle")
+        turn = d["items"][max(i for i, e in enumerate(d["items"]) if e["type"] == "user"):]
+        starts = [e["run_id"] for e in turn if e["type"] == "tool_start"]
+        ends = [e for e in turn if e["type"] == "tool_end"]
+        assert len(starts) == 2 and sorted(e["run_id"] for e in ends) == sorted(starts)
+        assert sorted(json.loads(e["preview"])["answers"][0]["selected"][0] for e in ends) == ["Blue (Recommended)", "Green"]
+        summaries = [json.loads(x) for x in (RUNS_DIR / s["batch"] / "summary.jsonl").read_text().splitlines() if x]
+        assert next(x for x in summaries if x["run_id"] == s["run_id"])["interrupts"] >= 5  # answers count as interrupts
+
+        # `/plan` on the start page with a preset that has no plan mode: refused, nothing left behind.
+        before = set((RUNS_DIR / s["batch"]).iterdir())
+        assert call("/play/start", {"harness": "minimal", "plan": True})[0] == 409
+        assert set((RUNS_DIR / s["batch"]).iterdir()) == before
+        status, planned = call("/play/start", {"harness": "standard", "plan": True})
+        assert status == 200 and planned["plan_mode"] is True
+        assert (RUNS_DIR / planned["batch"] / planned["run_id"] / "session.json").is_file()  # saved without any turn
+    finally:
+        server.shutdown()
+
+
+def test_collaboration_tools_without_a_person(tmp_path):
+    """Batch runs (like DSH headless) have no one to answer: the tools fail instead of hanging."""
+    from langchain_core.language_models.fake_chat_models import GenericFakeChatModel
+    from langchain_core.messages import AIMessage
+
+    from lab.harnesses import BuildContext, get
+
+    class Fake(GenericFakeChatModel):
+        def bind_tools(self, tools, **kw):  # the fake ignores tool schemas
+            return self
+
+    model = Fake(messages=iter([
+        AIMessage("", tool_calls=[{"id": "a", "name": "ask_user_question", "args": {"questions": [{"id": "x", "question": "?"}]}},
+                                  {"id": "b", "name": "exit_plan_mode", "args": {"plan": "# P"}}]),
+        AIMessage("done"),
+    ]))
+    out = get("standard").build(BuildContext(model=model, model_name="fake", workdir=tmp_path)).invoke({"messages": [{"role": "user", "content": "go"}]})
+    results = {m.name: m for m in out["messages"] if m.type == "tool"}
+    assert results["ask_user_question"].content == "no user-questions answerer accepted the request"
+    assert results["exit_plan_mode"].content == "exit_plan_mode is only available in plan mode"

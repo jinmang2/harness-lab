@@ -3,8 +3,9 @@ import { createContext, useContext, useEffect, useRef, useState } from 'react'
 import {
   IconBrowseOutline16, IconChevronDownOutline14, IconChevronRightOutline14, IconChevronUpOutline14, IconClockOutline16,
   IconCodeOutline16, IconContextInjectionOutline16, IconCopyOutline16, IconDatabaseOutline16, IconEditOutline16,
-  IconChecklistOutline14, IconGlobeOutline14, IconSearchOutline16, IconThinkOutline14, IconUserOutline16, IconWarningOutline16,
+  IconChecklistOutline14, IconGlobeOutline14, IconQuestionOutline14, IconSearchOutline16, IconThinkOutline14, IconUserOutline16, IconWarningOutline16,
 } from '../dsh/icons.tsx'
+import { CommandRow, askQuestionView } from './Questions.tsx'
 import chat from '../dsh/css/ChatView.module.css'
 import msg from '../dsh/css/MessageItem.module.css'
 import actions from '../dsh/css/MessageIconActions.module.css'
@@ -52,6 +53,7 @@ export function ChatView({ folded, modelLabel, live }: { folded: Folded; modelLa
         <div className={chat.column}>
           {folded.request && <div className={chat.flowItem}><SystemPromptRow request={folded.request} /></div>}
           {folded.turns.map(t => <TurnView key={t.index} turn={t} modelLabel={modelLabel} live={live} />)}
+          {folded.after.map(c => <div key={c.key} className={chat.flowItem}><CommandRow item={c} /></div>)}
         </div>
       </div>
     </div>
@@ -85,12 +87,13 @@ function SystemPromptRow({ request }: { request: { system: string; tools: string
 function TurnView({ turn, modelLabel, live }: { turn: Turn; modelLabel: string; live: boolean }) {
   const { prefs } = useStore()
   const settled = turn.status === 'done' || turn.status === 'stopped' || turn.status === 'error'
-  const top = turn.items.filter(i => !(i.kind === 'text' && i.key === turn.answerKey))
+  const top = turn.items.filter(i => !(i.kind === 'text' && i.key === turn.answerKey) && i.kind !== 'question')
   const toolCount = top.filter(i => i.kind === 'tool' && !i.nested).length
   const compact = prefs.display === 'compact' && settled && top.length > 0
   const [open, setOpen] = useState(false)
   return (
     <>
+      {turn.before.map(c => <div key={c.key} className={chat.flowItem}><CommandRow item={c} /></div>)}
       <div className={chat.flowItem}>
         <div className={msg.userRow}>
           <div className={msg.userStack}><div className={msg.bubble}><span style={{ whiteSpace: 'pre-wrap' }}>{turn.user}</span></div></div>
@@ -154,6 +157,8 @@ function ProcessRow({ item }: { item: ProcessItem }) {
       )
     case 'note':
       return <div className={chat.turnStatus}>{item.text}</div>
+    case 'question':
+      return null
   }
 }
 
@@ -166,6 +171,7 @@ function ToolIcon({ name }: { name: string }) {
     case 'Fetch': case 'Search': return <IconGlobeOutline14 />
     case 'Todo': return <IconChecklistOutline14 />
     case 'Subagent': return <IconUserOutline16 />
+    case 'Ask question': return <IconQuestionOutline14 />
     default: return <IconCodeOutline16 />
   }
 }
@@ -173,8 +179,10 @@ function ToolIcon({ name }: { name: string }) {
 function ToolCard({ item }: { item: ToolItem }) {
   const [open, setOpen] = useState(false)
   const [inspect, setInspect] = useState(false)
-  const state = !item.done ? 'running' : item.error ? 'error' : 'ok'
-  const summary = toolSummary(item.name, item.args)
+  const ask = item.name === 'ask_user_question' ? askQuestionView(item.args, item.preview, item.done, item.error) : null
+  // A cancelled question set is the user's choice, not a failure (DSH: ASK_CANCELLED renders ok).
+  const state = !item.done ? 'running' : item.error && ask?.summary !== 'cancelled' ? 'error' : 'ok'
+  const summary = ask ? ask.summary : toolSummary(item.name, item.args)
   return (
     <div className={card.card}>
       <div className={card.root} role="button" tabIndex={0} data-state={state} aria-expanded={open} onClick={() => setOpen(!open)}
@@ -185,11 +193,11 @@ function ToolCard({ item }: { item: ToolItem }) {
         </span>
         <span className={card.title}>{toolTitle(item.name)}</span>
         {summary && <><span className={card.sep} /><span className={card.summary}>{summary}</span></>}
-        {item.error && !open && <span className={card.errorSummary}><IconWarningOutline16 size={12} /></span>}
+        {state === 'error' && !open && <span className={card.errorSummary}><IconWarningOutline16 size={12} /></span>}
       </div>
       {open && (
         <div className={card.bodyWrap}>
-          <ToolBody item={item} />
+          {ask?.body ?? <ToolBody item={item} />}
           <button type="button" className={card.inspectButton} onClick={() => setInspect(!inspect)}><IconCodeOutline16 size={12} />Inspect</button>
           {inspect && (
             <div className={card.ioCard}>
@@ -246,6 +254,14 @@ function ToolBody({ item }: { item: ToolItem }) {
     )
   }
   if (title === 'Todo' && Array.isArray(a.todos)) return <TodoList todos={a.todos as Todo[]} />
+  if (item.name === 'exit_plan_mode' && typeof a.plan === 'string') {
+    return (
+      <>
+        <div className={md.root}><div className={md.body}><Markdown text={a.plan} /></div></div>
+        {item.done && <div className={card.ioCard}><div className={card.ioSection}><pre className={card.ioText}>{item.preview}</pre></div></div>}
+      </>
+    )
+  }
   return (
     <div className={card.ioCard}>
       <div className={card.ioSection}><pre className={card.ioText}>{item.done ? item.preview : 'Running…'}</pre></div>

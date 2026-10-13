@@ -53,6 +53,9 @@ export interface SessionInfo {
   updated: number
   turns: number
   events: number
+  /** Lab harness with DSH plan mode + ask_user_question (lab/middleware/collaboration.py). */
+  supports_plan?: boolean
+  plan_mode?: boolean
 }
 export interface Workspace { path: string; title: string; exists: boolean }
 export interface PlayEvent { seq: number; type: string; t: number; [k: string]: unknown }
