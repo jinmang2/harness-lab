@@ -228,6 +228,23 @@ class _Handler(BaseHTTPRequestHandler):
                 from lab.viewer import workspaces
 
                 self._json(workspaces.list_all())
+            case ["play", sid, "attachment", aid] if self.play:  # image thumbnails in the chat
+                try:
+                    session = self.play.get(sid)
+                except KeyError:
+                    session = None
+                rec = (getattr(session, "attachments", None) or {}).get(aid)
+                if rec is not None:  # forks reference the parent's copies
+                    hit = Path(rec["path"])
+                else:  # an archived session: its own folder only
+                    folder = session.run_dir / "attachments" if session is not None and aid.startswith("att-") else None
+                    hit = next(iter(sorted(folder.glob(f"{aid}-*"))), None) if folder else None
+                kind = {".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".gif": "image/gif",
+                        ".webp": "image/webp"}.get(hit.suffix.lower()) if hit else None
+                if hit is None or kind is None:
+                    self._json({"error": "not found"}, 404)
+                else:
+                    self._send(200, hit.read_bytes(), kind)
             case ["play", sid, "events"] if self.play:
                 query = parse_qs(urlsplit(self.path).query)
                 try:
@@ -271,7 +288,8 @@ class _Handler(BaseHTTPRequestHandler):
             return
         try:
             length = int(self.headers.get("Content-Length") or 0)
-            if not 0 <= length <= 1_000_000:
+            limit = 140_000_000 if parts[-1:] == ["upload"] else 1_000_000  # base64 of a 100 MB file
+            if not 0 <= length <= limit:
                 raise ValueError
             body = json.loads(self.rfile.read(length) or b"{}")
         except ValueError:  # bad length or invalid JSON (JSONDecodeError is a ValueError)
@@ -335,8 +353,34 @@ class _Handler(BaseHTTPRequestHandler):
                     self.jobs.get(jid).stop()
                     self._json({"ok": True})
                 case ["api", "play", sid, "send"]:
-                    self.play.get(sid).send(str(body.get("text") or "").strip() or "hi")
+                    ids = body.get("attachments") or []
+                    if not isinstance(ids, list) or not all(isinstance(i, str) for i in ids):
+                        raise ValueError("attachments must be a list of ids")
+                    text = str(body.get("text") or "").strip()
+                    if not text and not ids:
+                        raise ValueError("empty message")
+                    mode = "steer" if body.get("mode") == "steer" else "queue"
+                    self._json({"ok": True, "state": self.play.get(sid).send(text, ids, mode)})
+                case ["api", "play", sid, "queue", qid]:
+                    self.play.get(sid).queue_action(qid, str(body.get("action") or ""), body.get("text"))
                     self._json({"ok": True})
+                case ["api", "play", sid, "upload"]:
+                    self._json(self.play.get(sid).upload(str(body.get("name") or "file"), str(body.get("mime") or ""),
+                                                         str(body.get("data") or "")))
+                case ["api", "play", sid, "model"]:
+                    self.play.get(sid).set_model(body.get("model") or None, body.get("effort") or None)
+                    self._json({"ok": True})
+                case ["api", "play", sid, "goal"]:  # `/goal ...`
+                    kind, text = self.play.get(sid).goal_command(str(body.get("input") or ""))
+                    self._json({"ok": kind == "success", "kind": kind, "text": text})
+                case ["api", "play", sid, "goal", "action"]:  # goal bar buttons
+                    objective = body.get("objective")
+                    self.play.get(sid).goal_action(str(body.get("action") or ""), str(objective) if objective else None)
+                    self._json({"ok": True})
+                case ["api", "play", sid, "fork"]:
+                    turn = body.get("turn")
+                    child = self.play.fork(sid, int(turn) if turn is not None else None)
+                    self._json(child.describe())
                 case ["api", "play", sid, "resume"]:
                     self.play.get(sid).resume(str(body.get("decision") or "approve"), body.get("message"))
                     self._json({"ok": True})
@@ -352,7 +396,7 @@ class _Handler(BaseHTTPRequestHandler):
                     self._json({"ok": True, "text": text})
                 case _:
                     self._json({"error": "not found"}, 404)
-        except (KeyError, ValueError, TypeError) as exc:
+        except (KeyError, ValueError, TypeError, IndexError) as exc:
             self._json({"error": str(exc)}, 409)
         except SystemExit as exc:  # unknown harness / missing key from the model factory
             self._json({"error": str(exc)}, 400)

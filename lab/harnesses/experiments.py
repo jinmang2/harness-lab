@@ -22,7 +22,7 @@ from lab.middleware import HookLogger, RepeatToolCallGuard, ToolResultPruner
 
 @harness("prompt-only", "A: system prompt only, no tools")
 def build_prompt_only(ctx: BuildContext):
-    return create_agent(ctx.model, system_prompt=MINIMAL_PROMPT, checkpointer=ctx.checkpointer)
+    return create_agent(ctx.model, system_prompt=MINIMAL_PROMPT, middleware=approvals(ctx), checkpointer=ctx.checkpointer)
 
 
 @harness("tools", "B: minimal prompt + bash + fetch_url, no framework middleware")

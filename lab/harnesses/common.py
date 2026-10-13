@@ -46,14 +46,15 @@ def interrupts(ctx: Any, base: dict[str, Any] | None = None) -> dict[str, Any] |
 def collaboration(ctx: Any) -> list[Any]:
     """DSH standard's ask_user_question + plan mode (see lab/middleware/collaboration.py)."""
     from lab.middleware.collaboration import CollaborationMiddleware
+    from lab.middleware.goal import GoalMiddleware
 
-    return [CollaborationMiddleware(interactive=getattr(ctx, "interactive", False))]
+    return [CollaborationMiddleware(interactive=getattr(ctx, "interactive", False)), GoalMiddleware(), *getattr(ctx, "session", [])]
 
 
 def approvals(ctx: Any) -> list[Any]:
     """Middleware for create_agent harnesses: approval before shell and file writes when asked."""
     on = interrupts(ctx)
-    return [HumanInTheLoopMiddleware(interrupt_on=on)] if on else []
+    return [*([HumanInTheLoopMiddleware(interrupt_on=on)] if on else []), *getattr(ctx, "session", [])]
 
 
 class _MarkerSplitQueue:

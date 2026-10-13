@@ -12,16 +12,22 @@ export type View =
 export interface Prefs {
   theme: 'light' | 'dark' | 'system'
   fontSize: number
-  display: 'compact' | 'full'
+  /** DSH transcript view: completed turns fold their process ('compact', the default) or show it ('normal'). */
+  display: 'normal' | 'compact'
   enter: 'send' | 'newline'
   approval: 'auto' | 'ask'
+  /** DSH workspace browser View options: group by workspace or one flat list; manual or last-updated order. */
+  groupBy: 'workspace' | 'flat'
+  orderBy: 'manual' | 'updated'
 }
 
-const DEFAULT_PREFS: Prefs = { theme: 'system', fontSize: 14, display: 'compact', enter: 'send', approval: 'auto' }
+const DEFAULT_PREFS: Prefs = { theme: 'system', fontSize: 14, display: 'compact', enter: 'send', approval: 'auto', groupBy: 'workspace', orderBy: 'manual' }
 
 function loadPrefs(): Prefs {
   try {
-    return { ...DEFAULT_PREFS, ...JSON.parse(localStorage.getItem('lab-prefs') || '{}'),
+    const stored = JSON.parse(localStorage.getItem('lab-prefs') || '{}') as Omit<Partial<Prefs>, 'display'> & { display?: string }
+    return { ...DEFAULT_PREFS, ...stored,
+      display: stored.display === 'full' || stored.display === 'normal' ? 'normal' : 'compact',
       theme: (localStorage.getItem('lab-theme') as Prefs['theme']) || 'system',
       fontSize: Number(localStorage.getItem('lab-font-size')) || 14 }
   } catch {
@@ -150,7 +156,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       try {
         localStorage.setItem('lab-theme', next.theme)
         localStorage.setItem('lab-font-size', String(next.fontSize))
-        localStorage.setItem('lab-prefs', JSON.stringify({ display: next.display, enter: next.enter, approval: next.approval }))
+        localStorage.setItem('lab-prefs', JSON.stringify({ display: next.display, enter: next.enter, approval: next.approval, groupBy: next.groupBy, orderBy: next.orderBy }))
       } catch { /* private mode */ }
       return next
     })

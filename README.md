@@ -70,7 +70,7 @@ DSH Web과 같은 구조와 디자인이에요. React 18 + CSS Modules에 DSH의
 
 여기에만 있는 것: **Runs**(batch 비교표, run별 Trajectory, wire body, 파일, LLM-judge 버튼), **New run**(`lab run`을 화면에서), **Harnesses**(API 호출 없이 하네스를 조립해서 미들웨어 스택, 훅 순서, 도구 스키마, 실제 시스템 프롬프트, 서브에이전트를 보여줘요).
 
-plan mode(`/plan`, `/plan off`, 입력창의 Plan 칩, 계획 검토)와 `ask_user_question` 질문 카드는 lab 엔진의 standard 계열 세션에서 써요([ADR-0012](docs/adr/0012-plan-mode-and-questions.md)). DSH Web에는 있지만 아직 없는 것: `/goal`, 세션 fork, 메시지 대기열(steer), 이미지 첨부, 세션 중간 모델 변경. **DSH 엔진 대화는 메시지마다 새 headless 작업이에요.** headless에는 이어서 대화하는 기능이 없어서, 작업 폴더의 파일만 이어지고 대화 기록은 이어지지 않아요.
+plan mode(`/plan`, Plan 칩, 계획 검토), `ask_user_question` 질문 카드, goal(`/goal`, goal 바, 자동 이어 하기)은 lab 엔진의 standard 계열 세션에서 써요. 실행 중 보낸 메시지의 대기열과 steer(Cmd/Ctrl+Enter), 대화 fork(Branch into a new conversation), 파일·이미지 첨부, 대화 중 모델·effort 변경은 lab 엔진 세션 전체에서 돼요([ADR-0012](docs/adr/0012-plan-mode-and-questions.md), [ADR-0013](docs/adr/0013-session-features-like-dsh.md)). 이미지는 이미지 입력을 지원하는 모델(`deepseek-flash`, `deepseek-v4-flash-vision-exp`)에서만 보낼 수 있어요. **DSH 엔진 대화는 메시지마다 새 headless 작업이에요.** headless에는 이어서 대화하는 기능이 없어서, 작업 폴더의 파일만 이어지고 대화 기록은 이어지지 않아요.
 
 UI를 고칠 때만 Node가 필요해요. 빌드 결과(`lab/viewer/static/`)는 레포에 들어 있어서 `lab ui`만 쓸 때는 필요 없어요.
 
@@ -171,7 +171,7 @@ runs/gateway/calls.jsonl, bodies/<id>.json   # gateway
 - **DSH는 세션 제목용 LLM 호출을 따로 해요.** 이 호출은 세션 로그에는 없고 wire에만 보여요. 비용을 비교할 때는 wire 합계를 함께 보세요.
 - **DSH 세션 로그에는 스트림 청크 도착 시각만 있어요.** 그래서 trace의 DSH 모델 지연은 "스트림 길이"이고, 도구 시간은 상한값이에요. 정확한 요청 지연은 wire를 보세요.
 - **headless는 사용자에게 되묻지 못해요.** 승인이나 `ask_user`를 쓰는 흐름은 Web과 다르게 동작할 수 있어요.
-- **mock 결과는 배선 확인용이에요.** mock 토큰은 문자 수 ÷ 4로 근사한 값이에요. 메시지에 `[mock:ask]`나 `[mock:plan]`을 넣으면 mock이 `ask_user_question`이나 `exit_plan_mode`를 불러서, 키 없이 질문 카드와 계획 검토 화면을 확인할 수 있어요.
+- **mock 결과는 배선 확인용이에요.** mock 토큰은 문자 수 ÷ 4로 근사한 값이에요. 메시지에 `[mock:ask]`, `[mock:plan]`, `[mock:slow]`(2초 걸리는 명령, steer 확인용), `[mock:goal]`을 넣으면 mock이 해당 도구를 불러서 키 없이 화면을 확인할 수 있어요. goal 라운드에서는 mock이 goal을 읽고 complete로 표시해요.
 - **HITL에서 거절된 호출은 실행되지 않으므로 도구 호출 수에 들어가지 않아요.** 승인 요청 수는 `hitl` 열에 따로 나와요.
 - **`lab ui`는 에이전트를 실행하고 `.env`를 고쳐요.** 127.0.0.1 바인딩, Host 검사, `X-Lab` 헤더 요구로 다른 웹페이지가 조종하지 못하게 막았어요. 그래도 외부에 노출하지 마세요. 키 값은 서버에서 브라우저로 절대 보내지 않아요.
 - **화면에서 켠 gateway는 `lab ui`가 떠 있는 동안만 유효해요.** `.env`는 바꾸지 않아요. Chat 세션의 wire는 시간 구간으로 잘라서, 같은 시각에 돌던 다른 실행의 호출이 섞일 수 있어요.

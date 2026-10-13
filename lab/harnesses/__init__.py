@@ -31,6 +31,8 @@ class BuildContext:
     # True only in the chat UI, where a person can answer ask_user_question and
     # review plans; batch runs answer neither, like DSH headless.
     interactive: bool = False
+    # Chat-session middleware (steering inbox) that every builder appends; empty for batch runs.
+    session: list[Any] = field(default_factory=list)
 
 
 @dataclass(frozen=True)

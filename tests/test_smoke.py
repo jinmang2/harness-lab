@@ -150,7 +150,11 @@ def test_playground_flow(mock_gateway):
         assert call(f"/play/{sid}/send", {"text": "make a README"})[0] == 200
         d = wait(sid, "waiting")
         assert [e for e in d["items"] if e["type"] == "interrupt"][0]["actions"][0]["name"] == "execute"
-        assert call(f"/play/{sid}/send", {"text": "again"})[0] == 409  # busy while waiting
+        status, r = call(f"/play/{sid}/send", {"text": "again"})
+        assert status == 200 and r["state"] == "queued"  # DSH queues a message sent while the turn waits
+        qid = call(f"/play/{sid}/events?after=0")[1]["queue"][0]["id"]
+        assert call(f"/play/{sid}/queue/{qid}", {"action": "steer"})[0] == 409  # a waiting turn takes no steering
+        assert call(f"/play/{sid}/queue/{qid}", {"action": "remove"})[0] == 200
         assert call(f"/play/{sid}/resume", {"decision": "approve"})[0] == 200
         d = wait(sid, "idle")
         types = [e["type"] for e in d["items"]]
@@ -188,8 +192,9 @@ def test_playground_guards(mock_gateway):
         assert post("/play/start", b"[]")[0] == 400
         _, s = post("/play/start", b'{"harness": "hitl"}')  # first turn stops at an approval, so it cannot finish early
         with ThreadPoolExecutor(12) as pool:
-            codes = list(pool.map(lambda _: post(f"/play/{s['id']}/send", b'{"text": "hi"}')[0], range(12)))
-        assert codes.count(200) == 1, codes  # exactly one turn may start
+            replies = list(pool.map(lambda _: post(f"/play/{s['id']}/send", b'{"text": "hi"}'), range(12)))
+        states = [r[1].get("state") for r in replies]
+        assert states.count("started") == 1 and states.count("queued") == 11, states  # exactly one turn may start
     finally:
         server.shutdown()
 
@@ -665,3 +670,166 @@ def test_collaboration_tools_without_a_person(tmp_path):
     results = {m.name: m for m in out["messages"] if m.type == "tool"}
     assert results["ask_user_question"].content == "no user-questions answerer accepted the request"
     assert results["exit_plan_mode"].content == "exit_plan_mode is only available in plan mode"
+
+
+def test_queue_steer_goal_fork_upload_model(mock_gateway):
+    """DSH Web's remaining chat features on the lab engine."""
+    import base64
+    import time
+    import urllib.request
+
+    from lab.viewer.server import serve
+
+    server = serve(port=0, play=True)
+    threading.Thread(target=server.serve_forever, daemon=True).start()
+    base = f"http://127.0.0.1:{server.server_address[1]}/api"
+
+    def call(path, body=None):
+        req = urllib.request.Request(base + path, data=None if body is None else json.dumps(body).encode(),
+                                     method="POST" if body is not None else "GET")
+        req.add_header("Content-Type", "application/json")
+        req.add_header("X-Lab", "1")
+        try:
+            with urllib.request.urlopen(req) as r:
+                raw = r.read()
+                return r.status, json.loads(raw) if r.headers.get_content_type() == "application/json" else raw
+        except urllib.error.HTTPError as e:
+            return e.code, json.loads(e.read())
+
+    def wait(sid, pred, what):
+        for _ in range(150):
+            _, d = call(f"/play/{sid}/events?after=0")
+            if pred(d):
+                return d
+            time.sleep(0.1)
+        raise AssertionError(f"never reached {what}: {d['status']}")
+
+    idle = lambda d: d["status"] == "idle" and not d["queue"]  # noqa: E731
+    try:
+        _, s = call("/play/start", {"harness": "standard"})
+        sid = s["id"]
+
+        # queue while running, then it runs as the next turn
+        assert call(f"/play/{sid}/send", {"text": "[mock:slow] wait"})[1]["state"] == "started"
+        wait(sid, lambda d: d["status"] == "running", "running")
+        assert call(f"/play/{sid}/send", {"text": "queued one"})[1]["state"] == "queued"
+        _, d = call(f"/play/{sid}/events?after=0")
+        assert [q["text"] for q in d["queue"]] == ["queued one"] and d["queue"][0]["target"] == "next-turn"
+        qid = d["queue"][0]["id"]
+        assert call(f"/play/{sid}/queue/{qid}", {"action": "edit", "text": "queued, edited"})[0] == 200
+        d = wait(sid, idle, "queue drained")
+        assert [e["text"] for e in d["items"] if e["type"] == "user"] == ["[mock:slow] wait", "queued, edited"]
+
+        # steer: enters the running turn as a plain user message, no new turn
+        call(f"/play/{sid}/send", {"text": "[mock:slow] again"})
+        wait(sid, lambda d: d["status"] == "running", "running")
+        assert call(f"/play/{sid}/send", {"text": "Interjection: say BANANA", "mode": "steer"})[1]["state"] == "queued"
+        d = wait(sid, idle, "steered turn done")
+        users = [e for e in d["items"] if e["type"] == "user"]
+        steers = [e for e in d["items"] if e["type"] == "steer"]
+        assert len(users) == 3 and [e["text"] for e in steers] == ["Interjection: say BANANA"]
+        assert steers[0]["seq"] > users[-1]["seq"]  # inside the third turn
+
+        # model switch mid-session is recorded and used by the next request
+        assert call(f"/play/{sid}/model", {"model": "deepseek-v4-pro", "effort": "off"})[0] == 200
+        assert call(f"/play/{sid}/model", {"model": "nope"})[0] == 409
+
+        # uploads: a text file becomes a handle text; an image needs an image-capable model
+        _, f = call(f"/play/{sid}/upload", {"name": "notes.txt", "mime": "text/plain", "data": base64.b64encode(b"hello").decode()})
+        png = base64.b64decode("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==")
+        _, img = call(f"/play/{sid}/upload", {"name": "dot.png", "mime": "image/png", "data": base64.b64encode(png).decode()})
+        assert f["kind"] == "file" and "path" not in f and img["kind"] == "image" and img["width"] == 1
+        assert call(f"/play/{sid}/send", {"text": "look", "attachments": [img["id"]]})[0] == 409  # v4-pro is text-only
+        assert call(f"/play/{sid}/attachment/{img['id']}")[1] == png
+        assert call(f"/play/{sid}/send", {"text": "read it", "attachments": [f["id"]]})[0] == 200
+        d = wait(sid, idle, "file turn")
+        assert [e for e in d["items"] if e["type"] == "user"][-1]["attachments"][0]["name"] == "notes.txt"
+        bodies = list((RUNS_DIR / "gateway").rglob("*.json"))
+        sent = max(bodies, key=lambda p: p.stat().st_mtime).read_text() if bodies else ""
+        assert d["model"] == "deepseek-v4-pro" and ("verbatim read-only copy saved at" in sent or not bodies)
+
+        # fork: a new session with the history so far, title (1), same workspace
+        status, child = call(f"/play/{sid}/fork", {})
+        assert status == 200 and child["title"].endswith("(1)") and child["parent"] == sid and child["workdir"] == s["workdir"]
+        _, cd = call(f"/play/{child['id']}/events?after=0")
+        assert len([e for e in cd["items"] if e["type"] == "user"]) == 4
+        assert call(f"/play/{child['id']}/send", {"text": "continue in the branch"})[0] == 200
+        wait(child["id"], idle, "branch turn")
+
+        # goal: /goal creates and arms it, the driver runs a round, the model completes it
+        _, g = call("/play/start", {"harness": "standard"})
+        gid = g["id"]
+        status, r = call(f"/play/{gid}/goal", {"input": ""})
+        assert r["text"].startswith("No goal is currently set.")
+        status, r = call(f"/play/{gid}/goal", {"input": "Write DONE.md"})
+        assert r["ok"] and r["text"].startswith("Goal created\nStatus: active") and "Rounds: 0/256" in r["text"]
+        d = wait(gid, lambda d: d["status"] == "idle" and (d["goal"] or {}).get("phase") == "complete", "goal complete")
+        rounds = [e for e in d["items"] if e["type"] == "user" and e["source"] == "goal"]
+        assert len(rounds) == 1 and rounds[0]["text"].startswith("<goal_round>\nObjective: \"Write DONE.md\"\nRound: 1/256")
+        assert d["goal"]["roundsStarted"] == 1 and d["goal"]["activation"] == "disarmed"
+        assert call(f"/play/{gid}/goal", {"input": "pause"})[1]["kind"] == "error"  # complete goals cannot pause
+        # the model can create a goal from a direct request too
+        assert call(f"/play/{gid}/goal", {"input": "clear"})[1]["text"] == "Goal cleared."
+        call(f"/play/{gid}/send", {"text": "[mock:goal] keep going until DONE.md exists"})
+        d = wait(gid, lambda d: d["status"] == "idle" and (d["goal"] or {}).get("phase") == "complete", "model goal")
+        assert d["goal"]["objective"] == "Write DONE.md" and d["goal"]["maxGoalRounds"] == 5
+
+        # minimal has no goal tools
+        _, m = call("/play/start", {"harness": "minimal"})
+        assert m["supports_goal"] is False and call(f"/play/{m['id']}/goal", {"input": "x"})[0] == 409
+    finally:
+        server.shutdown()
+
+
+def test_session_feature_regressions(mock_gateway):
+    """Review findings: dispatch after errors, forks of forks, images in forks, pause on stop, steer authority."""
+    import base64
+    import time
+
+    from lab.middleware.goal import command
+    from lab.viewer.play import PlayRegistry
+
+    def settle(s, pred=lambda s: True):
+        for _ in range(200):
+            if s.status in ("idle", "error") and pred(s):
+                return s
+            time.sleep(0.05)
+        raise AssertionError(f"stuck {s.status}")
+
+    reg = PlayRegistry()
+    s = reg.start("standard")
+    # after a failed turn, /goal still starts its rounds
+    s.status, s.error = "error", "boom"
+    kind, text = s.goal_command("Write DONE.md")
+    assert kind == "success"
+    settle(s, lambda s: s.goal and s.goal["phase"] == "complete")
+    assert s.goal["roundsStarted"] == 1
+    # DSH wording for an invalid /goal transition
+    assert command(s.goal, "pause")[1] == "The goal command is not valid for the current state. Run /goal to view available commands."
+
+    # images survive a fork; a fork of a fork can branch from an earlier turn
+    png = base64.b64decode("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==")
+    s.set_model("deepseek-flash", None)  # image-capable
+    img = s.upload("a" * 300 + ".png", "image/png", base64.b64encode(png).decode())
+    assert len(img["name"]) <= 120 and img["name"].endswith(".png")
+    s.send("look", [img["id"]])
+    settle(s)
+    child = reg.fork(s.id)
+    assert child.attachments[img["id"]]["path"].startswith(str(s.run_dir))
+    child.send("one more")
+    settle(child)
+    grand = reg.fork(child.id, 0)  # the first turn: its state lives in the root session's checkpoints
+    assert len(grand.agent.get_state(grand.config).values["messages"]) > 0 and grand.title.endswith("(2)")
+
+    # a pause during a user turn is never lost, even if the turn finishes before the stop lands
+    s2 = reg.start("standard")
+    s2.goal_command("[mock:stay] keep going")
+    for _ in range(100):
+        if s2.status == "running":
+            break
+        time.sleep(0.05)
+    s2.goal_command("pause")
+    settle(s2, lambda s: s.goal["phase"] == "paused")
+    assert s2.goal["activation"] == "disarmed"
+    time.sleep(0.5)
+    assert s2.status == "idle" and s2.goal["roundsStarted"] == 1  # no further round

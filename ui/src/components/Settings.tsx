@@ -117,7 +117,7 @@ function General() {
         </div>
       </div>
       <SelectRow title="Conversation display" desc="Controls process content in completed turns" value={prefs.display}
-        options={[{ value: 'compact', label: 'Compact' }, { value: 'full', label: 'Full' }]} onChange={v => setPrefs({ display: v })} />
+        options={[{ value: 'normal', label: 'Normal' }, { value: 'compact', label: 'Compact' }]} onChange={v => setPrefs({ display: v })} />
       <SelectRow title="Enter key" desc="Enter sends and Shift+Enter adds a line, or Cmd/Ctrl+Enter sends" value={prefs.enter}
         options={[{ value: 'send', label: 'Enter sends' }, { value: 'newline', label: 'Cmd/Ctrl+Enter sends' }]} onChange={v => setPrefs({ enter: v })} />
     </div>

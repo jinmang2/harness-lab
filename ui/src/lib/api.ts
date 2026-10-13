@@ -26,7 +26,7 @@ export async function post<T = unknown>(path: string, body?: unknown): Promise<T
   return j as T
 }
 
-export interface ModelInfo { id: string; name: string; context: number }
+export interface ModelInfo { id: string; name: string; context: number; input?: string[] }
 export interface Config {
   play: boolean
   dsh_installed: boolean
@@ -56,7 +56,33 @@ export interface SessionInfo {
   /** Lab harness with DSH plan mode + ask_user_question (lab/middleware/collaboration.py). */
   supports_plan?: boolean
   plan_mode?: boolean
+  /** Lab harness with DSH goal tools + round driver (lab/middleware/goal.py). */
+  supports_goal?: boolean
+  goal?: Goal | null
+  /** Messages sent while a turn runs: next-turn (queued) or next-step (steered, not yet claimed). */
+  queue?: QueueItem[]
+  /** Forked from this session id. */
+  parent?: string | null
+  /** A settled turn exists, so the session can be forked. */
+  branchable?: boolean
 }
+
+/** DSH goal snapshot (packages/goal/goal) plus its activation. */
+export interface Goal {
+  id: string
+  revision: number
+  objective: string
+  phase: 'active' | 'paused' | 'blocked' | 'complete'
+  maxGoalRounds: number
+  roundsStarted: number
+  activation: 'armed' | 'disarmed'
+  blockedReason?: { code: string; message: string }
+}
+
+/** An uploaded attachment as the browser sees it (no host path). Images are served at play/<id>/attachment/<aid>. */
+export interface Attachment { id: string; name: string; mime: string; bytes: number; kind: 'image' | 'file'; width?: number; height?: number }
+
+export interface QueueItem { id: string; text: string; target: 'next-turn' | 'next-step'; attachments: Attachment[] }
 export interface Workspace { path: string; title: string; exists: boolean }
 export interface PlayEvent { seq: number; type: string; t: number; [k: string]: unknown }
 export interface EventsReply extends SessionInfo { items: PlayEvent[] }

@@ -1,5 +1,5 @@
 /** Center column: DSH ConversationRoot — hero (new session) or session (header, Chat/Trajectory, composer). */
-import { useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import {
   IconAgentPresetOutline16, IconChevronDownOutline14, IconEllipsisOutline16, IconFolderClose16, IconPanelLeftOutline16, IconPlusOutline16,
 } from '../dsh/icons.tsx'
@@ -15,7 +15,11 @@ import { modeLabel, useStore } from '../lib/store.tsx'
 import { fold, type ApprovalItem, type QuestionItem } from '../lib/turns.ts'
 import { ApprovalPanel, ChatView, CwdContext, TodoPanel, latestTodos } from './Chat.tsx'
 import { PlanChip, QuestionComposer, type QuestionReply } from './Questions.tsx'
-import { ContextMeter, InputBar, ModelSelect, PermissionSelect, StatsPills, modelDisplay, type SessionStats } from './Composer.tsx'
+import { ContextMeter, InputBar, ModelSelect, PermissionSelect, StatsPills, modelDisplay, type SendRequest, type SessionStats } from './Composer.tsx'
+import { LAB_COMMANDS, type CommandDef } from './CommandMenu.tsx'
+import { uploadAttachments } from './ComposerAttachments.tsx'
+import { GoalBar, type GoalAction } from './GoalBar.tsx'
+import { QueueDock, type QueueAction } from './QueueDock.tsx'
 import { LabMark } from './Sidebar.tsx'
 import { Menu, MenuItem, MenuLabel, MenuSeparator } from './primitives.tsx'
 import { Trajectory, rowsFromEvents } from './Trajectory.tsx'
@@ -91,25 +95,57 @@ function planCommand(text: string): { active: boolean; message: string } | null 
   return arg === 'off' ? { active: false, message: '' } : { active: true, message: arg }
 }
 
+/** `/goal [input]` (DSH's goal command): the input after the name, or null for an ordinary message. */
+function goalCommand(text: string): string | null {
+  const m = /^\/goal(?:\s+([\s\S]*))?$/.exec(text.trim())
+  return m ? (m[1] ?? '').trim() : null
+}
+
+/** Lab harnesses of the standard family carry DSH plan mode and the goal driver. */
+const STANDARD_FAMILY = ['standard', 'delegate', 'hitl', 'tools-skills', 'custom']
+
+function commandList(plan: boolean, goal: boolean): CommandDef[] {
+  return [...(goal ? [LAB_COMMANDS.goal] : []), ...(plan ? [LAB_COMMANDS.plan] : [])]
+}
+
+/** A command that takes no attachments in the lab refuses a draft carrying some (DSH copy). */
+function refuseAttachments(text: string, req: SendRequest) {
+  const name = planCommand(text) ? 'plan' : goalCommand(text) !== null ? 'goal' : null
+  if (name && req.attachments.length > 0) throw new Error(`/${name} does not accept attachments; remove them first`)
+}
+
 export function NewSession() {
   const s = useStore()
-  const [error, setError] = useState('')
   const [approval, setApproval] = useState(s.prefs.approval)
+  const [heroPlan, setHeroPlan] = useState(false)
+  // A session started for a draft whose upload/send then failed is reused on the retry.
+  const started = useRef<string | null>(null)
+  useEffect(() => { started.current = null }, [s.draft, approval, heroPlan])
   const model = s.draft.model || s.config?.default_model || ''
   const effort = s.draft.effort || s.config?.default_effort || 'high'
-  const start = async (text: string) => {
-    setError('')
-    try {
-      const plan = planCommand(text)
-      const info = await post<SessionInfo>('play/start', {
-        engine: s.draft.engine, harness: s.draft.harness, model: s.draft.model || undefined, effort: s.draft.effort || undefined,
-        approval, workspace: s.draft.workspace || undefined, plan: plan?.active || undefined,
-      })
+  const standard = s.draft.engine === 'lab' && STANDARD_FAMILY.includes(s.draft.harness)
+  const start = async (req: SendRequest) => {
+    const { text } = req
+    refuseAttachments(text, req)
+    const plan = standard ? planCommand(text) : null
+    const goal = standard ? goalCommand(text) : null
+    // `/plan` and `/plan off` on the hero only arm the next session (DSH shows the Plan chip here).
+    if (plan && !plan.message) { setHeroPlan(plan.active); return }
+    const id = started.current ?? (await post<SessionInfo>('play/start', {
+      engine: s.draft.engine, harness: s.draft.harness, model: s.draft.model || undefined, effort: s.draft.effort || undefined,
+      approval, workspace: s.draft.workspace || undefined, plan: (plan ? plan.active : heroPlan) || undefined,
+    })).id
+    started.current = id
+    if (goal !== null) {
+      await post(`play/${id}/goal`, { input: goal })
+    } else {
+      const ids = await uploadAttachments(id, req.attachments)
       const message = plan ? plan.message : text
-      if (message) await post(`play/${info.id}/send`, { text: message })
-      await s.refreshSessions()
-      s.go({ kind: 'session', id: info.id })
-    } catch (e) { setError((e as Error).message) }
+      if (message || ids.length) await post(`play/${id}/send`, { text: message, attachments: ids.length ? ids : undefined })
+    }
+    started.current = null
+    await s.refreshSessions()
+    s.go({ kind: 'session', id })
   }
   if (!s.config?.play) {
     return <ReadOnlyHero />
@@ -124,7 +160,7 @@ export function NewSession() {
                 <div className={hero.stack}>
                   <div className={hero.headline}>
                     <span className={hero.fishHitbox}><LabMark size={34} /></span>
-                    <span className={hero.titleGroup}><span>Same model, different harness</span><span className={hero.previewBadge}>Lab</span></span>
+                    <span className={hero.titleGroup}><span>Into the Unknown</span><span className={hero.previewBadge}>Preview</span></span>
                   </div>
                   <div className={hero.body} />
                 </div>
@@ -133,10 +169,13 @@ export function NewSession() {
                 <WorkspaceChip />
                 <PresetSeat />
               </div>
-              <InputBar hero placeholder="Describe what you want to do" onSend={start}
-                notice={error || undefined}
-                modes={<PermissionSelect value={s.draft.engine === 'dsh' ? 'auto' : approval} onChange={setApproval}
-                  disabled={s.draft.engine === 'dsh'} title={s.draft.engine === 'dsh' ? 'DSH headless cannot ask for approval' : undefined} />}
+              <InputBar hero placeholder="Describe what you want to build, / commands, @ files or sessions" onSend={start}
+                commands={commandList(standard, standard)}
+                modes={<>
+                  <PermissionSelect value={s.draft.engine === 'dsh' ? 'auto' : approval} onChange={setApproval}
+                    disabled={s.draft.engine === 'dsh'} title={s.draft.engine === 'dsh' ? 'DSH headless cannot ask for approval' : undefined} />
+                  <PlanChip active={heroPlan && standard} onOff={async () => setHeroPlan(false)} />
+                </>}
                 trailing={<ModelSelect model={model} effort={effort} onChange={(m, e) => s.setDraft({ model: m, effort: e })} />} />
             </div>
           </div>
@@ -180,15 +219,39 @@ export function SessionView({ id }: { id: string }) {
     : undefined
   const ctxWindow = s.config?.models?.find(m => m.id === info?.model)?.context ?? 1_000_000
   const lastTurn = [...folded.turns].reverse().find(t => t.usage.lastInput > 0)
-  const stats: SessionStats = folded.turns.reduce((acc, t) => ({
+  // DSH counts settled work only: the turn in flight joins the pills when it ends.
+  const settled = folded.turns.filter(t => t.status !== 'running' && t.status !== 'waiting')
+  const stats: SessionStats = settled.reduce((acc, t) => ({
     turns: acc.turns + 1, steps: acc.steps + t.usage.steps, input: acc.input + t.usage.input, cached: acc.cached + t.usage.cached,
     output: acc.output + t.usage.output, llmMs: acc.llmMs + t.llmMs, toolMs: acc.toolMs + t.toolMs,
     ttftMs: t.stats?.ttft_ms != null ? [...acc.ttftMs, t.stats.ttft_ms] : acc.ttftMs,
   }), { turns: 0, steps: 0, input: 0, cached: 0, output: 0, llmMs: 0, toolMs: 0, ttftMs: [] as number[] })
   const sysTokens = folded.request ? Math.round(folded.request.system.length / 4) : 0
-  const send = async (text: string) => {
-    const plan = planCommand(text)
-    try { await (plan ? post(`play/${id}/plan`, plan) : post(`play/${id}/send`, { text })); kick() } catch (e) { alert((e as Error).message) }
+  const [composerError, setComposerError] = useState<string | null>(null)
+  const clearComposerError = useCallback(() => setComposerError(null), [])
+  const send = async (req: SendRequest) => {
+    const { text } = req
+    refuseAttachments(text, req)
+    const plan = info?.supports_plan ? planCommand(text) : null
+    const goal = info?.supports_goal ? goalCommand(text) : null
+    if (plan) await post(`play/${id}/plan`, plan)
+    else if (goal !== null) await post(`play/${id}/goal`, { input: goal })
+    else {
+      const ids = await uploadAttachments(id, req.attachments)
+      await post(`play/${id}/send`, { text, attachments: ids.length ? ids : undefined, mode: req.mode })
+    }
+    kick()
+  }
+  const queueAction = async (qid: string, action: QueueAction, text?: string) => { await post(`play/${id}/queue/${qid}`, { action, text }); kick() }
+  const steerQueue = async () => {
+    try {
+      for (const q of info?.queue ?? []) if (q.target === 'next-turn') await post(`play/${id}/queue/${q.id}`, { action: 'steer' })
+    } catch { setComposerError('Steering failed. Try again.') }
+    kick()
+  }
+  const goalAction = async (action: GoalAction, objective?: string) => { await post(`play/${id}/goal/action`, { action, objective }); kick() }
+  const setModel = async (model: string, effort: string) => {
+    try { await post(`play/${id}/model`, { model, effort }); kick() } catch (e) { setComposerError(`Model operation failed: ${(e as Error).message}`) }
   }
   const setPlan = async (active: boolean) => { await post(`play/${id}/plan`, { active }); kick() }
   const reply = async (r: QuestionReply) => { await post(`play/${id}/answer`, r); kick() }
@@ -210,7 +273,9 @@ export function SessionView({ id }: { id: string }) {
         <div className={root.titleRow}>
           <div className={root.titleCluster}>
             <nav className={root.crumbs} aria-label="Session hierarchy">
-              <span className={root.crumbSeg}><span className={cx(root.crumb, root.crumbCurrent)}>{info.title || 'New Session'}</span></span>
+              <span className={root.crumbSeg}>
+                <button type="button" className={cx(root.crumb, root.crumbCurrent)} disabled>{info.title || 'New Session'}</button>
+              </span>
             </nav>
             <div className={root.headerActions}>
               <span className={presetLabel.label} title={s.harnesses.find(h => h.engine === info.engine && h.name === info.harness)?.description}>
@@ -257,18 +322,26 @@ export function SessionView({ id }: { id: string }) {
                   : pendingApproval
                   ? <ApprovalPanel key={pendingApproval.key} item={pendingApproval} onAnswer={decide} />
                   : (
-                    <InputBar placeholder={info.engine === 'dsh' ? 'Message (each message is a new headless task in this workspace)' : 'Message or run a task'}
-                      onSend={send} onStop={stop} busy={busy}
-                      modes={<>
-                        <PermissionSelect value={info.approval} onChange={() => {}} disabled title="Set when the session starts" />
-                        <PlanChip active={Boolean(info.plan_mode)} locked={busy} onOff={() => setPlan(false)} />
-                      </>}
-                      trailing={<>
-                        <ModelSelect model={info.model} effort={effortLabel} onChange={() => {}} disabled />
-                        {lastTurn && <ContextMeter used={lastTurn.usage.lastInput} window={ctxWindow}
-                          breakdown={{ system: sysTokens, tools: 0, messages: Math.max(0, lastTurn.usage.lastInput - sysTokens) }} />}
-                      </>}
-                      stats={<StatsPills stats={stats} />} />
+                    <>
+                      <GoalBar goal={info.goal} onAction={goalAction} />
+                      <QueueDock sessionId={id} items={info.queue ?? []} running={info.status === 'running'} onAction={queueAction} onError={setComposerError} />
+                      <InputBar onSend={send} onStop={stop} running={busy} steering={info.engine === 'lab'}
+                        notice={info.engine === 'dsh' ? 'Headless DeepSeek Harness: each message runs as a new one-shot task in this workspace.' : undefined}
+                        commands={commandList(Boolean(info.supports_plan), Boolean(info.supports_goal))}
+                        planActive={Boolean(info.plan_mode)} goalActive={Boolean(info.goal && info.goal.phase !== 'complete')}
+                        queued={(info.queue ?? []).filter(q => q.target === 'next-turn').length} onSteerQueue={steerQueue}
+                        error={composerError} onErrorShown={clearComposerError}
+                        modes={<>
+                          <PermissionSelect value={info.approval} onChange={() => {}} disabled title="Set when the session starts" />
+                          <PlanChip active={Boolean(info.plan_mode)} locked={busy} onOff={() => setPlan(false)} />
+                        </>}
+                        trailing={<>
+                          <ModelSelect model={info.model} effort={effortLabel} onChange={setModel} />
+                          {lastTurn && <ContextMeter used={lastTurn.usage.lastInput} window={ctxWindow}
+                            breakdown={{ system: sysTokens, tools: 0, messages: Math.max(0, lastTurn.usage.lastInput - sysTokens) }} />}
+                        </>}
+                        stats={<StatsPills stats={stats} />} />
+                    </>
                   )}
               </div>
             </div>

@@ -195,6 +195,7 @@ class PlaySession:
             raise ValueError("DeepSeek Harness is not installed: run `uv run lab dsh-install`")
 
         self.id = uuid.uuid4().hex[:10]
+        self.requested_model = model
         self.engine = engine
         self.harness = harness_name
         self.effort = effort
@@ -226,6 +227,19 @@ class PlaySession:
         self.supports_plan = False  # harness has DSH's plan mode + ask_user_question (lab engine only)
         self.plan_mode = False
         self._plan_told: bool | None = None  # plan state the model last saw at a turn start
+        self.supports_goal = False  # harness has DSH's goal tools (standard family)
+        self.goal: dict[str, Any] | None = None
+        self._goal_turn: dict[str, Any] | None = None  # goal_source of the running turn when the goal driver sent it
+        self._pause_goal_on_stop = False
+        # Messages sent while a turn runs (DSH inbox): `next-turn` waits for the turn to end,
+        # `next-step` (steer) enters the running turn before its next model call.
+        self.queue: list[dict[str, Any]] = []
+        from lab.middleware.inbox import Inbox, InboxMiddleware  # lazy: keeps `lab ui` startup light
+
+        self.inbox = Inbox(on_claim=self._on_steer)
+        self.attachments: dict[str, dict[str, Any]] = {}
+        self.parent: str | None = None  # forked from
+        self.turn_marks: list[dict[str, Any]] = []  # per settled turn: events count, turns count, checkpoint
 
         if engine == "lab":
             from langgraph.checkpoint.memory import InMemorySaver
@@ -239,11 +253,13 @@ class PlaySession:
             self.run_dir.mkdir(parents=True)
             self.workdir.mkdir(parents=True, exist_ok=True)
             self.ctx = BuildContext(model=model_obj, model_name=self.model_name, workdir=self.workdir,
-                                    checkpointer=InMemorySaver(), approval=self.approval, interactive=True)
+                                    checkpointer=InMemorySaver(), approval=self.approval, interactive=True,
+                                    session=[InboxMiddleware(self.inbox, self._steer_message, self._steer_authority)])
             self.recorder = TraceRecorder()
             self._stream = _Stream(self)
             self.agent = get(harness_name).build(self.ctx)
             self.supports_plan = "plan_mode" in getattr(self.agent, "channels", {})
+            self.supports_goal = "goal" in getattr(self.agent, "channels", {})
             self.config = {
                 "callbacks": [_CancelCheck(self), self.recorder, self._stream, *extra_callbacks()],
                 "recursion_limit": 200,
@@ -301,28 +317,244 @@ class PlaySession:
         if (self.run_dir / "session.json").is_file():  # already saved once: keep the new title across restarts
             _atomic_json(self.run_dir / "session.json", {**meta, "status": "archived"})
 
-    def send(self, text: str) -> None:
+    def send(self, text: str, attachments: list[str] | None = None, mode: str = "queue") -> str:
+        """Start a turn, or while one runs, queue the message (`queue`) or steer it into the turn (`steer`)."""
+        recs = self._resolve_attachments(attachments or [])
         with self._lock:
             if self.status in ("running", "waiting"):
-                raise ValueError(f"session is {self.status}")
-            self.status = "running"
-            self.cancel_requested = False
-            self._turn = {"t_start": time.perf_counter()}
-            self.turns.append(text)
-            if not self.title:
-                self.title = text.strip().splitlines()[0][:40]
-            self.emit("user", text=text)
+                item = {"id": "q-" + uuid.uuid4().hex[:8], "text": text, "attachments": [r["id"] for r in recs],
+                        "target": "next-turn", "t": time.time()}
+                if mode == "steer":
+                    self._steer(item)  # raises before anything is queued when the turn takes no steering
+                self.queue.append(item)
+                self.updated = time.time()
+                return "queued"
+            self._begin_turn(text, recs)
+        return "started"
+
+    def _resolve_attachments(self, ids: list[str]) -> list[dict[str, Any]]:
+        from lab.model import accepts_images
+
+        try:
+            recs = [self.attachments[i] for i in ids]
+        except KeyError:
+            raise ValueError("The file has not finished uploading; re-add it and try again") from None
+        images = [r for r in recs if r["kind"] == "image"]
+        if images and self.engine == "dsh":
+            raise ValueError("headless DeepSeek Harness takes a text prompt; send images from a lab session")
+        if images and not accepts_images(self.model_name):
+            raise ValueError(f'Model "{self.model_name}" does not support image input.')
+        if len(images) > 20:
+            raise ValueError("A message can include up to 20 images")
+        return recs
+
+    def _begin_turn(self, text: str, recs: list[dict[str, Any]], goal_source: dict[str, Any] | None = None) -> None:
+        """Caller holds the lock and has checked the session is idle."""
+        from lab.viewer.attachments import content_blocks, file_handle_text, public
+
+        self.status = "running"
+        self.cancel_requested = False
+        self._goal_turn = goal_source
+        self._turn = {"t_start": time.perf_counter()}
+        self.turns.append(text)
+        if not self.title and goal_source is None:
+            self.title = (text.strip().splitlines() or [recs[0]["name"] if recs else "New Session"])[0][:40]
+        self.emit("user", text=text, source="goal" if goal_source else "user", attachments=[public(r) for r in recs])
         if self.engine == "dsh":
-            threading.Thread(target=self._run_dsh, args=(text,), daemon=True).start()
+            prompt = "\n\n".join([*(file_handle_text(r) for r in recs), text]) if recs else text
+            threading.Thread(target=self._run_dsh, args=(prompt,), daemon=True).start()
             return
-        messages = [{"role": "user", "content": text}]
+        messages: list[dict[str, Any]] = [{"role": "user", "content": content_blocks(text, recs)}]
         if self._plan_told is not None and self._plan_told != self.plan_mode:
             # DSH narrates a user switch the model has not been told about yet.
             from lab.middleware.collaboration import SWITCHED_OFF, SWITCHED_ON
 
             messages.insert(0, {"role": "user", "content": SWITCHED_ON if self.plan_mode else SWITCHED_OFF})
         self._plan_told = self.plan_mode
-        self._start({"messages": messages})
+        payload: dict[str, Any] = {"messages": messages}
+        if self.supports_goal:
+            payload["goal_source"] = goal_source or {"kind": "user"}
+            payload["goal_context"] = None  # a wrap-up deferred by a stopped turn must not leak into this one
+        self._start(payload)
+
+    # ── steering and the queue (DSH inbox) ────────────────────────────────
+
+    def _steer(self, item: dict[str, Any]) -> None:
+        if self.status != "running" or self.engine != "lab":
+            raise ValueError("current turn no longer accepts steering")
+        item["target"] = "next-step"
+        self.inbox.put(item)
+
+    def _steer_authority(self) -> dict[str, Any]:
+        """DSH grants direct-human goal authority for any user message in the open turn, steers included."""
+        return {"goal_source": {"kind": "user"}} if self.supports_goal else {}
+
+    def _steer_message(self, item: dict[str, Any]) -> Any:
+        from langchain_core.messages import HumanMessage
+
+        from lab.viewer.attachments import content_blocks
+
+        return HumanMessage(content_blocks(item["text"], [self.attachments[i] for i in item["attachments"]]))
+
+    def _on_steer(self, item: dict[str, Any]) -> None:
+        """The inbox middleware moved a steered message into the running turn."""
+        from lab.viewer.attachments import public
+
+        with self._lock:
+            self.queue = [q for q in self.queue if q["id"] != item["id"]]
+            self.emit("steer", text=item["text"], attachments=[public(self.attachments[i]) for i in item["attachments"]])
+
+    def queue_action(self, qid: str, action: str, text: str | None = None) -> None:
+        """DSH queue actions: edit, remove, steer (an idle session sends it now)."""
+        with self._lock:
+            item = next((q for q in self.queue if q["id"] == qid), None)
+            if item is None or (item["target"] == "next-step" and action != "remove"):
+                raise ValueError("queued item is no longer pending")
+            if action == "edit":
+                if not (text or "").strip():
+                    raise ValueError("a queued message needs text")
+                item["text"] = text.strip()  # type: ignore[union-attr]
+            elif action == "remove":
+                if item["target"] == "next-step" and not self.inbox.remove(qid):
+                    raise ValueError("queued item is no longer pending")
+                self.queue.remove(item)
+            elif action == "steer":
+                if self.status == "running":
+                    self._steer(item)
+                elif self.status == "waiting":
+                    raise ValueError("current turn no longer accepts steering")
+                else:
+                    self.queue.remove(item)
+                    self._begin_turn(item["text"], [self.attachments[i] for i in item["attachments"]])
+            else:
+                raise ValueError(f"unknown queue action {action!r}")
+            self.updated = time.time()
+
+    # ── uploads and model selection ────────────────────────────────────────
+
+    def upload(self, name: str, mime: str, data_b64: str) -> dict[str, Any]:
+        from lab.viewer.attachments import public, save
+
+        rec = save(self.run_dir / "attachments", name, mime, data_b64)
+        with self._lock:
+            self.attachments[rec["id"]] = rec
+        return public(rec)
+
+    def set_model(self, model: str | None, effort: str | None) -> None:
+        """DSH model seat: allowed mid-turn; a running step keeps its model, the next request uses the new one."""
+        from lab.model import CATALOG, EFFORTS, retarget
+
+        if model is not None and model not in CATALOG:
+            raise ValueError(f"unknown model {model!r}")
+        if effort is not None and effort not in EFFORTS:
+            raise ValueError(f"effort must be one of {EFFORTS}")
+        with self._lock:
+            if self.engine == "lab":
+                retarget(self.ctx.model, model, effort)
+            else:
+                self.env = _effort_env(model or self.model_name, effort or self.effort)
+            self.model_name = model or self.model_name
+            self.effort = effort or self.effort
+            self.emit("model", model=self.model_name, effort=self.effort or "default")
+
+    # ── goals (DSH goal, command-goal, goal-round-driver) ─────────────────
+
+    def goal_command(self, raw: str) -> tuple[str, str]:
+        """`/goal ...`: returns (kind, text) and shows it as a command row."""
+        from lab.middleware import goal as goals
+
+        with self._lock:
+            if not self.supports_goal:
+                raise ValueError("goals need a lab harness with goal tools (standard family); "
+                                 "headless DSH runs one-shot and has no goal driver")
+            if self.status in ("running", "waiting"):
+                if raw.strip().lower() == "pause" and self.status == "running" and self.goal and self.goal["phase"] == "active":
+                    # DSH pauses at once and aborts the live turn; the graph owns the state until it stops,
+                    # so the pause is written when the turn settles (_finish), whatever way it ends.
+                    from lab.middleware.goal import render
+
+                    self._pause_goal_on_stop = True
+                    self.cancel_requested = True
+                    kind, text = "success", render("Goal paused", {**self.goal, "phase": "paused", "activation": "disarmed"})
+                    self.emit("command", name="goal", input="/goal pause", text=text, outcome=kind)
+                    return kind, text
+                raise ValueError(f"session is {self.status}; run /goal between turns")
+            kind, text, new, changed = goals.command(self.goal, raw)
+            if changed:
+                self._write_goal(new)
+            self.emit("command", name="goal", input=("/goal " + raw.strip()).strip(), text=text, outcome=kind)
+        self._persist(self.status)
+        self._dispatch()
+        return kind, text
+
+    def goal_action(self, action: str, objective: str | None = None) -> None:
+        """Goal bar buttons (DSH calls the goal service directly: no command row)."""
+        from lab.middleware import goal as goals
+
+        with self._lock:
+            if self.status in ("running", "waiting") and action != "pause":
+                raise ValueError(f"session is {self.status}; try again when the turn ends")
+            g = self.goal
+            if g is None:
+                raise ValueError("no current goal (GOAL_NOT_FOUND)")
+            ref = (g["id"], g["revision"])
+            try:
+                if action == "pause" and self.status == "running":
+                    if g["phase"] != "active":
+                        raise ValueError(f'cannot pause goal "{g["id"]}" in phase "{g["phase"]}"; allowed from active')
+                    self._pause_goal_on_stop = True
+                    self.cancel_requested = True
+                    return
+                new = {"edit": lambda: goals.edit(g, ref, objective=objective), "pause": lambda: goals.pause(g, ref),
+                       "resume": lambda: goals.resume(g, ref), "clear": lambda: None}[action]()
+            except KeyError:
+                raise ValueError(f"unknown goal action {action!r}") from None
+            except goals.GoalError as exc:
+                raise ValueError(f"{exc} ({exc.code})") from None
+            self._write_goal(new)
+        self._persist(self.status)
+        self._dispatch()
+
+    def _write_goal(self, new: dict[str, Any] | None) -> None:
+        self.agent.update_state(self.config, {"goal": new})
+        self.goal = new
+        self.emit("goal", goal=new)
+
+    def _sync_goal(self) -> None:
+        if not self.supports_goal:
+            return
+        try:
+            g = self.agent.get_state(self.config).values.get("goal")
+        except Exception:  # keep the last known goal if the checkpoint cannot be read
+            return
+        with self._lock:
+            if g != self.goal:
+                self.goal = g
+                self.emit("goal", goal=g)
+
+    def _dispatch(self) -> None:
+        """After a turn settles idle: the next queued message first, then the goal driver's next round."""
+        from lab.middleware import goal as goals
+
+        with self._lock:
+            if self.status not in ("idle", "error"):
+                return
+            item = next((q for q in self.queue if q["target"] == "next-turn"), None)
+            if item is not None:
+                self.queue.remove(item)
+                self._begin_turn(item["text"], [self.attachments[i] for i in item["attachments"]])
+                return
+            g = self.goal
+            if not self.supports_goal or g is None or g["phase"] != "active" or g["activation"] != "armed":
+                return
+            if g["roundsStarted"] >= g["maxGoalRounds"]:
+                self._write_goal(goals.block(g, (g["id"], g["revision"]), "round-limit",
+                                             f"Goal reached its configured limit of {g['maxGoalRounds']} rounds."))
+                return
+            n = g["roundsStarted"] + 1
+            self._write_goal({**g, "roundsStarted": n})
+            self._begin_turn(goals.round_prompt(self.goal, n), [],  # type: ignore[arg-type]
+                             goal_source={"kind": "goal", "goalId": g["id"], "revision": g["revision"], "round": n})
 
     def set_plan(self, active: bool) -> str:
         """`/plan` and `/plan off` between turns (DSH commits these at once when no turn is open)."""
@@ -530,11 +762,39 @@ class PlaySession:
                 self.emit("cancelled" if next_status == "cancelled" else "final", text=self.final)
                 self.emit("turn_end", stats=stats)
         self._sync_plan()
+        self._sync_goal()
+        with self._lock:
+            if not pending:
+                g = self.goal
+                if g and g["phase"] == "active":
+                    from lab.middleware import goal as goals
+
+                    if self._pause_goal_on_stop or (next_status == "cancelled" and self._goal_turn is not None):
+                        self._write_goal(goals.pause(g, (g["id"], g["revision"])))  # host pause / aborted round
+                    elif next_status in ("cancelled", "error") and g["activation"] == "armed":
+                        self._write_goal(goals.disarm(g))  # DSH disarms on any aborted or failed turn
+                self._goal_turn = None
+                self._pause_goal_on_stop = False
+                if self.engine == "lab" and next_status != "error":
+                    try:
+                        checkpoint = self.agent.get_state(self.config).config
+                    except Exception:  # forks then start from the previous settled turn
+                        checkpoint = None
+                    self.turn_marks.append({"events": len(self.events), "turns": len(self.turns), "checkpoint": checkpoint,
+                                            "source": self})
+                elif self.engine == "dsh":
+                    self.turn_marks.append({"events": len(self.events), "turns": len(self.turns), "checkpoint": None})
         self._persist(next_status)  # before the status flips, so the next turn cannot overlap it
         with self._lock:
             if pending:
                 self.pending = list(pending)
             self.status = "idle" if next_status == "cancelled" else next_status
+            # Steered after the graph's last model call (or while it waits): it opens the next turn
+            # instead. Done in the same lock as the status flip, so no steer can slip in between.
+            for item in self.inbox.drain():
+                item["target"] = "next-turn"
+        if not pending:
+            self._dispatch()  # queued messages wait for no one; goal rounds only run while armed
 
     def _sync_plan(self) -> None:
         """exit_plan_mode approval turns plan mode off inside the graph; mirror it for the UI."""
@@ -594,7 +854,14 @@ class PlaySession:
                 "approval": self.approval, "title": self.title, "status": self.status, "batch": self.batch,
                 "run_id": self.run_id, "workdir": str(self.workdir), "created": self.created, "updated": self.updated,
                 "turns": len(self.turns), "events": len(self.events),
-                "supports_plan": self.supports_plan, "plan_mode": self.plan_mode}
+                "supports_plan": self.supports_plan, "plan_mode": self.plan_mode,
+                "supports_goal": self.supports_goal, "goal": self.goal, "parent": self.parent,
+                "queue": [{k: q[k] for k in ("id", "text", "target")} | {"attachments": [
+                    {k: v for k, v in self.attachments[i].items() if k != "path"} for i in q["attachments"]]}
+                    for q in self.queue],
+                "branchable": len(self.turn_marks) > 0,
+                "pending": (next((_question_kind(i) for i in self.pending if _question_kind(i)), None) or "approval")
+                if self.status == "waiting" else None}
 
 
 def _question_kind(intr: Any) -> str | None:
@@ -635,7 +902,7 @@ class ArchivedSession:
         return self._events[after:]
 
     def describe(self) -> dict[str, Any]:
-        return {**self.meta, "status": "archived", "supports_plan": False}
+        return {**self.meta, "status": "archived", "supports_plan": False, "supports_goal": False, "queue": [], "branchable": False}
 
     def rename(self, title: str) -> None:
         self.meta["title"] = title.strip()[:80]
@@ -644,7 +911,7 @@ class ArchivedSession:
     def _closed(self, *_: Any, **__: Any) -> None:
         raise ValueError("this session is from an earlier `lab ui` run and is read-only; start a new one")
 
-    send = resume = cancel = answer = set_plan = _closed
+    send = resume = cancel = answer = set_plan = goal_command = goal_action = queue_action = upload = set_model = _closed
 
 
 class PlayRegistry:
@@ -672,8 +939,64 @@ class PlayRegistry:
             self.sessions[session.id] = session
         return session
 
+    def fork(self, sid: str, turn: int | None = None) -> PlaySession:
+        """DSH "Branch into a new conversation": a new session seeded with the history up to the end
+        of a settled turn (the last one by default). The workspace is shared, not copied, as in DSH."""
+        parent = self.get(sid)
+        if not isinstance(parent, PlaySession):
+            raise ValueError("this session is from an earlier `lab ui` run and is read-only; start a new one")
+        with parent._lock:
+            marks = list(parent.turn_marks)
+            if not marks:
+                raise ValueError(f'session "{sid}" has no completed turn to fork from')
+            mark = marks[-1 if turn is None else turn]
+            events = [e for e in parent.events[1:mark["events"]]]
+        from lab.model import CATALOG
+
+        model = parent.model_name if parent.model_name in CATALOG else parent.requested_model  # LAB_MODEL_SPEC routes
+        child = PlaySession(parent.harness, parent.engine, model, parent.effort, parent.approval, parent.workdir)
+        with child._lock:
+            for e in events:
+                child.events.append({**e, "seq": len(child.events)})
+            child.turns = parent.turns[:mark["turns"]]
+            child.title = _forked_title(parent.title or "New Session")
+            child.parent = parent.id
+            child.request_seen = parent.request_seen
+            child.attachments = dict(parent.attachments)
+            child.turn_marks = [dict(m) for m in marks[: marks.index(mark) + 1]]  # earlier marks keep their source
+            if parent.engine == "lab" and mark["checkpoint"] is None:
+                shutil.rmtree(child.run_dir, ignore_errors=True)
+                raise ValueError("this turn has no saved state to branch from")
+            if parent.engine == "lab":
+                values = dict(mark.get("source", parent).agent.get_state(mark["checkpoint"]).values)
+                values.pop("goal_source", None)
+                values.pop("goal_context", None)
+                if values.get("goal"):
+                    values["goal"] = {**values["goal"], "activation": "disarmed"}  # DSH: a fork starts disarmed
+                child.agent.update_state(child.config, values)
+                child.turn_marks[-1] = {**child.turn_marks[-1], "checkpoint": child.agent.get_state(child.config).config,
+                                        "source": child}
+                child.plan_mode = bool(values.get("plan_mode"))
+                child._plan_told = child.plan_mode
+                child.goal = values.get("goal")
+            child.emit("forked", parent=parent.id)
+        child._persist("idle")
+        with self._lock:
+            self.sessions[child.id] = child
+        return child
+
     def get(self, sid: str) -> PlaySession:
         try:
             return self.sessions[sid]
         except KeyError:
             raise KeyError(f"no session {sid}") from None
+
+
+def _forked_title(title: str) -> str:
+    """DSH `increasedForkTitle`: "x" -> "x (1)", "x (1)" -> "x (2)", full-width parentheses too."""
+    import re
+
+    m = re.match(r"^(.*?)([(（])(\d+)([)）])$", title.rstrip())
+    if m:
+        return f"{m.group(1)}{m.group(2)}{int(m.group(3)) + 1}{m.group(4)}"
+    return f"{title} (1)"

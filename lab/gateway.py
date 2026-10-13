@@ -106,7 +106,7 @@ def _mock_args(schema: dict[str, Any]) -> dict[str, Any]:
     return args
 
 
-# `[mock:ask]` / `[mock:ask2]` / `[mock:plan]` in the user's message script calls, to exercise the
+# `[mock:ask]`, `[mock:ask2]`, `[mock:plan]`, `[mock:slow]`, `[mock:goal]` (and goal rounds) script calls, to exercise the
 # question and plan-review UI without a real model.
 _SCRIPTS = {
     "[mock:ask]": ("ask_user_question", {"questions": [{
@@ -120,12 +120,39 @@ def _scripted_calls(messages: list[dict[str, Any]], tools: list[dict[str, Any]])
     """`[mock:ask2]` asks the same question twice in one step (two identical parallel calls)."""
     text = str(messages[-1].get("content") or "")
     names = {t.get("name") for t in tools}
+    if "[mock:slow]" in text and names & {"bash", "execute"}:
+        name = "bash" if "bash" in names else "execute"
+        return [{"name": name, "arguments": json.dumps({"command": "sleep 2; echo SLOW_DONE"})}]
+    if "[mock:goal]" in text and "create_goal" in names:
+        return [{"name": "create_goal", "arguments": json.dumps({"objective": "Write DONE.md", "max_goal_rounds": 5})}]
     if "[mock:ask2]" in text and "ask_user_question" in names:
         return [{"name": "ask_user_question", "arguments": json.dumps(_SCRIPTS["[mock:ask]"][1])}] * 2
     for marker, (name, args) in _SCRIPTS.items():
         if marker in text and name in names:
             return [{"name": name, "arguments": json.dumps(args)}]
     return None
+
+
+def _goal_round_call(messages: list[dict[str, Any]], names: set[Any]) -> list[dict[str, Any]] | None:
+    """In a goal round: read the goal, then mark it complete (once)."""
+    users = [i for i, m in enumerate(messages) if m.get("role") == "user"]
+    if not users or "update_goal" not in names:
+        return None
+    last = users[-1]
+    if "<goal_round>" not in str(messages[last].get("content")):
+        return None
+    if "[mock:stay]" in str(messages[last].get("content")):  # a goal that keeps running: slow work, never completes
+        if messages[-1].get("role") == "user" and names & {"bash", "execute"}:
+            return [{"name": "bash" if "bash" in names else "execute", "arguments": json.dumps({"command": "sleep 2; echo WORKING"})}]
+        return None
+    after = messages[last + 1:]
+    if any(c.get("function", {}).get("name") == "update_goal" for m in after for c in m.get("tool_calls") or []):
+        return None
+    seen = [m for m in after if m.get("role") == "tool" and '"goal":{"id"' in str(m.get("content"))]
+    if not seen:
+        return [{"name": "get_goal", "arguments": "{}"}]
+    g = json.loads(seen[-1]["content"])["goal"]
+    return [{"name": "update_goal", "arguments": json.dumps({"goal_id": g["id"], "revision": g["revision"], "action": "complete"})}]
 
 
 def mock_reply(body: dict[str, Any]) -> dict[str, Any]:
@@ -140,6 +167,9 @@ def mock_reply(body: dict[str, Any]) -> dict[str, Any]:
     if "harness-lab-judge" in system_text:
         message["content"] = json.dumps({"scores": {"mock": 3}, "overall": 3, "reason": "mock judge"})
         finish = "stop"
+    elif tools and (scripted := _goal_round_call(messages, {t.get("name") for t in tools})) is not None:
+        message["tool_calls"] = [{"id": f"call_{uuid.uuid4().hex[:12]}", "type": "function", "function": f} for f in scripted]
+        finish = "tool_calls"
     elif tools and last_role == "user" and (scripted := _scripted_calls(messages, tools)) is not None:
         message["tool_calls"] = [{"id": f"call_{uuid.uuid4().hex[:12]}", "type": "function", "function": f} for f in scripted]
         finish = "tool_calls"

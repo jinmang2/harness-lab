@@ -17,6 +17,10 @@ export interface TrajRow {
   t1?: number
   turn?: number
   error?: boolean
+  /** Assistant request rows: the model it ran on (session start, then "model" switches) and its tool calls. */
+  model?: string
+  toolCalls?: number
+  pending?: boolean
   detail: unknown
 }
 
@@ -29,19 +33,32 @@ export function rowsFromEvents(events: PlayEvent[]): TrajRow[] {
   const rows: TrajRow[] = []
   const open = new Map<string, TrajRow>()
   let turn = 0
+  let model: string | undefined
+  let request: TrajRow | undefined
   for (const ev of events) {
     const rid = String(ev.run_id ?? '')
     switch (ev.type) {
+      case 'session': case 'model':
+        if (typeof ev.model === 'string') model = ev.model
+        break
       case 'request':
         rows.push({ id: 'sys', kind: 'system', tag: 'SYSTEM', content: 'Initial System Prompt', detail: { system: ev.system, tools: ev.tools } })
         break
       case 'user':
         turn += 1
-        rows.push({ id: 'u' + ev.seq, kind: 'user', tag: 'USER', content: String(ev.text ?? ''), t0: ev.t, t1: ev.t + 0.05, turn, detail: { text: ev.text } })
+        // A goal round's prompt is injected context, not a user message (DSH CONTEXT row).
+        rows.push(ev.source === 'goal'
+          ? { id: 'u' + ev.seq, kind: 'context', tag: 'CONTEXT', content: String(ev.text ?? ''), t0: ev.t, t1: ev.t + 0.05, turn, detail: { source: 'goal', text: ev.text } }
+          : { id: 'u' + ev.seq, kind: 'user', tag: 'USER', content: String(ev.text ?? ''), t0: ev.t, t1: ev.t + 0.05, turn, detail: { text: ev.text, attachments: ev.attachments } })
+        break
+      case 'steer':
+        rows.push({ id: 's' + ev.seq, kind: 'user', tag: 'USER', content: String(ev.text ?? ''), t0: ev.t, t1: ev.t + 0.05, detail: { text: ev.text, attachments: ev.attachments } })
         break
       case 'llm_start': {
-        const r: TrajRow = { id: rid, kind: ev.nested ? 'subtool' : 'message', tag: ev.nested ? 'SUBAGENT' : 'ASSISTANT', content: '', t0: ev.t, detail: {} }
+        const r: TrajRow = { id: rid, kind: ev.nested ? 'subtool' : 'message', tag: ev.nested ? 'SUBAGENT' : 'ASSISTANT', content: '', t0: ev.t,
+          model, toolCalls: 0, pending: true, detail: {} }
         open.set(rid, r); rows.push(r)
+        if (!ev.nested) request = r
         break
       }
       case 'reasoning': case 'token': {
@@ -56,10 +73,14 @@ export function rowsFromEvents(events: PlayEvent[]): TrajRow[] {
       }
       case 'llm_end': {
         const r = open.get(rid)
-        if (r) { r.t1 = ev.t; (r.detail as Record<string, unknown>).usage = ev.usage }
+        if (r) { r.t1 = ev.t; r.pending = false; (r.detail as Record<string, unknown>).usage = ev.usage }
         break
       }
+      case 'error':
+        if (request?.pending) { request.pending = false; request.error = true }
+        break
       case 'tool_start': {
+        if (!ev.nested && request) request.toolCalls = (request.toolCalls ?? 0) + 1
         const r: TrajRow = { id: rid, kind: 'tool', tag: 'TOOL', content: `${ev.name} ${typeof ev.args === 'string' ? ev.args : JSON.stringify(ev.args)}`, t0: ev.t, detail: { name: ev.name, args: ev.args } }
         open.set(rid, r); rows.push(r)
         break
@@ -197,6 +218,14 @@ export function Trajectory({ rows }: { rows: TrajRow[] }) {
                 <button type="button" className={tb.close} aria-label="Close" onClick={() => setSelected(null)}><IconCloseOutline16 size={14} /></button>
               </div>
               <div className={tb.detailBody} style={{ overflow: 'auto', padding: 12 }}>
+                {sel.kind === 'message' && (
+                  // DSH request overview: Status, Model, Tool calls.
+                  <dl className={cx(tb.overview, tb.summaryScrollRegion)} data-summary-scroll-region="">
+                    <div><dt>Status</dt><dd className={sel.error ? tb.error : undefined}>{sel.error ? 'Failed' : sel.pending ? 'Pending' : 'Completed'}</dd></div>
+                    {sel.model && <div><dt>Model</dt><dd>{sel.model}</dd></div>}
+                    <div><dt>Tool calls</dt><dd>{sel.toolCalls ?? 0}</dd></div>
+                  </dl>
+                )}
                 <pre style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word', fontSize: 12, margin: 0 }}>{JSON.stringify(sel.detail, null, 2)}</pre>
               </div>
             </aside>

@@ -40,12 +40,33 @@ class ChatDeepSeekThinking(ChatDeepSeek):
 
 # DeepSeek Harness's built-in catalog (packages/llm/llm-deepseek): id, display name, context window.
 MODELS = [
-    {"id": "deepseek-flash", "name": "DeepSeek-V41-Flash", "context": 1_000_000},
-    {"id": "deepseek-v4-flash", "name": "DeepSeek-V4-Flash", "context": 1_000_000},
-    {"id": "deepseek-v4-pro", "name": "DeepSeek-V4-Pro", "context": 1_000_000},
+    {"id": "deepseek-flash", "name": "DeepSeek-V41-Flash", "context": 1_000_000, "input": ["text", "image"]},
+    {"id": "deepseek-v4-flash", "name": "DeepSeek-V4-Flash", "context": 1_000_000, "input": ["text"]},
+    {"id": "deepseek-v4-pro", "name": "DeepSeek-V4-Pro", "context": 1_000_000, "input": ["text"]},
+    {"id": "deepseek-v4-flash-vision-exp", "name": "DeepSeek-V4-Flash-Vision-Exp", "context": 1_000_000, "input": ["text", "image"]},
 ]
 CATALOG = [m["id"] for m in MODELS]
 EFFORTS = ["off", "low", "high", "max"]  # "off" = thinking disabled, as in DeepSeek Harness
+
+
+def accepts_images(model: str) -> bool:
+    return "image" in next((m.get("input", ["text"]) for m in MODELS if m["id"] == model), ["text"])
+
+
+def retarget(model_obj: BaseChatModel, model: str | None, effort: str | None) -> None:
+    """Switch a live ChatDeepSeekThinking in place; the agent binds tools per request, so the
+    change applies from the next model call (DSH: "a running step keeps the model it started with")."""
+    if not isinstance(model_obj, ChatDeepSeekThinking):
+        raise ValueError("model switching needs the built-in DeepSeek route (not LAB_MODEL_SPEC)")
+    if model:
+        model_obj.model_name = model
+    if effort:
+        body = dict(model_obj.extra_body or {})
+        body["thinking"] = {"type": "disabled" if effort == "off" else "enabled"}
+        body.pop("reasoning_effort", None)
+        if effort != "off":
+            body["reasoning_effort"] = effort
+        model_obj.extra_body = body
 
 
 def model_name(model: str | None = None) -> str:

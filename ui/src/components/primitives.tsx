@@ -7,6 +7,7 @@ import dialogCss from '../dsh/css/stat-dialog.module.css'
 import discCss from '../dsh/css/DisclosureRow.module.css'
 import modalCss from '../dsh/css/Modal.module.css'
 import buttonCss from '../dsh/css/Button.module.css'
+import stateDotCss from '../dsh/css/StateDot.module.css'
 import { cx } from '../lib/format.ts'
 
 const MARGIN = 12
@@ -61,17 +62,19 @@ interface MenuProps {
   children: ReactNode
   footer?: ReactNode
   minWidth?: number
+  /** DSH Menu `dense`: tighter rows, same typography. */
+  dense?: boolean
 }
 
 /** DSH Menu: portaled card (`list scrollable portal`) with a scrolling viewport. */
-export function Menu({ open, onClose, anchor, side = 'bottom', align = 'start', children, footer, minWidth }: MenuProps) {
+export function Menu({ open, onClose, anchor, side = 'bottom', align = 'start', children, footer, minWidth, dense }: MenuProps) {
   const card = useRef<HTMLDivElement>(null)
   const pos = useAnchoredPosition(open, anchor, card, side, align)
   const refs = useRef([card, anchor]).current
   useDismiss(open, onClose, refs)
   if (!open) return null
   return createPortal(
-    <div ref={card} className={cx(menuCss.list, menuCss.scrollable, menuCss.portal)} role="menu" style={{ ...pos, minWidth }}>
+    <div ref={card} className={cx(menuCss.list, dense && menuCss.denseList, menuCss.scrollable, menuCss.portal)} role="menu" style={{ ...pos, minWidth }}>
       <div className={menuCss.viewport} role="presentation">{children}</div>
       {footer && <div className={menuCss.footer}>{footer}</div>}
     </div>,
@@ -125,23 +128,58 @@ export function StatDialog({ open, onClose, anchor, title, icon, value, children
   )
 }
 
-/** DSH DisclosureRow: icon that turns into a chevron on hover, a title, and optional summary. */
-export function DisclosureRow({ icon, title, open, onToggle, children, className, rowClassName, leadingClassName, titleClassName }: {
+/**
+ * DSH DisclosureRow (ui-primitives DisclosureRow.tsx). Passing `expandable` selects the DSH contract:
+ * `collapsedContent` sits in the row, `children` is the body shown while open, and a non-expandable row
+ * is plain (no button role). Without `expandable` the row keeps the older shape where `children` sit
+ * in the row and the caller renders the body.
+ */
+export function DisclosureRow({
+  icon, title, open, onToggle, children, className, rowClassName, leadingClassName, titleClassName,
+  expandable, expandOnRowClick = true, previewChevron, keepContentWhenOpen = false, collapsedContent, chevronClassName,
+}: {
   icon: ReactNode; title: ReactNode; open: boolean; onToggle: () => void; children?: ReactNode
   className?: string; rowClassName?: string; leadingClassName?: string; titleClassName?: string
+  expandable?: boolean; expandOnRowClick?: boolean; previewChevron?: boolean; keepContentWhenOpen?: boolean
+  collapsedContent?: ReactNode; chevronClassName?: string
 }) {
-  return (
-    <div className={cx(discCss.root, className)}>
-      <div className={cx(discCss.row, rowClassName)} role="button" tabIndex={0} aria-expanded={open} data-expandable=""
-        onClick={onToggle} onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onToggle() } }}>
-        <span className={cx(discCss.leading, leadingClassName)}>
-          {open
-            ? <IconChevronDownOutline14 />
-            : <><span className={discCss.iconIdle}>{icon}</span><IconChevronRightOutline14 className={discCss.chevronHover} /></>}
-        </span>
-        <span className={cx(discCss.title, titleClassName)}>{title}</span>
-        {children}
+  if (expandable === undefined) {
+    return (
+      <div className={cx(discCss.root, className)}>
+        <div className={cx(discCss.row, rowClassName)} role="button" tabIndex={0} aria-expanded={open} data-expandable=""
+          onClick={onToggle} onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onToggle() } }}>
+          <span className={cx(discCss.leading, leadingClassName)}>
+            {open
+              ? <IconChevronDownOutline14 />
+              : <><span className={discCss.iconIdle}>{icon}</span><IconChevronRightOutline14 className={discCss.chevronHover} /></>}
+          </span>
+          <span className={cx(discCss.title, titleClassName)}>{title}</span>
+          {children}
+        </div>
       </div>
+    )
+  }
+  const rowExpands = expandable && expandOnRowClick
+  const preview = previewChevron ?? expandable
+  const leading = open
+    ? <IconChevronDownOutline14 className={chevronClassName} />
+    : preview
+      ? <><span className={discCss.iconIdle}>{icon}</span><IconChevronDownOutline14 className={cx(chevronClassName, discCss.chevronHover)} /></>
+      : icon
+  return (
+    <div className={cx(discCss.root, className)} data-open={open || undefined}>
+      <div className={cx(discCss.row, rowClassName)} data-disclosure-row="" data-expandable={rowExpands || undefined}
+        role={rowExpands ? 'button' : undefined} tabIndex={rowExpands ? 0 : undefined} aria-expanded={rowExpands ? open : undefined}
+        onClick={rowExpands ? onToggle : undefined}
+        onKeyDown={rowExpands ? e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onToggle() } } : undefined}>
+        {expandable && !rowExpands
+          ? <button type="button" className={cx(discCss.leading, leadingClassName)} aria-expanded={open}
+              onClick={e => { e.stopPropagation(); onToggle() }}>{leading}</button>
+          : <span className={cx(discCss.leading, leadingClassName)}>{leading}</span>}
+        <span className={cx(discCss.title, titleClassName)}>{title}</span>
+        {(keepContentWhenOpen || !open) && collapsedContent}
+      </div>
+      {open && children}
     </div>
   )
 }
@@ -180,4 +218,23 @@ export function Modal({ open, onClose, title, description, children, footer, cla
 export function Button({ variant = 'outline', size = 'md', className, ...rest }:
   React.ButtonHTMLAttributes<HTMLButtonElement> & { variant?: 'primary' | 'outline' | 'ghost'; size?: 'sm' | 'md' }) {
   return <button type="button" className={cx(buttonCss.button, buttonCss[variant], buttonCss[size], className)} {...rest} />
+}
+
+/** Outer 3x3 matrix cells of the ongoing StateDot, clockwise from top-left. */
+const MATRIX_CELLS: readonly (readonly [number, number])[] = [[0, 0], [4, 0], [8, 0], [8, 4], [8, 8], [4, 8], [0, 8], [0, 4]]
+
+/** DSH StateDot: done / warning / error / idle dot, or the chasing matrix while ongoing (aria-hidden). */
+export function StateDot({ state, size = 10, className }: { state: 'done' | 'warning' | 'ongoing' | 'error' | 'idle'; size?: number; className?: string }) {
+  if (state === 'ongoing') {
+    return (
+      <svg className={cx(stateDotCss.matrix, className)} data-state="ongoing" width={size} height={size} viewBox="0 0 10 10"
+        shapeRendering="crispEdges" aria-hidden="true">
+        {MATRIX_CELLS.map(([x, y], i) => (
+          <rect key={`${x}-${y}`} className={stateDotCss.cell} x={x} y={y} width="2" height="2"
+            style={{ animationDelay: `${(i - MATRIX_CELLS.length) * 125}ms` }} />
+        ))}
+      </svg>
+    )
+  }
+  return <span className={cx(stateDotCss.dot, className)} data-state={state} style={{ width: size, height: size }} aria-hidden="true" />
 }
