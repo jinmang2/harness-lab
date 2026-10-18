@@ -1,0 +1,13 @@
+# Custom RALPH (week2): the Creator-built `@local/verified-ralph` bundle, headless.
+#
+# The bundle declares a `verified-ralph` agent preset (standard rows + this row), but
+# the headless one-shot runner does not compose presets, so this overlay mounts the
+# same row on the headless profile, whose base composition is the standard one.
+# Install first: `dsh plugin --profile headless add link:<repo>/dsh/bundles/verified-ralph`.
+# The config matches the preset row; the official `tool-ralph` stays disabled (0.2.x default).
+- insert:
+    - id: verified-ralph
+      name: '@local/verified-ralph'
+      config:
+        maxRounds: 5
+        verifyCommand: !!js "'python3 ' + process.env.LAB_ROOT + '/tasks/checks/week2_verify.py .'"

@@ -35,11 +35,13 @@ HARNESSES: dict[str, list[str]] = {
     "standard": ["common.yml"],
     "minimal": ["common.yml", "minimal.yml"],
     "ralph-official": ["common.yml", "ralph-official.yml"],
+    "ralph-custom": ["common.yml", "ralph-custom.yml"],
 }
 
 # harnesses that do not run on DSH_VERSION.
 HARNESS_VERSIONS: dict[str, str] = {
     "ralph-official": WEEK2_VERSION,
+    "ralph-custom": WEEK2_VERSION,
 }
 
 
@@ -83,6 +85,7 @@ def environment(version: str | None = None) -> dict[str, str]:
     env["DSH_HOME"] = str(home_dir(version))
     env["DSH_TELEMETRY_MODE"] = "DISABLED"
     env.setdefault("LAB_MODEL", "deepseek-v4-flash")
+    env.setdefault("LAB_ROOT", str(ROOT))  # patches name repo files through it (ralph-custom's verifier)
     return env
 
 

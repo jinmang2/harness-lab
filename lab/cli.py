@@ -7,6 +7,7 @@
     lab view                                   the same UI, read-only (runs and anatomy only)
     lab judge runs/<batch>                     Output Quality via LLM-judge (task rubrics)
     lab week1 runs/<batch> --id <GitHub-ID>    week 1 assignment result.md from a week1-assignment batch
+    lab week2 <batch>... --id <GitHub-ID>      week 2 RALPH comparison from tasks/week2.yaml batches
     lab report runs/<batch>                    rebuild report.md
     lab dsh-install [--version V]              install pinned DeepSeek Harness (npm, no build)
 """
@@ -33,6 +34,11 @@ def _cmd_list(args: argparse.Namespace) -> None:
     print("\ndsh harnesses (headless + patches):")
     for name, patches in dsh.HARNESSES.items():
         print(f"  {name:<14} {' + '.join(patches)}  (dsh {dsh.version_of(name)})")
+    from lab import dsh_web
+
+    print("\ndsh-web harnesses (Web host, preset per session):")
+    for name, (patches, preset) in dsh_web.HARNESSES.items():
+        print(f"  {name:<14} preset {preset} + {' + '.join(patches)}  (dsh {dsh_web.VERSION})")
     print("\ntasks:")
     for path in sorted(TASKS_DIR.glob("*.yaml")):
         for t in load_tasks(path):
@@ -45,13 +51,15 @@ def _cmd_run(args: argparse.Namespace) -> None:
     harnesses = [h.strip() for h in args.harness.split(",") if h.strip()]
     engines = [e.strip() for e in args.engine.split(",") if e.strip()]
     combos = [(e, h) for e in engines for h in harnesses]
-    if "dsh" in engines:
-        from lab import dsh
+    from lab import dsh, dsh_web
 
-        unsupported = [h for h in harnesses if h not in dsh.HARNESSES]
-        combos = [(e, h) for e, h in combos if not (e == "dsh" and h in unsupported)]
-        if unsupported:
-            print(f"note: dsh engine has no {', '.join(unsupported)}; running those on lab only")
+    known = {"dsh": dsh.HARNESSES, "dsh-web": dsh_web.HARNESSES}
+    for engine, table in known.items():
+        if engine in engines:
+            unsupported = [h for h in harnesses if h not in table]
+            combos = [(e, h) for e, h in combos if not (e == engine and h in unsupported)]
+            if unsupported:
+                print(f"note: {engine} engine has no {', '.join(unsupported)}; skipping those there")
     tasks = load_tasks(Path(args.tasks), args.task or None)
     batch_dir = run_batch(
         tasks, combos, repeat=args.repeat, label=args.label, judge=args.judge, tasks_file=Path(args.tasks).resolve()
@@ -100,6 +108,19 @@ def _cmd_week1(args: argparse.Namespace) -> None:
     print(f"week1 result: {path}  (edit the drafted reasons, then copy to workspace/week1/{args.id}/result.md)")
 
 
+def _cmd_dsh_web_setup(args: argparse.Namespace) -> None:
+    from lab import dsh_web
+
+    dsh_web.setup()
+
+
+def _cmd_week2(args: argparse.Namespace) -> None:
+    from lab.week2 import write
+
+    path = write([Path(b) for b in args.batch], args.id, Path(args.out) if args.out else None, args.exclude)
+    print(f"week2 result: {path}  (add the design notes, then copy to workspace/week2/{args.id}/)")
+
+
 def _cmd_report(args: argparse.Namespace) -> None:
     from lab.report import write_report
 
@@ -123,7 +144,7 @@ def main(argv: list[str] | None = None) -> None:
 
     run = sub.add_parser("run", help="run tasks x harnesses x engines")
     run.add_argument("-H", "--harness", default="minimal,standard", help="comma-separated harness names")
-    run.add_argument("-e", "--engine", default="lab", help="lab, dsh, or lab,dsh")
+    run.add_argument("-e", "--engine", default="lab", help="lab, dsh (headless), dsh-web (Web host), comma-separated")
     run.add_argument("-T", "--tasks", default=str(TASKS_DIR / "week1.yaml"), help="task file")
     run.add_argument("-t", "--task", action="append", help="only this task id (repeatable)")
     run.add_argument("-n", "--repeat", type=int, default=1)
@@ -156,6 +177,16 @@ def main(argv: list[str] | None = None) -> None:
     wk.add_argument("--id", required=True, help="your GitHub ID (title of the write-up)")
     wk.add_argument("--out", help="output path (default: runs/<batch>/week1-result.md)")
     wk.set_defaults(func=_cmd_week1)
+
+    dws = sub.add_parser("dsh-web-setup", help="create the isolated DSH Web profile for the dsh-web engine and link dsh/bundles")
+    dws.set_defaults(func=_cmd_dsh_web_setup)
+
+    w2 = sub.add_parser("week2", help="write the week 2 RALPH comparison from one or more batches of tasks/week2.yaml")
+    w2.add_argument("batch", nargs="+")
+    w2.add_argument("--id", required=True, help="your GitHub ID (title of the write-up)")
+    w2.add_argument("--out", help="output path (default: <first batch>/week2-result.md)")
+    w2.add_argument("--exclude", action="append", default=[], help="skip runs matching <batch>/<run_id> (fnmatch, repeatable)")
+    w2.set_defaults(func=_cmd_week2)
 
     rep = sub.add_parser("report", help="rebuild report.md for a batch")
     rep.add_argument("batch")

@@ -81,3 +81,60 @@ def test_dsh_official_ralph_runs_fresh_child(mock_gateway):
     bodies = [json.loads(gateway.body_path(w["id"]).read_text()) for w in wire]
     assert not any("dsh_session_log" in b or "dsh_plugin_packages" in b for b in bodies)  # nothing but the request leaves
 
+
+@pytest.mark.skipif(not os.environ.get("LAB_TEST_DSH"), reason="set LAB_TEST_DSH=1 (needs `lab dsh-install --version 0.2.0-rc.2`)")
+def test_dsh_custom_ralph_overrides_a_false_completion(mock_gateway):
+    # The mock worker reports `complete` every round, but the deployment verifier (week2 acceptance) fails on an
+    # empty workspace, so the Creator-built plugin starts round 2 and stops at the call's maxRounds.
+    if not dsh.bin_path(dsh.WEEK2_VERSION).exists():
+        pytest.skip(f"DeepSeek Harness {dsh.WEEK2_VERSION} not installed")
+    if not (dsh.home_dir(dsh.WEEK2_VERSION) / "profiles" / "headless" / "node_modules" / "@local" / "verified-ralph").exists():
+        pytest.skip("verified-ralph bundle not installed in the headless profile")
+    task = Task(id="vralph-smoke", prompt="[mock:vralph] write DONE.md")
+    batch_dir = run_batch([task], [("dsh", "ralph-custom")], label="pytest-vralph")
+    run = json.loads((batch_dir / "summary.jsonl").read_text().splitlines()[0])
+    assert run["status"] == "ok", run["error"]
+    assert run["tools_used"]["verified_ralph"] == 1 and run["tools_used"]["structured_output"] == 2
+    run_dir = batch_dir / run["run_id"]
+    assert (run_dir / "dsh-session.2.jsonl").is_file()  # two rounds, two fresh children
+    trace = [json.loads(line) for line in (run_dir / "trace.jsonl").read_text().splitlines()]
+    result = next(e for e in trace if e["kind"] == "tool" and e["name"] == "verified_ralph")["result_preview"]
+    assert result.startswith("verified_ralph ended as budget-limited after 2 rounds.")
+    assert "round 1 fail (exit 2), round 2 fail (exit 2)" in result  # empty workspace: week2_verify finds no SPEC.md
+    progress = (run_dir / "workspace" / ".ralph" / "progress.md").read_text()
+    assert "Round 1" in progress and "Round 2" in progress  # written by the plugin, not the worker
+
+
+@pytest.mark.skipif(not os.environ.get("LAB_TEST_DSH"), reason="set LAB_TEST_DSH=1 (needs DSH 0.2 and `lab dsh-web-setup`)")
+def test_dsh_web_runs_presets_and_goal_rounds(mock_gateway):
+    from lab import dsh_web
+    from lab.week2 import rounds
+
+    if not dsh.bin_path(dsh.WEEK2_VERSION).exists() or not dsh_web.profile_dir().exists():
+        pytest.skip("DSH 0.2 or the dsh-web profile is missing")
+    tasks = [Task(id="goal", prompt="/goal write DONE.md"), Task(id="ralph", prompt="[mock:ralph] write DONE.md")]
+    batch_dir = run_batch(tasks, [("dsh-web", "goal"), ("dsh-web", "ralph-official")], label="pytest-dsh-web")
+    runs = {json.loads(line)["run_id"]: json.loads(line) for line in (batch_dir / "summary.jsonl").read_text().splitlines()}
+    goal_run = runs["goal__dsh-web-goal__1"]
+    assert goal_run["status"] == "ok", goal_run["error"]
+    # `/goal` went through commands/execute (no model call), then the Web driver sent round 1 and the mock completed it
+    assert [(r["round"], r["decision"]) for r in rounds(batch_dir / "goal__dsh-web-goal__1", "dsh-web")] == [(1, "complete")]
+    header = json.loads((batch_dir / "ralph__dsh-web-ralph-official__1" / "dsh-session.jsonl").read_text().splitlines()[0])
+    assert header["agentPreset"] == "lab-ralph-official"
+    assert (batch_dir / "ralph__dsh-web-ralph-official__1" / "dsh-session.1.jsonl").is_file()  # the round's fresh child
+    assert runs["ralph__dsh-web-ralph-official__1"]["tools_used"]["ralph"] == 1
+
+
+def test_ralph_preset_patch_differs_from_standard_only_in_the_ralph_row():
+    from lab import dsh_web
+
+    if not dsh_web.shipped_standard_preset().exists():
+        pytest.skip("DSH 0.2 not installed")
+    generated = dsh_web.ralph_preset_patch(dsh_web.shipped_standard_preset().read_text())
+    assert generated == (dsh.PATCH_DIR / "web-ralph-official.yml").read_text()  # the committed file is current
+    shipped = [ln for ln in dsh_web.shipped_standard_preset().read_text().splitlines() if not ln.startswith("#")]
+    ours = [ln for ln in generated.splitlines() if not ln.startswith("#") and ln]
+    import difflib
+
+    removed = [ln[1:].strip() for ln in difflib.ndiff([x for x in shipped if x.strip()], ours) if ln.startswith("- ")]
+    assert removed == ["- id: preset-standard", "id: standard", "order: 1", "disabled: true", "maxRounds: 64"]

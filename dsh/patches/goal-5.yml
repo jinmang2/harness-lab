@@ -1,0 +1,8 @@
+# DSH goal (week2): same-session rounds driven by goal-round-driver, deployment cap 5.
+#
+# `/goal <objective>` creates a goal with the goal service's `defaultMaxGoalRounds` (256 by
+# default); week2 compares every loop at 5 rounds. Headless exits at the first idle, so goal
+# rounds only run on a long-lived host (Web).
+- id: goal
+  config:
+    defaultMaxGoalRounds: 5

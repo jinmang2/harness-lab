@@ -20,6 +20,8 @@
 - 파서는 v3와 v4를 모두 읽어요.
 - 공식 ralph는 `dsh/patches/ralph-official.yml`로 켜요. base 행 주석에 적힌 복원 방법 그대로이고, 비교를 위해 `maxRounds: 5`로 맞춰요.
 - Web에서 Creator Mode로 만든 번들은 headless 프로필에 `dsh plugin`으로 한 번 더 설치하고, Preset은 patch로 재현해요(minimal을 재현한 방식과 같아요).
+  - headless 실행기는 preset을 조립하지 않아요(`runs under agent preset …, which the one-shot runner does not compose`). 그래서 `ralph-custom.yml`은 preset에 추가한 행 하나(`verified-ralph`)를 headless 기본 구성에 그대로 얹어요. headless 기본 구성은 Web의 standard preset과 행을 묶는 방식이 달라요(persona/planning/delegation 그룹 대신 system-prompt, plan-mode, subagent 행). 그래도 `ralph-official`과 `ralph-custom`은 같은 기본 구성에 도구 하나씩만 더하니 둘 사이 비교는 공정해요.
+  - Plugin Manager의 설치는 `pnpm`을 PATH에서 찾아요. pnpm이 PATH에 없으면 설치가 ENOENT로 실패하니, Web을 띄울 때 PATH에 넣어 줘요.
 
 ## 고려한 대안
 - **전부 0.2.0으로 올리기:** week1 수치와 스터디 기준 버전이 함께 바뀌어요.
