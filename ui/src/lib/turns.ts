@@ -59,14 +59,53 @@ export interface Folded {
   goal?: unknown
   /** Forked from this session id. */
   parent?: string
+  /** Child agents a loop tool started (ralph rounds), in start order. */
+  children: ChildAgent[]
 }
+
+/**
+ * A child agent on its own thread (lab/middleware/ralph.py `_run_child`), announced by `child_start`.
+ * Its events are kept here, not in the parent turn: DSH Web opens a child as its own conversation.
+ */
+export interface ChildAgent {
+  id: string
+  /** The spawner's label (verified_ralph names its rounds); DSH lists a child by its label, else its title. */
+  label: string | null
+  title: string
+  depth: number
+  /** The enclosing child, for a child started inside another child. */
+  parent: string | null
+  /** UI id of the tool call that started it. */
+  toolRunId: string | null
+  prompt: string
+  t0: number
+  t1?: number
+  status: 'running' | 'done' | 'error'
+  error?: string
+  usage: { input: number; cached: number; output: number; steps: number }
+  events: PlayEvent[]
+}
+
+export const childName = (c: ChildAgent): string => c.label ?? c.title
+
+/** A child's own event stream: its round prompt as the user message, then its runs (nested relative to the child). */
+export function childEvents(c: ChildAgent): PlayEvent[] {
+  const events: PlayEvent[] = [{ seq: -1, type: 'user', t: c.t0, text: c.prompt, source: 'user' }]
+  for (const ev of c.events) events.push({ ...ev, nested: Boolean(ev.child_nested) })
+  if (c.status === 'error') events.push({ seq: -2, type: 'error', t: c.t1 ?? c.t0, text: c.error || 'The child stopped with an error' })
+  if (c.status !== 'running') events.push({ seq: -3, type: 'turn_end', t: c.t1 ?? c.t0 })
+  return events
+}
+
+export const foldChild = (c: ChildAgent): Folded => fold(childEvents(c))
 
 const emptyUsage = () => ({ input: 0, cached: 0, output: 0, reasoning: 0, steps: 0, lastInput: 0 })
 
 const asAttachments = (v: unknown): Attachment[] => (Array.isArray(v) ? v as Attachment[] : [])
 
 export function fold(events: PlayEvent[]): Folded {
-  const out: Folded = { turns: [], after: [] }
+  const out: Folded = { turns: [], after: [], children: [] }
+  const children = new Map<string, ChildAgent>()
   let turn: Turn | null = null
   const llm = new Map<string, { think?: ThinkItem; text?: TextItem; nested: boolean; t0: number }>()
   const tools = new Map<string, ToolItem & { t0: number }>()
@@ -102,7 +141,38 @@ export function fold(events: PlayEvent[]): Folded {
           ...(ev.outcome === 'success' || ev.outcome === 'error' ? { outcome: ev.outcome } : {}),
         })
         break
+      case 'child_start': {
+        const c: ChildAgent = {
+          id: String(ev.child_id ?? ''), label: typeof ev.label === 'string' && ev.label !== '' ? ev.label : null,
+          title: String(ev.title ?? ev.child_id ?? ''), depth: Number(ev.depth ?? 1),
+          parent: typeof ev.parent === 'string' ? ev.parent : null, toolRunId: typeof ev.parent_tool_run_id === 'string' ? ev.parent_tool_run_id : null,
+          prompt: String(ev.prompt ?? ''), t0: ev.t, status: 'running', usage: { input: 0, cached: 0, output: 0, steps: 0 }, events: [],
+        }
+        if (!children.has(c.id)) { children.set(c.id, c); out.children.push(c) }
+        break
+      }
+      case 'child_end': {
+        const c = children.get(String(ev.child_id ?? ''))
+        if (c) {
+          c.status = ev.error ? 'error' : 'done'
+          c.t1 = ev.t
+          if (ev.error) c.error = String(ev.text ?? '')
+        }
+        break
+      }
       default: {
+        const owner = typeof ev.child === 'string' ? children.get(ev.child) : undefined
+        if (owner) {
+          owner.events.push(ev)
+          const u = (ev.usage ?? {}) as Usage
+          if (ev.type === 'llm_end' && u.input_tokens != null) {
+            owner.usage.input += u.input_tokens ?? 0
+            owner.usage.cached += u.input_token_details?.cache_read ?? 0
+            owner.usage.output += u.output_tokens ?? 0
+            owner.usage.steps += 1
+          }
+          break
+        }
         if (!turn) break
         const t = turn
         const rid = String(ev.run_id ?? '')
@@ -178,6 +248,11 @@ export function fold(events: PlayEvent[]): Folded {
       }
     }
   }
+  // A turn that ended (stop, error) without the child's end event settles its children.
+  const last = out.turns[out.turns.length - 1]
+  if (last && last.status !== 'running' && last.status !== 'waiting') {
+    for (const c of out.children) if (c.status === 'running') { c.status = 'error'; c.t1 = last.endT ?? c.t0; c.error = 'The turn ended before this child finished.' }
+  }
   // The answer is the last top-level text of a finished turn; earlier texts stay in the process.
   for (const t of out.turns) {
     if (t.status === 'running' || t.status === 'waiting') continue
@@ -233,6 +308,7 @@ const VARIANT_TITLES: Record<ToolVariant, string> = {
 const TOOL_TITLES: Record<string, string> = {
   pwsh: 'Pwsh', read_image: 'Read image', grep: 'Grep', glob: 'Glob', web_search: 'Search', web_fetch: 'Fetch',
   todo_write: 'Update to-do list', write_todos: 'Update to-do list', ask_user_question: 'Ask question', skill: 'Skill',
+  ralph: 'Run ralph loop', verified_ralph: 'verified_ralph',
 }
 
 const SUMMARY_KEYS: Record<ToolVariant, readonly string[]> = {
@@ -348,4 +424,105 @@ export function toolRow(item: ToolItem, cwd?: string): ToolRowModel {
   const output = item.done ? item.preview ?? '' : ''
   const errorSummary = state === 'error' && output !== '' ? firstLine(output) : null
   return { variant, title: own ?? VARIANT_TITLES[variant], summary, suffix: errorSummary === null ? suffix : null, diff, state, errorSummary }
+}
+
+// ── Loop tool result cards (DSH ui-tool ToolDetails; workflowDetails for `ralph`) ──
+
+/** One recorded entity in a detail card (DSH ToolDetailItem, the parts lab uses). */
+export interface ToolDetailItem {
+  title?: string
+  badge?: { label: string; tone: 'neutral' | 'info' | 'success' | 'warning' | 'error' }
+  description?: string
+  fields: { label: string; value: string }[]
+  lines?: string[]
+  code?: string
+  groups?: { label: string; items: ToolDetailItem[] }[]
+}
+
+/** DSH ToolDetailsModel: the card body and the collapsed-row summary. */
+export interface ToolDetailsModel { items: ToolDetailItem[]; summary?: string }
+
+export function isLoopTool(name: string): boolean {
+  return name === 'ralph' || name === 'verified_ralph'
+}
+
+const strings = (v: unknown): v is string[] => Array.isArray(v) && v.every(x => typeof x === 'string')
+const record = (v: unknown): v is Record<string, unknown> => typeof v === 'object' && v !== null && !Array.isArray(v)
+function json(text: string): unknown {
+  try { return JSON.parse(text) } catch { return undefined }
+}
+
+/** DSH workflowDetails (ralph branch): the head line picks the badge; the final report JSON fills the card. */
+function ralphDetails(objective: unknown, text: string): ToolDetailsModel | null {
+  const split = text.indexOf('\nFinal report:\n')
+  if (split < 0) return null
+  const header = text.slice(0, split)
+  const rounds = /\b(\d+) rounds?\b/u.exec(header)?.[1]
+  const report = json(text.slice(split + 15))
+  if (!record(report) || typeof report.summary !== 'string' || !strings(report.evidence) || !strings(report.nextSteps)
+    || typeof report.blocker !== 'string') return null
+  const badge: ToolDetailItem['badge'] = header.startsWith('Ralph worker reported completion ') ? { label: 'Worker reported completion', tone: 'success' }
+    : header.startsWith('Ralph worker reported a blocker ') ? { label: 'Worker reported a blocker', tone: 'warning' }
+    : header.startsWith('Ralph reached its ') ? { label: 'Round limit reached', tone: 'warning' }
+    : undefined
+  if (badge === undefined) return null
+  const groups: NonNullable<ToolDetailItem['groups']> = []
+  if (report.nextSteps.length > 0) groups.push({ label: 'Remaining work', items: [{ fields: [], lines: report.nextSteps }] })
+  if (typeof objective === 'string') groups.push({ label: 'Task', items: [{ fields: [], description: objective }] })
+  const fields = rounds === undefined ? [] : [{ label: 'Rounds', value: rounds }]
+  if (report.blocker !== '') fields.push({ label: 'Blocker', value: report.blocker })
+  return {
+    items: [{ title: report.summary, badge, fields, ...(report.evidence.length === 0 ? {} : { lines: report.evidence }), groups }],
+    summary: report.summary,
+  }
+}
+
+const VERIFIED_BADGES: Record<string, NonNullable<ToolDetailItem['badge']>> = {
+  verified: { label: 'Verified', tone: 'success' },
+  blocked: { label: 'Worker reported a blocker', tone: 'warning' },
+  'self-reported': { label: 'Self-reported completion', tone: 'warning' },
+  'budget-limited': { label: 'Round limit reached', tone: 'warning' },
+  'round-failed': { label: 'Round failed', tone: 'warning' },
+}
+
+/** verified_ralph `renderMessage` (dsh/bundles/verified-ralph, lab/middleware/ralph.py `verified_render`) read back. */
+function verifiedRalphDetails(objective: unknown, text: string): ToolDetailsModel | null {
+  const head = /^verified_ralph ended as (\S+) after (\d+) rounds?\./u.exec(text)
+  if (head === null) return null
+  const status = head[1]
+  const line = (prefix: string) => text.split('\n').find(l => l.startsWith(prefix))?.slice(prefix.length)
+  const TAIL = '\nLast verifier output tail:\n'
+  const REPORT = '\nLast worker report:\n'
+  const tailAt = text.indexOf(TAIL)
+  const reportAt = text.indexOf(REPORT)
+  const report = reportAt < 0 ? undefined : json(text.slice(reportAt + REPORT.length, tailAt > reportAt ? tailAt : undefined))
+  const tail = tailAt < 0 ? '' : text.slice(tailAt + TAIL.length)
+  const worker = record(report) && typeof report.summary === 'string' ? report : null
+  const fields = [{ label: 'Rounds', value: head[2] }]
+  const verifier = line('Verifier: ')
+  if (verifier !== undefined) fields.push({ label: 'Verifier', value: verifier.replace(/\.$/u, '') })
+  const failure = line('Failure: ')
+  if (failure !== undefined) fields.push({ label: 'Failure', value: failure })
+  if (worker && typeof worker.status === 'string') fields.push({ label: 'Worker', value: worker.status })
+  if (worker && typeof worker.blocker === 'string' && worker.blocker !== '') fields.push({ label: 'Blocker', value: worker.blocker })
+  const progress = line('Progress file: ')
+  if (progress !== undefined) fields.push({ label: 'Progress', value: progress })
+  const groups: NonNullable<ToolDetailItem['groups']> = []
+  if (worker && strings(worker.nextSteps) && worker.nextSteps.length > 0) groups.push({ label: 'Remaining work', items: [{ fields: [], lines: worker.nextSteps }] })
+  if (typeof objective === 'string') groups.push({ label: 'Task', items: [{ fields: [], description: objective }] })
+  if (tail !== '') groups.push({ label: 'Verifier output', items: [{ fields: [], code: tail }] })
+  const title = worker ? String(worker.summary) : `Ended as ${status}`
+  return {
+    items: [{ title, badge: VERIFIED_BADGES[status] ?? { label: status, tone: 'warning' }, fields, groups }],
+    summary: title,
+  }
+}
+
+/** The result card of a finished loop tool call, or null to fall back to the generic IN/OUT body. */
+export function loopToolDetails(item: ToolItem): ToolDetailsModel | null {
+  if (!item.done || item.error || !item.preview) return null
+  const objective = asArgs(item.args).objective
+  if (item.name === 'ralph') return ralphDetails(objective, item.preview)
+  if (item.name === 'verified_ralph') return verifiedRalphDetails(objective, item.preview)
+  return null
 }

@@ -16,3 +16,4 @@ runs/
 ui/node_modules/
 .claude/.bc-*.json
 .claude/.bc-explain/
+*.tsbuildinfo

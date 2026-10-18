@@ -112,14 +112,19 @@ export function rowsFromTrace(events: TraceEvent[]): TrajRow[] {
     i += 1
     const t = typeof e.t === 'number' ? e.t : undefined
     const ms = typeof e.latency_ms === 'number' ? e.latency_ms : 0
+    // A loop child's calls (lab/tracing.py `child`) are SUBAGENT rows prefixed with the round label.
+    const who = e.child ? `[${String(e.child_label || e.child)}] ` : ''
     if (e.kind === 'llm') {
       const inp = Number(e.input_uncached ?? 0) + Number(e.cache_read ?? 0) + Number(e.cache_write ?? 0)
       const req = (e.requested_tools as string[] | undefined) ?? []
-      rows.push({ id: 'l' + i, kind: 'message', tag: 'ASSISTANT', t0: t, t1: t !== undefined ? t + ms / 1000 : undefined,
-        content: `step ${e.step} · in ${num(inp)} (cached ${num(e.cache_read)}) · out ${num(e.output)}${req.length ? ' · → ' + req.join(', ') : ''}`, detail: e })
+      rows.push({ id: 'l' + i, kind: e.child ? 'subtool' : 'message', tag: e.child ? 'SUBAGENT' : 'ASSISTANT', t0: t, t1: t !== undefined ? t + ms / 1000 : undefined,
+        content: `${who}step ${e.step} · in ${num(inp)} (cached ${num(e.cache_read)}) · out ${num(e.output)}${req.length ? ' · → ' + req.join(', ') : ''}`, detail: e })
     } else if (e.kind === 'tool') {
       rows.push({ id: 't' + i, kind: 'tool', tag: 'TOOL', error: Boolean(e.error), t0: t, t1: t !== undefined ? t + ms / 1000 : undefined,
-        content: `${e.name} ${typeof e.args === 'string' ? e.args : JSON.stringify(e.args)}  → ${String(e.error || e.result_preview || '').replace(/\s+/g, ' ').slice(0, 120)}`, detail: e })
+        content: `${who}${e.name} ${typeof e.args === 'string' ? e.args : JSON.stringify(e.args)}  → ${String(e.error || e.result_preview || '').replace(/\s+/g, ' ').slice(0, 120)}`, detail: e })
+    } else if (e.kind === 'round') {
+      rows.push({ id: 'r' + i, kind: 'context', tag: 'ROUND', t0: t, t1: t !== undefined ? t + 0.05 : undefined,
+        content: `${e.mechanism} round ${e.round}: ${e.decision ?? ''}${e.verify_exit !== undefined ? ` (verify exit ${e.verify_exit})` : ''}`, detail: e })
     } else if (e.kind === 'interrupt') {
       rows.push({ id: 'i' + i, kind: 'context', tag: 'APPROVAL', content: String(e.policy ?? ''), t0: t, detail: e })
     } else if (e.kind === 'hook') {

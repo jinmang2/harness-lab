@@ -38,12 +38,13 @@ import { post, type Attachment, type SessionInfo } from '../lib/api.ts'
 import { cx, latencySeconds, messageClock, runDuration, tok } from '../lib/format.ts'
 import { Markdown } from '../lib/markdown.tsx'
 import {
-  asArgs, branchable, isSubagentTool, isTodoTool, relativizeToCwd, toolRow, toolVariant,
+  asArgs, branchable, isLoopTool, isSubagentTool, isTodoTool, loopToolDetails, relativizeToCwd, toolRow, toolVariant,
   type ApprovalItem, type CommandItem, type ContextItem, type Folded, type ProcessItem, type SteerItem, type ToolItem, type Turn,
 } from '../lib/turns.ts'
 import { useStore } from '../lib/store.tsx'
 import { Button, DisclosureRow, StatDialog, StateDot } from './primitives.tsx'
 import { MessageAttachments } from './MessageAttachments.tsx'
+import { ToolDetails } from './ToolDetails.tsx'
 
 /** Workspace folder name shown in terminal prompts. */
 export const CwdContext = createContext('')
@@ -68,9 +69,11 @@ interface ChatViewProps {
   sessionId?: string
   /** Fork at a settled turn; defaults to POST play/<id>/fork and opening the child. */
   onFork?: (turn: Turn) => void
+  /** A child agent's record (no branching). */
+  readOnly?: boolean
 }
 
-export function ChatView({ folded, modelLabel, live, sessionId, onFork }: ChatViewProps) {
+export function ChatView({ folded, modelLabel, live, sessionId, onFork, readOnly }: ChatViewProps) {
   const s = useStore()
   const info = useCurrentSession()
   const sid = sessionId ?? info?.id ?? ''
@@ -104,7 +107,7 @@ export function ChatView({ folded, modelLabel, live, sessionId, onFork }: ChatVi
 
   const last = folded.turns[folded.turns.length - 1]
   const running = live && last !== undefined && (last.status === 'running' || last.status === 'waiting')
-  const canBranch = info?.branchable !== false
+  const canBranch = !readOnly && info?.branchable !== false
   return (
     <div className={chat.root}>
       <div className={chat.scroll}>
@@ -485,6 +488,7 @@ function variantIcon(item: ToolItem): ReactNode {
   if (isTodoTool(item.name)) return <IconChecklistOutline14 />
   if (item.name === 'ask_user_question') return <IconQuestionOutline14 size={14} />
   if (item.name === 'skill') return <IconSkillOutline16 size={14} />
+  if (isLoopTool(item.name)) return <IconBranchOutline16 size={14} />
   switch (toolVariant(item.name)) {
     case 'search': return <IconSearchOutline16 size={14} />
     case 'read': return <IconBrowseOutline16 size={14} />
@@ -562,14 +566,16 @@ function TerminalBody({ item }: { item: ToolItem }) {
 function ToolRow({ item, model }: { item: ToolItem; model: ReturnType<typeof toolRow> }) {
   const [expanded, setExpanded] = useState(false)
   const ask = item.name === 'ask_user_question' ? askQuestionView(item.args, item.preview, item.done, item.error) : null
+  // DSH workflowDetails: a loop tool's final report as a detail card; an unreadable result keeps the IN/OUT body.
+  const details = isLoopTool(item.name) ? loopToolDetails(item) : null
   // A cancelled question set is the user's choice, not a failure (DSH: ASK_CANCELLED renders ok).
   const state = ask && ask.summary === 'cancelled' ? 'ok' : model.state
-  const summary = ask ? ask.summary : model.summary
+  const summary = ask ? ask.summary : details?.summary ?? model.summary
   const failure = state === 'error' ? model.errorSummary : null
   const shown = failure ?? summary
   const status = state === 'running' ? 'Running' : state === 'error' ? 'Failed' : null
-  const body = ask?.body ?? <ToolBody item={item} />
-  const expandable = ask ? ask.body !== null : hasToolBody(item)
+  const body = ask?.body ?? (details ? <ToolDetails model={details} /> : <ToolBody item={item} />)
+  const expandable = ask ? ask.body !== null : details !== null || hasToolBody(item)
   const open = expanded && expandable
   return (
     <div className={rowCss.root} data-variant={model.variant} data-tool={item.name} data-state={state}>

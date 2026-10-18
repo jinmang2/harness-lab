@@ -12,7 +12,7 @@ import { post, type SessionInfo } from '../lib/api.ts'
 import { cx } from '../lib/format.ts'
 import { useSessionEvents } from '../lib/session.ts'
 import { modeLabel, useStore } from '../lib/store.tsx'
-import { fold, type ApprovalItem, type QuestionItem } from '../lib/turns.ts'
+import { childEvents, childName, fold, type ApprovalItem, type QuestionItem } from '../lib/turns.ts'
 import { ApprovalPanel, ChatView, CwdContext, TodoPanel, latestTodos } from './Chat.tsx'
 import { PlanChip, QuestionComposer, type QuestionReply } from './Questions.tsx'
 import { ContextMeter, InputBar, ModelSelect, PermissionSelect, StatsPills, modelDisplay, type SendRequest, type SessionStats } from './Composer.tsx'
@@ -22,6 +22,7 @@ import { GoalBar, type GoalAction } from './GoalBar.tsx'
 import { QueueDock, type QueueAction } from './QueueDock.tsx'
 import { LabMark } from './Sidebar.tsx'
 import { Menu, MenuItem, MenuLabel, MenuSeparator } from './primitives.tsx'
+import { SubagentCatalog, SubagentReadOnlyComposer } from './Subagents.tsx'
 import { Trajectory, rowsFromEvents } from './Trajectory.tsx'
 
 function PresetSeat() {
@@ -210,7 +211,13 @@ export function SessionView({ id }: { id: string }) {
   const [menu, setMenu] = useState(false)
   const more = useRef<HTMLButtonElement>(null)
   const folded = useMemo(() => fold(events), [events])
-  const rows = useMemo(() => rowsFromEvents(events), [events])
+  // An open child agent (DSH openChild): its own conversation replaces the session's, read-only.
+  const [childId, setChildId] = useState<string | null>(null)
+  useEffect(() => setChildId(null), [id])
+  const child = childId === null ? undefined : folded.children.find(c => c.id === childId)
+  const shownEvents = useMemo(() => (child ? childEvents(child) : events), [child, events])
+  const shown = useMemo(() => (child ? fold(shownEvents) : folded), [child, shownEvents, folded])
+  const rows = useMemo(() => rowsFromEvents(shownEvents), [shownEvents])
   const todos = latestTodos(folded)
   const live = info?.status !== 'archived'
   const busy = info?.status === 'running' || info?.status === 'waiting'
@@ -274,13 +281,22 @@ export function SessionView({ id }: { id: string }) {
           <div className={root.titleCluster}>
             <nav className={root.crumbs} aria-label="Session hierarchy">
               <span className={root.crumbSeg}>
-                <button type="button" className={cx(root.crumb, root.crumbCurrent)} disabled>{info.title || 'New Session'}</button>
+                {child
+                  ? <button type="button" className={root.crumb} title="Back to the parent session" onClick={() => setChildId(null)}>{info.title || 'New Session'}</button>
+                  : <button type="button" className={cx(root.crumb, root.crumbCurrent)} disabled>{info.title || 'New Session'}</button>}
               </span>
+              {child && (
+                <span className={root.crumbSeg}>
+                  <span className={root.crumbSep} aria-hidden>/</span>
+                  <SubagentCatalog variant="switcher" items={folded.children} current={child.id} onOpen={setChildId} />
+                </span>
+              )}
             </nav>
             <div className={root.headerActions}>
               <span className={presetLabel.label} title={s.harnesses.find(h => h.engine === info.engine && h.name === info.harness)?.description}>
                 <IconAgentPresetOutline16 className={presetLabel.icon} />{modeLabel(info.engine, info.harness)}
               </span>
+              {!child && <SubagentCatalog variant="count" items={folded.children} onOpen={setChildId} />}
               {info.status === 'archived' && <span className={presetLabel.label}>· read-only (earlier run)</span>}
             </div>
           </div>
@@ -310,10 +326,20 @@ export function SessionView({ id }: { id: string }) {
         <div className={root.scrollBody} data-conversation-scroll="">
           <div className={root.viewArea}>
             {tab === 'chat'
-              ? <CwdContext.Provider value={info.workdir.split('/').filter(Boolean).pop() ?? ''}><ChatView folded={folded} modelLabel={`${info.engine} · ${modelDisplay(info.model, s.config?.models)}`} live={live} /></CwdContext.Provider>
+              ? (
+                <CwdContext.Provider value={info.workdir.split('/').filter(Boolean).pop() ?? ''}>
+                  <ChatView key={child?.id ?? 'session'} folded={shown} modelLabel={`${info.engine} · ${modelDisplay(info.model, s.config?.models)}`}
+                    live={child ? live && child.status === 'running' : live} readOnly={child !== undefined} />
+                </CwdContext.Provider>
+              )
               : <Trajectory rows={rows} />}
           </div>
-          {tab === 'chat' && live && (
+          {tab === 'chat' && child && (
+            <div className={root.composerSeat} data-composer-seat="" aria-label={`${childName(child)} record`}>
+              <div className={root.composerStack}><SubagentReadOnlyComposer /></div>
+            </div>
+          )}
+          {tab === 'chat' && live && !child && (
             <div className={root.composerSeat} data-composer-seat="">
               <div className={root.composerStack}>
                 {todos && todos.length > 0 && <TodoPanel todos={todos} />}
