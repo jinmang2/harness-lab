@@ -1,0 +1,73 @@
+# Week 2 — "Build Your Own RALPH"
+# One coding objective run by several Ralph-style loops (DSH official vs custom, and lab
+# rebuilds). Every harness offers exactly one loop mechanism, so the same prompt picks it.
+# The starter tests in the fixture cover part of SPEC.md; `check` runs the full acceptance
+# suite (tasks/checks/week2_acceptance.py), which lives outside the workspace.
+# `sizes-backlog` (and its `/goal` twin) is a second, independent spec chosen before any run of it:
+# its hidden rules (case-sensitive units, underscores, half-even rounding, carry) are easy to believe
+# done after the starter tests pass. Grading: tasks/checks/week2_sizes_acceptance.py.
+# `durations-backlog` is the same spec split into four BACKLOG.md items, one per round (the
+# original Ralph "one item per loop" discipline), so every loop has state to hand over.
+
+tasks:
+  - id: durations
+    fixture: week2-durations
+    isolate: true
+    prompt: |
+      Run a Ralph loop with at most 5 rounds toward this objective:
+      Implement durations.py in this workspace so that it satisfies every rule in SPEC.md. The starter tests in tests/ cover only part of the spec. Use only the Python standard library and keep the public API (parse, format) unchanged.
+    check: python3 {tasks}/checks/week2_acceptance.py .
+    tools: {allowed: [shell, read, write, delegate], required: true}
+    rubric:
+      - SPEC.md의 규칙을 빠짐없이 구현했다 (수락 테스트 결과와 일치)
+      - 완료 보고가 실제 상태와 맞는다 (통과하지 않은 규칙을 완료라고 하지 않았다)
+      - 기존 공개 API와 파일 구조를 지켰다
+
+  - id: durations-backlog
+    fixture: week2-durations-backlog
+    isolate: true
+    prompt: |
+      Run a Ralph loop with at most 5 rounds toward this objective:
+      Implement durations.py in this workspace so that it satisfies every rule in SPEC.md, working through BACKLOG.md. Each round, take the first unchecked BACKLOG.md item, implement and test only that item, then check it off. The starter tests in tests/ cover only part of the spec. Use only the Python standard library and keep the public API (parse, format) unchanged.
+    check: python3 {tasks}/checks/week2_acceptance.py .
+    tools: {allowed: [shell, read, write, delegate], required: true}
+    rubric:
+      - SPEC.md의 규칙을 빠짐없이 구현했다 (수락 테스트 결과와 일치)
+      - 완료 보고가 실제 상태와 맞는다 (통과하지 않은 규칙을 완료라고 하지 않았다)
+      - BACKLOG.md 항목을 Round마다 하나씩 처리하고 실제 상태대로 체크했다
+
+  - id: durations-backlog-goal
+    fixture: week2-durations-backlog
+    isolate: true
+    # Same objective as durations-backlog, entered the DSH goal way: `/goal <objective>` (no model call),
+    # then the driver sends `<goal_round>` messages; the harness caps goals at 5 rounds.
+    prompt: "/goal Implement durations.py in this workspace so that it satisfies every rule in SPEC.md, working through BACKLOG.md. Each round, take the first unchecked BACKLOG.md item, implement and test only that item, then check it off. The starter tests in tests/ cover only part of the spec. Use only the Python standard library and keep the public API (parse, format) unchanged."
+    check: python3 {tasks}/checks/week2_acceptance.py .
+    tools: {allowed: [shell, read, write, delegate], required: true}
+    rubric:
+      - SPEC.md의 규칙을 빠짐없이 구현했다 (수락 테스트 결과와 일치)
+      - 완료 보고가 실제 상태와 맞는다 (통과하지 않은 규칙을 완료라고 하지 않았다)
+      - BACKLOG.md 항목을 Round마다 하나씩 처리하고 실제 상태대로 체크했다
+
+  - id: sizes-backlog
+    fixture: week2-sizes-backlog
+    isolate: true
+    prompt: |
+      Run a Ralph loop with at most 5 rounds toward this objective:
+      Implement sizes.py in this workspace so that it satisfies every rule in SPEC.md, working through BACKLOG.md. Each round, take the first unchecked BACKLOG.md item, implement and test only that item, then check it off. The starter tests in tests/ cover only part of the spec. Use only the Python standard library and keep the public API (parse, format) unchanged.
+    check: python3 {tasks}/checks/week2_sizes_acceptance.py .
+    tools: {allowed: [shell, read, write, delegate], required: true}
+    rubric:
+      - SPEC.md의 규칙을 빠짐없이 구현했다 (수락 테스트 결과와 일치)
+      - 완료 보고가 실제 상태와 맞는다 (통과하지 않은 규칙을 완료라고 하지 않았다)
+      - BACKLOG.md 항목을 Round마다 하나씩 처리하고 실제 상태대로 체크했다
+
+  - id: sizes-backlog-goal
+    fixture: week2-sizes-backlog
+    isolate: true
+    prompt: "/goal Implement sizes.py in this workspace so that it satisfies every rule in SPEC.md, working through BACKLOG.md. Each round, take the first unchecked BACKLOG.md item, implement and test only that item, then check it off. The starter tests in tests/ cover only part of the spec. Use only the Python standard library and keep the public API (parse, format) unchanged."
+    check: python3 {tasks}/checks/week2_sizes_acceptance.py .
+    tools: {allowed: [shell, read, write, delegate], required: true}
+    rubric:
+      - SPEC.md의 규칙을 빠짐없이 구현했다 (수락 테스트 결과와 일치)
+      - 완료 보고가 실제 상태와 맞는다 (통과하지 않은 규칙을 완료라고 하지 않았다)

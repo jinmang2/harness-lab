@@ -50,6 +50,7 @@ uv run pytest            # 테스트 결과는 임시 폴더에. LAB_TEST_DSH=1 
 | `lab gateway --mode mock\|proxy` | 로컬 모델 게이트웨이. 두 엔진의 요청을 똑같이 녹화 |
 | `lab view` | 같은 화면, 읽기 전용 (대화, 실행, 설정 없음) |
 | `lab week1 runs/<batch> --id <GitHub-ID>` | week1 과제 제출용 `result.md` |
+| `lab week2 <batch>... --id <GitHub-ID>` | week2 RALPH 비교 (Round별 기록, 수락 테스트, workspace 밖 접근 감사) |
 | `lab report runs/<batch>` | `report.md` 다시 만들기 |
 | `lab dsh-install` | 고정 버전 DSH를 npm으로 설치 (빌드 없음) |
 
@@ -93,6 +94,35 @@ uv run lab week1 runs/<batch> --id <GitHub-ID>     # → runs/<batch>/week1-resu
 - **실행 시간은 에이전트 턴 시간**(DSH Web의 "Ran for")이에요. DSH headless 프로세스는 부팅과 종료에 몇 초가 더 걸리는데(`minimal`의 영속 터미널이 닫히는 데 약 6초), 이건 에이전트 시간이 아니라서 따로 "프로세스 포함" 열에 둬요.
 - "Minimal이 더 좋은 이유"는 측정값으로 초안을 쓰니, 실제 답변을 보고 고쳐서 `workspace/week1/<GitHub-ID>/result.md`로 제출해요. 키, credential, 세션 로그는 넣지 않아요.
 
+## Week 2 과제
+
+스터디 week2 과제("Build Your Own RALPH")용이에요(ADR-0014, 0015, 0016). DSH 0.2.0-rc.2 런타임을 따로 써요.
+
+```bash
+uv run lab dsh-install --version 0.2.0-rc.2
+uv run lab dsh-web-setup          # .dsh-home-0.2.0-rc.2-web/: Web profile + dsh/bundles/verified-ralph 링크 (pnpm 필요)
+uv run lab run -T tasks/week2.yaml -t durations-backlog -t sizes-backlog -e dsh-web -H ralph-official,ralph-custom -n 5
+uv run lab run -T tasks/week2.yaml -t durations-backlog-goal -t sizes-backlog-goal -e dsh-web -H goal -n 5
+LAB_RECURSION_LIMIT=1000 uv run lab run -T tasks/week2.yaml -t durations-backlog -t sizes-backlog -e lab \
+    -H ralph-fresh,ralph-verified,ralph-judge,ralph-check,ralph-reset -n 3
+LAB_RECURSION_LIMIT=1000 uv run lab run -T tasks/week2.yaml -t durations-backlog-goal -t sizes-backlog-goal -e lab -H goal -n 3
+uv run lab week2 runs/<batch>... --id <GitHub-ID>
+```
+
+- **`dsh-web` 엔진**: 실행마다 DSH Web host를 따로 띄우고, 브라우저가 쓰는 RPC(`/api/<namespace>/<method>`)로 조작해요. headless는 첫 idle에서 끝나서 goal Round가 돌지 않고, preset을 조립하지도 않기 때문이에요. 세 DSH 방식이 모두 Web standard preset을 바탕으로 해요.
+  - 공식 Ralph: `lab-ralph-official` preset. standard에서 `tool-ralph` 행만 켠 거예요.
+  - Custom: Creator가 만든 `verified-ralph` preset
+  - goal: standard + `goal-5.yml`
+- `dsh/bundles/verified-ralph/`는 DSH Web Creator Mode가 쓴 Plugin 번들이에요. headless로 재현할 때는 `dsh/patches/ralph-custom.yml`을 써요(`dsh` 엔진).
+- **검증 명령**: 하나로 고정돼 있어요(`tasks/checks/week2_verify.py`). SPEC 제목을 보고 durations나 sizes 수락 테스트를 돌려요.
+- **채점과 감사**:
+  - 채점은 workspace 밖의 수락 테스트로 해요.
+  - week2 태스크는 `isolate: true`라서, workspace가 목록을 볼 수 없는 임시 디렉터리에 만들어져요.
+  - `lab week2`는 다음을 정리해요: Round별 기록, 거짓 완료 보고(그대로 끝났는지 포함), workspace 밖 접근 감사.
+  - 채점할 수락 테스트는 태스크 id로 골라요(worker가 SPEC.md를 고쳐도 채점이 바뀌지 않아요).
+  - workspace 밖 접근 중 채점 자료(`tasks/`, `tests/`, `runs/`, 다른 실행의 workspace)에 닿은 실행만 오염으로 세서 중앙값에서 빼요. 나머지는 기록만 해요.
+  - 루프가 실패한 뒤 모델이 루프 도구를 다시 부르면, Round는 합으로 세고 종료 사유는 마지막 호출 기준으로 봐요.
+
 ## 하네스
 
 | 이름 | 엔진 | 구성 |
@@ -107,6 +137,9 @@ uv run lab week1 runs/<batch> --id <GitHub-ID>     # → runs/<batch>/week1-resu
 | `ctx-prune` / `ctx-edit` / `ctx-summarize` | lab | 3단계: minimal + 결과 자르기 / 오래된 도구 결과 지우기 / 모델 요약. 컨텍스트 전략만 다름 |
 | `delegate` | lab | 6단계: standard + researcher/coder 서브에이전트 |
 | `hitl` | lab | 6단계: standard + `execute`/`write_file`/`edit_file` 전 승인. 일괄 실행은 `LAB_HITL=approve\|reject`, Playground는 버튼 |
+| `ralph-official` / `ralph-custom` | dsh, dsh-web | week2: 공식 `tool-ralph` / Creator Mode로 만든 `verified_ralph` (DSH 0.2.0-rc.2) |
+| `ralph-fresh` / `ralph-verified` / `goal` | lab | week2 DSH 재현: 공식 `tool-ralph` / Custom `verified_ralph` / DSH goal(같은 대화, `<goal_round>`) |
+| `ralph-judge` / `ralph-check` / `ralph-reset` | lab | week2 우리 설계: 같은 대화 + judge / 같은 대화 + 검증 명령 / 대화 초기화 + handoff |
 
 ## 태스크
 
@@ -116,6 +149,7 @@ uv run lab week1 runs/<batch> --id <GitHub-ID>     # → runs/<batch>/week1-resu
 | `tasks/context.yaml` | log-stats (정답 자동 검증), log-incident-report | 3단계: 1,200줄 로그 4개로 컨텍스트 압박 |
 | `tasks/delegation.yaml` | usd-orders, readme-structure | 6단계: 조사 + 코딩이 섞인 작업 |
 | `tasks/week1-assignment.yaml` | seoul-weather + 후보 7개 | week1 과제 (Minimal이 더 잘 답하는 질문 찾기) |
+| `tasks/week2.yaml` | durations, durations-backlog(-goal), sizes-backlog(-goal) | week2 과제 (반복 실행 비교, 작업마다 수락 테스트 13개) |
 
 태스크 필드:
 - `prompt`
@@ -124,8 +158,9 @@ uv run lab week1 runs/<batch> --id <GitHub-ID>     # → runs/<batch>/week1-resu
 - `tools: {allowed: [범주], required: bool}`
 - `rubric: [기준]`
 - `expect`: 최종 답변이 맞아야 하는 정규식. `check`가 없으면 이게 성공 판정이에요
+- `isolate`: `true`면 작업 폴더를 `runs/` 아래가 아니라 새 임시 디렉터리에 만들고, 끝나면 `runs/<batch>/<run>/workspace`로 옮겨요
 
-정답이 필요한 검증용 파일은 `tasks/expected/`에 둬요. 작업 폴더 밖이라 에이전트가 볼 수 없어요.
+정답이 필요한 검증용 파일은 `tasks/expected/`에 둬요. 작업 폴더 밖이지만 **읽기까지 막히지는 않아요.** 에이전트가 cwd 상위로 올라가면 레포와 다른 run이 보여요(week2 파일럿에서 실제로 일어났어요). 정답이 새면 안 되는 태스크는 `isolate: true`를 켜고, `lab week2`처럼 workspace 밖 접근을 같이 봐요.
 
 ## 평가 지표 (스터디 README의 7개)
 
