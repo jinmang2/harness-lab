@@ -17,6 +17,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import shutil
 import signal
 import threading
@@ -74,29 +75,89 @@ class _Stream(BaseCallbackHandler):
         self._paused: dict[str, str] = {}
         self._ids: dict[UUID, str] = {}
         self._keys: dict[UUID, str] = {}
+        # Child agents a loop tool starts on their own thread (lab/middleware/ralph.py `_run_child`): every run
+        # of a child carries `child_thread` in its metadata; the first one seen is the child's root chain.
+        self._child_of: dict[UUID, str] = {}
+        self._child_roots: dict[UUID, str] = {}
 
-    def _inside_tool(self, run_id: UUID | None) -> bool:
+    def _inside_tool(self, run_id: UUID | None, stop: UUID | None = None) -> bool:
         for _ in range(200):
-            if run_id is None:
+            if run_id is None or run_id == stop:
                 return False
             if run_id in self._tools or run_id in self.session.tool_runs:
                 return True
             run_id = self._parents.get(run_id)
         return False
 
+    def _enclosing_tool(self, run_id: UUID | None) -> str | None:
+        for _ in range(200):
+            if run_id is None:
+                return None
+            if run_id in self._tools:
+                return self._ids.get(run_id, str(run_id))
+            run_id = self._parents.get(run_id)
+        return None
+
+    def _child(self, run_id: UUID, parent_run_id: UUID | None, metadata: dict[str, Any] | None, inputs: Any = None) -> str | None:
+        """The child agent this run belongs to; announces the child on its first run."""
+        thread = (metadata or {}).get("child_thread")
+        if not isinstance(thread, str) or not thread:
+            child = self._child_of.get(parent_run_id) if parent_run_id is not None else None
+        else:
+            child = thread
+            if thread not in self._child_roots.values():
+                self._child_roots[run_id] = thread
+                prompt = _child_prompt(inputs)
+                label = metadata.get("child_label")  # type: ignore[union-attr]
+                self.session.emit("child_start", child_id=thread, label=label if isinstance(label, str) else None,
+                                  title=_child_title(prompt, thread), depth=metadata.get("delegation_depth"),  # type: ignore[union-attr]
+                                  parent_tool_run_id=self._enclosing_tool(parent_run_id),
+                                  parent=self._child_of.get(parent_run_id) if parent_run_id is not None else None,
+                                  prompt=prompt[:20_000])
+        if child is not None:
+            self._child_of[run_id] = child
+        return child
+
+    def _where(self, run_id: UUID, parent_run_id: UUID | None, metadata: dict[str, Any] | None) -> dict[str, Any]:
+        """`nested` (inside any tool, as before) plus, for a child's run, `child` and `child_nested` (inside a tool of that child)."""
+        child = self._child(run_id, parent_run_id, metadata)
+        where: dict[str, Any] = {"nested": self._inside_tool(parent_run_id)}
+        if child is not None:
+            root = next((r for r, c in self._child_roots.items() if c == child), None)
+            where.update(child=child, child_nested=self._inside_tool(parent_run_id, stop=root))
+        return where
+
+    def _tagged(self, run_id: UUID) -> dict[str, Any]:
+        child = self._child_of.get(run_id)
+        return {} if child is None else {"child": child}
+
     def on_chain_start(self, serialized: Any, inputs: Any, *, run_id: UUID, parent_run_id: UUID | None = None, **kw: Any) -> None:
         self._parents[run_id] = parent_run_id
+        self._child(run_id, parent_run_id, kw.get("metadata"), inputs)
+
+    def on_chain_end(self, outputs: Any, *, run_id: UUID, **kw: Any) -> None:
+        child = self._child_roots.get(run_id)
+        if child is not None:
+            self.session.emit("child_end", child_id=child, error=False)
+
+    def on_chain_error(self, error: BaseException, *, run_id: UUID, **kw: Any) -> None:
+        from langgraph.errors import GraphBubbleUp
+
+        child = self._child_roots.get(run_id)
+        if child is not None:
+            self.session.emit("child_end", child_id=child, error=not isinstance(error, GraphBubbleUp), text=repr(error)[:300])
 
     def on_chat_model_start(self, serialized: Any, messages: Any, *, run_id: UUID, parent_run_id: UUID | None = None, **kw: Any) -> None:
         self._parents[run_id] = parent_run_id
-        nested = self._inside_tool(parent_run_id)
+        where = self._where(run_id, parent_run_id, kw.get("metadata"))
+        nested = where["nested"]
         if not nested and not self.session.request_seen:  # what the model got on the first call: DSH's "System prompt" row
             self.session.request_seen = True
             batch = messages[0] if messages else []
             system = "\n\n".join(m.text if hasattr(m, "text") else str(m.content) for m in batch if getattr(m, "type", "") == "system")
             tools = [(t.get("function") or t).get("name") for t in ((kw.get("invocation_params") or {}).get("tools") or []) if isinstance(t, dict)]
             self.session.emit("request", system=system, tools=tools)
-        self.session.emit("llm_start", run_id=str(run_id), nested=nested)
+        self.session.emit("llm_start", run_id=str(run_id), **where)
 
     def on_llm_new_token(self, token: str, *, run_id: UUID, chunk: Any = None, **kw: Any) -> None:
         message = getattr(chunk, "message", None)
@@ -104,9 +165,9 @@ class _Stream(BaseCallbackHandler):
         if reasoning or token:
             self.session.first_token()
         if reasoning:
-            self.session.emit("reasoning", run_id=str(run_id), text=reasoning)
+            self.session.emit("reasoning", run_id=str(run_id), text=reasoning, **self._tagged(run_id))
         if token:
-            self.session.emit("token", run_id=str(run_id), text=token)
+            self.session.emit("token", run_id=str(run_id), text=token, **self._tagged(run_id))
 
     def on_llm_end(self, response: Any, *, run_id: UUID, **kw: Any) -> None:
         message = None
@@ -114,11 +175,12 @@ class _Stream(BaseCallbackHandler):
             message = getattr(response.generations[0][0], "message", None)
         usage = getattr(message, "usage_metadata", None) or {}
         self.session.add_usage(usage)
-        self.session.emit("llm_end", run_id=str(run_id), usage=usage)
+        self.session.emit("llm_end", run_id=str(run_id), usage=usage, **self._tagged(run_id))
 
     def on_tool_start(self, serialized: Any, input_str: str, *, run_id: UUID, parent_run_id: UUID | None = None, inputs: Any = None, **kw: Any) -> None:
         name = (serialized or {}).get("name") or "?"
         self._parents[run_id] = parent_run_id
+        where = self._where(run_id, parent_run_id, kw.get("metadata"))
         self._tools[run_id] = name
         self.session.tool_runs.add(run_id)
         args = inputs if inputs is not None else input_str
@@ -129,7 +191,7 @@ class _Stream(BaseCallbackHandler):
             self._ids[run_id] = self._paused.pop(key)
             return
         self._ids[run_id] = str(run_id)
-        self.session.emit("tool_start", run_id=str(run_id), name=name, args=args, nested=self._inside_tool(parent_run_id))
+        self.session.emit("tool_start", run_id=str(run_id), name=name, args=args, **where)
 
     def on_tool_end(self, output: Any, *, run_id: UUID, **kw: Any) -> None:
         update = getattr(output, "update", None)
@@ -138,8 +200,11 @@ class _Stream(BaseCallbackHandler):
         text = getattr(output, "content", output)
         text = text if isinstance(text, str) else json.dumps(text, ensure_ascii=False, default=str)
         self._keys.pop(run_id, None)
-        self.session.emit("tool_end", run_id=self._ids.pop(run_id, str(run_id)), name=self._tools.pop(run_id, "?"),
-                          preview=text[:2000], error=getattr(output, "status", None) == "error")
+        name = self._tools.pop(run_id, "?")
+        # A loop tool's result carries its final report as JSON (bounded at 16384 like DSH): the card parses it whole.
+        limit = 16_384 if name in _LOOP_TOOLS else 2000
+        self.session.emit("tool_end", run_id=self._ids.pop(run_id, str(run_id)), name=name,
+                          preview=text[:limit], error=getattr(output, "status", None) == "error", **self._tagged(run_id))
 
     def close_paused(self) -> None:
         """The turn ended without resuming these calls (error, stop): settle their cards."""
@@ -158,7 +223,29 @@ class _Stream(BaseCallbackHandler):
             self._ids.pop(run_id, None)
             return
         self.session.emit("tool_end", run_id=self._ids.pop(run_id, str(run_id)), name=self._tools.pop(run_id, "?"),
-                          preview=repr(error), error=True)
+                          preview=repr(error), error=True, **self._tagged(run_id))
+
+
+_LOOP_TOOLS = ("ralph", "verified_ralph")
+_ROUND = re.compile(r"^(?:Ralph round: |Round )(\d+) of \d+\.$", re.MULTILINE)
+
+
+def _child_prompt(inputs: Any) -> str:
+    """The first human message a child agent starts with (its round prompt)."""
+    messages = inputs.get("messages") if isinstance(inputs, dict) else None
+    for m in messages or []:
+        content = m.get("content") if isinstance(m, dict) else getattr(m, "content", None)
+        if isinstance(content, str):
+            return content
+        if isinstance(content, list):
+            return "".join(b.get("text", "") if isinstance(b, dict) else str(b) for b in content)
+    return ""
+
+
+def _child_title(prompt: str, thread: str) -> str:
+    """DSH falls back to the child session's title; a Ralph round names itself in its prompt."""
+    m = _ROUND.search(prompt)
+    return f"Ralph round {m.group(1)}" if m else thread
 
 
 def _effort_env(model: str | None, effort: str | None) -> dict[str, str]:
@@ -254,7 +341,8 @@ class PlaySession:
             self.workdir.mkdir(parents=True, exist_ok=True)
             self.ctx = BuildContext(model=model_obj, model_name=self.model_name, workdir=self.workdir,
                                     checkpointer=InMemorySaver(), approval=self.approval, interactive=True,
-                                    session=[InboxMiddleware(self.inbox, self._steer_message, self._steer_authority)])
+                                    session=[InboxMiddleware(self.inbox, self._steer_message, self._steer_authority)],
+                                    goal_rounds=get(harness_name).goal_rounds)
             self.recorder = TraceRecorder()
             self._stream = _Stream(self)
             self.agent = get(harness_name).build(self.ctx)
@@ -479,7 +567,7 @@ class PlaySession:
                     self.emit("command", name="goal", input="/goal pause", text=text, outcome=kind)
                     return kind, text
                 raise ValueError(f"session is {self.status}; run /goal between turns")
-            kind, text, new, changed = goals.command(self.goal, raw)
+            kind, text, new, changed = goals.command(self.goal, raw, self.ctx.goal_rounds)
             if changed:
                 self._write_goal(new)
             self.emit("command", name="goal", input=("/goal " + raw.strip()).strip(), text=text, outcome=kind)
@@ -544,17 +632,13 @@ class PlaySession:
                 self.queue.remove(item)
                 self._begin_turn(item["text"], [self.attachments[i] for i in item["attachments"]])
                 return
-            g = self.goal
-            if not self.supports_goal or g is None or g["phase"] != "active" or g["activation"] != "armed":
+            step = goals.next_round(self.goal) if self.supports_goal else None
+            if step is None:
                 return
-            if g["roundsStarted"] >= g["maxGoalRounds"]:
-                self._write_goal(goals.block(g, (g["id"], g["revision"]), "round-limit",
-                                             f"Goal reached its configured limit of {g['maxGoalRounds']} rounds."))
-                return
-            n = g["roundsStarted"] + 1
-            self._write_goal({**g, "roundsStarted": n})
-            self._begin_turn(goals.round_prompt(self.goal, n), [],  # type: ignore[arg-type]
-                             goal_source={"kind": "goal", "goalId": g["id"], "revision": g["revision"], "round": n})
+            kind, new, prompt, source = step
+            self._write_goal(new)
+            if kind == "round":
+                self._begin_turn(prompt, [], goal_source=source)  # type: ignore[arg-type]
 
     def set_plan(self, active: bool) -> str:
         """`/plan` and `/plan off` between turns (DSH commits these at once when no turn is open)."""

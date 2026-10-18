@@ -120,12 +120,13 @@ def _next(goal: dict[str, Any], **changes: Any) -> dict[str, Any]:
     return out
 
 
-def create(goal: dict[str, Any] | None, objective: Any, max_goal_rounds: Any = None) -> dict[str, Any]:
+def create(goal: dict[str, Any] | None, objective: Any, max_goal_rounds: Any = None,
+           default_max: int = DEFAULT_MAX_GOAL_ROUNDS) -> dict[str, Any]:
     if goal is not None and goal["phase"] != "complete":
         raise GoalError(f'goal "{goal["id"]}" already exists with phase "{goal["phase"]}"', "GOAL_ALREADY_EXISTS")
     now = _now()
     return {"id": f"goal-{uuid.uuid4()}", "revision": 1, "objective": _objective(objective), "phase": "active",
-            "maxGoalRounds": _cap(DEFAULT_MAX_GOAL_ROUNDS if max_goal_rounds is None else max_goal_rounds),
+            "maxGoalRounds": _cap(default_max if max_goal_rounds is None else max_goal_rounds),
             "roundsStarted": 0, "activation": "armed", "createdAt": now, "updatedAt": now}
 
 
@@ -203,6 +204,19 @@ def round_prompt(goal: dict[str, Any], round_no: int) -> str:
     )
 
 
+def next_round(goal: dict[str, Any] | None) -> tuple[str, dict[str, Any], str | None, dict[str, Any] | None] | None:
+    """goal-round-driver `drive()` once the agent is idle: None, ("blocked", goal, None, None) at the cap,
+    or ("round", goal with roundsStarted+1, the `<goal_round>` prompt, its message source)."""
+    if goal is None or goal["phase"] != "active" or goal["activation"] != "armed":
+        return None
+    if goal["roundsStarted"] >= goal["maxGoalRounds"]:
+        return ("blocked", block(goal, (goal["id"], goal["revision"]), "round-limit",
+                                 f"Goal reached its configured limit of {goal['maxGoalRounds']} rounds."), None, None)
+    n = goal["roundsStarted"] + 1
+    new = {**goal, "roundsStarted": n}
+    return ("round", new, round_prompt(new, n), {"kind": "goal", "goalId": goal["id"], "revision": goal["revision"], "round": n})
+
+
 def wrapup(objective: str, blocked_reason: str | None = None) -> str:
     """tool-goal/src/wrapup.ts"""
     heading = f"Objective: {json.dumps(objective, ensure_ascii=False)}\n"
@@ -246,7 +260,8 @@ def render(title: str, goal: dict[str, Any]) -> str:
     return "\n".join(lines)
 
 
-def command(goal: dict[str, Any] | None, raw: str) -> tuple[Literal["success", "error"], str, dict[str, Any] | None, bool]:
+def command(goal: dict[str, Any] | None, raw: str,
+            default_max: int = DEFAULT_MAX_GOAL_ROUNDS) -> tuple[Literal["success", "error"], str, dict[str, Any] | None, bool]:
     """Run `/goal <raw>`. Returns (kind, text, new goal state, whether the goal changed)."""
     text = raw.strip()
     control = text.lower()
@@ -270,14 +285,14 @@ def command(goal: dict[str, Any] | None, raw: str) -> tuple[Literal["success", "
             if goal is None:
                 return "error", f"No goal is currently set; /goal edit requires one. {USAGE}", goal, False
             if goal["phase"] == "complete":
-                new = create(goal, objective)
+                new = create(goal, objective, default_max=default_max)
                 return "success", render("Goal created", new), new, True
             new = edit(goal, ref, objective=objective)  # type: ignore[arg-type]
             return "success", render("Goal updated", new), new, True
         if goal is not None and goal["phase"] != "complete":
             return ("error", f"A goal is already {goal['phase']}. Use /goal edit <objective> to change it or "
                              "/goal clear before replacing it.", goal, False)
-        new = create(goal, text)
+        new = create(goal, text, default_max=default_max)
         return "success", render("Goal created", new), new, True
     except GoalError:
         return "error", "The goal command is not valid for the current state. Run /goal to view available commands.", goal, False
@@ -304,7 +319,7 @@ def _goal_round(state: dict[str, Any], goal: dict[str, Any] | None) -> bool:
             and src.get("revision") == goal["revision"] and src.get("round") == goal["roundsStarted"])
 
 
-def make_tools() -> list[Any]:
+def make_tools(default_max: int = DEFAULT_MAX_GOAL_ROUNDS) -> list[Any]:
     @tool("get_goal", description=GET_DESCRIPTION)
     def get_goal(runtime: ToolRuntime) -> Any:
         return tool_value(runtime.state.get("goal"))
@@ -318,7 +333,7 @@ def make_tools() -> list[Any]:
         if not _direct_human(runtime.state):
             return _err(runtime, "create_goal", "this goal operation requires a direct human turn on a top-level agent")
         try:
-            return _ok(runtime, "create_goal", create(runtime.state.get("goal"), objective, max_goal_rounds))
+            return _ok(runtime, "create_goal", create(runtime.state.get("goal"), objective, max_goal_rounds, default_max))
         except GoalError as exc:
             return _err(runtime, "create_goal", str(exc))
 
@@ -385,9 +400,9 @@ class GoalMiddleware(AgentMiddleware):
 
     state_schema = GoalState
 
-    def __init__(self) -> None:
+    def __init__(self, default_max_rounds: int = DEFAULT_MAX_GOAL_ROUNDS) -> None:
         super().__init__()
-        self.tools = make_tools()
+        self.tools = make_tools(default_max_rounds)
 
     def before_model(self, state: Any, runtime: Any) -> dict[str, Any] | None:
         notice = state.get("goal_context")

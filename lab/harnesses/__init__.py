@@ -33,6 +33,8 @@ class BuildContext:
     interactive: bool = False
     # Chat-session middleware (steering inbox) that every builder appends; empty for batch runs.
     session: list[Any] = field(default_factory=list)
+    # DSH goal service `defaultMaxGoalRounds`: the cap for `/goal` and for create_goal without max_goal_rounds.
+    goal_rounds: int = 256
 
 
 @dataclass(frozen=True)
@@ -40,16 +42,17 @@ class Harness:
     name: str
     description: str
     build: Callable[[BuildContext], Any]
+    goal_rounds: int = 256  # deployment default for goals (DSH goal `defaultMaxGoalRounds`)
 
 
 REGISTRY: dict[str, Harness] = {}
 
 
-def harness(name: str, description: str) -> Callable[[Callable[[BuildContext], Any]], Callable[[BuildContext], Any]]:
+def harness(name: str, description: str, goal_rounds: int = 256) -> Callable[[Callable[[BuildContext], Any]], Callable[[BuildContext], Any]]:
     def register(build: Callable[[BuildContext], Any]) -> Callable[[BuildContext], Any]:
         if name in REGISTRY:
             raise ValueError(f"duplicate harness {name!r}")
-        REGISTRY[name] = Harness(name, description, build)
+        REGISTRY[name] = Harness(name, description, build, goal_rounds)
         return build
 
     return register
@@ -62,4 +65,4 @@ def get(name: str) -> Harness:
         raise SystemExit(f"unknown harness {name!r}; known: {', '.join(sorted(REGISTRY))}") from None
 
 
-from lab.harnesses import advanced, experiments, minimal, standard  # noqa: E402,F401  (registration side effects)
+from lab.harnesses import advanced, experiments, minimal, ralph, standard  # noqa: E402,F401  (registration side effects)

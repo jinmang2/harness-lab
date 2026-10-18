@@ -181,6 +181,27 @@ def _goal_round_call(messages: list[dict[str, Any]], names: set[Any]) -> list[di
     return [{"name": "update_goal", "arguments": json.dumps({"goal_id": g["id"], "revision": g["revision"], "action": "complete"})}]
 
 
+_LOOP_STARTERS = {"[mock:ralph]": "ralph", "[mock:vralph]": "verified_ralph"}
+_ROUND_ENDERS = ("structured_output", "ralph_handoff")  # a round's last call: report or handoff
+
+
+def _ralph_calls(messages: list[dict[str, Any]], tools: list[dict[str, Any]]) -> list[dict[str, Any]] | None:
+    """Ralph loops: start the loop tool on a marker; end a round with its report/handoff after one tool result."""
+    names = {t.get("name") for t in tools}
+    last = messages[-1] if messages else {}
+    called = {c.get("function", {}).get("name") for m in messages for c in m.get("tool_calls") or []}
+    if last.get("role") == "user":
+        for marker, name in _LOOP_STARTERS.items():
+            if marker in str(last.get("content")) and name in names and name not in called:
+                return [{"name": name, "arguments": json.dumps({"objective": "Write DONE.md", "maxRounds": 2})}]
+    if last.get("role") == "tool":
+        for name in _ROUND_ENDERS:
+            if name in names and name not in called:
+                schema = next(t for t in tools if t.get("name") == name)
+                return [{"name": name, "arguments": json.dumps(_mock_args(schema))}]
+    return None
+
+
 def mock_reply(body: dict[str, Any]) -> dict[str, Any]:
     messages = body.get("messages") or []
     tools = [t.get("function", {}) for t in body.get("tools") or []]
@@ -193,6 +214,12 @@ def mock_reply(body: dict[str, Any]) -> dict[str, Any]:
     if "harness-lab-judge" in system_text:
         message["content"] = json.dumps({"scores": {"mock": 3}, "overall": 3, "reason": "mock judge"})
         finish = "stop"
+    elif "fully met the user's objective" in system_text:  # ralph-judge: the objective is met
+        message["content"] = json.dumps({"done": True, "reason": "mock", "next": ""})
+        finish = "stop"
+    elif tools and (scripted := _ralph_calls(messages, tools)) is not None:
+        message["tool_calls"] = [{"id": f"call_{uuid.uuid4().hex[:12]}", "type": "function", "function": f} for f in scripted]
+        finish = "tool_calls"
     elif tools and (scripted := _goal_round_call(messages, {t.get("name") for t in tools})) is not None:
         message["tool_calls"] = [{"id": f"call_{uuid.uuid4().hex[:12]}", "type": "function", "function": f} for f in scripted]
         finish = "tool_calls"
@@ -240,6 +267,43 @@ def _mock_chunks(reply: dict[str, Any], model: str) -> list[dict[str, Any]]:
     return chunks
 
 
+def _block_text(content: Any) -> str:
+    if isinstance(content, str):
+        return content
+    out = []
+    for b in content or []:
+        if isinstance(b, dict):
+            out.append(str(b.get("text") or "") if b.get("type") == "text" else _block_text(b.get("content")) if b.get("type") == "tool_result" else "")
+    return " ".join(out)
+
+
+def _messages_goal_call(messages: list[dict[str, Any]], names: set[Any]) -> tuple[str, dict[str, Any]] | None:
+    """Messages twin of the chat goal scripts: `[mock:goal]` creates a goal; a `<goal_round>` reads it, then completes it."""
+    def tool_uses(ms: list[dict[str, Any]]) -> list[str]:
+        return [b.get("name") for m in ms if m.get("role") == "assistant" and isinstance(m.get("content"), list)
+                for b in m["content"] if isinstance(b, dict) and b.get("type") == "tool_use"]
+
+    prompts = [i for i, m in enumerate(messages) if m.get("role") == "user" and not any(
+        isinstance(b, dict) and b.get("type") == "tool_result" for b in (m.get("content") if isinstance(m.get("content"), list) else []))]
+    if not prompts:
+        return None
+    last = prompts[-1]
+    text, after = _block_text(messages[last].get("content")), messages[last + 1:]
+    if "<goal_round>" in text and "update_goal" in names:
+        if "update_goal" in tool_uses(after):
+            return None
+        seen = [_block_text(m.get("content")) for m in after if m.get("role") == "user" and '"goal":{"id"' in _block_text(m.get("content"))]
+        if not seen:
+            return ("get_goal", {})
+        raw = seen[-1]
+        g = json.loads(raw[raw.index("{"):raw.rindex("}") + 1])["goal"]
+        return ("update_goal", {"goal_id": g["id"], "revision": g["revision"], "action": "complete"})
+    if any("[mock:goal]" in _block_text(messages[i].get("content")) for i in prompts) and "create_goal" in names \
+            and "create_goal" not in tool_uses(messages):
+        return ("create_goal", {"objective": "Write DONE.md", "max_goal_rounds": 5})
+    return None
+
+
 def mock_messages_reply(body: dict[str, Any]) -> dict[str, Any]:
     """The Messages twin of `mock_reply`: one tool call per user turn, then text.
 
@@ -261,8 +325,13 @@ def mock_messages_reply(body: dict[str, Any]) -> dict[str, Any]:
         return {"type": "tool_use", "id": f"toolu_{uuid.uuid4().hex[:12]}", "name": name, "input": args}
 
     content: list[dict[str, Any]]
-    if "[mock:ralph]" in text and "ralph" in names and "ralph" not in called:
+    goal_call = _messages_goal_call(messages, names)
+    if goal_call is not None:
+        content = [use(*goal_call)]
+    elif "[mock:ralph]" in text and "ralph" in names and "ralph" not in called:
         content = [use("ralph", {"objective": "Write DONE.md", "maxRounds": 2})]
+    elif "[mock:vralph]" in text and "verified_ralph" in names and "verified_ralph" not in called:
+        content = [use("verified_ralph", {"objective": "Write DONE.md", "maxRounds": 2})]
     elif after_tool and "structured_output" in names and "structured_output" not in called:
         content = [use("structured_output", _mock_args(next(t for t in tools if t.get("name") == "structured_output")))]
     elif tools and not after_tool:

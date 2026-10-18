@@ -22,6 +22,14 @@ def _ms(start: float) -> int:
     return int((time.perf_counter() - start) * 1000)
 
 
+def _child(metadata: dict[str, Any] | None) -> dict[str, Any]:
+    """Which loop child a run belongs to (lab/middleware/ralph.py `_run_child` puts it in the metadata)."""
+    meta = metadata or {}
+    if not meta.get("child_thread"):
+        return {}
+    return {"child": meta["child_thread"], "child_label": meta.get("child_label"), "depth": meta.get("delegation_depth")}
+
+
 def _content_chars(message: BaseMessage) -> int:
     content = message.content
     return len(content) if isinstance(content, str) else len(json.dumps(content, ensure_ascii=False))
@@ -70,6 +78,7 @@ class TraceRecorder(BaseCallbackHandler):
                 "tool_count": len(tool_names),
                 "tools": tool_names,
                 "tool_schema_chars": len(json.dumps(tools, ensure_ascii=False)) if tools else 0,
+                **_child(kwargs.get("metadata")),
             },
         }
 
@@ -132,6 +141,7 @@ class TraceRecorder(BaseCallbackHandler):
                 "parent_run_id": str(parent_run_id) if parent_run_id else None,
                 "name": (serialized or {}).get("name") or kwargs.get("name") or "?",
                 "args": inputs if inputs is not None else input_str,
+                **_child(kwargs.get("metadata")),
             },
         }
 

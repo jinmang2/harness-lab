@@ -48,7 +48,8 @@ def collaboration(ctx: Any) -> list[Any]:
     from lab.middleware.collaboration import CollaborationMiddleware
     from lab.middleware.goal import GoalMiddleware
 
-    return [CollaborationMiddleware(interactive=getattr(ctx, "interactive", False)), GoalMiddleware(), *getattr(ctx, "session", [])]
+    return [CollaborationMiddleware(interactive=getattr(ctx, "interactive", False)),
+            GoalMiddleware(default_max_rounds=getattr(ctx, "goal_rounds", 256)), *getattr(ctx, "session", [])]
 
 
 def approvals(ctx: Any) -> list[Any]:
