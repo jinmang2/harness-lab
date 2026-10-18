@@ -1,0 +1,11 @@
+# Official `tool-ralph` (week2 baseline) on the headless profile, DSH 0.2.x.
+#
+# 0.2.x ships the row disabled in base and every preset; the base row comment gives
+# this overlay as the restore recipe. A matching override replaces the whole config,
+# so the shipped fields are restated. `maxRounds` is the deployment ceiling and the
+# default for a call; week2 compares both RALPH variants at 5 rounds.
+- id: tool-ralph
+  disabled: false
+  config:
+    subagentProvider: spawn
+    maxRounds: 5

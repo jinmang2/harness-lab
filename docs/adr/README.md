@@ -21,3 +21,4 @@
 | [0011](0011-week1-assignment-pipeline.md) | week1 과제는 태스크 파일과 제출용 결과 생성기로 돌린다 | 채택 |
 | [0012](0012-plan-mode-and-questions.md) | plan mode와 `ask_user_question`은 DSH 문구 그대로, LangGraph interrupt로 받는다 | 채택 |
 | [0013](0013-session-features-like-dsh.md) | goal, steer/대기열, fork, 첨부, 대화 중 모델 변경도 DSH 동작을 그대로 따른다 | 채택 |
+| [0014](0014-dsh-0-2-runtime-for-week2.md) | week2 하네스는 DSH 0.2.0-rc.2 런타임을 따로 두고 돌린다 | 채택 |

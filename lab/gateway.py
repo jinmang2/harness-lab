@@ -1,19 +1,21 @@
-"""Local OpenAI-compatible gateway on 127.0.0.1 for both engines.
+"""Local model gateway on 127.0.0.1 for both engines.
 
 Point `DEEPSEEK_BASE_URL` at it and both the lab engine and DeepSeek Harness send
-their model requests here. Every call is appended to `runs/gateway/calls.jsonl`
+their model requests here. It speaks the two wire formats in use: OpenAI-compatible
+`/chat/completions` (lab engine, DSH 0.1.x) and Anthropic-compatible `/v1/messages`
+(DSH 0.2.x, whose official route is DeepSeek's `/anthropic` root). Every call is appended to `runs/gateway/calls.jsonl`
 (and the full request body to `runs/gateway/bodies/<id>.json`), so the two engines
 are measured by the same, provider-reported numbers and you can read exactly what
 each harness put in front of the model.
 
 Modes:
-- `proxy`: forward to the real API (`LAB_UPSTREAM`, default https://api.deepseek.com),
-  streaming bytes through unchanged.
+- `proxy`: forward to the real API (`LAB_UPSTREAM`, default https://api.deepseek.com;
+  Messages requests go to its `/anthropic` root), streaming bytes through unchanged.
 - `mock` : answer locally with no key and no cost. If tools are offered and the last
   message is from the user, it calls one tool (prefers bash/shell/execute with
   `echo MOCK_OK`); otherwise it replies `MOCK_DONE`. For wiring tests, not for results.
 
-The Authorization header is never logged.
+Credential headers (Authorization, x-api-key) are never logged.
 """
 
 from __future__ import annotations
@@ -50,25 +52,43 @@ def _record(entry: dict[str, Any], body: dict[str, Any], save_body: bool) -> Non
             (bodies / f"{entry['id']}.json").write_text(json.dumps(body, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
+def _is_messages(path: str) -> bool:
+    return path.split("?")[0].rstrip("/").endswith("/messages")
+
+
 def _describe(body: dict[str, Any]) -> dict[str, Any]:
     messages = body.get("messages") or []
     tools = body.get("tools") or []
-    system = [m for m in messages if m.get("role") == "system"]
+    system: list[Any] = [m.get("content") for m in messages if m.get("role") == "system"]
+    if body.get("system"):  # Messages: top-level system (string or blocks)
+        system.append(body["system"])
     return {
         "model": body.get("model"),
         "stream": bool(body.get("stream")),
         "thinking": (body.get("thinking") or {}).get("type"),
         "messages": len(messages),
-        "system_chars": sum(len(json.dumps(m.get("content"), ensure_ascii=False)) for m in system),
-        "tools": [t.get("function", {}).get("name") for t in tools],
+        "system_chars": sum(len(c) if isinstance(c, str) else len(json.dumps(c, ensure_ascii=False)) for c in system),
+        "tools": [t.get("function", {}).get("name") or t.get("name") for t in tools],
         "tool_schema_chars": len(json.dumps(tools, ensure_ascii=False)) if tools else 0,
         "request_bytes": len(json.dumps(body, ensure_ascii=False).encode()),
     }
 
 
 def usage_to_tokens(usage: dict[str, Any] | None) -> dict[str, int]:
-    """Provider usage -> disjoint token fields (see lab.trace)."""
+    """Provider usage -> disjoint token fields (see lab.trace).
+
+    Messages usage is already disjoint (`input_tokens` excludes cache reads and writes);
+    chat/completions `prompt_tokens` includes the cache hits.
+    """
     usage = usage or {}
+    if "input_tokens" in usage:
+        return {
+            "input_uncached": int(usage.get("input_tokens") or 0),
+            "cache_read": int(usage.get("cache_read_input_tokens") or 0),
+            "cache_write": int(usage.get("cache_creation_input_tokens") or 0),
+            "output": int(usage.get("output_tokens") or 0),
+            "reasoning": 0,  # Messages reports thinking inside output_tokens
+        }
     prompt = int(usage.get("prompt_tokens") or 0)
     cached = int(usage.get("prompt_cache_hit_tokens") or (usage.get("prompt_tokens_details") or {}).get("cached_tokens") or 0)
     return {
@@ -85,9 +105,15 @@ def usage_to_tokens(usage: dict[str, Any] | None) -> dict[str, int]:
 _PREFERRED_TOOLS = ("bash", "shell", "execute")
 
 
+_RALPH_REPORT = {"status", "summary", "evidence", "nextSteps", "blocker"}
+
+
 def _mock_args(schema: dict[str, Any]) -> dict[str, Any]:
-    params = schema.get("parameters") or {}
+    params = schema.get("parameters") or schema.get("input_schema") or {}
     props = params.get("properties") or {}
+    if _RALPH_REPORT - {"evidence"} <= set(props):  # a Ralph round report: a valid completion, so loops end in one round
+        report = {"status": "complete", "summary": "mock round", "evidence": ["MOCK_OK"], "nextSteps": [], "blocker": ""}
+        return {k: v for k, v in report.items() if k in props}
     args: dict[str, Any] = {"command": "echo MOCK_OK"} if "command" in props else {}
     for key in params.get("required") or []:
         kind = (props.get(key) or {}).get("type")
@@ -214,6 +240,61 @@ def _mock_chunks(reply: dict[str, Any], model: str) -> list[dict[str, Any]]:
     return chunks
 
 
+def mock_messages_reply(body: dict[str, Any]) -> dict[str, Any]:
+    """The Messages twin of `mock_reply`: one tool call per user turn, then text.
+
+    A child that must answer through `structured_output` calls it after its first tool
+    result, so a fresh-agent loop can run end to end without a key.
+    """
+    messages = body.get("messages") or []
+    tools = body.get("tools") or []
+    names = {t.get("name") for t in tools}
+    last = messages[-1] if messages else {"role": "user", "content": ""}
+    blocks = last.get("content") if isinstance(last.get("content"), list) else [{"type": "text", "text": last.get("content") or ""}]
+    after_tool = any(isinstance(b, dict) and b.get("type") == "tool_result" for b in blocks)
+    text = " ".join(str(b.get("text") or "") for b in blocks if isinstance(b, dict))
+    called = {b.get("name") for m in messages if m.get("role") == "assistant" and isinstance(m.get("content"), list)
+              for b in m["content"] if isinstance(b, dict) and b.get("type") == "tool_use"}
+    prompt_tokens = len(json.dumps(messages, ensure_ascii=False)) // 4 + len(json.dumps(tools)) // 4 + len(str(body.get("system") or "")) // 4
+
+    def use(name: str, args: dict[str, Any]) -> dict[str, Any]:
+        return {"type": "tool_use", "id": f"toolu_{uuid.uuid4().hex[:12]}", "name": name, "input": args}
+
+    content: list[dict[str, Any]]
+    if "[mock:ralph]" in text and "ralph" in names and "ralph" not in called:
+        content = [use("ralph", {"objective": "Write DONE.md", "maxRounds": 2})]
+    elif after_tool and "structured_output" in names and "structured_output" not in called:
+        content = [use("structured_output", _mock_args(next(t for t in tools if t.get("name") == "structured_output")))]
+    elif tools and not after_tool:
+        chosen = next((t for name in _PREFERRED_TOOLS for t in tools if t.get("name") == name), tools[0])
+        content = [use(chosen["name"], _mock_args(chosen))]
+    else:
+        content = [{"type": "text", "text": "MOCK_DONE"}]
+    stop = "tool_use" if content[0]["type"] == "tool_use" else "end_turn"
+    usage = {"input_tokens": prompt_tokens, "output_tokens": 12, "cache_read_input_tokens": 0, "cache_creation_input_tokens": 0}
+    return {"content": content, "stop": stop, "usage": usage}
+
+
+def _mock_messages_events(reply: dict[str, Any], model: str) -> list[tuple[str, dict[str, Any]]]:
+    message = {"id": f"msg_{uuid.uuid4().hex[:12]}", "type": "message", "role": "assistant", "model": model,
+               "content": [], "stop_reason": None, "usage": {**reply["usage"], "output_tokens": 0}}
+    events: list[tuple[str, dict[str, Any]]] = [("message_start", {"type": "message_start", "message": message})]
+    for i, block in enumerate(reply["content"]):
+        if block["type"] == "text":
+            events.append(("content_block_start", {"type": "content_block_start", "index": i, "content_block": {"type": "text", "text": ""}}))
+            events.append(("content_block_delta", {"type": "content_block_delta", "index": i, "delta": {"type": "text_delta", "text": block["text"]}}))
+        else:
+            start = {k: block[k] for k in ("type", "id", "name")} | {"input": {}}
+            events.append(("content_block_start", {"type": "content_block_start", "index": i, "content_block": start}))
+            events.append(("content_block_delta", {"type": "content_block_delta", "index": i,
+                                                   "delta": {"type": "input_json_delta", "partial_json": json.dumps(block["input"])}}))
+        events.append(("content_block_stop", {"type": "content_block_stop", "index": i}))
+    events.append(("message_delta", {"type": "message_delta", "delta": {"stop_reason": reply["stop"], "stop_sequence": None},
+                                     "usage": {"output_tokens": reply["usage"]["output_tokens"]}}))
+    events.append(("message_stop", {"type": "message_stop"}))
+    return events
+
+
 # ── HTTP handler ─────────────────────────────────────────────────────────────
 
 
@@ -247,11 +328,12 @@ class _Handler(BaseHTTPRequestHandler):
             **_describe(body),
         }
         try:
-            if not self.path.rstrip("/").endswith("/chat/completions"):
+            messages_api = _is_messages(self.path)
+            if not messages_api and not self.path.rstrip("/").endswith("/chat/completions"):
                 self._json(404, {"error": f"unsupported path {self.path}"})
                 entry["status"] = 404
             elif self.mode == "mock":
-                self._serve_mock(body, entry)
+                (self._serve_mock_messages if messages_api else self._serve_mock)(body, entry)
             else:
                 try:
                     self._serve_proxy(raw, body, entry)
@@ -300,13 +382,34 @@ class _Handler(BaseHTTPRequestHandler):
         self.wfile.flush()
         self.close_connection = True
 
+    def _serve_mock_messages(self, body: dict[str, Any], entry: dict[str, Any]) -> None:
+        reply = mock_messages_reply(body)
+        model = body.get("model") or "mock"
+        entry.update(status=200, usage=reply["usage"], t_first_byte=_now_ms())
+        if not body.get("stream"):
+            self._json(200, {"id": f"msg_{uuid.uuid4().hex[:12]}", "type": "message", "role": "assistant", "model": model,
+                             "content": reply["content"], "stop_reason": reply["stop"], "usage": reply["usage"]})
+            return
+        self.send_response(200)
+        self.send_header("Content-Type", "text/event-stream")
+        self.send_header("Cache-Control", "no-cache")
+        self.end_headers()
+        for name, data in _mock_messages_events(reply, model):
+            self.wfile.write(f"event: {name}\ndata: {json.dumps(data, ensure_ascii=False)}\n\n".encode())
+        self.wfile.flush()
+        self.close_connection = True
+
     def _serve_proxy(self, raw: bytes, body: dict[str, Any], entry: dict[str, Any]) -> None:
         target = urlsplit(self.upstream)
-        path = target.path.rstrip("/") + self.path
+        root = target.path.rstrip("/")
+        if _is_messages(self.path) and not root.endswith("/anthropic"):
+            root += "/anthropic"  # DeepSeek serves Messages under its /anthropic root
+        path = root + self.path
         conn_cls = http.client.HTTPSConnection if target.scheme == "https" else http.client.HTTPConnection
         conn = conn_cls(target.netloc, timeout=600)
         try:
-            headers = {k: v for k, v in self.headers.items() if k.lower() in ("authorization", "content-type", "accept", "user-agent")}
+            forwarded = ("authorization", "x-api-key", "anthropic-version", "anthropic-beta", "content-type", "accept", "user-agent")
+            headers = {k: v for k, v in self.headers.items() if k.lower() in forwarded}
             conn.request("POST", path, body=raw, headers=headers)
             upstream = conn.getresponse()
             entry["status"] = upstream.status
@@ -342,7 +445,12 @@ class _Handler(BaseHTTPRequestHandler):
                         chunk = json.loads(line[6:])
                     except json.JSONDecodeError:
                         continue
-                    if chunk.get("usage"):
+                    kind = chunk.get("type")
+                    if kind == "message_start":  # Messages: input usage first, final output in message_delta
+                        entry["usage"] = dict((chunk.get("message") or {}).get("usage") or {})
+                    elif kind == "message_delta":
+                        entry["usage"] = {**(entry.get("usage") or {}), **(chunk.get("usage") or {})}
+                    elif chunk.get("usage"):
                         entry["usage"] = chunk["usage"]
         finally:
             conn.close()

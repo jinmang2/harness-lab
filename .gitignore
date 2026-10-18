@@ -8,9 +8,11 @@ __pycache__/
 
 # Experiment outputs and isolated DeepSeek Harness state.
 runs/
-.dsh-home/
-.dsh-runtime/
+.dsh-home*/
+.dsh-runtime*/
 
 # Local agent tooling state.
 .omc/
 ui/node_modules/
+.claude/.bc-*.json
+.claude/.bc-explain/

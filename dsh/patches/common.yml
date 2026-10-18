@@ -24,3 +24,15 @@
 - id: session-telemetry-otel
   config:
     mode: DISABLED
+
+# 0.2.x attaches the whole session log to every official API request
+# (`dsh_session_log`, default on; 0.1.5-rc.3 shipped it off). Keep it off.
+- id: session-log-deepseek
+  config:
+    enabled: false
+
+# Every official API request also carries the active plugin package list
+# (`dsh_plugin_packages`, default on in both versions). Not model input; keep it home.
+- id: plugin-package-inventory-deepseek
+  config:
+    enabled: false

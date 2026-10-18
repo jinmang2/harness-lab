@@ -3,6 +3,10 @@
 No source build and no Web UI: `lab dsh-install` puts the pinned npm package in
 `.dsh-runtime/`, and every run uses an isolated `DSH_HOME` (`.dsh-home/`) so it never
 touches `~/.dsh`. Harness compositions are `--patch` overlays in `dsh/patches/`.
+
+The study pins 0.1.5-rc.3 (week1). A harness may pin another version (week2 needs
+0.2.x for Plugin Manager); each extra version gets its own `.dsh-runtime-<version>/`
+and `.dsh-home-<version>/`, because profiles and session formats differ (ADR-0014).
 """
 
 from __future__ import annotations
@@ -21,6 +25,7 @@ from typing import Any
 from lab import ROOT
 
 DSH_VERSION = os.environ.get("DSH_VERSION", "0.1.5-rc.3")
+WEEK2_VERSION = "0.2.0-rc.2"
 RUNTIME_DIR = ROOT / ".dsh-runtime"
 DSH_HOME = ROOT / ".dsh-home"
 PATCH_DIR = ROOT / "dsh" / "patches"
@@ -29,38 +34,60 @@ PATCH_DIR = ROOT / "dsh" / "patches"
 HARNESSES: dict[str, list[str]] = {
     "standard": ["common.yml"],
     "minimal": ["common.yml", "minimal.yml"],
+    "ralph-official": ["common.yml", "ralph-official.yml"],
+}
+
+# harnesses that do not run on DSH_VERSION.
+HARNESS_VERSIONS: dict[str, str] = {
+    "ralph-official": WEEK2_VERSION,
 }
 
 
-def bin_path() -> Path:
-    return RUNTIME_DIR / "node_modules" / ".bin" / "dsh"
+def version_of(harness: str) -> str:
+    return HARNESS_VERSIONS.get(harness, DSH_VERSION)
 
 
-def install() -> None:
+def runtime_dir(version: str | None = None) -> Path:
+    version = version or DSH_VERSION
+    return RUNTIME_DIR if version == DSH_VERSION else ROOT / f".dsh-runtime-{version}"
+
+
+def home_dir(version: str | None = None) -> Path:
+    version = version or DSH_VERSION
+    return DSH_HOME if version == DSH_VERSION else ROOT / f".dsh-home-{version}"
+
+
+def bin_path(version: str | None = None) -> Path:
+    return runtime_dir(version) / "node_modules" / ".bin" / "dsh"
+
+
+def install(version: str | None = None) -> None:
+    version = version or DSH_VERSION
     if shutil.which("npm") is None:
         raise SystemExit("npm is required (Node.js ^22.19 or >=24).")
-    RUNTIME_DIR.mkdir(exist_ok=True)
-    package_json = RUNTIME_DIR / "package.json"
+    target = runtime_dir(version)
+    target.mkdir(exist_ok=True)
+    package_json = target / "package.json"
     if not package_json.exists():
         package_json.write_text('{"name": "dsh-runtime", "private": true}\n')
     subprocess.run(
-        ["npm", "install", "--no-audit", "--no-fund", f"@deepseek-ai/dsh@{DSH_VERSION}"],
-        cwd=RUNTIME_DIR,
+        ["npm", "install", "--no-audit", "--no-fund", f"@deepseek-ai/dsh@{version}"],
+        cwd=target,
         check=True,
     )
-    print(f"installed @deepseek-ai/dsh@{DSH_VERSION} -> {bin_path()}")
+    print(f"installed @deepseek-ai/dsh@{version} -> {bin_path(version)}")
 
 
-def environment() -> dict[str, str]:
+def environment(version: str | None = None) -> dict[str, str]:
     env = dict(os.environ)
-    env["DSH_HOME"] = str(DSH_HOME)
+    env["DSH_HOME"] = str(home_dir(version))
     env["DSH_TELEMETRY_MODE"] = "DISABLED"
     env.setdefault("LAB_MODEL", "deepseek-v4-flash")
     return env
 
 
-def _log_state() -> dict[Path, tuple[float, int]]:
-    root = DSH_HOME / "sessions"
+def _log_state(home: Path = DSH_HOME) -> dict[Path, tuple[float, int]]:
+    root = home / "sessions"
     if not root.is_dir():
         return {}
     return {p: (p.stat().st_mtime, p.stat().st_size) for p in root.rglob("session*.jsonl")}
@@ -75,13 +102,13 @@ def _header(path: Path) -> dict[str, Any]:
         return {}
 
 
-def _new_logs(before: dict[Path, tuple[float, int]], cwd: Path | None = None) -> list[Path]:
+def _new_logs(before: dict[Path, tuple[float, int]], cwd: Path | None = None, home: Path = DSH_HOME) -> list[Path]:
     """Session logs created or appended during this run: the main session first, then subagents.
 
     Ordered by the session header's `delegationDepth` (0 = main), then creation time.
     `st_ctime` is not creation time on POSIX: the parent keeps writing after a child ends.
     """
-    after = _log_state()
+    after = _log_state(home)
     changed = [p for p, state in after.items() if before.get(p) != state]
     if cwd is not None:  # other DSH runs may be going on at the same time (UI + batch)
         changed = [p for p in changed if _header(p).get("cwd") == str(cwd)]
@@ -130,21 +157,24 @@ def run(
     """
     if harness not in HARNESSES:
         raise SystemExit(f"unknown dsh harness {harness!r}; known: {', '.join(HARNESSES)}")
-    binary = bin_path()
+    version = version_of(harness)
+    binary = bin_path(version)
     if not binary.exists():
-        raise SystemExit("DeepSeek Harness is not installed: run `uv run lab dsh-install`.")
+        flag = "" if version == DSH_VERSION else f" --version {version}"
+        raise SystemExit(f"DeepSeek Harness {version} is not installed: run `uv run lab dsh-install{flag}`.")
     cmd = [str(binary), "--profile", "headless"]
     for patch in HARNESSES[harness]:
         cmd += ["--patch", str(PATCH_DIR / patch)]
     cmd.append(_safe_prompt(prompt))
 
-    DSH_HOME.mkdir(exist_ok=True)
-    before = _log_state()
+    home = home_dir(version)
+    home.mkdir(exist_ok=True)
+    before = _log_state(home)
     started = time.time()
     t0 = time.perf_counter()
     # Own process group so a timeout also stops the shells DSH started.
     proc = subprocess.Popen(
-        cmd, cwd=workdir, env={**environment(), **(env or {})}, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+        cmd, cwd=workdir, env={**environment(version), **(env or {})}, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
         start_new_session=True,
     )
     out: list[bytes] = []
@@ -175,7 +205,7 @@ def run(
         r.join(timeout=5)
     stdout, stderr = b"".join(out).decode("utf-8", "replace"), b"".join(err).decode("utf-8", "replace")
     wall_ms = int((time.perf_counter() - t0) * 1000)
-    logs = _new_logs(before, Path(workdir).resolve())
+    logs = _new_logs(before, Path(workdir).resolve(), home)
     return {
         "exit_code": code,
         "stdout": stdout,
@@ -245,7 +275,7 @@ def session_request(path: Path) -> dict[str, Any]:
 
 
 def convert_session(path: Path) -> list[dict[str, Any]]:
-    """Map DSH session events (format v3) to `llm` / `tool` trace events."""
+    """Map DSH session events (format v3 and v4) to `llm` / `tool` trace events."""
     events: list[dict[str, Any]] = []
     system_chars = 0
     tools: list[str] = []
@@ -317,9 +347,11 @@ def convert_session(path: Path) -> list[dict[str, Any]]:
             }
         elif kind == "tool/result":
             message = data.get("message") or {}
-            for block in message.get("content") or []:
-                if not isinstance(block, dict) or block.get("type") != "tool-result":
-                    continue
+            # v3 nests `tool-result` blocks in the message; v4 (0.2.x) makes the message itself the result.
+            blocks = [b for b in message.get("content") or [] if isinstance(b, dict) and b.get("type") == "tool-result"]
+            if not blocks and message.get("toolCallId"):
+                blocks = [message]
+            for block in blocks:
                 event = pending_tools.pop(block.get("toolCallId"), None) or {"kind": "tool", "name": "?"}
                 text = "".join(p.get("text", "") for p in block.get("content") or [] if isinstance(p, dict))
                 event.update(result_chars=len(text), result_preview=text[:500], error=text[:500] if block.get("isError") else None)

@@ -8,7 +8,7 @@
     lab judge runs/<batch>                     Output Quality via LLM-judge (task rubrics)
     lab week1 runs/<batch> --id <GitHub-ID>    week 1 assignment result.md from a week1-assignment batch
     lab report runs/<batch>                    rebuild report.md
-    lab dsh-install                            install pinned DeepSeek Harness (npm, no build)
+    lab dsh-install [--version V]              install pinned DeepSeek Harness (npm, no build)
 """
 
 from __future__ import annotations
@@ -32,7 +32,7 @@ def _cmd_list(args: argparse.Namespace) -> None:
         print(f"  {h.name:<14} {h.description}")
     print("\ndsh harnesses (headless + patches):")
     for name, patches in dsh.HARNESSES.items():
-        print(f"  {name:<14} {' + '.join(patches)}")
+        print(f"  {name:<14} {' + '.join(patches)}  (dsh {dsh.version_of(name)})")
     print("\ntasks:")
     for path in sorted(TASKS_DIR.glob("*.yaml")):
         for t in load_tasks(path):
@@ -109,7 +109,7 @@ def _cmd_report(args: argparse.Namespace) -> None:
 def _cmd_dsh_install(args: argparse.Namespace) -> None:
     from lab import dsh
 
-    dsh.install()
+    dsh.install(args.version)
 
 
 def main(argv: list[str] | None = None) -> None:
@@ -161,7 +161,9 @@ def main(argv: list[str] | None = None) -> None:
     rep.add_argument("batch")
     rep.set_defaults(func=_cmd_report)
 
-    sub.add_parser("dsh-install", help="install pinned DeepSeek Harness from npm").set_defaults(func=_cmd_dsh_install)
+    di = sub.add_parser("dsh-install", help="install pinned DeepSeek Harness from npm")
+    di.add_argument("--version", help="DSH version (default: the study pin; week2 harnesses use 0.2.0-rc.2)")
+    di.set_defaults(func=_cmd_dsh_install)
 
     args = parser.parse_args(argv)
     args.func(args)
