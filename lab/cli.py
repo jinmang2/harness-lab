@@ -62,7 +62,8 @@ def _cmd_run(args: argparse.Namespace) -> None:
                 print(f"note: {engine} engine has no {', '.join(unsupported)}; skipping those there")
     tasks = load_tasks(Path(args.tasks), args.task or None)
     batch_dir = run_batch(
-        tasks, combos, repeat=args.repeat, label=args.label, judge=args.judge, tasks_file=Path(args.tasks).resolve()
+        tasks, combos, repeat=args.repeat, label=args.label, judge=args.judge, tasks_file=Path(args.tasks).resolve(),
+        start=args.start,
     )
     print(f"\nreport: {batch_dir / 'report.md'}\nview:   uv run lab view  ->  http://127.0.0.1:8765/#{batch_dir.name}")
 
@@ -148,6 +149,7 @@ def main(argv: list[str] | None = None) -> None:
     run.add_argument("-T", "--tasks", default=str(TASKS_DIR / "week1.yaml"), help="task file")
     run.add_argument("-t", "--task", action="append", help="only this task id (repeatable)")
     run.add_argument("-n", "--repeat", type=int, default=1)
+    run.add_argument("--start", type=int, default=1, help="number of the first repeat (to add repeats to an earlier batch)")
     run.add_argument("-l", "--label", help="suffix for the batch directory name")
     run.add_argument("--judge", action="store_true", help="run `lab judge` on the batch afterwards (extra model calls)")
     run.set_defaults(func=_cmd_run)

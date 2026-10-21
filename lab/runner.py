@@ -18,6 +18,7 @@ import os
 import re
 import shlex
 import shutil
+import socket
 import subprocess
 import tempfile
 import time
@@ -25,6 +26,7 @@ from collections.abc import Callable
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
+from urllib.parse import urlsplit
 from typing import Any
 
 import yaml
@@ -264,6 +266,36 @@ def run_dsh(task: Task, harness_name: str, run_dir: Path, batch: str, repeat: in
     return [header, *events, end]
 
 
+# A DSH run whose turn died on one of these is a network failure, not a harness result (week2, 2026-10-19).
+INFRA_ERRORS = ("gaierror", "STREAM_CLOSED", "Connection reset", "gateway upstream error", "TRANSPORT")
+INFRA_RETRIES = 2
+
+
+def _infra_failure(events: list[dict[str, Any]]) -> str:
+    end = events[-1] if events else {}
+    error = end.get("error") or ""
+    if end.get("status") != "error":
+        return ""
+    return next((sig for sig in INFRA_ERRORS if sig in error), "")
+
+
+def _wait_for_upstream(poll_s: float = 30.0, limit_s: float = 6 * 3600) -> None:
+    """Block until the model API's host resolves (DNS outages killed whole batches); gives up after `limit_s`."""
+    host = urlsplit(os.environ.get("LAB_UPSTREAM", "https://api.deepseek.com")).hostname or "api.deepseek.com"
+    waited = 0.0
+    while True:
+        try:
+            socket.getaddrinfo(host, 443)
+            return
+        except OSError:
+            if waited == 0:
+                print(f"  waiting for {host} to resolve (network down)", flush=True)
+            if waited >= limit_s:
+                return
+            time.sleep(poll_s)
+            waited += poll_s
+
+
 def run_batch(
     tasks: list[Task],
     combos: list[tuple[str, str]],
@@ -271,6 +303,7 @@ def run_batch(
     label: str | None = None,
     judge: bool = False,
     tasks_file: Path | None = None,
+    start: int = 1,
 ) -> Path:
     batch = datetime.now().strftime("%Y%m%d-%H%M%S") + (f"-{label}" if label else "")
     batch_dir = RUNS_DIR / batch
@@ -285,17 +318,28 @@ def run_batch(
     total = len(tasks) * len(combos) * repeat
     n = 0
     for task in tasks:
-        for i in range(1, repeat + 1):
+        for i in range(start, start + repeat):
             for engine, harness_name in combos:
                 n += 1
                 run_dir = batch_dir / f"{task.id}__{engine}-{harness_name}__{i}"
                 run_dir.mkdir()
                 print(f"[{n}/{total}] {task.id} · {engine}/{harness_name} · #{i}", flush=True)
-                t_start = int(time.time() * 1000)
-                if engine == "lab":
-                    events = run_lab(task, harness_name, run_dir, batch, i)
-                else:
-                    events = run_dsh(task, harness_name, run_dir, batch, i, engine)
+                infra_retries = 0
+                while True:
+                    if engine != "lab":
+                        _wait_for_upstream()
+                    t_start = int(time.time() * 1000)
+                    if engine == "lab":
+                        events = run_lab(task, harness_name, run_dir, batch, i)
+                    else:
+                        events = run_dsh(task, harness_name, run_dir, batch, i, engine)
+                    reason = _infra_failure(events) if engine != "lab" else ""
+                    if not reason or infra_retries >= INFRA_RETRIES:
+                        break
+                    infra_retries += 1  # the network failed, not the harness: run it again from a fresh workspace
+                    print(f"  infra failure ({reason}); rerunning ({infra_retries}/{INFRA_RETRIES})", flush=True)
+                    shutil.rmtree(run_dir)
+                    run_dir.mkdir()
                 t_end = int(time.time() * 1000)
                 write_events(run_dir / "trace.jsonl", events)
                 final = events[-1].get("final") or ""
@@ -308,6 +352,7 @@ def run_batch(
                         summary["check"] = summary["expect"]
                 summary["tool_selection"] = tool_selection(summary["tool_sequence"], task.tools)
                 summary["recovery"] = recovery(summary)
+                summary["infra_retries"] = infra_retries
                 if _uses_gateway():
                     time.sleep(0.5)  # the gateway records a call after the response is flushed
                     calls = gateway.calls_between(t_start, t_end)

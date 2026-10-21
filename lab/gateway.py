@@ -22,6 +22,8 @@ from __future__ import annotations
 
 import http.client
 import json
+import os
+import queue
 import threading
 import time
 import uuid
@@ -34,6 +36,13 @@ from lab import RUNS_DIR
 
 GATEWAY_DIR = RUNS_DIR / "gateway"
 CALLS_FILE = GATEWAY_DIR / "calls.jsonl"
+# Upstream resets before any content event reached the client are retried this many times (they are
+# network faults, not model behaviour; DSH does not retry STREAM_CLOSED, so one would end a round).
+UPSTREAM_RETRIES = 3
+# Stream events that carry no tokens yet; they are held back so a reset before the first delta can be retried.
+HELD_EVENTS = ("message_start", "ping", "content_block_start")
+# LAB_GATEWAY_BUFFER=1 holds whole streams so a reset at any point is retried (flaky networks; week2 2026-10-19).
+KEEPALIVE_S = 5.0
 _write_lock = threading.Lock()
 
 
@@ -372,6 +381,7 @@ class _Handler(BaseHTTPRequestHandler):
     mode = "mock"
     upstream = "https://api.deepseek.com"
     save_bodies = True
+    buffer_streams = False
 
     def log_message(self, fmt: str, *args: Any) -> None:  # keep the terminal quiet
         pass
@@ -475,60 +485,123 @@ class _Handler(BaseHTTPRequestHandler):
             root += "/anthropic"  # DeepSeek serves Messages under its /anthropic root
         path = root + self.path
         conn_cls = http.client.HTTPSConnection if target.scheme == "https" else http.client.HTTPConnection
-        conn = conn_cls(target.netloc, timeout=600)
-        try:
-            forwarded = ("authorization", "x-api-key", "anthropic-version", "anthropic-beta", "content-type", "accept", "user-agent")
-            headers = {k: v for k, v in self.headers.items() if k.lower() in forwarded}
-            conn.request("POST", path, body=raw, headers=headers)
-            upstream = conn.getresponse()
-            entry["status"] = upstream.status
-            is_sse = "text/event-stream" in (upstream.getheader("Content-Type") or "")
-            self.send_response(upstream.status)
-            for key, value in upstream.getheaders():
-                if key.lower() in ("content-type", "cache-control"):
-                    self.send_header(key, value)
-            self.end_headers()
-            entry["headers_sent"] = True
-            self.close_connection = True
-            if not is_sse:  # non-stream answer, or a JSON error for a stream request
-                data = upstream.read()
-                entry["t_first_byte"] = _now_ms()
-                self.wfile.write(data)
-                try:
-                    entry["usage"] = json.loads(data).get("usage")
-                except (json.JSONDecodeError, AttributeError):
-                    pass
-                if upstream.status >= 400:
-                    entry["error_body"] = data[:2000].decode("utf-8", "replace")
-                return
+        forwarded = ("authorization", "x-api-key", "anthropic-version", "anthropic-beta", "content-type", "accept", "user-agent")
+        headers = {k: v for k, v in self.headers.items() if k.lower() in forwarded}
+        attempt = 0
+        while True:
+            conn = conn_cls(target.netloc, timeout=600)
+            try:
+                conn.request("POST", path, body=raw, headers=headers)
+                upstream = conn.getresponse()
+                is_sse = "text/event-stream" in (upstream.getheader("Content-Type") or "")
+                if entry.get("headers_sent"):  # a retry: the client already has the stream's headers
+                    if not is_sse:
+                        raise OSError(f"retry got a non-stream answer (HTTP {upstream.status})")
+                else:
+                    entry["status"] = upstream.status
+                    self.send_response(upstream.status)
+                    for key, value in upstream.getheaders():
+                        if key.lower() in ("content-type", "cache-control"):
+                            self.send_header(key, value)
+                    self.end_headers()
+                    entry["headers_sent"] = True
+                    self.close_connection = True
+                if not is_sse:  # non-stream answer, or a JSON error for a stream request
+                    data = upstream.read()
+                    entry["t_first_byte"] = _now_ms()
+                    self.wfile.write(data)
+                    try:
+                        entry["usage"] = json.loads(data).get("usage")
+                    except (json.JSONDecodeError, AttributeError):
+                        pass
+                    if upstream.status >= 400:
+                        entry["error_body"] = data[:2000].decode("utf-8", "replace")
+                    return
+                if self._relay_stream(upstream, entry, retryable=attempt < UPSTREAM_RETRIES):
+                    return
+                attempt += 1
+                entry["upstream_retries"] = attempt
+            finally:
+                conn.close()
+
+    def _relay_stream(self, upstream: http.client.HTTPResponse, entry: dict[str, Any], retryable: bool) -> bool:
+        """Copy an SSE stream to the client; returns False to ask for a retry after an upstream reset.
+
+        Events before the first token (`HELD_EVENTS`) are always held back, so a reset in that window is
+        retried without the client seeing a duplicate start. With `buffer_streams` the whole stream is held
+        until it ends, so a reset at any point is retried; while holding, an SSE comment goes out every
+        `KEEPALIVE_S` so the client does not time out (clients ignore comments). A reset after events
+        reached the client raises."""
+        lines: queue.Queue[bytes | OSError] = queue.Queue()
+
+        def pump() -> None:
             while True:
-                line = upstream.readline()
+                try:
+                    line = upstream.readline()
+                except OSError as exc:
+                    lines.put(exc)
+                    return
+                lines.put(line)
                 if not line:
-                    break
+                    return
+
+        threading.Thread(target=pump, daemon=True).start()
+        held: list[bytes] = []
+        started = False
+        last_kind = None
+        while True:
+            try:
+                line = lines.get(timeout=KEEPALIVE_S)
+            except queue.Empty:
+                if not started:
+                    self.wfile.write(b": lab-gateway keep-alive\n\n")
+                    self.wfile.flush()
+                continue
+            if isinstance(line, OSError):
+                entry["last_event"] = last_kind
+                if started or not retryable:
+                    raise line
+                entry.setdefault("upstream_resets", []).append(repr(line)[:120])
+                return False
+            if not line:
+                if not started:
+                    self.wfile.writelines(held)
+                    self.wfile.flush()
+                return True
+            if line.startswith(b"data:"):  # SSE comments such as `: keep-alive` are not tokens
+                entry.setdefault("t_first_byte", _now_ms())
+            kind = None
+            if line.startswith(b"data: {"):
+                try:
+                    chunk = json.loads(line[6:])
+                except json.JSONDecodeError:
+                    chunk = {}
+                kind = chunk.get("type")
+                last_kind = kind
+                if kind == "message_start":  # Messages: input usage first, final output in message_delta
+                    entry["usage"] = dict((chunk.get("message") or {}).get("usage") or {})
+                elif kind == "message_delta":
+                    entry["usage"] = {**(entry.get("usage") or {}), **(chunk.get("usage") or {})}
+                elif chunk.get("usage"):
+                    entry["usage"] = chunk["usage"]
+            if started:
                 self.wfile.write(line)
                 self.wfile.flush()
-                if line.startswith(b"data:"):  # SSE comments such as `: keep-alive` are not tokens
-                    entry.setdefault("t_first_byte", _now_ms())
-                if line.startswith(b"data: {"):
-                    try:
-                        chunk = json.loads(line[6:])
-                    except json.JSONDecodeError:
-                        continue
-                    kind = chunk.get("type")
-                    if kind == "message_start":  # Messages: input usage first, final output in message_delta
-                        entry["usage"] = dict((chunk.get("message") or {}).get("usage") or {})
-                    elif kind == "message_delta":
-                        entry["usage"] = {**(entry.get("usage") or {}), **(chunk.get("usage") or {})}
-                    elif chunk.get("usage"):
-                        entry["usage"] = chunk["usage"]
-        finally:
-            conn.close()
+                continue
+            held.append(line)
+            if not self.buffer_streams and line.startswith(b"data: {") and kind not in HELD_EVENTS:
+                started = True
+                self.wfile.writelines(held)
+                self.wfile.flush()
 
-
-def serve(mode: str = "mock", port: int = 8790, upstream: str = "https://api.deepseek.com", save_bodies: bool = True) -> ThreadingHTTPServer:
+def serve(mode: str = "mock", port: int = 8790, upstream: str = "https://api.deepseek.com", save_bodies: bool = True,
+          buffer_streams: bool | None = None) -> ThreadingHTTPServer:
     if mode not in ("mock", "proxy"):
         raise SystemExit("mode must be mock or proxy")
-    handler = type("Handler", (_Handler,), {"mode": mode, "upstream": upstream, "save_bodies": save_bodies})
+    if buffer_streams is None:
+        buffer_streams = os.environ.get("LAB_GATEWAY_BUFFER") == "1"
+    handler = type("Handler", (_Handler,), {"mode": mode, "upstream": upstream, "save_bodies": save_bodies,
+                                            "buffer_streams": buffer_streams})
     return ThreadingHTTPServer(("127.0.0.1", port), handler)
 
 
