@@ -75,12 +75,13 @@
   - **과정 지표**: worker가 `continue`인데 검증 통과로 끝난 실행, BACKLOG 항목 수만큼 Round를 쓴 실행, 부모 세션의 토큰 몫.
   - 이걸로 처음 결론("검증과 채점을 분리한 Custom 13/14")이 "루프 끝 기준 9/14, 원인은 검증 통과만 보는 종료 규칙"으로 바뀌었어요.
 - **종료 규칙 v2** (2026-10-20 추가): `verified_ralph`에 `stopWhen` 설정을 더했어요. 기본값 `verifier`는 지금까지 실험을 재현할 수 있게 그대로 두고, `verifier-and-worker`는 검증 exit 0이고 같은 Round worker가 `complete`일 때만 끝내요. `dsh-web`의 `ralph-custom-tests-v2`가 이 설정을 써요. Preset 파일(`dsh/patches/web-ralph-custom-tests-v2.yml`)은 같은 생성기에서 나오고, v1과 `stopWhen` 한 줄만 다르다는 걸 테스트로 지켜요. 종료 규칙 자체는 가짜 child와 가짜 검증을 붙인 node 실행으로 테스트해요.
-  - 같은 14회 조건에서 루프 끝 만점이 9/14 → 13/14가 됐어요. v1이었다면 일찍 끝났을 실행 9회를 모두 worker `complete`까지 이어 갔어요. 남은 실패 2회(worker와 worker 테스트가 같이 틀림, 차분 테스트의 숨은 버그)는 종료 규칙이 아니라 검증 명령의 한계예요.
+  - 같은 14회 조건에서 루프 끝 만점이 9/14 → 13/14가 됐어요. v1이었다면 일찍 끝났을 실행 9회를 모두 worker `complete`까지 이어 갔어요. 남은 실패 2회 중 차분 테스트의 숨은 버그(대문자 `X`)는 종료 규칙이 아니라 검증 명령의 한계예요. 다른 1회(durations rule 7)는 아래 SPEC 빈틈이에요.
 - **v3 파일럿과 근본 원인 검토** (2026-10-20 추가): `verified_ralph`에 worker 설정 세 개를 더했어요. 기본값은 모두 꺼져 있어요. `workerTools`(child 도구 allow 목록, provider의 `toolFilter`), `workerEffort`(child 추론 강도, `agentOptions`), `workerProtocol: focused`(progress 파일은 루프만 쓰고, 읽기를 묶고, 이번 Round 몫만 하라는 지시)예요. provider가 이 기능을 지원하지 않으면 child를 띄우기 전에 실패해요. `dsh-web`의 `ralph-custom-tests-v3`, `-v3-low`가 써요. 각 2회 만점이었지만 본 배치가 API 잔액 부족으로 멈췄어요.
   - 다시 돌리기 전에 기존 기록(게이트웨이 요청 본문)으로 비용을 분해했어요. 돈의 75%가 출력 토큰이고 시간의 97%가 모델 생성이에요. "전체 토큰"은 95%가 캐시라 지표로 쓰지 않아요. 비용은 출력 토큰과 $로 봐요.
   - 도구 제한은 대부분 캐시 입력을 줄여서 돈으로 1~2%예요. `low`는 child 출력을 10~20% 줄여요. 실행당 비용의 변동계수가 0.17이라, 방식마다 작업당 5회로는 20%보다 작은 차이를 가려낼 수 없어요. 그래서 v3는 더 재지 않아요.
   - Web Custom 실행의 Round 159개 중 "worker `complete`, 검증 실패"는 0개였어요. 검증이 worker 테스트면 종료 결정이 공식과 같아져요. 실제 실패는 모두 worker와 worker 테스트가 같이 틀린 경우라, 다음 설계는 worker와 독립된 점검자예요(재지 않았어요).
   - 실행별 `wire.jsonl`은 시간 구간으로 자른 기록이라, 같은 시간에 돈 다른 엔진의 호출이 섞일 수 있어요. 분석에서는 `bash` 도구가 있는 호출만 DSH 호출로 봐요.
+- **durations SPEC의 빈틈** (2026-10-21 추가): 수락 테스트 `test_r07_sign`은 `- 1h`(부호 뒤 공백)를 거부해야 한다고 보는데, SPEC rule 7 문장에는 이 예가 없어요. rule 7에서 12/13으로 끝난 실행은 방식과 상관없이 모두 이 입력 하나만 받아들였어요(dsh-web 공식 1회, v2 1회, lab fresh와 reset 각 1회). 결과를 본 뒤라 수락 테스트와 SPEC은 바꾸지 않고, 비교에서 이 실행들은 SPEC 빈틈으로 따로 적어요. 다음 작업을 만들 때는 수락 테스트의 모든 입력이 SPEC 문장에 예로 들어 있는지 먼저 확인해요.
 - 같은 대화 방식(goal, judge, check, reset)은 graph 실행 하나가 모든 Round를 담으니 `LAB_RECURSION_LIMIT=1000`(5 × 200)으로 돌려요. 새 child 방식은 Round마다 child가 200을 따로 받아요.
 
 ## 고려한 대안
