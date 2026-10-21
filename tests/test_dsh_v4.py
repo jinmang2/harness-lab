@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import os
+import subprocess
 from pathlib import Path
 
 import pytest
@@ -138,3 +139,139 @@ def test_ralph_preset_patch_differs_from_standard_only_in_the_ralph_row():
 
     removed = [ln[1:].strip() for ln in difflib.ndiff([x for x in shipped if x.strip()], ours) if ln.startswith("- ")]
     assert removed == ["- id: preset-standard", "id: standard", "order: 1", "disabled: true", "maxRounds: 64"]
+
+
+def test_custom_tests_preset_differs_from_the_creator_preset_only_in_identity_and_verifier():
+    from lab import dsh_web
+
+    bundle = (dsh.PATCH_DIR.parent / "bundles" / "verified-ralph" / "cordis.patch.yml").read_text()
+    generated = dsh_web.custom_tests_preset_patch(bundle)
+    assert generated == (dsh.PATCH_DIR / "web-ralph-custom-tests.yml").read_text()  # the committed file is current
+    import difflib
+
+    src = [ln for ln in bundle.splitlines() if not ln.lstrip().startswith("#")]
+    ours = [ln for ln in generated.splitlines() if not ln.lstrip().startswith("#") and ln]
+    changed = [ln[2:].strip().split(":")[0] for ln in difflib.ndiff([x for x in src if x.strip()], ours) if ln.startswith("+ ")]
+    assert changed == ["- id", "id", "name", "description", "order", "verifyCommand"]
+    assert "verifyCommand: 'python3 -m unittest discover -s tests'" in generated
+
+
+@pytest.mark.parametrize(("variant", "config"), [
+    ("v2", ["stopWhen"]),
+    ("v3", ["stopWhen", "workerTools", "workerProtocol"]),
+    ("v3-low", ["stopWhen", "workerTools", "workerProtocol", "workerEffort"]),
+])
+def test_custom_tests_variants_add_only_plugin_config(variant, config):
+    from lab import dsh_web
+
+    bundle = (dsh.PATCH_DIR.parent / "bundles" / "verified-ralph" / "cordis.patch.yml").read_text()
+    text = dsh_web.custom_tests_preset_patch(bundle, variant)
+    assert text == (dsh.PATCH_DIR / f"web-ralph-custom-tests-{variant}.yml").read_text()  # the committed file is current
+    import difflib
+
+    v1 = [ln for ln in dsh_web.custom_tests_preset_patch(bundle).splitlines() if ln and not ln.lstrip().startswith("#")]
+    ours = [ln for ln in text.splitlines() if ln and not ln.lstrip().startswith("#")]
+    added = [ln[2:].strip().split(":")[0] for ln in difflib.ndiff(v1, ours) if ln.startswith("+ ")]
+    assert added == ["- id", "id", "name", "description", "order", *config]
+
+
+def test_a_turn_that_died_on_a_model_error_is_a_failed_run(tmp_path):
+    from lab import dsh_web
+
+    log = tmp_path / "s.jsonl"
+    ok = {"type": "turn/end", "data": {"turn": 1, "reason": {"kind": "idle"}}}
+    died = {"type": "turn/end", "data": {"turn": 2, "reason": {"kind": "error", "error": {"code": "SERVER", "message": "gateway upstream error"}}}}
+    log.write_text(json.dumps(ok) + "\n")
+    assert dsh_web.turn_error(log) == ""
+    log.write_text(json.dumps(ok) + "\n" + json.dumps(died) + "\n")
+    assert "SERVER gateway upstream error" in dsh_web.turn_error(log)
+
+
+def test_a_network_failure_reruns_the_dsh_run_and_a_harness_failure_does_not(monkeypatch):
+    from lab import runner
+    from lab.runner import Task, run_batch
+
+    calls = []
+
+    def fake_run_dsh(task, harness_name, run_dir, batch, repeat, engine="dsh"):
+        calls.append(harness_name)
+        (run_dir / "marker").write_text(str(len(calls)))
+        err = {"net": "turn ended with an error: SERVER gateway upstream error: gaierror(8, ...)",
+               "real": "turn ended with an error: tool failed"}
+        first = harness_name == "ralph-official" and calls.count(harness_name) == 1
+        status = "error" if first or harness_name == "ralph-custom" else "ok"
+        error = err["net"] if first else err["real"] if status == "error" else None
+        return [{"kind": "run", "run_id": run_dir.name, "engine": engine, "harness": harness_name, "task": task.id}, {"kind": "end", "status": status, "error": error, "final": ""}]
+
+    monkeypatch.setattr(runner, "run_dsh", fake_run_dsh)
+    monkeypatch.setattr(runner, "_wait_for_upstream", lambda: None)
+    batch = run_batch([Task(id="t", prompt="x")], [("dsh-web", "ralph-official"), ("dsh-web", "ralph-custom")], label="pytest-infra")
+    rows = {json.loads(line)["harness"]: json.loads(line) for line in (batch / "summary.jsonl").read_text().splitlines()}
+    assert calls == ["ralph-official", "ralph-official", "ralph-custom"]  # only the network failure was rerun
+    assert rows["ralph-official"]["status"] == "ok" and rows["ralph-official"]["infra_retries"] == 1
+    assert rows["ralph-custom"]["status"] == "error" and rows["ralph-custom"]["infra_retries"] == 0
+    assert (batch / "t__dsh-web-ralph-official__1" / "marker").read_text() == "2"  # a fresh run dir for the rerun
+
+
+_FAKE_LOOP = """
+import { apply } from %s
+import { mkdtempSync } from 'node:fs'
+import { tmpdir } from 'node:os'
+import { join } from 'node:path'
+const [config, statuses] = [JSON.parse(process.argv[2]), process.argv[3].split(',')]
+let tool
+const seen = []
+apply({
+  tools: { register: (t) => { tool = t } },
+  subagents: {
+    getProvider: () => ({ capabilities: { outputSchema: true, toolFilter: true, agentOptions: true }, inheritsParentContext: false }),
+    start: async (_name, req) => (seen.push({ toolFilter: req.toolFilter, agentOptions: req.agentOptions, prompt: req.prompt[0].text }),
+      { dispose: async () => {}, result: Promise.resolve({ stopReason: 'completed',
+      structured: { status: statuses.shift() ?? 'continue', summary: 's', nextSteps: [], blocker: '' } }) }),
+  },
+}, config)
+const cwd = mkdtempSync(join(tmpdir(), 'verified-ralph-'))
+const r = await tool.execute({ objective: 'x' }, { agent: { session: { header: { cwd } } }, signal: new AbortController().signal })
+console.log(r.status, r.roundsStarted)
+console.log(JSON.stringify(seen[0]))
+"""
+
+
+@pytest.mark.parametrize(("config", "statuses", "want"), [
+    ({"verifyCommand": "true"}, "continue,complete", "verified 1"),  # v1: exit 0 ends the loop over a "continue"
+    ({"verifyCommand": "true", "stopWhen": "verifier-and-worker"}, "continue,continue,complete", "verified 3"),
+    ({"verifyCommand": "false", "stopWhen": "verifier-and-worker"}, "complete,complete", "budget-limited 5"),
+    ({"verifyCommand": "true", "stopWhen": "verifier-and-worker"}, "continue,blocked", "blocked 2"),
+])
+def test_verified_ralph_stop_rule(tmp_path, config, statuses, want):
+    import shutil
+
+    if shutil.which("node") is None:
+        pytest.skip("node not on PATH")
+    index = dsh.PATCH_DIR.parent / "bundles" / "verified-ralph" / "index.js"
+    script = tmp_path / "loop.mjs"
+    script.write_text(_FAKE_LOOP % json.dumps(index.as_uri()))
+    out = subprocess.run(["node", str(script), json.dumps(config), statuses], capture_output=True, text=True, timeout=60)
+    assert out.stdout.splitlines()[0] == want, out.stderr
+
+
+def test_verified_ralph_scopes_and_briefs_workers_only_when_configured(tmp_path):
+    import shutil
+
+    if shutil.which("node") is None:
+        pytest.skip("node not on PATH")
+    index = dsh.PATCH_DIR.parent / "bundles" / "verified-ralph" / "index.js"
+    script = tmp_path / "loop.mjs"
+    script.write_text(_FAKE_LOOP % json.dumps(index.as_uri()))
+
+    def first_start(config):
+        out = subprocess.run(["node", str(script), json.dumps(config), "complete"], capture_output=True, text=True, timeout=60)
+        assert out.returncode == 0, out.stderr
+        return json.loads(out.stdout.splitlines()[1])
+
+    basic = first_start({"verifyCommand": "true"})
+    assert "toolFilter" not in basic and "agentOptions" not in basic
+    assert "never edit or create it" not in basic["prompt"]
+    v3 = first_start({"verifyCommand": "true", "workerTools": ["bash", "read"], "workerEffort": "low", "workerProtocol": "focused"})
+    assert v3["toolFilter"] == {"allow": ["bash", "read"]} and v3["agentOptions"] == {"reasoningEffort": "low"}
+    assert "never edit or create it" in v3["prompt"] and "never do a later round's part early" in v3["prompt"]
