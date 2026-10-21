@@ -50,7 +50,7 @@ uv run pytest            # 테스트 결과는 임시 폴더에. LAB_TEST_DSH=1 
 | `lab gateway --mode mock\|proxy` | 로컬 모델 게이트웨이. 두 엔진의 요청을 똑같이 녹화 |
 | `lab view` | 같은 화면, 읽기 전용 (대화, 실행, 설정 없음) |
 | `lab week1 runs/<batch> --id <GitHub-ID>` | week1 과제 제출용 `result.md` |
-| `lab week2 <batch>... --id <GitHub-ID>` | week2 RALPH 비교 (Round별 기록, 수락 테스트, workspace 밖 접근 감사) |
+| `lab week2 <batch>... --id <GitHub-ID>` | week2 RALPH 비교 (Round별 기록, 수락 테스트, 루프 끝 시점 채점, 차분 테스트, workspace 밖 접근 감사) |
 | `lab report runs/<batch>` | `report.md` 다시 만들기 |
 | `lab dsh-install` | 고정 버전 DSH를 npm으로 설치 (빌드 없음) |
 
@@ -103,6 +103,9 @@ uv run lab dsh-install --version 0.2.0-rc.2
 uv run lab dsh-web-setup          # .dsh-home-0.2.0-rc.2-web/: Web profile + dsh/bundles/verified-ralph 링크 (pnpm 필요)
 uv run lab run -T tasks/week2.yaml -t durations-backlog -t sizes-backlog -e dsh-web -H ralph-official,ralph-custom -n 5
 uv run lab run -T tasks/week2.yaml -t durations-backlog-goal -t sizes-backlog-goal -e dsh-web -H goal -n 5
+uv run lab run -T tasks/week2.yaml -t versions-backlog -e dsh-web -H ralph-official,ralph-custom,ralph-custom-tests -n 5
+uv run lab run -T tasks/week2.yaml -t durations-backlog -t sizes-backlog -e dsh-web -H ralph-custom-tests -n 5
+uv run lab run -T tasks/week2.yaml -t durations-backlog -t sizes-backlog -e dsh-web -H ralph-custom-tests-v2 -n 5   # 종료 = 검증 통과 + worker 완료
 LAB_RECURSION_LIMIT=1000 uv run lab run -T tasks/week2.yaml -t durations-backlog -t sizes-backlog -e lab \
     -H ralph-fresh,ralph-verified,ralph-judge,ralph-check,ralph-reset -n 3
 LAB_RECURSION_LIMIT=1000 uv run lab run -T tasks/week2.yaml -t durations-backlog-goal -t sizes-backlog-goal -e lab -H goal -n 3
@@ -114,11 +117,12 @@ uv run lab week2 runs/<batch>... --id <GitHub-ID>
   - Custom: Creator가 만든 `verified-ralph` preset
   - goal: standard + `goal-5.yml`
 - `dsh/bundles/verified-ralph/`는 DSH Web Creator Mode가 쓴 Plugin 번들이에요. headless로 재현할 때는 `dsh/patches/ralph-custom.yml`을 써요(`dsh` 엔진).
-- **검증 명령**: 하나로 고정돼 있어요(`tasks/checks/week2_verify.py`). SPEC 제목을 보고 durations나 sizes 수락 테스트를 돌려요.
+- **검증 명령**: 하나로 고정돼 있어요(`tasks/checks/week2_verify.py`). SPEC 제목을 보고 durations, sizes, versions 수락 테스트를 돌려요.
 - **채점과 감사**:
   - 채점은 workspace 밖의 수락 테스트로 해요.
   - week2 태스크는 `isolate: true`라서, workspace가 목록을 볼 수 없는 임시 디렉터리에 만들어져요.
   - `lab week2`는 다음을 정리해요: Round별 기록, 거짓 완료 보고(그대로 끝났는지 포함), workspace 밖 접근 감사.
+  - "성공률 너머" 표도 만들어요: 부모 모델이 루프 뒤에 고친 것을 되돌린 **루프 끝 시점 점수**, 정답 코드와 무작위 입력으로 비교하는 **차분 테스트**(`tasks/checks/week2_fuzz.py`), 검증이 worker의 `continue`를 덮고 끝낸 실행, 부모 세션 토큰 몫.
   - 채점할 수락 테스트는 태스크 id로 골라요(worker가 SPEC.md를 고쳐도 채점이 바뀌지 않아요).
   - workspace 밖 접근 중 채점 자료(`tasks/`, `tests/`, `runs/`, 다른 실행의 workspace)에 닿은 실행만 오염으로 세서 중앙값에서 빼요. 나머지는 기록만 해요.
   - 루프가 실패한 뒤 모델이 루프 도구를 다시 부르면, Round는 합으로 세고 종료 사유는 마지막 호출 기준으로 봐요.
@@ -137,7 +141,8 @@ uv run lab week2 runs/<batch>... --id <GitHub-ID>
 | `ctx-prune` / `ctx-edit` / `ctx-summarize` | lab | 3단계: minimal + 결과 자르기 / 오래된 도구 결과 지우기 / 모델 요약. 컨텍스트 전략만 다름 |
 | `delegate` | lab | 6단계: standard + researcher/coder 서브에이전트 |
 | `hitl` | lab | 6단계: standard + `execute`/`write_file`/`edit_file` 전 승인. 일괄 실행은 `LAB_HITL=approve\|reject`, Playground는 버튼 |
-| `ralph-official` / `ralph-custom` | dsh, dsh-web | week2: 공식 `tool-ralph` / Creator Mode로 만든 `verified_ralph` (DSH 0.2.0-rc.2) |
+| `ralph-official` / `ralph-custom` / `ralph-custom-tests` / `ralph-custom-tests-v2` | dsh, dsh-web | week2 (`-tests`는 dsh-web만, 검증 = workspace 테스트, `-v2`는 검증 통과 + worker `complete`일 때만 종료): 공식 `tool-ralph` / Creator Mode로 만든 `verified_ralph` (DSH 0.2.0-rc.2) |
+| `ralph-custom-tests-v3` / `ralph-custom-tests-v3-low` | dsh-web | week2 파일럿: v2 + worker 도구 6개로 제한 + `focused` 지시 / 여기에 worker 추론 `low`. 각 2회만 재서 결론은 없어요(ADR-0015) |
 | `ralph-fresh` / `ralph-verified` / `goal` | lab | week2 DSH 재현: 공식 `tool-ralph` / Custom `verified_ralph` / DSH goal(같은 대화, `<goal_round>`) |
 | `ralph-judge` / `ralph-check` / `ralph-reset` | lab | week2 우리 설계: 같은 대화 + judge / 같은 대화 + 검증 명령 / 대화 초기화 + handoff |
 
@@ -149,7 +154,7 @@ uv run lab week2 runs/<batch>... --id <GitHub-ID>
 | `tasks/context.yaml` | log-stats (정답 자동 검증), log-incident-report | 3단계: 1,200줄 로그 4개로 컨텍스트 압박 |
 | `tasks/delegation.yaml` | usd-orders, readme-structure | 6단계: 조사 + 코딩이 섞인 작업 |
 | `tasks/week1-assignment.yaml` | seoul-weather + 후보 7개 | week1 과제 (Minimal이 더 잘 답하는 질문 찾기) |
-| `tasks/week2.yaml` | durations, durations-backlog(-goal), sizes-backlog(-goal) | week2 과제 (반복 실행 비교, 작업마다 수락 테스트 13개) |
+| `tasks/week2.yaml` | durations, durations-backlog(-goal), sizes-backlog(-goal), versions-backlog | week2 과제 (반복 실행 비교, 수락 테스트 13개 / versions 17개) |
 
 태스크 필드:
 - `prompt`
