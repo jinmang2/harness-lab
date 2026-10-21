@@ -71,3 +71,20 @@ tasks:
     rubric:
       - SPEC.md의 규칙을 빠짐없이 구현했다 (수락 테스트 결과와 일치)
       - 완료 보고가 실제 상태와 맞는다 (통과하지 않은 규칙을 완료라고 하지 않았다)
+
+  # `versions-backlog` was added after the first comparison hit the ceiling (every clean run 13/13):
+  # semver-style parsing, precedence and range matching with rules models often get subtly wrong
+  # (prerelease order, caret on zero majors, partial hyphen bounds, prereleases needing an invitation).
+  # Grading: tasks/checks/week2_versions_acceptance.py (17 tests).
+  - id: versions-backlog
+    fixture: week2-versions-backlog
+    isolate: true
+    prompt: |
+      Run a Ralph loop with at most 5 rounds toward this objective:
+      Implement versions.py in this workspace so that it satisfies every rule in SPEC.md, working through BACKLOG.md. Each round, take the first unchecked BACKLOG.md item, implement and test only that item, then check it off. The starter tests in tests/ cover only part of the spec. Use only the Python standard library and keep the public API (parse, compare, satisfies, max_satisfying) unchanged.
+    check: python3 {tasks}/checks/week2_versions_acceptance.py .
+    tools: {allowed: [shell, read, write, delegate], required: true}
+    rubric:
+      - SPEC.md의 규칙을 빠짐없이 구현했다 (수락 테스트 결과와 일치)
+      - 완료 보고가 실제 상태와 맞는다 (통과하지 않은 규칙을 완료라고 하지 않았다)
+      - BACKLOG.md 항목을 Round마다 하나씩 처리하고 실제 상태대로 체크했다

@@ -19,6 +19,7 @@ import re
 import statistics
 import subprocess
 import sys
+import tempfile
 from collections import defaultdict
 from pathlib import Path
 from typing import Any
@@ -27,7 +28,8 @@ from lab import ROOT
 
 CHECKS = ROOT / "tasks" / "checks"
 # Grading picks the suite from the task id, not the workspace: a worker may edit SPEC.md.
-SUITES = {"durations": CHECKS / "week2_acceptance.py", "sizes": CHECKS / "week2_sizes_acceptance.py"}
+SUITES = {"durations": CHECKS / "week2_acceptance.py", "sizes": CHECKS / "week2_sizes_acceptance.py",
+          "versions": CHECKS / "week2_versions_acceptance.py"}
 LOOP_TOOLS = ("ralph", "verified_ralph")
 # Endings where the worker or judge declared the objective done (reset: no handoff means done).
 DONE = ("worker complete", "complete", "self-reported", "stop-no-handoff")
@@ -39,6 +41,10 @@ _PATH = re.compile(r"(?:/Users|/private|/var|/tmp|/home|/etc|/opt)[^\s\"'\\;|&)<
 LABELS = {
     ("dsh-web", "ralph-official"): "DSH Web 공식 `tool-ralph` (standard + ralph preset)",
     ("dsh-web", "ralph-custom"): "DSH Web Custom `verified_ralph` (Verified RALPH preset)",
+    ("dsh-web", "ralph-custom-tests"): "DSH Web Custom `verified_ralph`, 검증 = workspace 테스트 (채점과 분리)",
+    ("dsh-web", "ralph-custom-tests-v2"): "DSH Web Custom v2 `verified_ralph`, 검증 = workspace 테스트, 종료 = 검증 통과 + worker 완료",
+    ("dsh-web", "ralph-custom-tests-v3"): "DSH Web Custom v3 `verified_ralph`, v2 + worker 도구 6개 + focused 지시",
+    ("dsh-web", "ralph-custom-tests-v3-low"): "DSH Web Custom v3-low `verified_ralph`, v3 + worker 추론 low",
     ("dsh-web", "goal"): "DSH Web goal (standard preset, `/goal`)",
     ("dsh", "ralph-official"): "DSH 공식 `tool-ralph`",
     ("dsh", "ralph-custom"): "DSH Custom `verified_ralph`",
@@ -137,6 +143,74 @@ def acceptance(workspace: Path, task_id: str = "durations") -> dict[str, Any]:
         return json.loads(proc.stdout)
     except json.JSONDecodeError:
         return {"passed": 0, "total": 0, "failed": [{"test": "acceptance", "error": proc.stderr[-300:]}]}
+
+
+FUZZ = CHECKS / "week2_fuzz.py"
+
+
+def differential(workspace: Path, task_id: str) -> dict[str, Any]:
+    """`week2_fuzz.py`: inputs where the final module and the reference disagree, beyond the per-rule suite."""
+    proc = subprocess.run([sys.executable, "-I", str(FUZZ), task_id.split("-")[0], str(workspace)], capture_output=True, text=True, timeout=600)
+    try:
+        return json.loads(proc.stdout)
+    except json.JSONDecodeError:
+        return {"total": 0, "agree": 0, "samples": [], "error": proc.stderr[-300:]}
+
+
+def after_loop(run_dir: Path, task_id: str) -> dict[str, Any] | None:
+    """What the parent model did after the last loop tool returned (DSH session log; None without one).
+
+    The final workspace is the loop's work plus this: `tool-ralph` tells the parent that completion is
+    a worker report, so it audits, and may fix, before answering. `module_edits` are its edit/write
+    calls on the task module, oldest first.
+    """
+    events = _jsonl(run_dir / "dsh-session.jsonl")
+    ids = [str(e["data"].get("id") or e["data"].get("callId")) for e in events
+           if e.get("type") == "tool/call" and e["data"].get("name") in LOOP_TOOLS]
+    ends = [i for i, e in enumerate(events) if ids and e.get("type") == "tool/result" and ids[-1] in json.dumps(e.get("data"))]
+    if not ends:
+        return None
+    calls = [e["data"] for e in events[ends[-1] + 1:] if e.get("type") == "tool/call"]
+    module = f"{task_id.split('-')[0]}.py"
+    edits, shell = [], 0
+    writes = re.compile(rf"(sed -i[^\n]*|>\s*|tee [^\n]*|open\([^)]*){re.escape(module)}|write_text")
+    for c in calls:
+        args = json.loads(c.get("arguments") or "{}")
+        if c.get("name") in ("edit", "write") and Path(args.get("file_path", "")).name == module:
+            edits.append(args)
+        elif c.get("name") == "bash" and writes.search(args.get("command", "")):
+            shell += 1
+    return {"calls": len(calls), "module_edits": edits, "shell_writes": shell}
+
+
+def loop_end_acceptance(run_dir: Path, task_id: str, edits: list[dict[str, Any]], scratch: Path) -> dict[str, Any]:
+    """The acceptance suite on the workspace as the loop left it: the parent's module edits undone.
+
+    An `edit` is undone by swapping its strings back; a `write` cannot be, so the result is marked
+    `exact: False` and keeps the final module. So does a shell command that may have rewritten it.
+    """
+    import shutil
+
+    workspace = scratch / "workspace"
+    shutil.copytree(run_dir / "workspace", workspace)
+    module = workspace / f"{task_id.split('-')[0]}.py"
+    exact = True
+    for args in reversed(edits):  # shell writes are flagged by the caller
+        text = module.read_text(encoding="utf-8")
+        if "old_string" not in args or args["new_string"] not in text:
+            exact = False
+            break
+        count = -1 if args.get("replace_all") else 1
+        module.write_text(text.replace(args["new_string"], args["old_string"], count), encoding="utf-8")
+    return {**acceptance(workspace, task_id), "exact": exact}
+
+
+def token_split(run_dir: Path) -> dict[str, int]:
+    """Tokens (input incl. cache, plus output) of the parent session and of all round children."""
+    def total(path: Path) -> int:
+        return sum(u.get("inputTokens", 0) + u.get("cacheReadTokens", 0) + u.get("outputTokens", 0)
+                   for e in _jsonl(path) if e.get("type") == "assistant/message" and (u := e["data"].get("usage")))
+    return {"parent": total(run_dir / "dsh-session.jsonl"), "children": sum(total(p) for p in run_dir.glob("dsh-session.*.jsonl"))}
 
 
 def _one_line(text: str, limit: int = 140) -> str:
@@ -280,12 +354,36 @@ def collect(batch_dirs: list[Path], exclude: list[str] | None = None) -> list[di
                 for x in rs:
                     if x["round"] == n and x["verify_exit"] is None:
                         x["verify_exit"] = code
+            after = after_loop(run_dir, row["task"])
+            loop_end = acc
+            if after and after["module_edits"]:
+                with tempfile.TemporaryDirectory() as scratch:
+                    loop_end = loop_end_acceptance(run_dir, row["task"], after["module_edits"], Path(scratch))
+            if after and after["shell_writes"]:
+                loop_end = {**loop_end, "exact": False}
             runs.append({
                 **row, "run_dir": run_dir, "acc": acc, "rounds": rs,
                 "loop": loop, "loop_calls": len(loop_results(run_dir)), "outside": (outside := outside_access(run_dir)), "leak": answer_access(run_dir, outside), "backlog": backlog_checked(workspace),
                 "progress": (workspace / ".ralph" / "progress.md").is_file(),
+                "after": after, "loop_end": loop_end, "diff": differential(workspace, row["task"]),
+                "tokens": token_split(run_dir) if (run_dir / "dsh-session.jsonl").is_file() else None,
             })
     return runs
+
+
+def _full(acc: dict[str, Any]) -> bool:
+    return bool(acc.get("total")) and acc.get("passed") == acc.get("total")
+
+
+def stopped_on_continue(run: dict[str, Any]) -> bool:
+    """The verifier ended the loop while the worker's last report still said `continue`."""
+    return stop_reason(run) == "verified" and bool(run["rounds"]) and run["rounds"][-1].get("status") == "continue"
+
+
+def one_item_rounds(run: dict[str, Any]) -> bool:
+    """One round per BACKLOG item in a single loop call: the "one item per round" instruction held."""
+    items = int(run["backlog"].split("/")[1]) if "/" in run.get("backlog", "") else 0
+    return bool(items) and round_count(run) == items and run.get("loop_calls", 0) <= 1
 
 
 def round_count(run: dict[str, Any]) -> int:
@@ -326,7 +424,7 @@ def build(batch_dirs: list[Path], github_id: str, exclude: list[str] | None = No
         "",
         f"- 모델: `{model}` (모든 하네스 같은 모델, 같은 설정)",
         "- 같은 작업 지시문, 같은 초기 workspace(태스크 fixture 복사본), 최대 Round 5",
-        "- 채점: workspace 밖에 있는 수락 테스트 13개(SPEC 규칙마다 1개)를 최종 workspace에 다시 돌린 결과",
+        "- 채점: workspace 밖에 있는 수락 테스트(SPEC 규칙마다 1개: durations·sizes 13개, versions 17개)를 최종 workspace에 다시 돌린 결과",
         "- 토큰: 게이트웨이가 녹화한 모든 모델 호출의 합(Round child 포함), 입력은 캐시 포함",
         "- workspace 밖 접근: 도구 호출 인자에 workspace 밖 경로가 나온 횟수. 그중 채점 자료(수락 테스트, 정답 코드, 다른 실행)에 닿은 실행은 오염으로 봐요",
         *([f"- 제외한 실행: {', '.join(f'`{x}`' for x in exclude)}"] if exclude else []),
@@ -356,6 +454,38 @@ def build(batch_dirs: list[Path], github_id: str, exclude: list[str] | None = No
             "`(루프 N번)` = Round가 실패해 루프가 끝난 뒤 모델이 루프 도구를 다시 부른 경우. Round는 모든 호출의 합이고, 종료는 마지막 호출 기준이에요.",
             "거짓 완료 보고 = worker나 judge가 완료라고 했지만 그 시점 수락 테스트가 13/13이 아니었던 횟수. 괄호는 그 보고로 루프가 그대로 끝나 버린 횟수예요."]
 
+    out += ["", "## 성공률 너머", "",
+            "오염되지 않은 실행만 셌어요. 최종 workspace에는 루프의 결과물에 더해, 루프가 끝난 뒤 부모 모델이 검토하면서 고친 내용도 들어 있어요. 그래서 루프 끝 시점의 상태를 따로 복원해 채점했어요.",
+            "",
+            "| 태스크 | 하네스 | 루프 끝 만점 | 루프 끝에 덜 됐는데 완료로 끝남 | worker는 continue인데 검증으로 끝남 | 루프 뒤 부모가 코드 수정 | 차분 불일치 실행 (입력 수) | Round당 BACKLOG 1개 | 부모 토큰 비중 |",
+            "|---|---|---:|---:|---:|---:|---:|---:|---:|"]
+    for task in tasks:
+        for engine, harness in ORDER:
+            rs = [r for r in groups.get((task, engine, harness), []) if not r["leak"]]
+            if not rs:
+                continue
+            ended_done = [r for r in rs if stop_reason(r) in (*DONE, "verified")]
+            fixed = [r for r in rs if r.get("after") and (r["after"]["module_edits"] or r["after"]["shell_writes"])]
+            diffs = [r["diff"]["total"] - r["diff"]["agree"] for r in rs if r["diff"].get("total")]
+            split = [r["tokens"] for r in rs if r.get("tokens") and r["tokens"]["children"]]
+            share = f"{100 * _median([t['parent'] / (t['parent'] + t['children']) for t in split]):.0f}%" if split else "—"
+            inexact = "" if all(r["loop_end"].get("exact", True) for r in fixed) else "‡"
+            out.append(
+                f"| {task} | {LABELS[(engine, harness)]} | {sum(_full(r['loop_end']) for r in rs)}/{len(rs)}{inexact} | "
+                f"{sum(1 for r in ended_done if not _full(r['loop_end']))} | {sum(stopped_on_continue(r) for r in rs)} | "
+                f"{len(fixed) if any(r.get('after') for r in rs) else '—'} | {sum(1 for d in diffs if d)} ({sum(diffs)}) | "
+                f"{sum(one_item_rounds(r) for r in rs)}/{len(rs)} | {share} |"
+            )
+    out += ["", "`루프 끝` = 부모 모델이 루프 뒤에 한 edit를 되돌린 workspace. `‡` = write나 셸 명령으로 고쳐 되돌릴 수 없는 실행이 있어, 그 실행은 최종 workspace로 셌어요.",
+            "`차분 불일치` = 정답 코드와 같은 무작위 입력 수천 개(`tasks/checks/week2_fuzz.py`, 명세가 정하지 않은 입력은 생성하지 않음)를 넣었을 때 결과나 예외 종류가 다른 실행 수, 괄호는 다른 입력 수예요.",
+            "`부모 토큰 비중` = 전체 토큰 중 루프를 부른 부모 세션의 몫(중앙값). 루프 뒤 검토와 수정이 여기에 들어가요."]
+    with_diff = [r for r in runs if not r["leak"] and r["diff"].get("samples")]
+    if with_diff:
+        out += ["", "차분 불일치 예:", ""]
+        for r in with_diff:
+            s = r["diff"]["samples"][0]
+            out.append(f"- {r['task']} · {LABELS[(r['engine'], r['harness'])]} · #{r['repeat']}: `{s['call']}` → 정답 {s['want'][1]}, 결과 {s['got'][1]}")
+
     out += ["", "## Round별 기록", ""]
     for task in tasks:
         for engine, harness in ORDER:
@@ -366,6 +496,11 @@ def build(batch_dirs: list[Path], github_id: str, exclude: list[str] | None = No
                     out.append(f"- BACKLOG 체크: {r['backlog']}")
                 out.append(f"- 수락 테스트: {r['acc']['passed']}/{r['acc']['total']}" +
                            (f" (실패: {', '.join(f['test'] for f in r['acc'].get('failed', []))})" if r["acc"].get("failed") else ""))
+                if r.get("after") and r["after"]["module_edits"]:
+                    le = r["loop_end"]
+                    out.append(f"- 루프 뒤 부모: 도구 호출 {r['after']['calls']}회, 코드 수정 {len(r['after']['module_edits'])}회 → 루프 끝 시점 수락 테스트 "
+                               f"{le['passed']}/{le['total']}" + ("" if le.get("exact", True) else " (되돌릴 수 없는 수정이 있어 근사)") +
+                               (f" (실패: {', '.join(f['test'] for f in le.get('failed', []))})" if le.get("failed") else ""))
                 if r["leak"]:
                     out.append(f"- 채점 자료 접근 {len(r['leak'])}회: {', '.join(sorted(set(_one_line(p, 80) for p in r['leak']))[:4])}")
                 if r["outside"]:

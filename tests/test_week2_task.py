@@ -130,7 +130,7 @@ def test_week2_verify_picks_the_suite_from_the_spec(tmp_path):
     assert subprocess.run([sys.executable, str(VERIFY), str(durations)], capture_output=True).returncode == 0
     assert subprocess.run([sys.executable, str(VERIFY), str(tmp_path)], capture_output=True).returncode == 2
     for task in load_tasks(ROOT / "tasks" / "week2.yaml"):
-        suite = "week2_sizes_acceptance.py" if task.id.startswith("sizes") else "week2_acceptance.py"
+        suite = {"sizes": "week2_sizes_acceptance.py", "versions": "week2_versions_acceptance.py"}.get(task.id.split("-")[0], "week2_acceptance.py")
         assert suite in task.check and task.isolate
 
 
@@ -140,7 +140,7 @@ def test_week2_grades_each_task_with_its_own_suite():
     assert acceptance(SIZES_REFERENCE, "sizes-backlog-goal")["passed"] == 13
     assert acceptance(REFERENCE, "durations-backlog")["passed"] == 13
     for task in load_tasks(ROOT / "tasks" / "week2.yaml"):
-        assert task.id.split("-")[0] in ("durations", "sizes")
+        assert task.id.split("-")[0] in ("durations", "sizes", "versions")
 
 
 def test_round_count_sums_repeated_loop_calls():
@@ -177,3 +177,82 @@ def test_only_answer_reaching_paths_disqualify(tmp_path):
              str(ROOT / ".dsh-runtime-0.2.0-rc.2" / "README.md"), "/var/folders/x/T/lab-ws", "/etc.",
              "/var/folders/x/T/lab-ws/tmpOWN"]
     assert answer_access(tmp_path, paths) == paths[:3]
+
+
+VERSIONS = ROOT / "tasks" / "fixtures" / "week2-versions-backlog"
+VERSIONS_REFERENCE = Path(__file__).resolve().parent / "data" / "week2_versions_reference"
+
+
+def test_versions_task_is_satisfiable_and_the_starter_tests_leave_rules_open(tmp_path):
+    from lab.week2 import acceptance
+
+    assert acceptance(VERSIONS_REFERENCE, "versions-backlog") == {"passed": 17, "total": 17, "failed": []}
+    workspace = tmp_path / "ws"
+    shutil.copytree(VERSIONS, workspace)
+    stub = subprocess.run([sys.executable, str(VERIFY), str(workspace)], capture_output=True, text=True)
+    assert stub.returncode == 1 and json.loads(stub.stdout)["passed"] == 0
+    shutil.copy(VERSIONS_REFERENCE / "versions.py", workspace / "versions.py")
+    starter = subprocess.run([sys.executable, "-m", "unittest", "discover", "-s", "tests"], cwd=workspace, capture_output=True, text=True)
+    assert starter.returncode == 0, starter.stderr
+    starter_names = (VERSIONS / "tests" / "test_versions.py").read_text()
+    assert "prerelease" in starter_names and "satisfies" in starter_names  # some, not all, rules are covered
+    items = [line for line in (VERSIONS / "BACKLOG.md").read_text().splitlines() if line.startswith("- [ ]")]
+    assert len(items) == 4
+
+
+def test_differential_check_agrees_with_the_reference_and_catches_a_hidden_bug(tmp_path):
+    from lab.week2 import differential
+
+    for kind, ref in (("durations", REFERENCE), ("sizes", SIZES_REFERENCE), ("versions", VERSIONS_REFERENCE)):
+        result = differential(ref, f"{kind}-backlog")
+        assert result["total"] > 1000 and result["agree"] == result["total"], (kind, result["samples"])
+    # rule 2 allows whitespace between parts; rejecting "1d 1m1s" (a space, then parts written together)
+    # still passes the per-rule suite, as one official run did
+    source = (REFERENCE / "durations.py").read_text()
+    broken = source.replace("    if s.startswith(\"-\"):", "    if re.search(r\"\\s\\d+[dhms]\\d\", s, re.IGNORECASE):\n        raise ValueError(text)\n    if s.startswith(\"-\"):", 1)
+    assert broken != source
+    (tmp_path / "durations.py").write_text(broken)
+    from lab.week2 import acceptance
+
+    assert acceptance(tmp_path, "durations-backlog")["passed"] == 13
+    result = differential(tmp_path, "durations-backlog")
+    assert result["agree"] < result["total"] and result["samples"]
+
+
+def _session(path, events):
+    path.write_text("\n".join(json.dumps(e) for e in events))
+
+
+def test_loop_end_undoes_the_parent_edits_made_after_the_loop(tmp_path):
+    from lab.week2 import after_loop, loop_end_acceptance
+
+    run_dir = tmp_path / "run"
+    shutil.copytree(REFERENCE, run_dir / "workspace")
+    final = (run_dir / "workspace" / "durations.py").read_text()
+    fix = {"file_path": "/elsewhere/workspace/durations.py", "old_string": "def format(seconds: int, *, iso: bool = False) -> str:  # noqa: A001\n",
+           "new_string": "def format(seconds: int, *, iso: bool = False) -> str:  # noqa: A001\n    # audited\n"}
+    (run_dir / "workspace" / "durations.py").write_text(final.replace(fix["old_string"], fix["new_string"]))
+    broken_before = {**fix, "old_string": fix["old_string"] + "    raise NotImplementedError\n", "new_string": fix["new_string"]}
+    _session(run_dir / "dsh-session.jsonl", [
+        {"type": "tool/call", "data": {"name": "edit", "id": "e0", "arguments": json.dumps({"file_path": "durations.py", "old_string": "x", "new_string": "y"})}},
+        {"type": "tool/call", "data": {"name": "ralph", "id": "loop1", "arguments": "{}"}},
+        {"type": "tool/result", "data": {"message": {"toolCallId": "loop1"}}},
+        {"type": "tool/call", "data": {"name": "bash", "id": "b1", "arguments": json.dumps({"command": "python3 -m unittest"})}},
+        {"type": "tool/call", "data": {"name": "edit", "id": "e1", "arguments": json.dumps(broken_before)}},
+        {"type": "tool/call", "data": {"name": "edit", "id": "e2", "arguments": json.dumps({"file_path": "tests/test_durations.py", "old_string": "a", "new_string": "b"})}},
+    ])
+    after = after_loop(run_dir, "durations-backlog")
+    assert after["calls"] == 3 and after["shell_writes"] == 0 and after["module_edits"] == [broken_before]  # before the loop and test files: not counted
+    loop_end = loop_end_acceptance(run_dir, "durations-backlog", after["module_edits"], tmp_path / "scratch")
+    assert loop_end["exact"] and loop_end["passed"] < 13  # the loop left format unimplemented; the parent finished it
+    assert after_loop(tmp_path, "durations-backlog") is None  # no DSH session log
+
+
+def test_beyond_pass_rate_flags_a_verifier_stop_over_a_continue_report():
+    from lab.week2 import one_item_rounds, stopped_on_continue
+
+    rounds = [{"round": n, "status": "continue", "verify_exit": 1 if n < 3 else 0, "decision": ""} for n in (1, 2, 3)]
+    early = {"loop": "verified_ralph ended as verified after 3 rounds.", "status": "ok", "rounds": rounds, "backlog": "4/4", "loop_calls": 1}
+    assert stopped_on_continue(early) and not one_item_rounds(early)
+    done = {**early, "rounds": rounds[:2] + [{**rounds[2], "round": 3}, {"round": 4, "status": "complete", "verify_exit": 0, "decision": ""}]}
+    assert not stopped_on_continue(done) and one_item_rounds(done)
